@@ -1,0 +1,3 @@
+<ul title="<%= @title %>" selected="true">
+	<%= render :partial => 'partials/story_list' %>
+</ul>
