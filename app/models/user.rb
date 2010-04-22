@@ -12,10 +12,10 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   
-  #Adding validation for only vt.edu email ids
+  #Adding email validation
   validates_format_of :email,
-      :with => /^[^@\s]+@.*vt.edu$/i,
-      :message => "can only be a valid email id that ends in vt.edu."
+      :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
+      :message => "can only be a valid Email"
   
   
   #facebook profile URL validation
