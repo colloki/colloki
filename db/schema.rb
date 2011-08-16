@@ -12,12 +12,12 @@
 ActiveRecord::Schema.define(:version => 20090402060133) do
 
   create_table "activity_items", :force => true do |t|
-    t.integer  "user_id",                   :null => false
-    t.integer  "story_id",                  :null => false
+    t.integer  "user_id",                    :null => false
+    t.integer  "story_id",                   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "topic_id",                  :null => false
-    t.integer  "kind",       :default => 0, :null => false
+    t.integer  "topic_id",   :default => -1, :null => false
+    t.integer  "kind",       :default => 0,  :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(:version => 20090402060133) do
     t.integer  "views"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",                    :null => false
-    t.integer  "topic_id",                   :null => false
-    t.integer  "kind",        :default => 0, :null => false
-    t.integer  "popularity",  :default => 0, :null => false
+    t.integer  "user_id",     :default => -1, :null => false
+    t.integer  "topic_id",    :default => -1, :null => false
+    t.integer  "kind",        :default => 0,  :null => false
+    t.integer  "popularity",  :default => 0,  :null => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20090402060133) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",     :null => false
+    t.integer  "user_id",     :default => -1, :null => false
   end
 
   create_table "users", :force => true do |t|
