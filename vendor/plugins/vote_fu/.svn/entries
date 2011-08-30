@@ -1,103 +1,0 @@
-8
-
-dir
-34
-http://subversion.assembla.com/svn/colloki/trunk/vendor/plugins/vote_fu
-http://subversion.assembla.com/svn/colloki
-
-
-
-2009-03-19T09:34:36.771580Z
-15
-sameer_ahuja
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-080cfd25-d5d9-4c59-82ea-70d02a200d8b
-
-test
-dir
-
-init.rb
-file
-
-
-
-
-2009-01-13T16:21:51.000000Z
-f375fde6b7f8a915eaa8dead64997eb9
-2009-01-01T07:02:58.324516Z
-1
-sameer_ahuja
-
-lib
-dir
-
-CHANGELOG.markdown
-file
-
-
-
-
-2009-01-13T16:21:51.000000Z
-945274d3f88ad4c60b2d0866fc12c7fe
-2009-01-01T07:02:58.324516Z
-1
-sameer_ahuja
-
-generators
-dir
-
-MIT-LICENSE
-file
-
-
-
-
-2009-01-13T16:21:51.000000Z
-75cf423418130b41ec09e39750d82604
-2009-01-01T07:02:58.324516Z
-1
-sameer_ahuja
-
-vote_fu.gemspec
-file
-
-
-
-
-2009-01-13T16:21:51.000000Z
-55a92fa119d7728a211551b63a6d9099
-2009-01-01T07:02:58.324516Z
-1
-sameer_ahuja
-
-rails
-dir
-
-examples
-dir
-
-README.markdown
-file
-
-
-
-
-2009-01-13T16:21:51.000000Z
-acec4211a1ee078755af53f75ff6096b
-2009-01-01T07:02:58.324516Z
-1
-sameer_ahuja
-

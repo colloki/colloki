@@ -1,6 +1,5 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-
   # render new.rhtml
   def new
     if logged_in?
@@ -18,11 +17,10 @@ class SessionsController < ApplicationController
         current_user.remember_me unless current_user.remember_token?
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_to params[:redir]
-      flash[:notice] = "Logged in successfully"
+      redirect_to(params[:redir], :notice => "Logged in successfully")
     else
-      flash[:alert] = "Invalid credentials. Please try again"
-      render :action => 'new'
+      flash[:error] = "Invalid credentials. Please try again"
+      render :action => "new"
     end
   end
 

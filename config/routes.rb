@@ -1,9 +1,9 @@
-Basecamp::Application.routes do
-  resource :topics, :shallow => true do
+Colloki::Application.routes.draw do
+  resources :topics, :shallow => true do
     resources :stories, :only => [:index]
   end
   
-  resource :comments, :users, :session
+  resources :comments, :users, :session
 
   root :to => 'topics#index'
   
@@ -15,6 +15,7 @@ Basecamp::Application.routes do
   match '/signup', :to => 'users#new', :as => 'signup'
   match '/login', :to => 'sessions#new', :as => 'login'
   match '/logout', :to => 'sessions#destroy', :as => 'logout'
+  match '/session/create', :to => 'sessions#create', :as => 'create_session'
   match '/about', :to => 'static#about', :as => 'about'
   match '/changelog', :to => 'static#changelog', :as => 'changelog'
   match '/specs', :to => 'static#specs', :as => 'specs'

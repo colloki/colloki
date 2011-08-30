@@ -1,31 +1,0 @@
-8
-
-dir
-34
-http://subversion.assembla.com/svn/colloki/trunk/vendor/plugins/will_paginate/lib
-http://subversion.assembla.com/svn/colloki
-
-
-
-2009-03-22T22:07:17.294221Z
-19
-sameer_ahuja
-
-
-svn:special svn:externals svn:needs-lock
-
-will_paginate
-dir
-
-will_paginate.rb
-file
-
-
-
-
-2009-03-22T21:25:49.000000Z
-8934408d37dba7e1b8b550f0d9d0f175
-2009-03-22T22:07:17.294221Z
-19
-sameer_ahuja
-
