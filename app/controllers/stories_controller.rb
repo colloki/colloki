@@ -12,7 +12,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @stories }
-      format.mobilesafari { render :layout => false }
+      # format.mobilesafari { render :layout => false }
     end
   end
 
@@ -62,7 +62,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }
-      format.mobilesafari { render :layout => false }
+      # format.mobilesafari { render :layout => false }
     end
   end
 

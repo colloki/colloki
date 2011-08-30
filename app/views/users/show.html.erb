@@ -2,7 +2,7 @@
 	<table border="0" cellspacing="4" cellpadding="3">
 		<tr>
 			<td width="5%" valign="top">
-				<%= gravatar_for @user %>
+				<%= image_tag(gravatar_url @user.email) %>
 			</td>
 			<td valign="top">
 				<div class="right-top">

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }
-      format.mobilesafari
+      # format.mobilesafari
     end
   end
 
@@ -33,13 +33,13 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @page_title = "Profile for "+ @user.login
-    @tags = @user.stories.tag_counts   
+    @tags = @user.stories.tag_counts
     @stories = Story.find(:all, :order => "created_at DESC", :conditions => {:user_id => @user.id}, :limit => 15)
     @comments = Comment.find(:all, :order => "created_at DESC", :conditions => {:user_id => @user.id}, :limit => 7)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }
-      format.mobilesafari
+      # format.mobilesafari
     end
   end
   

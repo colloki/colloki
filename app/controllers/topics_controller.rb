@@ -64,7 +64,7 @@ class TopicsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @stories }
-      format.mobilesafari 
+      # format.mobilesafari
     end
   end
 
