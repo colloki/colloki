@@ -1,6 +1,6 @@
 <%=render :partial => "partials/second_order_header", :locals => { :style => "bluegray", :title => "Create A New Topic" }%>
 
-<% form_for(@topic) do |f| %>
+<%= form_for(@topic) do |f| %>
   <%= f.error_messages %>
 
   <p>

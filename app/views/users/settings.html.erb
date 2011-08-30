@@ -1,6 +1,6 @@
 <%=render :partial => "partials/second_order_header", :locals => { :style => "bluegray", :title => "Settings" }%>
 
-<% form_for(@user) do |f| %>
+<%= form_for(@user) do |f| %>
 <%= f.error_messages %>
 <h2>Basic</h2>
 <table cellspacing="10" class="formTable">
@@ -87,7 +87,7 @@
 </table>
 
 <h2>Places</h2>
-<% form_for(@user) do |f| %>
+<%= form_for(@user) do |f| %>
 <table cellspacing="10" class="formTable">
 	
 	<tr>

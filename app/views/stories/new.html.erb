@@ -6,7 +6,7 @@
 <h3>Add a post to <%=@topic.title%></h3>
 
 <div class="addForm">
-<% form_for [@topic, @story] do |f| %>
+<%= form_for [@topic, @story] do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field :kind%>
   <p>
@@ -41,7 +41,7 @@
 <%end%>
 
 <div class="addForm">
-<% form_for [@topic, @story] do |f| %>
+<%= form_for [@topic, @story] do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field :kind%>
   <p>
@@ -60,25 +60,23 @@
     <%= f.label :tag_list %><br />
     <%= f.text_field :tag_list%>
   </p>
-  <p>
-
-
-<%if params[:url]%> 
-<%=hidden_field_tag 'redirect', params[:url]%>
-<div class="buttons">
-<button type="submit" class="positive">
-		<%= image_tag "add.gif" %>
-        Create link and return to site
-</button>
-</div>
-<%else%>
-<div class="buttons">
-<button type="submit" class="positive">
-		<%= image_tag "add.gif" %>
-        Create Link
-</button>
-</div>
-<%end%>   
+  <p>    
+  <%if params[:url]%> 
+  <%=hidden_field_tag 'redirect', params[:url]%>
+  <div class="buttons">
+    <button type="submit" class="positive">
+      <%= image_tag "add.gif" %>
+      Create link and return to site
+    </button>
+  </div>
+  <%else%>
+  <div class="buttons">
+    <button type="submit" class="positive">
+      <%= image_tag "add.gif" %>
+      Create Link
+    </button>
+  </div>
+  <%end%>   
   </p>
 <% end %>
 </div>

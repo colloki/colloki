@@ -6,7 +6,7 @@
 <h3>Edit Link</h3>
 <%end%>
 
-<% form_for(@story) do |f| %>
+<%= form_for(@story) do |f| %>
   <%= f.error_messages %>
 
   <%if @story.kind ==  Story::Link%>
