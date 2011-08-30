@@ -132,8 +132,10 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.save
     if @user.errors.empty?
+      UserMailer.signup_notification(@user).deliver
       redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up, we've sent you an activation email.<br>Please verify your email by clicking on the activation link in that email."
+      flash[:notice] = "Thanks for signing up, we've sent you an activation email. 
+      \nPlease verify your email by clicking on the activation link in that email."
     else
       render :action => 'new'
     end

@@ -31,7 +31,6 @@ set :deploy_via, :copy
 set :runner, deploy
 
 task :after_update_code do
-  
   #For files under config/ folder
   %w{database.yml environment.rb}.each do |config|
     run "ln -nfs #{shared_path}/config/#{config} #{release_path}/config/#{config}"
