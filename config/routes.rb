@@ -30,7 +30,5 @@ Colloki::Application.routes.draw do
   match '/topics/:id/:tab/:sort', :to => 'topics#show', :tab => 'all', :sort => 'popular', :as => 'topical'
   match '/topics/:id', :to => 'topics#show', :tab => 'all', :sort => 'popular'
   
-  match '/stories/new/:kind', :to => 'stories#new', :as => 'new_story'
-  
   match ':controller(/:action(/:id(/:id2)))'
 end

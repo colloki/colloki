@@ -13,7 +13,7 @@ class Story < ActiveRecord::Base
   # CRITICAL TODO: This no longer works with deployment setup of 2.3.2. Not sure if its due to the rails upgrade, or that there is some gem required. 
   #  validates_uri_existence_of :url, :if => :is_link?,:with =>
   #          /(^$)|(^(http|https):*)/ix
-          
+
   validates_format_of :url,
               :with => /(^$)|(^(http|https):*)/ix,
               :message => "can only be a valid URL."
@@ -21,10 +21,10 @@ class Story < ActiveRecord::Base
   belongs_to :topic  
   has_many :comments, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
-  
+
   acts_as_taggable
   acts_as_voteable
-  
+
   def is_link?
     kind == Story::Link
   end

@@ -122,12 +122,11 @@ class StoriesController < ApplicationController
       @story.update_popularity
       if @story.save
         #TODO: Validate proper URL if its kind is link
-        if  @story.is_link?
+        if @story.is_link?
           current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreateLinkType)              
         else
           current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreatePostType)              
         end
-        
 
         if params[:redirect]
           redirect_to(params[:redirect])
@@ -253,7 +252,7 @@ class StoriesController < ApplicationController
 	    @negVotes = Vote.for_voter_neg(current_user).for_voteable(@story)
       if @posVotes.count() - @negVotes.count() > 0
 	      current_user.vote_against(@story)
-	      
+
 	      #Update popularity
         @story.update_popularity
         @story.save
@@ -263,7 +262,7 @@ class StoriesController < ApplicationController
         activity_item.delete
 
       else
-		    flash[:alert] = "You cannot un-vote multiple times."
+        flash[:alert] = "You cannot un-vote multiple times."
       end
     else
       flash[:alert] = "You cannot un-vote without logging in."

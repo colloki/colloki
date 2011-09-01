@@ -5,7 +5,6 @@
 	<% if logged_in? %>
 		<% @posVotes = Vote.for_voter_pos(current_user).for_voteable(story) %>
 		<% @negVotes = Vote.for_voter_neg(current_user).for_voteable(story) %>
-
 		<% if (story.user.id != current_user.id) and (@posVotes.count() == @negVotes.count())%>
 		<a href="<%=url_for(:controller=>"stories", :action => :vote, :id => story.id)%>" title="Vote">
 			<div class="voteButton">

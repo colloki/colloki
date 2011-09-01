@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   has_many :stories, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
   has_many :topics
+
   acts_as_voter
   
   # Activates the user in the database.

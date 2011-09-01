@@ -2,7 +2,7 @@
 <br>
 <%if @story.kind == Story::Event%>
 <h3>Add an event to <%=@topic.title%></h3>
-<%elsif @story.kind ==  Story::Post%>
+<%elsif @story.kind ==Story::Post%>
 <h3>Add a post to <%=@topic.title%></h3>
 
 <div class="addForm">
@@ -24,8 +24,8 @@
   <p>
 		<div class="buttons">
 		<button type="submit" class="positive">
-				<%= image_tag "add.gif" %>
-		        Create Post
+      <%= image_tag "add.gif" %>
+      Create Post
 		</button>
 		</div>
   </p>
@@ -54,11 +54,11 @@
   </p>
   <p>
     <%= f.label :description %><br />
-    <%= f.text_area :description,  :class => 'rich_text_editor'%>
+    <%= f.text_area :description, :class => 'rich_text_editor' %>
   </p>
   <p>
     <%= f.label :tag_list %><br />
-    <%= f.text_field :tag_list%>
+    <%= f.text_field :tag_list %>
   </p>
   <p>    
   <%if params[:url]%> 
