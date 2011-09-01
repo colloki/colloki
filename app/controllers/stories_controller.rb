@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController 
-  
+
   uses_yui_editor
 
   #Declaration for in-place editing plugin
@@ -238,7 +238,7 @@ class StoriesController < ApplicationController
         
         current_user.activity_items.create(:story_id => @story.id, :topic_id => @story.topic_id, :kind => ActivityItem::VoteType)
       else
-		    flash[:alert] = "You cannot vote multiple times, so quit trying!"       
+		    flash[:alert] = "You cannot vote multiple times, so quit trying!"
 	    end
     else
       flash[:alert] = "You cannot vote without logging in, so quit trying!"

@@ -23,7 +23,8 @@ class TopicsController < ApplicationController
       sort_order = "created_at DESC"
       sort_title = "date"
     elsif params[:sort] == 'votes'
-      #CRITICAL TODO: The "Votes" tab is not working right now - to reslve it, first need to get rid of the plugin-based voting.
+      #CRITICAL TODO: The "Votes" tab is not working right now
+      #to resolve it, first need to get rid of the plugin-based voting.
       sort_order = "created_at DESC"
     else
       sort_order = "popularity DESC, created_at DESC"

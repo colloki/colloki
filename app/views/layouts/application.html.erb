@@ -5,7 +5,9 @@
 	<title>Slurp!<% if !@page_title.blank? %> - <%= @page_title %><% end %></title>
 	<%= stylesheet_link_tag 'site' %>
 	<%= javascript_include_tag('application') %>
-	<%= include_yui_editor_if_used %>
+	<% if using_yui_editor? %>
+	<%= yui_editor_init.html_safe %>
+	<% end %>
 	<%= @discover_link %>
 </head>
 <body>
@@ -14,7 +16,6 @@
 	<a href="<%=root_url%>" title="Slurp Homepage"><%= image_tag "dot_clear.gif", :size => "165x54"%></a>
 </div>
 <div id="header">
-	<!-- <a href="<%=root_url%>"><%=image_tag "logo.png"%></a> -->
 	<div id="userInfo">
 		<% if logged_in? %>
 		<span>You are logged in as: <%= link_to current_user.login, current_user %> | </span>

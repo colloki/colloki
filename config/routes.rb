@@ -1,6 +1,6 @@
 Colloki::Application.routes.draw do
-  resources :topics, :shallow => true do
-    resources :stories, :only => [:index]
+  resources :topics do
+    resources :stories
   end
   
   resources :comments, :users, :session

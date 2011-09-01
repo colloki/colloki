@@ -12,6 +12,6 @@ module ApplicationHelper
     else
       s = "<span class='sortTab'>" + link_to(name, url) + "</span>"
     end
-    s
+    s.html_safe
   end
 end
