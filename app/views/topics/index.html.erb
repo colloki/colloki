@@ -7,7 +7,7 @@
 <br><br>
 	<h2>New Users</h2>
 	<% for user in @new_users %>
-		<%= link_to gravatar_for(user), user, :title => user.login %>
+		<%= link_to gravatar_image_tag(user.email), user, :title => user.login %>
 	<% end %>
 	<br><br>
 	<h2>Latest Activity</h2>

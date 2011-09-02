@@ -36,7 +36,7 @@
 	</div>
 	<%end%>	
 	<table border="0" cellspacing="0" cellpadding="3">
-		<tr><td rowspan="2"><a href="<%=url_for(@story.user)%>"><%= gravatar_for @story.user %></a></td>
+		<tr><td rowspan="2"><a href="<%=url_for(@story.user)%>"><%= gravatar_image_tag(@story.user.email) %></a></td>
 			<td><%= link_to @story.user.login, @story.user%></td>
 		</tr>
 		<tr><td><%= @story.created_at.to_s(:cool)%> (<%= time_ago_in_words @story.created_at %> ago).</td></tr>
