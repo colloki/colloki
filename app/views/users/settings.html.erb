@@ -55,7 +55,7 @@
 <table cellspacing="10" class="formTable">
 	<tr>
 		<td class="fieldLabel"></td>
-		<td class="fieldValue"><%= gravatar_for current_user %>
+		<td class="fieldValue"><%= gravatar_image_tag(current_user.email) %>
 			<br><span class="fieldMeta">Slurp uses your <a href="http://gravatar.com">Gravatar</a> (Globally Recognized Avatar) to represent you on this site.
 			<br>
 			<a href="http://gravatar.com">Gravatar</a> is a free service to manage your avatar across the web. Setting up a new account takes less than a minute!
