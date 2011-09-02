@@ -10,7 +10,7 @@ class StaticController < ApplicationController
       render_cached path
     else
       raise ::ActionController::RoutingError,
-            "Recognition failed for #{request.path.inspect}"
+      "Recognition failed for #{request.path.inspect}"
     end
   end
   

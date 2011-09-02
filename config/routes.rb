@@ -3,6 +3,8 @@ Colloki::Application.routes.draw do
     resources :stories
   end
   
+  resources :stories
+  
   resources :comments, :users, :session
 
   root :to => 'topics#index'

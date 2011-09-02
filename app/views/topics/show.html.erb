@@ -3,11 +3,11 @@
 <div id="rightPanel">
 	<br/>
 	<div class="buttons">
-		<a href="<%=new_topic_story_path(@topic, :kind=>'link')%>" class="positive">
+		<a href="<%=new_story_path(@topic, :kind=>'link')%>" class="positive">
 			<%= image_tag "add.gif"%>
 			Add a link
 		</a>
-	<a href="<%=new_topic_story_path(@topic, :kind=>'post')%>" class="positive">
+	<a href="<%=new_story_path(@topic, :kind=>'post')%>" class="positive">
 			<%= image_tag "add.gif"%>
 		Add a post
 	</a>

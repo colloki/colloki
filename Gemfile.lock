@@ -28,6 +28,8 @@ GEM
       activemodel (= 3.0.10)
       activesupport (= 3.0.10)
     activesupport (3.0.10)
+    acts-as-taggable-on (2.1.1)
+      rails
     arel (2.0.10)
     builder (2.1.2)
     dynamic_form (1.1.4)
@@ -74,6 +76,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 2.1.0)
   dynamic_form
   rails (= 3.0.10)
   sqlite3

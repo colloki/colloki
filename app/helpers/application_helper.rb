@@ -1,6 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  include TagsHelper
+  include ActsAsTaggableOn::TagsHelper
   
   def sort_selected?(sort_name)
    params[:sort].to_s == sort_name.to_s
