@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110902193645) do
+ActiveRecord::Schema.define(:version => 20110907011306) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -84,8 +84,6 @@ ActiveRecord::Schema.define(:version => 20110902193645) do
     t.string   "bio"
     t.string   "location"
     t.string   "twitter_id"
-    t.string   "delicious_id"
-    t.string   "friendfeed_id"
     t.string   "linkedin_url"
     t.string   "facebook_url"
     t.string   "reset_code",                :limit => 40
