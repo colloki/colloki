@@ -21,16 +21,6 @@
             <%= image_tag "sites/linkedin.png"%>
           </a>
         <%end%>
-        <% if @user.delicious_id and @user.delicious_id != ''%>
-          <a title="<%=@user.login%> on delicious" href="http://delicious.com/<%=@user.delicious_id%>">
-            <%= image_tag "sites/delicious.png"%>
-          </a>
-        <%end%>
-        <% if @user.friendfeed_id and @user.friendfeed_id != ''%>
-          <a title="<%=@user.login%> on friendfeed" href="http://friendfeed.com/<%=@user.friendfeed_id%>">
-            <%= image_tag "sites/friendfeed.png"%>
-          </a>
-        <%end%>
         </div>
 
         <h3>
