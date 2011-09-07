@@ -1,58 +1,0 @@
-8
-
-dir
-34
-http://subversion.assembla.com/svn/colloki/trunk/vendor/plugins/in_place_editing
-http://subversion.assembla.com/svn/colloki
-
-
-
-2009-02-20T10:19:46.223649Z
-13
-sameer_ahuja
-
-
-svn:special svn:externals svn:needs-lock
-
-test
-dir
-
-Rakefile
-file
-
-
-
-
-2009-02-20T08:37:57.000000Z
-22d922bef492890d19b5f1fe5d97fd35
-2009-02-20T10:19:46.223649Z
-13
-sameer_ahuja
-
-init.rb
-file
-
-
-
-
-2009-02-20T08:37:57.000000Z
-f0e241b730757ac95b330c96b10123f0
-2009-02-20T10:19:46.223649Z
-13
-sameer_ahuja
-
-lib
-dir
-
-README
-file
-
-
-
-
-2009-02-20T08:37:57.000000Z
-f8909a59b9fade9570f5e59a9e9ba015
-2009-02-20T10:19:46.223649Z
-13
-sameer_ahuja
-

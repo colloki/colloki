@@ -1,7 +1,0 @@
-Hi <%= @user.login %>,
-
-Just wanted to let you know that your account on slurp has been created.
-
-Visit this url to activate your account:
-
-  <%= @url %>

@@ -1,40 +1,0 @@
-8
-
-dir
-34
-http://subversion.assembla.com/svn/colloki/trunk/app
-http://subversion.assembla.com/svn/colloki
-
-
-
-2009-04-02T09:50:03.072716Z
-34
-sameer_ahuja
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-080cfd25-d5d9-4c59-82ea-70d02a200d8b
-
-helpers
-dir
-
-models
-dir
-
-controllers
-dir
-
-views
-dir
-

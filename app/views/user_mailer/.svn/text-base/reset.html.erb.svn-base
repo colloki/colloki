@@ -1,9 +1,0 @@
-Hi <%= @user.login %>, 
-
-Someone requested a new password for your user account on slurp. If it wasn't you, we're sorry, please ignore this email.
-
-If it was indeed you, then click on the following link to reset your password on slurp.
-
-<%= @url %>
-
-If that doesn't work, please copy the link from above, and paste it in your browser's location bar.

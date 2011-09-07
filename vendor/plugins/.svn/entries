@@ -1,55 +1,0 @@
-8
-
-dir
-34
-http://subversion.assembla.com/svn/colloki/trunk/vendor/plugins
-http://subversion.assembla.com/svn/colloki
-
-
-
-2009-04-02T09:50:03.072716Z
-34
-sameer_ahuja
-has-props
-
-svn:special svn:externals svn:needs-lock
-svn:externals
-
-
-
-
-
-
-
-
-
-
-080cfd25-d5d9-4c59-82ea-70d02a200d8b
-
-will_paginate
-dir
-
-auto_complete
-dir
-
-restful_authentication
-dir
-
-gravatar
-dir
-
-vote_fu
-dir
-
-acts_as_taggable_on_steroids
-dir
-
-white_list
-dir
-
-yui_editor
-dir
-
-in_place_editing
-dir
-

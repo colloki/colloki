@@ -1,58 +1,0 @@
-8
-
-dir
-34
-http://subversion.assembla.com/svn/colloki/trunk/vendor/plugins/white_list
-http://subversion.assembla.com/svn/colloki
-
-
-
-2009-03-27T00:23:46.167272Z
-21
-sameer_ahuja
-
-
-svn:special svn:externals svn:needs-lock
-
-test
-dir
-
-Rakefile
-file
-
-
-
-
-2009-03-27T00:02:26.000000Z
-f0e1b06a7ef9e833e509a3abec21ea90
-2009-03-27T00:23:46.167272Z
-21
-sameer_ahuja
-
-init.rb
-file
-
-
-
-
-2009-03-27T00:02:26.000000Z
-82441515a065c4c238b3b72d8224fffb
-2009-03-27T00:23:46.167272Z
-21
-sameer_ahuja
-
-lib
-dir
-
-README
-file
-
-
-
-
-2009-03-27T00:02:26.000000Z
-75a1520453ca762e7b851e255edb2b3f
-2009-03-27T00:23:46.167272Z
-21
-sameer_ahuja
-

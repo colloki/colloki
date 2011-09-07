@@ -1,5 +1,0 @@
-Hi <%= @user.login %>, 
-
-Your account on slurp has been activated.
-
-Visit slurp at: <%= @url %>

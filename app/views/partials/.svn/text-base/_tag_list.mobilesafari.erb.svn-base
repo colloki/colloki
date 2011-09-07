@@ -1,3 +1,0 @@
-<% list.each do |tag| %>
-<span class="tag"><%= link_to tag, { :controller=>"stories", :action => :tag, :id => tag }, :class => "whiteLink"%></span>
-<% end %>

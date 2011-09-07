@@ -1,5 +1,0 @@
-<%=render :partial => "partials/second_order_header", :locals => { :style => "bluegray", :title => "About Slurp!" }%>
-
-<p>Slurp! is a web application meant for building conversations amongst small groups of people. Think of it as Forums 2.0. It's still a prototype at this stage, and we are adding new features on a daily basis. Currently, it's open only to the members of the Virginia Tech community. If you have a Virginia Tech email address, you can sign up. It would be immensely helpful for us if you play with the tool and provide us your thoughts, questions, suggestions, critique and feature requests. Use the <a href="http://slurp.cs.vt.edu/topics/4">Feedback Topic</a> to post your thoughts.
-
-<p><strong>Slurp!</strong> is the first deployment of Colloki, an open-source tool being developed at Virginia Tech for use by local communities and small groups of people. You can read more about Colloki <a href="http://diggov.cs.vt.edu/node/23">here</a>.

@@ -1,58 +1,0 @@
-8
-
-dir
-34
-http://subversion.assembla.com/svn/colloki/trunk/vendor/plugins/auto_complete
-http://subversion.assembla.com/svn/colloki
-
-
-
-2009-04-02T09:50:03.072716Z
-34
-sameer_ahuja
-
-
-svn:special svn:externals svn:needs-lock
-
-test
-dir
-
-Rakefile
-file
-
-
-
-
-2009-04-02T09:25:15.000000Z
-705a89824a98485e70202ea52528c61c
-2009-04-02T09:50:03.072716Z
-34
-sameer_ahuja
-
-init.rb
-file
-
-
-
-
-2009-04-02T09:25:16.000000Z
-bcf4ca5abe5686688244b12bce018e24
-2009-04-02T09:50:03.072716Z
-34
-sameer_ahuja
-
-lib
-dir
-
-README
-file
-
-
-
-
-2009-04-02T09:25:15.000000Z
-fb23a17d26849791cce5930621981272
-2009-04-02T09:50:03.072716Z
-34
-sameer_ahuja
-

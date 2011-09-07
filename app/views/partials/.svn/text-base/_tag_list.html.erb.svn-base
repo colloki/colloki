@@ -1,9 +1,0 @@
-<% list.each do |tag| %>
-<span class="tag">
-<% if topic %>
-	<%= link_to tag, tags_url(:id => topic, :tag_list => tag), :class => "tagLink"%>
-<% else %>
-	<%= link_to tag, global_tags_url(:tag_list => tag), :class => "tagLink"%>
-<% end %>
-</span>
-<% end %>

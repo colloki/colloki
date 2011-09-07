@@ -1,4 +1,0 @@
-<div class="topicListItem">
-<a href="<%=topical_url(:id => topic.id)%>" title="<%=topic.title%>"><div class="topic"><%=topic.title%></div></a>
-<div class="description"><%=truncate(strip_tags(topic.description), :length => 360, :omission => "...") %></div>
-</div>

@@ -1,7 +1,0 @@
-<% for story in @stories %>
-	<li>
-		<%= link_to story.title, story %>(by <%= story.user.login %>) 
-		<%=h votes=story.votes_for-story.votes_against %> <%=h votes == 1 ? "vote" : "votes" %> | <%=h story.views %> 
-		<%=h story.views == 1 ? "view": "views" %>
-	</li>
-<% end %>

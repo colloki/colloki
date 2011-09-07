@@ -1,8 +1,0 @@
-K 10
-svn:ignore
-V 29
-database.yml
-environment.rb
-
-
-END
