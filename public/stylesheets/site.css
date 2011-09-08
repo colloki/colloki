@@ -13,6 +13,19 @@ body, p, ol, ul, td {
   border: none;
 }
 
+#homeHeader {
+  float: left;
+  display: block;
+  width: 64px;
+}
+
+#topicHeader {
+  display: block;
+  float: left;
+  width: 94%;
+  margin-left: 5px;
+}
+
 .topicListItem {
   color: #656565;
   background-color: #e5effd;
@@ -26,6 +39,7 @@ body, p, ol, ul, td {
   padding: 5px;
   background-color: #4fbafd;
   -webkit-box-shadow: #4fbafd 0px 0px 5px;
+  margin: 0px;
   margin-bottom: 8px;
   margin-top: 8px;
   color: white;
@@ -51,9 +65,11 @@ a {
   color: #0066CC;
   text-decoration: none;
 }
+
 a:visited {
   color: #0066cc;
 }
+
 a:hover {
   color: #990000;
 }
@@ -66,6 +82,7 @@ a.negative {
 a.negative:hover {
   color: #f97d4c;
 }
+
 a.bookmarklet {
   background-color: #d9d9d9;
   border: 2px solid #888;
@@ -107,15 +124,15 @@ a.bookmarklet {
   top: 0;
   left: 0;
 }
+
 #userInfo {
   font-size: 11px;
   width: 300;
-  float:  right;
+  float: right;
   text-align: right;
   background-color: #f4f5e9;
   border: 1px solid #e5e2ce;
   padding: 5px 10px;
-  margin-right: 5px;
 }
 
 #errorExplanation {
@@ -233,7 +250,6 @@ Don't edit here, instead, regenerate, and copy paste. */
   background:#F4F5F0}
 /* Generated Code End */
 
-
 div.storyHeaderTagList {
   padding-top: 5px;
 }
@@ -287,42 +303,42 @@ div.storyHeaer {
 }
 
 .storyItem:hover {
-
   background-color: #f8f8f8;
 }
 
 .storyItemVotePanel {
-  float:left;
-  width:60px;
+  float: left;
+  width: 60px;
 }
 
 .storyItemContentPanel {
-  margin-left:64px;
+  margin-left: 64px;
 }
 
-
 #contentPanel {
-  margin-right:310px;
-  clear:none;
-  min-width:400px;
+  margin-right: 310px;
+  clear: none;
+  min-width: 400px;
 }
 
 #rightPanel {
-  width:300px;
-  float:right;
-  clear:none;
-  vertical-align:top;
+  width: 300px;
+  float: right;
+  clear: none;
+  vertical-align: top;
 }
 
 div#footer{
   margin: 5px;
-  clear:both;
+  margin-top: 20px;
+  clear: both;
+  font-size: 10px;
+  text-align: center;
 }
 
 #content {
-min-width:790px;
+  min-width: 750px;
 }
-
 
 .tag a a:visited a:hover {
   color: #696969;
@@ -335,7 +351,6 @@ min-width:790px;
   right: 0;
   top: 0;
 }
-
 
 .tag {
   font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -359,9 +374,6 @@ a.tagLink, a.tagLink:hover, a.tagLink:visited {
 .tag:hover {
   background-color: #dfdfef;
 }
-/*a.whiteLink {
-  color: #FFFFFF;
-}*/
 
 .sortTab {
   margin: 6px;
@@ -383,7 +395,6 @@ a.tagLink, a.tagLink:hover, a.tagLink:visited {
   color: #333333;
   margin: 6px;
   padding: 6px;
-
 }
 
 .pagination {
@@ -412,8 +423,10 @@ a.tagLink, a.tagLink:hover, a.tagLink:visited {
 .fieldLabel {
   text-align: right;
   vertical-align: top;
-  padding-top: 10px;
-  margin-top: 14px;
+  width: 170px;
+  margin-top: 5px;
+  display: inline-block;
+  margin-right: 12px;
 }
 
 .fieldMeta {
@@ -428,8 +441,12 @@ a.tagLink, a.tagLink:hover, a.tagLink:visited {
   padding-top: 5px;
 }
 
-td.fieldLabel {
-  width: 170px;
+.fieldValue {
+  display: inline-block;
+}
+
+.field {
+  margin: 10px 0;
 }
 
 .css1 { font-size: 1.0em; }
@@ -447,7 +464,6 @@ td.fieldLabel {
   margin-top: 8px;
   color: white;
   opacity: 0.95;
-
 }
 
 h1 {
@@ -460,7 +476,6 @@ h1 {
   margin-top: 8px;
   color: white;
   opacity: 0.95;
-  margin-right: 5px;
 }
 
 h1 a, h1 a:visited {
@@ -471,14 +486,12 @@ h1.bluegray {
   border: 1px solid #82879b;
   background-color: #b0b7c8;
   -webkit-box-shadow: #82879b 0px 0px 5px;
-
 }
 
 h1.green {
   border: 1px solid #20ad46;
   background-color: #2bdd59;
   -webkit-box-shadow: #20ad46 0px 0px 5px;
-
 }
 
 h1.orange {
@@ -511,7 +524,7 @@ h3 {
   padding: 0px 0px 3px;
 }
 
-h3 span{
+h3 span {
   font-size: 11px;
   margin: 0 0 -2px;
   padding-left: 10px;
@@ -542,7 +555,6 @@ h4 {
   border-bottom-color: #CCCCCC;
   background-color: #F0F0F0;
 }
-
 
 blockquote {
 color: rgb(102, 102, 102);
@@ -602,17 +614,14 @@ margin-top: 20px;
   text-align: center;
   vertical-align: middle;
   padding: 6px;
-
   margin: 3px 3px 0;
-
 }
 
 .voteButton {
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 10px;
   background-color: #DBF0DC;
-  padding:3px;
-
+  padding: 3px;
   text-align: center;
   vertical-align: middle;
   height: 20px;
@@ -631,7 +640,7 @@ margin-top: 20px;
   margin-right: 3px;
   margin-bottom: 2px;
   margin-left: 3px;
-  padding:3px;
+  padding: 3px;
   text-align: center;
   vertical-align: middle;
   height: 20px;
@@ -643,28 +652,28 @@ margin-top: 20px;
 }
 
 .addFormRightPanel {
-  float:right;
-  width:250px;
+  float: right;
+  width: 250px;
   border: 1px solid #9C9F9A;
-  padding:6px;
+  padding: 6px;
 }
 
 .addForm {
-  margin-right:260px;
+  margin-right: 260px;
 }
 
 input {
-    border: 1px solid #888;
-    padding: 4px;
-    font-size: 1em;
-    background-color: #F8F8F8;
+  border: 1px solid #888;
+  padding: 4px;
+  font-size: 1em;
+  background-color: #F8F8F8;
 }
 
 .url_input {
-    border: 2px solid #888;
-    padding: 4px;
-    font-size: 1.5em;
-    width: 500px;
+  border: 2px solid #888;
+  padding: 4px;
+  font-size: 1.5em;
+  width: 500px;
   background-color: #F8F8F8;
 }
 
@@ -688,7 +697,6 @@ textarea:focus {
     border-color: #000;
     background-color: #F5EFE6;
 }
-
 
 input:focus {
     border-color: #000;
@@ -729,12 +737,18 @@ ul#tabnav li a {
   padding-right: 4px;
 }
 
-div#all li.all, div#links li.links, div#posts li.posts, div#tab4 li.tab4 { /* settings for selected tab */
+div#all li.all,
+div#links li.links,
+div#posts li.posts,
+div#tab4 li.tab4 { /* settings for selected tab */
   border-bottom: 1px solid #fff; /* set border color to page background color */
   /*background-color: #a2cfef;*/ /* set background color to match above border color */
 }
 
-div#all li.all a, div#links li.links a, div#posts li.posts a, div#tab4 li.tab4 a { /* settings for selected tab link */
+div#all li.all a,
+div#links li.links a,
+div#posts li.posts a,
+div#tab4 li.tab4 a { /* settings for selected tab link */
   background-color: white; /* set selected tab background color as desired */
   color: #000; /* set selected tab link color as desired */
   position: relative;
@@ -762,87 +776,100 @@ ul#tabnav a:hover { /* settings for hover effect */
 /* BUTTONS */
 /* Credit: http://particletree.com/features/rediscovering-the-button-element/ */
 
-.buttons a, .buttons button{
-    display:block;
-    float:left;
-    margin:0 7px 0 0;
-    background-color:#f5f5f5;
+.buttons a,
+.buttons button {
+    display: block;
+    float: left;
+    margin: 0 7px 0 0;
+    background-color: #f5f5f5;
     border: 1px solid #c3c3c3;
     border-top: 1px solid #e6e6e6;
     border-left: 1px solid #e6e6e6;
-    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
-    font-size:100%;
-    line-height:130%;
-    text-decoration:none;
-    font-weight:bold;
-    color:#565656;
-    cursor:pointer;
-    padding:5px 10px 6px 7px; /* Links */
+    font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size: 100%;
+    line-height: 130%;
+    text-decoration: none;
+    font-weight: bold;
+    color: #565656;
+    cursor: pointer;
+    padding: 5px 10px 6px 7px; /* Links */
 }
 .buttons button{
-    width:auto;
-    overflow:visible;
-    padding:4px 10px 3px 7px; /* IE6 */
+    width: auto;
+    overflow: visible;
+    padding: 4px 10px 3px 7px; /* IE6 */
 }
-.buttons button[type]{
-    padding:5px 10px 5px 7px; /* Firefox */
-    line-height:17px; /* Safari */
+
+.buttons button[type] {
+    padding: 5px 10px 5px 7px; /* Firefox */
+    line-height: 17px; /* Safari */
 }
-*:first-child+html button[type]{
-    padding:4px 10px 3px 7px; /* IE7 */
+
+*:first-child+html button[type] {
+    padding: 4px 10px 3px 7px; /* IE7 */
 }
-.buttons button img, .buttons a img{
-    margin:0 3px -3px 0 !important;
-    padding:0;
-    border:none;
-    width:16px;
-    height:16px;
+
+.buttons button img, .buttons a img {
+    margin: 0 3px -3px 0 !important;
+    padding: 0;
+    border: none;
+    width: 16px;
+    height: 16px;
 }
 
 /* STANDARD */
 
-button:hover, .buttons a:hover{
-    background-color:#dff4ff;
-    border:1px solid #c2e1ef;
-    color:#336699;
+button:hover,
+.buttons a:hover {
+    background-color: #dff4ff;
+    border: 1px solid #c2e1ef;
+    color: #336699;
 }
-.buttons a:active{
-    background-color:#6299c5;
-    border:1px solid #6299c5;
-    color:#fff;
+
+.buttons a:active {
+    background-color: #6299c5;
+    border: 1px solid #6299c5;
+    color: #fff;
 }
 
 /* POSITIVE */
 
-button.positive, .buttons a.positive{
-    color:#529214;
+button.positive,
+.buttons a.positive {
+    color: #529214;
 }
-.buttons a.positive:hover, button.positive:hover{
-    background-color:#E6EFC2;
-    border:1px solid #C6D880;
-    color:#529214;
+
+.buttons a.positive:hover,
+button.positive:hover {
+    background-color: #E6EFC2;
+    border: 1px solid #C6D880;
+    color: #529214;
 }
-.buttons a.positive:active{
-    background-color:#529214;
-    border:1px solid #529214;
-    color:#fff;
+
+.buttons a.positive:active {
+    background-color: #529214;
+    border: 1px solid #529214;
+    color: #fff;
 }
 
 /* NEGATIVE */
 
-.buttons a.negative, button.negative{
-    color:#d12f19;
+.buttons a.negative,
+button.negative {
+    color: #d12f19;
 }
-.buttons a.negative:hover, button.negative:hover{
-    background:#fbe3e4;
-    border:1px solid #fbc2c4;
-    color:#d12f19;
+
+.buttons a.negative:hover,
+button.negative:hover {
+    background: #fbe3e4;
+    border: 1px solid #fbc2c4;
+    color: #d12f19;
 }
+
 .buttons a.negative:active{
-    background-color:#d12f19;
-    border:1px solid #d12f19;
-    color:#fff;
+    background-color: #d12f19;
+    border: 1px solid #d12f19;
+    color: #fff;
 }
 
 /* BUTTONS END */
-
