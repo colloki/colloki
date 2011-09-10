@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title>Slurp!<% if !@page_title.blank? %> - <%= @page_title %><% end %></title>
-    <%= stylesheet_link_tag 'site' %>
-    <%= javascript_include_tag('application') %>
-    <% if using_yui_editor? %>
-    <%= yui_editor_init.html_safe %>
-    <% end %>
-    <%= @discover_link %>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>
+    Slurp!<% if !@page_title.blank? %> - <%= @page_title %><% end %>
+  </title>
+  <%= stylesheet_link_tag 'site' %>
+  <%= javascript_include_tag('application') %>
+  <% if using_yui_editor? %>
+  <%= yui_editor_init.html_safe %>
+  <% end %>
+  <%= @discover_link %>
 </head>
 <body>
-<script src="http://bubble.websnapr.com/LC360CG44aOr/swi/" type="text/javascript"></script>
 <div id="headerFloater">
-    <a href="<%=root_url%>" title="Slurp Homepage"><%= image_tag "dot_clear.gif", :size => "165x54"%></a>
+  <a href="<%=root_url%>" title="Slurp Homepage">
+    <%= image_tag "dot_clear.gif", :size => "165x54"%>
+  </a>
 </div>
 <div id="header">
   <div id="userInfo">
@@ -41,7 +44,7 @@
 </div>
 
 <div id="footer">
-  <%= link_to "About", about_url %> | <%= link_to "Changelog", changelog_url%>
+  <%= link_to "About", about_url %> | <%= link_to "Changelog", changelog_url %>
 </div>
 </body>
 </html>

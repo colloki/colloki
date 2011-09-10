@@ -1,4 +1,5 @@
-body { color: #333;
+body {
+  color: #333;
   background: #fff url(/images/tilted_logo.png) no-repeat;
 }
 
@@ -11,6 +12,11 @@ body, p, ol, ul, td {
 /*Removing the ugly border from all images ~SA */
 :link img, img {
   border: none;
+}
+
+#subHeader {
+  clear: both;
+  height: auto;
 }
 
 #homeHeader {
@@ -329,10 +335,12 @@ div.storyHeaer {
 }
 
 div#footer{
-  margin: 5px;
-  margin-top: 20px;
+  border-top: 1px solid #eee;
   clear: both;
   font-size: 10px;
+  margin: 5px;
+  margin-top: 20px;
+  padding-top: 10px;
   text-align: center;
 }
 
@@ -435,9 +443,9 @@ a.tagLink, a.tagLink:hover, a.tagLink:visited {
   font-size: 10px;
 }
 
-.fieldUneditable {
+.fieldNotEditable {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   padding-top: 5px;
 }
 
@@ -526,23 +534,20 @@ h3 {
 
 h3 span {
   font-size: 11px;
-  margin: 0 0 -2px;
-  padding-left: 10px;
   font-weight: normal;
   font-style: normal;
+  margin: 0 0 -2px;
+  padding-left: 10px;
   padding-bottom: 3px;
 }
 
 h2 {
+  border-bottom: 1px solid #eee;
+  color: #333333;
   font-family: Geneva, Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: #333333;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: #CCCCCC;
   padding: 3px;
-  margin-top: 0px;
 }
 
 h4 {
@@ -557,14 +562,11 @@ h4 {
 }
 
 blockquote {
-color: rgb(102, 102, 102);
-display: block;
-font-family: Georgia;
-font-style: italic;
-margin-bottom: 20px;
-margin-left: 30px;
-margin-right: 30px;
-margin-top: 20px;
+  color: rgb(102, 102, 102);
+  display: block;
+  font-family: Georgia;
+  font-style: italic;
+  margin: 20px 30px;
 }
 
 .commentContent {
@@ -663,14 +665,31 @@ margin-top: 20px;
 }
 
 input {
-  border: 1px solid #888;
+  border: 1px solid #ccc;
   padding: 4px;
   font-size: 1em;
   background-color: #F8F8F8;
 }
 
+input:focus {
+  border-color: #555;
+  background-color: #F5EFE6;
+}
+
+textarea {
+  padding: 4px;
+  font-size: 1em;
+  width: 500px;
+  background-color: #F8F8F8;
+  border: 1px solid #ccc;
+}
+
+textarea:focus {
+  border-color: #000;
+  background-color: #F5EFE6;
+}
+
 .url_input {
-  border: 2px solid #888;
   padding: 4px;
   font-size: 1.5em;
   width: 500px;
@@ -678,29 +697,10 @@ input {
 }
 
 .title_input {
-    border: 2px solid #888;
-    padding: 4px;
-    font-size: 1.2em;
-    width: 500px;
-    background-color: #F8F8F8;
-}
-
-textarea {
-    border: 2px solid #888;
-    padding: 4px;
-    font-size: 1em;
-    width: 500px;
-    background-color: #F8F8F8;
-}
-
-textarea:focus {
-    border-color: #000;
-    background-color: #F5EFE6;
-}
-
-input:focus {
-    border-color: #000;
-    background-color: #F5EFE6;
+  padding: 4px;
+  font-size: 1.2em;
+  width: 500px;
+  background-color: #F8F8F8;
 }
 
 #sortOptions {
@@ -717,22 +717,23 @@ input:focus {
 /* begin css tabs */
 /* Derived from: http://unraveled.com/publications/assets/css_tabs/ */
 
-ul#tabnav { /* general settings */
-  text-align: left; /* set to left, right or center */
-  margin: 1em 0 0; /* set margins as desired */
-  font: bold 13px verdana, arial, sans-serif; /* set font as desired */
-  border-bottom: 1px solid #b0b0b0; /* set border COLOR as desired */
+ul#tabnav {
+  text-align: left;
+  margin: 1em 0 0;
+  font-size: 13px;
+  font-family: Verdana, Arial, sans-serif;
+  font-weight: bold;
+  border-bottom: 1px solid #b0b0b0;
   list-style-type: none;
-  padding: 3px 10px 3px 10px; /* THIRD number must change with respect to padding-top (X) below */
+  padding: 3px 10px 2px 10px;
 }
 
-ul#tabnav li { /* do not change */
+ul#tabnav li {
   display: inline;
 }
 
-/* For increasing tab width ~SA */
 ul#tabnav li a {
-  width: 100px;
+  width: 150px;
   padding-left: 4px;
   padding-right: 4px;
 }
@@ -740,9 +741,9 @@ ul#tabnav li a {
 div#all li.all,
 div#links li.links,
 div#posts li.posts,
-div#tab4 li.tab4 { /* settings for selected tab */
-  border-bottom: 1px solid #fff; /* set border color to page background color */
-  /*background-color: #a2cfef;*/ /* set background color to match above border color */
+div#tab4 li.tab4 {
+  border-bottom: 1px solid #fff;
+  background-color: #fff;
 }
 
 div#all li.all a,

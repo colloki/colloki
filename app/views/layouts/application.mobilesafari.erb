@@ -3,7 +3,7 @@ TD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <title>	Slurp! Mobile | <%= params[:controller].capitalize %> | <%= controller.action_name.capitalize %></title>
+  <title> Slurp! Mobile | <%= params[:controller].capitalize %> | <%= controller.action_name.capitalize %></title>
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
   <meta name="apple-touch-fullscreen" content="YES" />
   <style type="text/css" media="screen">@import "/iui/iui.css";</style>
@@ -16,14 +16,13 @@ TD XHTML 1.0 Strict//EN"
     </div>
     <%= yield %>
     <form id="searchForm" class="dialog" action="/stories/search" method="POST">
-	        <fieldset>
-	            <h1>Search</h1>
-	            <a class="button leftButton" type="cancel">Cancel</a>
-	            <a class="button blueButton" type="submit">Search</a>
-	            <label>What:</label>
-	            <input type="text" name="query"/>
-	        </fieldset>
-	   </form>
+          <fieldset>
+              <h1>Search</h1>
+              <a class="button leftButton" type="cancel">Cancel</a>
+              <a class="button blueButton" type="submit">Search</a>
+              <label>What:</label>
+              <input type="text" name="query"/>
+          </fieldset>
+     </form>
  </body>
 </html>
-

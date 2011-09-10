@@ -1,7 +1,7 @@
 <div class="stories">
   <% for story in stories %>
     <%if story.kind == Story::Link%>
-      <div class="storyItem" onMouseOver="showStoryOps('<%=story.id%>', 'link');" onMouseOut="hideStoryOps('<%=story.id%>', 'link');" > 
+      <div class="storyItem" onMouseOver="showStoryOps('<%=story.id%>', 'link');" onMouseOut="hideStoryOps('<%=story.id%>', 'link');" >
     <%else%>
       <div class="storyItem" onMouseOver="showStoryOps('<%=story.id%>', 'post');" onMouseOut="hideStoryOps('<%=story.id%>', 'post');" >
     <%end%>
@@ -13,7 +13,7 @@
           <h3><%=link_to story.title, story %></h3>
         <%end%>
         <%= render :partial => "partials/tag_list", :locals => { :list => story.tag_list, :topic => story.topic.id } %><br>
-        <%=truncate(strip_tags(story.description), :length => 140, :omission => "...") %> 
+        <%=truncate(strip_tags(story.description), :length => 140, :omission => "...") %>
         <div>
           <div class="storyItemEdit" id="storyEdit<%=story.id%>">
           <% if logged_in? && current_user.id == story.user.id %>

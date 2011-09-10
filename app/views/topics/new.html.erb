@@ -2,14 +2,13 @@
 
 <%= form_for(@topic) do |f| %>
   <%= f.error_messages %>
-
   <p>
     <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :size => 50 %>
   </p>
   <p>
     Describe the topic in a sentence: <br />
-    <%= f.text_field :description %>
+    <%= f.text_field :description, :size => 80 %>
   </p>
   <p>
     <%= f.submit "Create" %>

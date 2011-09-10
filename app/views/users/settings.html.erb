@@ -2,11 +2,12 @@
 
 <%= form_for(@user) do |f| %>
 <%= f.error_messages %>
+
 <h2>Basic</h2>
 <div class="field">
   <div class="fieldLabel"><%= f.label "Username" %></div>
   <div class="fieldValue">
-    <span class="fieldUneditable"><%= @user.login %></span>
+    <span class="fieldNotEditable"><%= @user.login %></span>
     <br>
     <span class="fieldMeta">Slurp! doesn't allow users to change their usernames (yet)</span>
   </div>
@@ -15,7 +16,7 @@
 <div class="field">
   <div class="fieldLabel"><%= f.label "Email" %></div>
   <div class="fieldValue">
-    <span class="fieldUneditable"><%= @user.email %></span>
+    <span class="fieldNotEditable"><%= @user.email %></span>
     <br>
     <span class="fieldMeta">Slurp! doesn't allow users to change their email ids (yet).</span>
   </div>
@@ -82,6 +83,7 @@
 </div>
 
 <h2>Avatar</h2>
+
 <div class="field">
   <div class="fieldLabel"></div>
   <div class="fieldValue">
@@ -94,6 +96,7 @@
     </span>
   </div>
 </div>
+
 <div class="field">
   <div class="fieldLabel"></div>
   <div class="fieldValue">
@@ -105,6 +108,7 @@
     <span class="fieldMeta">Remember to use <%= @user.email %> as your email id.</span>
   </div>
 </div>
+
 <div class="field">
   <div class="fieldLabel"></div>
   <div class="fieldValue">
@@ -117,42 +121,3 @@
     <span class="fieldMeta">Changes might take a few minutes to show up on site. If it takes longer, please refresh your browser cache.</span>
   </div>
 </div>
-
-<h2>Places</h2>
-
-<%= form_for(@user) do |f| %>
-<div class="field">
-  <div class="fieldLabel"><%= f.label "Twitter" %></div>
-  <div class="fieldValue">
-    <%= f.text_field :twitter_id %><br>
-    <span class="fieldMeta">Your username on <a href="http://twitter.com">Twitter</a>.</span>
-  </div>
-</div>
-<div class="field">
-  <div class="fieldLabel"><%= f.label "Facebook Profile URL" %></div>
-  <div class="fieldValue">
-    <%= f.text_field :facebook_url %>
-    <br>
-    <span class="fieldMeta">The URL to your profile on <a href="http://facebook.com">Facebook</a>.</span>
-  </div>
-</div>
-<div class="field">
-  <div class="fieldLabel"><%= f.label "LinkedIn Profile URL" %></div>
-  <div class="fieldValue">
-    <%= f.text_field :linkedin_url %>
-    <br>
-    <span class="fieldMeta">The URL to your <a href="http://linkedin.com">LinkedIn</a> profile.</span>
-  </div>
-</div>
-<div class="field">
-  <div class="fieldLabel"></div>
-  <div class="fieldValue">
-    <div class="buttons">
-    <button type="submit" class="positive">
-      <%= image_tag "tick.png" %>
-      Update
-    </button>
-    </div>
-  </div>
-</div>
-<% end %>
