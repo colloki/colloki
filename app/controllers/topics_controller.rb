@@ -21,17 +21,15 @@ class TopicsController < ApplicationController
 
     if params[:sort] == 'newest'
       sort_order = "created_at DESC"
-      sort_title = "date"
     elsif params[:sort] == 'votes'
       #CRITICAL TODO: The "Votes" tab is not working right now
       #to resolve it, first need to get rid of the plugin-based voting.
       sort_order = "created_at DESC"
     else
       sort_order = "popularity DESC, created_at DESC"
-      sort_title = "popularity"
       params[:sort] = 'popular'
     end
-    
+
     if params[:tab] == 'links'
       query = {:topic_id => @topic.id, :kind => Story::Link}
     elsif params[:tab] == 'posts'
@@ -40,11 +38,11 @@ class TopicsController < ApplicationController
       query = {:topic_id => @topic.id}
       params[:tab] = 'all'
     end
-    
+
     @stories = Story.paginate(:conditions => query, :order => sort_order, :page => params[:page], :per_page => 10)
-    
-    # TODO: This is not contextual. It shows the tag cloud for the topic, not the stories currently being displayed. 
-    # @stories.tag_counts doesn't work, apparently the method is not defined for @stories, meaning @stories is a different object 
+
+    # TODO: This is not contextual. It shows the tag cloud for the topic, not the stories currently being displayed.
+    # @stories.tag_counts doesn't work, apparently the method is not defined for @stories, meaning @stories is a different object
     # from @topic.stories
     @tags = @topic.stories.tag_counts
     @activity_items = ActivityItem.find(:all, :conditions => "topic_id = #{@topic.id}", :order => "created_at DESC", :limit => 10)
@@ -57,9 +55,9 @@ class TopicsController < ApplicationController
     @top_users = User.top_in_topic(@topic.id)
 
     if params[:tab] != 'all'
-      @page_title = @topic.title + " " + params[:tab] + " sorted by " + sort_title
+      @page_title = @topic.title + " " + params[:tab]
     else
-      @page_title = @topic.title + " " + " sorted by " + sort_title
+      @page_title = @topic.title
     end
 
     respond_to do |format|
@@ -141,7 +139,7 @@ class TopicsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   def tag
       tag_list = params[:tag_list].split('+')
       @tag = tag_list.join(' + ')
@@ -149,12 +147,12 @@ class TopicsController < ApplicationController
       @topic = Topic.find(params[:id])
       @stories = @topic.stories.find_tagged_with(tag_list, :match_all => true)
       @tags = @topic.stories.tag_counts
-      @page_title = @topic.title + " posts and links tagged with " + @tag     
+      @page_title = @topic.title + " posts and links tagged with " + @tag
     else
       @stories = Story.find_tagged_with(tag_list, :match_all => true)
-      @tags = Story.tag_counts            
-      @page_title = "Everything tagged with " + @tag           
+      @tags = Story.tag_counts
+      @page_title = "Everything tagged with " + @tag
     end
   end
-  
+
 end

@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>
-    Slurp!<% if !@page_title.blank? %> - <%= @page_title %><% end %>
+    Colloki <% if !@page_title.blank? %> - <%= @page_title %><% end %>
   </title>
   <%= stylesheet_link_tag 'site' %>
   <%= javascript_include_tag('application') %>
@@ -13,22 +13,22 @@
   <%= @discover_link %>
 </head>
 <body>
-<div id="headerFloater">
-  <a href="<%=root_url%>" title="Slurp Homepage">
-    <%= image_tag "dot_clear.gif", :size => "165x54"%>
-  </a>
-</div>
 <div id="header">
-  <div id="userInfo">
-    <% if logged_in? %>
-    <span>You are logged in as: <%= link_to current_user.login, current_user %> | </span>
-    <%= link_to "Settings", settings_url%> |
-    <%= link_to "Logout", logout_url%>
-    <% else %>
-    <span>Welcome Guest. </span>
-    <%= link_to "Login", login_url%> to create, vote on and update links |
-    <%= link_to "Sign Up", signup_url%> to join in the fun
-    <% end %>
+  <div id="header_wrap">
+    <a href="<%=root_url%>" title="Colloki" id="header_title">
+      Colloki
+    </a>
+    <div id="userInfo">
+      <% if logged_in? %>
+      <span>You are logged in as: <%= link_to current_user.login, current_user %> | </span>
+      <%= link_to "Settings", settings_url%> |
+      <%= link_to "Logout", logout_url%>
+      <% else %>
+      <span>Welcome Guest. </span>
+      <%= link_to "Login", login_url%> to create, vote on and update links |
+      <%= link_to "Sign Up", signup_url%> to join in the fun
+      <% end %>
+    </div>
   </div>
 </div>
 
@@ -39,8 +39,10 @@
   <div class="alert"><%= flash[:alert] %></div>
 <%end%>
 
-<div id="content">
-  <%= yield  %>
+<div id="wrap">
+  <div id="content">
+    <%= yield %>
+  </div>
 </div>
 
 <div id="footer">
