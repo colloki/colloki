@@ -1,19 +1,26 @@
 <div class="stories">
   <% for story in stories %>
-    <%if story.kind == Story::Link%>
+    <% if story.kind == Story::Link %>
       <div class="storyItem" onMouseOver="showStoryOps('<%=story.id%>', 'link');" onMouseOut="hideStoryOps('<%=story.id%>', 'link');" >
-    <%else%>
+    <% else %>
       <div class="storyItem" onMouseOver="showStoryOps('<%=story.id%>', 'post');" onMouseOut="hideStoryOps('<%=story.id%>', 'post');" >
-    <%end%>
+    <% end %>
     <%=render :partial => "partials/story_item_vote_panel", :locals => { :story => story }%>
       <div class="storyItemContentPanel">
-        <%if story.kind == Story::Link%>
-          <h3><%=link_to story.title, story%><a href="<%=story.url%>"><span id="storyGotoLink<%=story.id%>"></span></a></h3>
-        <%else%>
-          <h3><%=link_to story.title, story %></h3>
-        <%end%>
+        <% if story.kind == Story::Link %>
+          <h3>
+            <%= link_to story.title, story %>
+            <a href="<%=story.url%>">
+              <span id="storyGotoLink<%=story.id%>"></span>
+            </a>
+          </h3>
+        <% else %>
+          <h3>
+            <%=link_to story.title, story %>
+          </h3>
+        <% end %>
         <%= render :partial => "partials/tag_list", :locals => { :list => story.tag_list, :topic => story.topic.id } %><br>
-        <%=truncate(strip_tags(story.description), :length => 140, :omission => "...") %>
+        <%= truncate(strip_tags(story.description), :length => 140, :omission => "...") %>
         <div>
           <div class="storyItemEdit" id="storyEdit<%=story.id%>">
           <% if logged_in? && current_user.id == story.user.id %>
@@ -31,5 +38,5 @@
         </div>
       </div>
     </div>
-  <%end%>
+  <% end %>
 </div>

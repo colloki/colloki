@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def new
     @page_title = "Sign Up"
   end
-  
+
   #TODO: Enhance this or get rid of it.
   def index
     @page_title = "People"
@@ -11,9 +11,9 @@ class UsersController < ApplicationController
       flash[:alert] = "You need to login to view users."
       #redirect_to "/"
     end
-    
+
     users_unsorted = User.find(:all)
-    @users = users_unsorted.sort {|a,b| b.stories.size <=> a.stories.size}    
+    @users = users_unsorted.sort {|a,b| b.stories.size <=> a.stories.size}
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
       # format.mobilesafari
     end
   end
-  
+
   def settings
     @page_title = "Settings"
     if not logged_in?
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       @user = current_user
     end
   end
-  
+
   def update
     if not logged_in?
       flash[:alert] = "You need to login to change settings."
@@ -66,14 +66,14 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def forgot_password
     @page_title = "Forgot password"
     if logged_in?
       redirect_to change_password_url
     end
   end
-  
+
   def send_reset
     if logged_in?
       redirect_to change_password_url
@@ -93,7 +93,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def reset_password
     if logged_in?
       redirect_to change_password
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def update_password_on_reset
     @user = User.find_by_reset_code(params[:current_reset_code])
     if @user.update_attributes(params[:user])
@@ -122,10 +122,10 @@ class UsersController < ApplicationController
       redirect_to root_url
     end
   end
-  
+
   def create
     cookies.delete :auth_token
-    # protects against session fixation attacks, wreaks havoc with 
+    # protects against session fixation attacks, wreaks havoc with
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
@@ -134,7 +134,7 @@ class UsersController < ApplicationController
     if @user.errors.empty?
       UserMailer.signup_notification(@user).deliver
       redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up, we've sent you an activation email. 
+      flash[:notice] = "Thanks for signing up, we've sent you an activation email.
       \nPlease verify your email by clicking on the activation link in that email."
     else
       render :action => 'new'
@@ -149,6 +149,6 @@ class UsersController < ApplicationController
     end
     redirect_back_or_default('/')
   end
-    
+
 
 end

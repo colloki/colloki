@@ -1,5 +1,5 @@
 <a href="<%= @root_url %>" title="Colloki Home">
-  <h1 class="white">Home</h1>
+  <h1>What's new?</h1>
 </a>
 <div id="rightPanel">
   <% if !logged_in? %>
@@ -16,19 +16,23 @@
     <h2>New Users</h2>
     <% for user in @new_users %>
       <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
-      <% end %>
+    <% end %>
   </div>
 </div>
 <div id="contentPanel">
+  <% i = 0 %>
   <% for topic in @topics %>
-    <%=render :partial => "partials/topic_index_item", :locals => {:topic => topic} %>
+    <% if i == 0 %>
+      <%= render :partial => "partials/topic_index_item_layout_1", :locals => {:topic => topic} %>
+    <% else %>
+      <%= render :partial => "partials/topic_index_item", :locals => {:topic => topic} %>
+    <% end %>
+    <% i+=1 %>
   <% end %>
-</div>
-<% if logged_in? %>
-  <div class="buttons">
-    <a href="<%=new_topic_path%>" class="positive">
+  <% if logged_in? %>
+    <a href="<%=new_topic_path%>" class="positive button">
       <%= image_tag "add.gif" %>
       New Topic
     </a>
-  </div>
-<% end %>
+  <% end %>
+</div>

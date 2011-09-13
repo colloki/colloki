@@ -11,13 +11,13 @@ class User < ActiveRecord::Base
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
-  
+
   #Adding email validation
   validates_format_of :email,
       :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
       :message => "can only be a valid Email"
-  
-  
+
+
   #facebook profile URL validation
   validates_format_of :facebook_url,
               :with => /^$|(^(http|https):\/\/.*facebook.com.*profile\.php.*)/ix,
@@ -33,13 +33,13 @@ class User < ActiveRecord::Base
   validates_format_of :linkedin_url,
               :with => /(^$)|(^(http):\/\/.*linkedin\.com.*)/ix,
               :message => "can only be a valid LinkedIn Profile URL."
-  
+
   before_save :encrypt_password
-  before_create :make_activation_code 
+  before_create :make_activation_code
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :realname, :website, :bio, :location, :twitter_id, :delicious_id, :friendfeed_id, :linkedin_url, :facebook_url
-  
+
   #Relationships
   has_many :comments, :dependent => :destroy
   has_many :stories, :dependent => :destroy
@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   has_many :topics
 
   acts_as_voter
-  
+
   # Activates the user in the database.
   def activate
     @activated = true
@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   end
 
   def remember_token?
-    remember_token_expires_at && Time.now.utc < remember_token_expires_at 
+    remember_token_expires_at && Time.now.utc < remember_token_expires_at
   end
 
   # These create and unset the fields required for remembering users between browser closes
@@ -120,27 +120,25 @@ class User < ActiveRecord::Base
 
   def User.top_in_topic(topic_id)
       #TODO: very soon we will need to do this differently, with a seperate table.
-      User.find_by_sql("SELECT a.id, a.email, a.login, a.activated_at, 
-        (SELECT count(*) FROM stories b WHERE b.user_id = a.id AND topic_id = #{topic_id}) as story_count FROM users a WHERE 
+      User.find_by_sql("SELECT a.id, a.email, a.login, a.activated_at,
+        (SELECT count(*) FROM stories b WHERE b.user_id = a.id AND topic_id = #{topic_id}) as story_count FROM users a WHERE
         a.activated_at IS NOT NULL
         LIMIT 0, 10")
   end
 
   protected
-    # before filter 
+    # before filter
     def encrypt_password
       return if password.blank?
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
       self.crypted_password = encrypt(password)
     end
-      
+
     def password_required?
       crypted_password.blank? || !password.blank?
     end
-    
+
     def make_activation_code
       self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     end
-    
-    
 end

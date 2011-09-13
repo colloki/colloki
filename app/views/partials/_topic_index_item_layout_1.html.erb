@@ -4,12 +4,14 @@
       <%= topic.title %>
     </h2>
   </a>
+  <% story_no = 0 %>
   <% for story in topic.stories %>
-    <div class="storyItemLayout2">
+    <div class="storyItemLayout1">
       <h4>
         <%= link_to story.title, story %><br>
       </h4>
-      <%= truncate(strip_tags(story.description), :length => 240, :omission => "...") %>
+      <%= truncate(strip_tags(story.description), :length => 150, :omission => "...") %>
     </div>
+    <% story_no += 1 %>
   <% end %>
 </div>

@@ -1,4 +1,4 @@
-class StoriesController < ApplicationController 
+class StoriesController < ApplicationController
 
   uses_yui_editor
 
@@ -26,16 +26,16 @@ class StoriesController < ApplicationController
     elsif params[:id] == 'newest'
       @title = "Slurp! Latest Stories"
       @description = "Newest stories on the slurp link sharing site"
-      @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}     
+      @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}
     elsif (params[:id] == 'tag') && (params[:id2])
       @title = "Slurp! Stories tagged " + params[:id2]
       @description = "Stories on slurp tagged with " + params[:id2]
       tag_list = params[:id2].split('+')
       stories_unsorted = Story.find_tagged_with(tag_list, :match_all => true)
-      @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}     
+      @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}
     else
       #default sort by popular
-      @stories = stories_unsorted.sort{|a,b| (b.views/10) + b.votes_for - b.votes_against + b.comments.count <=> (a.views/10) + a.votes_for - a.votes_against + a.comments.count}        
+      @stories = stories_unsorted.sort{|a,b| (b.views/10) + b.votes_for - b.votes_against + b.comments.count <=> (a.views/10) + a.votes_for - a.votes_against + a.comments.count}
       @title = "Slurp! Popular Stories"
       @description = "Popular stories on the slurp link sharing site"
     end
@@ -49,12 +49,12 @@ class StoriesController < ApplicationController
     if (!@story)
       redirect_to root_url
     end
-    
-    @topic = Topic.find(@story.topic_id)    
+
+    @topic = Topic.find(@story.topic_id)
     @page_title = @story.title
     if @story.views == nil
       @story.views = 1
-    else 
+    else
       @story.views = @story.views + 1
     end
     @story.update_popularity
@@ -75,14 +75,14 @@ class StoriesController < ApplicationController
       @topic = Topic.find(params[:topic_id])
       @story = @topic.stories.build
       @page_title = "Add a " + params[:kind] + " to " + @topic.title
-      if (params[:kind]=="link")      
+      if (params[:kind]=="link")
         @story.kind = Story::Link
         if params[:url]
           @story.url = params[:url]
         end
         if params[:title]
           @story.title = params[:title]
-        end      
+        end
         if params[:desc]
           @story.description = params[:desc]
         end
@@ -98,16 +98,16 @@ class StoriesController < ApplicationController
   end
 
   # GET /stories/1/edit
-  def edit    
+  def edit
     if not logged_in?
       flash[:alert] = "You need to login to edit stories."
       redirect_to :back
     elsif not current_user.id == Story.find(params[:id]).user.id
       flash[:alert] = "You need to be the author of the story to edit it."
-      redirect_to :back      
+      redirect_to :back
     else
       @story = Story.find(params[:id])
-      @page_title = "Edit " + @story.title      
+      @page_title = "Edit " + @story.title
     end
   end
 
@@ -123,14 +123,14 @@ class StoriesController < ApplicationController
       if @story.save
         #TODO: Validate proper URL if its kind is link
         if @story.is_link?
-          current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreateLinkType)              
+          current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreateLinkType)
         else
-          current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreatePostType)              
+          current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreatePostType)
         end
 
         if params[:redirect]
           redirect_to(params[:redirect])
-        else 
+        else
           flash[:notice] = 'Story was successfully created.'
           redirect_to(@story)
         end
@@ -142,7 +142,7 @@ class StoriesController < ApplicationController
     else
       flash[:alert] = "You need to login to create stories."
       logger.debug "[DEBUG] User didn't log on before trying to create a story."
-      render :action => 'new'      
+      render :action => 'new'
     end
   end
 
@@ -154,7 +154,7 @@ class StoriesController < ApplicationController
       redirect_to :back
     elsif not current_user.id == Story.find(params[:id]).user.id
       flash[:alert] = "You need to be the author of the story to edit it."
-      redirect_to :back      
+      redirect_to :back
     else
       @story = Story.find(params[:id])
       @story.update_popularity
@@ -179,15 +179,15 @@ class StoriesController < ApplicationController
       redirect_to :back
     elsif not current_user.id == Story.find(params[:id]).user.id
       flash[:alert] = "You need to be the author of the story to edit it."
-      redirect_to :back      
-    else    
+      redirect_to :back
+    else
       @story = Story.find(params[:id])
       @topic = @story.topic
       @story.destroy
       redirect_to @topic
     end
   end
-  
+
   def comment
     if logged_in?
       @story = Story.find(params["id"])
@@ -197,14 +197,14 @@ class StoriesController < ApplicationController
       #Update the story's popularity
       @story.update_popularity
       @story.save
-      
+
       flash[:notice] = "Successfully created your comment."
     else
       flash[:alert] = "You cannot comment without logging in, so quit trying!"
     end
     redirect_to :action=>"show", :id => params[:id]
-  end  
-  
+  end
+
 
   def delete_comment
     if logged_in?
@@ -220,47 +220,36 @@ class StoriesController < ApplicationController
       redirect_to :back
     end
   end
-  
-  #TODO: Review this method. There's weirdness in here.
+
+  #TODO: Make it ajaxy
   def vote
     if logged_in?
-      @story = Story.find(params[:id])
-	    @posVotes = Vote.for_voter_pos(current_user).for_voteable(@story)
-	    @negVotes = Vote.for_voter_neg(current_user).for_voteable(@story)
-      if @posVotes.count() - @negVotes.count() <= 0
-		    #TODO: This voting plugin is complicating the voting logic, which should essentially have been very simple. Get rid of it.
-		    current_user.vote_for(@story)
-        
-        #Update popularity
+      story = Story.find(params[:id])
+      if !current_user.voted_on?(story)
+        current_user.vote_for(story)
         @story.update_popularity
         @story.save
-        
         current_user.activity_items.create(:story_id => @story.id, :topic_id => @story.topic_id, :kind => ActivityItem::VoteType)
       else
-		    flash[:alert] = "You cannot vote multiple times, so quit trying!"
-	    end
+        flash[:alert] = "You cannot vote multiple times, so quit trying!"
+      end
     else
       flash[:alert] = "You cannot vote without logging in, so quit trying!"
     end
     redirect_to :back
   end
-  
+
+  #TODO: Make it ajaxy
   def unvote
     if logged_in?
       @story = Story.find(params[:id])
-	    @posVotes = Vote.for_voter_pos(current_user).for_voteable(@story)
-	    @negVotes = Vote.for_voter_neg(current_user).for_voteable(@story)
-      if @posVotes.count() - @negVotes.count() > 0
-	      current_user.vote_against(@story)
-
-	      #Update popularity
+      if current_user.voted_on?(@story)
+        current_user.vote(@story, false)
         @story.update_popularity
         @story.save
-	      
-        #Delete the vote activity item.
+
         activity_item = ActivityItem.find(:first, :conditions => {:user_id => current_user, :story_id => @story.id, :kind => ActivityItem::VoteType}, :order => "created_at DESC")
         activity_item.delete
-
       else
         flash[:alert] = "You cannot un-vote multiple times."
       end
@@ -269,17 +258,8 @@ class StoriesController < ApplicationController
     end
     redirect_to :back
   end
- 
+
   def feed_interface
     @error_msg = params[:error_msg]
   end
-   
-  # This action - we'll define it later - will be used to measure exactly how many actual
-  # hits happened.
-  
-  # def hit
-  #   @story = Story.find(params[:id])
-  #   #TODO: Currently susceptible to gaming. Need to look into using IP.
-  #   if logged_in?
-  #     if not @story.user.id == current_user.id
 end

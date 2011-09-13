@@ -4,7 +4,7 @@ class ActsAsVoteableMigration < ActiveRecord::Migration
      t.boolean    :vote, :default => false
      t.references :voteable, :polymorphic => true, :null => true
      t.references :voter,    :polymorphic => true
-     t.timestamps      
+     t.timestamps
    end
 
    add_index :votes, ["voter_id", "voter_type"],       :name => "fk_voters"

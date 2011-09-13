@@ -21,18 +21,20 @@
       <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
     </div>
 </div>
+
 <% #CRITICAL TODO: sanitize() or white_list() this. %>
+
 <div class="storyDescription">
   <%= @story.description %>
 </div>
 <div class="storyMeta">
   <%if logged_in? and @story.user_id == current_user.id%>
     <div style="float: right; clear: both;">
-      <div class="buttons" align="right">
-        <a href="<%=edit_story_path(@story)%>" >
+      <div align="right">
+        <a class="button" href="<%=edit_story_path(@story)%>" >
           Edit
         </a>
-        <%= link_to 'Delete', @story, :confirm => 'Are you sure you want to delete this post? You will not be able to restore it later.', :method => :delete, :class => "negative" %>
+        <%= link_to 'Delete', @story, :confirm => 'Are you sure you want to delete this post? You will not be able to restore it later.', :method => :delete, :class => "negative button" %>
       </div>
     </div>
   <%end%>
@@ -52,22 +54,29 @@
 </div>
 
 </div>
-<!--TODO: Support some level of formatting in comments -->
-<% for comment in @story.comments%>
+
+<% for comment in @story.comments %>
 <div class="commentContent">
   <div class="comment"><%= comment.body %></div>
   <div class="commentMeta">
     <%if logged_in? and comment.user_id == current_user.id%>
-    <div style="float: right; clear: both;">
-      <div align="right">
-        <%= link_to 'Delete', url_for(:controller => "stories", :action => "delete_comment", :id=>@story.id, :cid=>comment.id), :confirm => 'Are you sure you want to delete this comment?', :class => "negative" %>
+      <div class="commentDeleteLink">
+          <%= link_to 'Delete', url_for(:controller => "stories",
+          :action => "delete_comment",
+          :id => @story.id,
+          :cid => comment.id),
+          :confirm => 'Are you sure you want to delete this comment?',
+          :class => "negative" %>
       </div>
-    </div>
     <%end%>
-  <div class="commentInfo"><%= link_to comment.user.login, {:controller=>"users", :action=>"show", :id=>comment.user.id}%> on <%= comment.created_at.to_s(:cool)%> (<%= time_ago_in_words comment.created_at %> ago).</div>
+  <div class="commentInfo"><%= link_to comment.user.login, {
+    :controller=> "users",
+    :action => "show",
+    :id => comment.user.id} %> on <%= comment.created_at.to_s(:cool)%> (<%= time_ago_in_words comment.created_at %> ago).</div>
   </div>
 </div>
 <% end %>
+
 <h2>Add a response</h2>
 <% if logged_in? %>
 <%= form_tag :action => "comment" , :id => @story.id %>
@@ -75,5 +84,7 @@
   <%= submit_tag "Comment!"%>
 </form>
 <% else %>
-<p><i>Sign up or login to comment</i></p>
+<p>
+  <i>Sign up or login to comment</i>
+</p>
 <% end %>

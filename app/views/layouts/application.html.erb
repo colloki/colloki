@@ -20,7 +20,7 @@
     </a>
     <div id="userInfo">
       <% if logged_in? %>
-      <span>You are logged in as: <%= link_to current_user.login, current_user %> | </span>
+      <span><%= link_to current_user.login, current_user %> | </span>
       <%= link_to "Settings", settings_url%> |
       <%= link_to "Logout", logout_url%>
       <% else %>
@@ -43,10 +43,9 @@
   <div id="content">
     <%= yield %>
   </div>
-</div>
-
-<div id="footer">
-  <%= link_to "About", about_url %> | <%= link_to "Changelog", changelog_url %>
+  <div id="footer">
+    <%= link_to "About", about_url %> | <%= link_to "Changelog", changelog_url %>
+  </div>
 </div>
 </body>
 </html>

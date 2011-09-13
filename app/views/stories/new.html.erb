@@ -22,12 +22,10 @@
     <%= f.text_field :tag_list, :size => 50 %>
   </p>
   <p>
-    <div class="buttons">
-    <button type="submit" class="positive">
-      <%= image_tag "add.gif" %>
-      Create Post
-    </button>
-    </div>
+  <button type="submit" class="positive">
+    <%= image_tag "add.gif" %>
+    Create Post
+  </button>
   </p>
 <% end %>
 <%elsif @story.kind ==  Story::Link%>
@@ -63,19 +61,15 @@
   <p>
   <%if params[:url]%>
   <%=hidden_field_tag 'redirect', params[:url]%>
-  <div class="buttons">
-    <button type="submit" class="positive">
-      <%= image_tag "add.gif" %>
-      Create link and return to site
-    </button>
-  </div>
+  <button type="submit" class="positive">
+    <%= image_tag "add.gif" %>
+    Create link and return to site
+  </button>
   <%else%>
-  <div class="buttons">
-    <button type="submit" class="positive">
-      <%= image_tag "add.gif" %>
-      Create Link
-    </button>
-  </div>
+  <button type="submit" class="positive">
+    <%= image_tag "add.gif" %>
+    Create Link
+  </button>
   <%end%>
   </p>
 <% end %>

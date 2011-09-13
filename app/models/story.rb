@@ -10,7 +10,7 @@ class Story < ActiveRecord::Base
   validates_presence_of :kind
 
   validates_presence_of :url, :if => :is_link?
-  # CRITICAL TODO: This no longer works with deployment setup of 2.3.2. Not sure if its due to the rails upgrade, or that there is some gem required. 
+  # CRITICAL TODO: This no longer works with deployment setup of 2.3.2. Not sure if its due to the rails upgrade, or that there is some gem required.
   #  validates_uri_existence_of :url, :if => :is_link?,:with =>
   #          /(^$)|(^(http|https):*)/ix
 
@@ -18,7 +18,7 @@ class Story < ActiveRecord::Base
               :with => /(^$)|(^(http|https):*)/ix,
               :message => "can only be a valid URL."
   belongs_to :user
-  belongs_to :topic  
+  belongs_to :topic
   has_many :comments, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
 
@@ -28,8 +28,8 @@ class Story < ActiveRecord::Base
   def is_link?
     kind == Story::Link
   end
-  
-  # Regenerate the popularity score. Note: 
+
+  # Regenerate the popularity score. Note:
   # * The score is an INT. Did not want to introduce floating point calculations for this.
   # * This method DOES NOT save. You need to do that seperately.
   def update_popularity
@@ -44,5 +44,4 @@ class Story < ActiveRecord::Base
       story.save
     end
   end
-
 end
