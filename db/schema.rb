@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110912195647) do
+ActiveRecord::Schema.define(:version => 20110918230807) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 20110912195647) do
     t.text     "body"
     t.integer  "user_id",    :null => false
     t.integer  "story_id",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "provider_authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,9 +91,6 @@ ActiveRecord::Schema.define(:version => 20110912195647) do
     t.string   "website"
     t.string   "bio"
     t.string   "location"
-    t.string   "twitter_id"
-    t.string   "linkedin_url"
-    t.string   "facebook_url"
     t.string   "reset_code",                :limit => 40
   end
 

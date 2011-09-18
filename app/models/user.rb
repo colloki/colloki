@@ -12,27 +12,15 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
 
-  #Adding email validation
+  # Email validation
   validates_format_of :email,
       :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
       :message => "can only be a valid Email"
 
-
-  #facebook profile URL validation
-  validates_format_of :facebook_url,
-              :with => /^$|(^(http|https):\/\/.*facebook.com.*profile\.php.*)/ix,
-              :message => "can only be a valid Facebook Profile URL."
-
-  #Website URL validation
+  # Website URL validation
   validates_format_of :website,
               :with => /^$|(^(http|https):\/\/.+\..+)/ix,
               :message => "can only be a valid URL."
-
-
-  #linkedin profile URL validation
-  validates_format_of :linkedin_url,
-              :with => /(^$)|(^(http):\/\/.*linkedin\.com.*)/ix,
-              :message => "can only be a valid LinkedIn Profile URL."
 
   before_save :encrypt_password
   before_create :make_activation_code
@@ -40,11 +28,12 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :realname, :website, :bio, :location, :twitter_id, :delicious_id, :friendfeed_id, :linkedin_url, :facebook_url
 
-  #Relationships
+  # Relationships to other models
   has_many :comments, :dependent => :destroy
   has_many :stories, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
   has_many :topics
+  has_many :provider_authentications
 
   acts_as_voter
 
@@ -118,6 +107,14 @@ class User < ActiveRecord::Base
     self.reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
+  def apply_omniauth(omniauth)
+    self.email = omniauth['user_info']['email'] if email.blank?
+    if login.blank?
+      self.login = omniauth['user_info']['nickname']
+    end
+    provider_authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  end
+
   def User.top_in_topic(topic_id)
       #TODO: very soon we will need to do this differently, with a seperate table.
       User.find_by_sql("SELECT a.id, a.email, a.login, a.activated_at,
@@ -135,7 +132,7 @@ class User < ActiveRecord::Base
     end
 
     def password_required?
-      crypted_password.blank? || !password.blank?
+      provider_authentications.empty? && (crypted_password.blank? || !password.blank?)
     end
 
     def make_activation_code

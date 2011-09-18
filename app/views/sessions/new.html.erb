@@ -1,24 +1,43 @@
-<h1 class="green">Login to Slurp!</h1>
+<h1>Sign in to Colloki</h1>
+<br>
+
 <%= flash[:error] %>
-<%= form_tag create_session_path do %>
-<p><label for="login">Username or Email</label><br/>
-<%= text_field_tag 'login' %></p>
 
-<p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
+<%= form_tag create_session_path, :id => "login_form" do %>
 
-<p><label for="remember_me">Remember me:</label>
-<%= check_box_tag 'remember_me' %></p>
+<%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
+<%= link_to content_tag(:div, "", :id => 'facebook_signin_bt'), "auth/facebook" %>
+
+<div style="font-style:italic; margin: 20px 0">
+  or
+</div>
+
+<p>
+  <label for="login">Username or Email</label>
+  <%= text_field_tag 'login' %>
+</p>
+
+<p>
+  <label for="password">Password</label>
+  <%= password_field_tag 'password' %>
+</p>
+<p>
+  <label for="remember_me">
+    <%= check_box_tag 'remember_me' %>
+    Remember me
+  </label>
+
+  <button type="submit" class="positive button" style="float: right">
+    Sign In
+  </button>
+</p>
 
 <%= hidden_field_tag 'redir', @redir %>
 
-<p>
-	<div class="buttons">
-	<button type="submit" class="positive">
-    Login
-	</button>
-	</div>
+<br><br><br><br>
+<p style="text-align: center">
+  <%= link_to "Forgot your password?", forgot_password_url %>&nbsp;&nbsp;
+  <%= link_to "Join Colloki", signup_url %>
 </p>
+
 <% end %>
-<br><br>
-<p><%= link_to "Forgot your password?", forgot_password_url%></p>

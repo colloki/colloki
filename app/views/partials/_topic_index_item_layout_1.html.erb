@@ -10,7 +10,21 @@
       <h4>
         <%= link_to story.title, story %><br>
       </h4>
-      <%= truncate(strip_tags(story.description), :length => 150, :omission => "...") %>
+      <div class="storyItemContent">
+        <%= truncate(strip_tags(story.description), :length => 150, :omission => "...") %>
+      </div>
+      <div class="storyItemMeta">
+        <% if story.kind == Story::Link %>
+          Shared by
+        <% else %>
+          Posted by
+        <% end %>
+        <%= link_to story.user.login, {
+          :controller => "users",
+          :action => "show", :id => story.user.id }
+        %> •
+        <%= time_ago_in_words story.created_at %> ago • <%=link_to story.comments.count.to_s + " comments", story %>
+      </div>
     </div>
     <% story_no += 1 %>
   <% end %>

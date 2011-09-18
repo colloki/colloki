@@ -24,22 +24,19 @@
       <%= link_to "Settings", settings_url%> |
       <%= link_to "Logout", logout_url%>
       <% else %>
-      <span>Welcome Guest. </span>
-      <%= link_to "Login", login_url%> to create, vote on and update links |
-      <%= link_to "Sign Up", signup_url%> to join in the fun
+      <%= link_to "Sign in", login_url%> to create, vote and comment on stories
       <% end %>
     </div>
   </div>
 </div>
 
-<% if flash[:notice] %>
-  <div class="notice"><%= flash[:notice] %></div>
-<%end%>
-<% if flash[:alert] %>
-  <div class="alert"><%= flash[:alert] %></div>
-<%end%>
-
 <div id="wrap">
+  <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+  <%end%>
+  <% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+  <%end%>
   <div id="content">
     <%= yield %>
   </div>

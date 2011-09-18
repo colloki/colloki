@@ -125,12 +125,15 @@ class UsersController < ApplicationController
 
   def create
     cookies.delete :auth_token
+
     # protects against session fixation attacks, wreaks havoc with
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
+
     @user = User.new(params[:user])
     @user.save
+
     if @user.errors.empty?
       UserMailer.signup_notification(@user).deliver
       redirect_back_or_default('/')
@@ -149,6 +152,5 @@ class UsersController < ApplicationController
     end
     redirect_back_or_default('/')
   end
-
 
 end

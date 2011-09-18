@@ -4,18 +4,19 @@
   <div class="sidebar_block">
     <a href="<%=new_topic_story_path(@topic, :kind=>'link')%>" class="positive button">
       <%= image_tag "add.gif"%>
-      Add a link
+      Share Link
     </a>
     <a href="<%=new_topic_story_path(@topic, :kind=>'post')%>" class="positive button">
         <%= image_tag "add.gif"%>
-      Add a post
+      Write a Post
     </a>
     <br>
   </div>
   <div class="sidebar_block">
     <h2>Tag Cloud</h2>
-    <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => @topic.id }%>
-    <p></p>
+      <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => @topic.id }%>
+  </div>
+  <div class="sidebar_block">
     <h2>Latest Activity</h2>
     <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items}%>
   </div>
@@ -28,23 +29,21 @@
     <%end%>
   </div>
 </div>
+<!-- <div id="sortOptions">
+  Sort by:
+  <%= renderSortTab('Popularity',   topical_url(:id => @topic.id, :tab => params[:tab], :sort => 'popular'), 'popular')%>
+  <%= renderSortTab('Date', topical_url(:id => @topic.id, :tab => params[:tab], :sort => 'newest'), 'newest')%>
+</div> -->
 <div id="contentPanel">
-  <div id="<%=params[:tab]%>">
+  <!-- <div id="<%=params[:tab]%>">
     <ul id="tabnav">
       <li class="all"><a href="<%= topical_url(:id => @topic.id, :tab => "all") %>">All</a></li>
       <li class="links"><a href="<%= topical_url(:id => @topic.id, :tab => "links") %>">Links</a></li>
       <li class="posts"><a href="<%= topical_url(:id => @topic.id, :tab => "posts") %>">Posts</a></li>
     </ul>
-  </div>
-  <div class="tabContent">
-    <div id="sortOptions">
-      Sort by:
-      <%= renderSortTab('Popularity',   topical_url(:id => @topic.id, :tab => params[:tab], :sort => 'popular'), 'popular')%>
-      <!-- TODO: Figure out a query for sorting by votes-->
-      <!-- <%= renderSortTab('Votes',topical_url(:id => @topic.id, :tab => params[:tab], :sort => 'votes'), 'votes')%>  -->
-      <%= renderSortTab('Date', topical_url(:id => @topic.id, :tab => params[:tab], :sort => 'newest'), 'newest')%>
-    </div>
-    <%=render :partial => "partials/story_items", :locals => { :stories => @stories }%>
-    <%= will_paginate @stories %>
-  </div>
+  </div> -->
+  <!-- <div class="tabContent"> -->
+  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+  <%= will_paginate @stories %>
+  <!-- </div> -->
 </div>

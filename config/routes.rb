@@ -1,20 +1,23 @@
 Colloki::Application.routes.draw do
+  resources :provider_authentications
+
   resources :topics do
     resources :stories
   end
-  
+
   resources :stories
-  
+
   resources :comments, :users, :session
 
   root :to => 'topics#index'
-  
+
   # sitealizer
   match '/sitealizer/:action', :to => 'sitealizer'
 
   match '/settings', :to => 'users#settings', :as => 'settings'
   match '/activate/:activation_code', :to => 'users#activate', :as => 'activate'
   match '/signup', :to => 'users#new', :as => 'signup'
+  match '/complete_signup', :to => 'provider_authentications#complete_signup', :as => 'complete_signup'
   match '/login', :to => 'sessions#new', :as => 'login'
   match '/logout', :to => 'sessions#destroy', :as => 'logout'
   match '/session/create', :to => 'sessions#create', :as => 'create_session'
@@ -28,9 +31,11 @@ Colloki::Application.routes.draw do
 
   match '/topics/:id/tag/:tag_list', :to => 'topics#tag', :as => 'tags'
   match '/tag/:tag_list', :to => 'topics#tag', :as => 'global_tags'
-  
+
   match '/topics/:id/:tab/:sort', :to => 'topics#show', :tab => 'all', :sort => 'popular', :as => 'topical'
   match '/topics/:id', :to => 'topics#show', :tab => 'all', :sort => 'popular'
-  
+
+  match '/auth/:provider/callback', :to => 'provider_authentications#create'
+
   match ':controller(/:action(/:id(/:id2)))'
 end

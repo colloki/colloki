@@ -54,3 +54,7 @@ pickle-email-*.html
 
 # RVM
 .rvmrc
+
+# Colloki-specific
+
+config/initializers/omniauth.rb

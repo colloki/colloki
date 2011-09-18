@@ -5,24 +5,6 @@
         <%= gravatar_image_tag(@user.email) %>
       </td>
       <td valign="top">
-        <div class="right-top">
-        <% if @user.twitter_id and @user.twitter_id != ''%>
-          <a title="<%=@user.login%> on twitter" href="http://twitter.com/<%=@user.twitter_id%>">
-            <%= image_tag "sites/twitter.png"%>
-          </a>
-        <%end%>
-        <% if @user.facebook_url and @user.facebook_url != ''%>
-          <a title="<%=@user.login%> on facebook" href="<%=@user.facebook_url%>">
-            <%= image_tag "sites/facebook.png"%>
-          </a>
-        <%end%>
-        <% if @user.linkedin_url and @user.linkedin_url != ''%>
-          <a title="<%=@user.login%> on linkedin" href="<%=@user.linkedin_url%>">
-            <%= image_tag "sites/linkedin.png"%>
-          </a>
-        <%end%>
-        </div>
-
         <h3>
         <% if @user.realname and @user.realname != ''%>
           <%= @user.realname %> /
@@ -44,9 +26,10 @@
 </div>
 
 <div id="rightPanel">
-
-  <h2><%=@user.login%>'s tag cloud</h2>
-  <%=render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false }%>
+  <h2>
+    <%=@user.login%>'s tag cloud
+  </h2>
+  <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
 <br>
   <h2><%=@user.login%>'s latest comments</h2>
 
@@ -61,6 +44,5 @@
 <div id="contentPanel">
   <h2>Latest from <%=@user.login%></h2>
   <!-- TODO: Pagination here -->
-  <%=render :partial => "partials/story_items", :locals => { :stories => @stories }%>
+  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>
-

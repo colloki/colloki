@@ -35,6 +35,12 @@ body, p, ol, ul, td {
   border: 1px solid #e7ecf0;
 }
 
+.topicListItem h2:hover {
+  color: #333;
+  background-color: #e4edf7;
+  -webkit-transition: background-color 1s;
+}
+
 pre {
   background-color: #eee;
   padding: 10px;
@@ -106,7 +112,7 @@ a.bookmarklet {
 }
 
 #header a {
-  color: #fff;
+  color: #fff36b;
 }
 
 #header_wrap {
@@ -116,6 +122,7 @@ a.bookmarklet {
 
 #header_title {
   display: inline-block;
+  color: #fff !important;
 }
 
 #userInfo {
@@ -250,16 +257,7 @@ div.storyHeaderTagList {
 }
 
 .stories {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top:  18px;
-  margin-bottom: 4px;
-  border-bottom: 1px dashed #CCCCCC;
-}
-
-.storyItemLayout2 {
-  padding: 5px 0;
-  margin: 0px;
+  overflow: auto;
 }
 
 .storyItemLayout1 {
@@ -267,12 +265,19 @@ div.storyHeaderTagList {
   width: 200px;
   padding: 5px 25px 0 0;
   min-height: 100px;
+  margin: 0;
+}
+
+.storyItemLayout2 {
+  padding: 5px 0;
+  margin: 0px;
 }
 
 .storyItemMeta {
   font-size: 10px;
   clear: none;
   color: #646464;
+  margin-top: 5px;
 }
 
 .storyItemMeta a {
@@ -288,8 +293,8 @@ div.storyHeaderTagList {
   width: 60px;
 }
 
-.storyItemContentPanel {
-  margin-left: 64px;
+.storyItemContent {
+  margin-bottom: 10px;
 }
 
 #contentPanel {
@@ -321,12 +326,17 @@ div.storyHeaderTagList {
 #wrap {
   width: 960px;
   margin: 0 auto;
+  padding-top: 5px;
 }
 
 #content {
   min-width: 750px;
   min-height: 600px;
   overflow: auto;
+}
+
+.storyTagList {
+  margin: 5px 0;
 }
 
 .tag {
@@ -508,7 +518,7 @@ h2 {
 
 h3 {
   margin: 0;
-  padding: 0px 0px 3px;
+  padding: 0px 0px 5px;
 }
 
 h4 {
@@ -666,7 +676,7 @@ textarea:focus {
 
 #sortOptions {
   text-align: right;
-  padding-top: 10px;
+  padding: 10px 0;
 }
 
 .tabContent {
@@ -838,3 +848,37 @@ a.button.negative:active {
 }
 
 /* BUTTONS END */
+
+/** Login Form **/
+
+#login_form {
+  width: 350px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#login_form label {
+  width: 190px;
+  float: left;
+  margin-top: 5px;
+  text-align: left;
+}
+
+#login_form p {
+  text-align: left;
+}
+
+#facebook_signin_bt {
+  display: inline-block;
+  width: 150px;
+  height: 23px;
+  background: 0px -24px url('../images/facebook_signin.png');
+}
+
+#facebook_signin_bt:hover {
+  background: 0px 0px url('../images/facebook_signin.png');
+}
+
+#facebook_signin_bt:active {
+  background: 0px 23px url('../images/facebook_signin.png');
+}
