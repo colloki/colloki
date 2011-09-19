@@ -2,10 +2,9 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.xml
   def index
-    @page_title = "Home"
-    @topics = Topic.find(:all, :include => :stories)
-    @topics.sort! { |a,b| b.stories.count <=> a.stories.count }
-    @activity_items = ActivityItem.all(:order =>"created_at DESC", :limit => 10)
+    @page_title = "Top Stories"
+    @stories = Story.all(:order => "popularity DESC")
+    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 10)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
 
     respond_to do |format|

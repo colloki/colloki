@@ -21,22 +21,49 @@
     <div id="userInfo">
       <% if logged_in? %>
       <span><%= link_to current_user.login, current_user %> | </span>
-      <%= link_to "Settings", settings_url%> |
-      <%= link_to "Logout", logout_url%>
+      <%= link_to "Settings", settings_url %> |
+      <%= link_to "Logout", logout_url %>
       <% else %>
-      <%= link_to "Sign in", login_url%> to create, vote and comment on stories
+      <%= link_to "Sign in", login_url %> to create, vote and comment on stories
       <% end %>
     </div>
   </div>
 </div>
-
+<div id="topicsPanel">
+  <h1>Sections</h1>
+  <% if @topics %>
+    <ul id="topics">
+      <% if request.fullpath == "/" %>
+        <li class="selected">
+      <% else %>
+        <li>
+      <% end %>
+        <a href="/">Top stories</a>
+      </li>
+      <li>
+        <a href="/">Latest</a>
+      </li>
+      <div class="separator"></div>
+      <% for topic in @topics %>
+        <% if (@story and @story.topic_id == topic.id) ||
+          (@topic and @topic.id == topic.id) %>
+          <li class="selected">
+        <% else %>
+          <li>
+        <% end %>
+        <%= link_to topic.title, topical_path(topic) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 <div id="wrap">
   <% if flash[:notice] %>
     <div class="notice"><%= flash[:notice] %></div>
-  <%end%>
+  <% end %>
   <% if flash[:alert] %>
     <div class="alert"><%= flash[:alert] %></div>
-  <%end%>
+  <% end %>
   <div id="content">
     <%= yield %>
   </div>

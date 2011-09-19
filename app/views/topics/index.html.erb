@@ -1,5 +1,5 @@
-<a href="<%= @root_url %>" title="Colloki Home">
-  <h1>What's new?</h1>
+<a href="<%= @root_url %>">
+  <h1>Top Stories</h1>
 </a>
 <div id="rightPanel">
   <% if !logged_in? %>
@@ -21,18 +21,12 @@
 </div>
 <div id="contentPanel">
   <% i = 0 %>
-  <% for topic in @topics %>
-    <% if i == 0 %>
-      <%= render :partial => "partials/topic_index_item_layout_1", :locals => {:topic => topic} %>
+  <% for story in @stories %>
+    <% if i < 3 %>
+      <%= render :partial => "partials/story_item_layout_1", :locals => {:story => story} %>
     <% else %>
-      <%= render :partial => "partials/topic_index_item", :locals => {:topic => topic} %>
+      <%= render :partial => "partials/story_item_layout_2", :locals => {:story => story} %>
     <% end %>
-    <% i+=1 %>
-  <% end %>
-  <% if logged_in? %>
-    <a href="<%=new_topic_path%>" class="positive button">
-      <%= image_tag "add.gif" %>
-      New Topic
-    </a>
+    <% i += 1 %>
   <% end %>
 </div>
