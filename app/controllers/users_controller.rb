@@ -49,6 +49,13 @@ class UsersController < ApplicationController
       redirect_to root_url
     else
       @user = current_user
+      for authentication in @user.provider_authentications
+        if authentication[:provider] == "twitter"
+          @is_twitter_connected = true
+        elsif authentication[:provider] == "facebook"
+          @is_facebook_connected = true
+        end
+      end
     end
   end
 

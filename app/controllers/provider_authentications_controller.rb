@@ -11,21 +11,26 @@ class ProviderAuthenticationsController < ApplicationController
     omniauth = request.env["omniauth.auth"]
     authentication = ProviderAuthentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 
-    # Log the user in
+    # If the authentication exists, log the user in
     if authentication
       self.current_user = authentication.user
       redirect_to("/", :notice => "Logged in successfully")
 
-    # Create a new authentication for the user
+    # If the user is already logged in, create a new authentication for the user
     elsif current_user
       current_user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      redirect_to("/", :notice => "Logged in successfully")
+
+    # If an account for this user already exists, connect with that account and log the user in
+    elsif user = User.find_by_email(omniauth['user_info']['email'])
+      user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      self.current_user = user
       redirect_to("/", :notice => "Logged in successfully")
 
     # Create a new user
     else
       user = User.new
       user.apply_omniauth(omniauth)
-      # todo: if it is a duplicate email, connect it to existing account
       if user.save
         self.current_user = user
         redirect_to("/", :notice => "Logged in successfully")
