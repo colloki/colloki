@@ -17,10 +17,9 @@ class SessionsController < ApplicationController
         current_user.remember_me unless current_user.remember_token?
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_to(params[:redir], :notice => "Logged in successfully")
+        redirect_to(params[:redir], :notice => "Logged in successfully")
     else
-      flash[:error] = "Invalid credentials. Please try again"
-      render :action => "new"
+      redirect_to("/login", :alert => "Invalid credentials. Please try again")
     end
   end
 

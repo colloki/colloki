@@ -3,11 +3,9 @@
 <div id="rightPanel">
   <div class="sidebar_block">
     <a href="<%=new_topic_story_path(@topic, :kind=>'link')%>" class="positive button">
-      <%= image_tag "add.gif"%>
       Share Link
     </a>
     <a href="<%=new_topic_story_path(@topic, :kind=>'post')%>" class="positive button">
-        <%= image_tag "add.gif"%>
       Write a Post
     </a>
     <br>
@@ -35,15 +33,6 @@
   <%= renderSortTab('Date', topical_url(:id => @topic.id, :tab => params[:tab], :sort => 'newest'), 'newest')%>
 </div> -->
 <div id="contentPanel">
-  <!-- <div id="<%=params[:tab]%>">
-    <ul id="tabnav">
-      <li class="all"><a href="<%= topical_url(:id => @topic.id, :tab => "all") %>">All</a></li>
-      <li class="links"><a href="<%= topical_url(:id => @topic.id, :tab => "links") %>">Links</a></li>
-      <li class="posts"><a href="<%= topical_url(:id => @topic.id, :tab => "posts") %>">Posts</a></li>
-    </ul>
-  </div> -->
-  <!-- <div class="tabContent"> -->
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
   <%= will_paginate @stories %>
-  <!-- </div> -->
 </div>

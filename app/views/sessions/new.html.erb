@@ -1,7 +1,5 @@
 <h1>Sign in to Colloki</h1>
-<br><br><br><br><br>
-
-<%= flash[:error] %>
+<br><br>
 
 <%= form_tag create_session_path, :id => "login_form" do %>
 
@@ -35,9 +33,9 @@
 <%= hidden_field_tag 'redir', @redir %>
 
 <br><br><br><br>
+
+<% end %>
 <p style="text-align: center">
   <%= link_to "Forgot your password?", forgot_password_url %>&nbsp;&nbsp;&nbsp;&nbsp;
   <%= link_to "Join Colloki", signup_url %>
 </p>
-
-<% end %>
