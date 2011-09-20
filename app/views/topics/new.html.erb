@@ -1,18 +1,20 @@
-<%=render :partial => "partials/second_order_header", :locals => { :style => "bluegray", :title => "Create A New Topic" }%>
+<div id="contentPanel">
+  <h2>Create a New Topic</h2>
 
-<%= form_for(@topic) do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title, :size => 50 %>
-  </p>
-  <p>
-    Describe the topic in a sentence: <br />
-    <%= f.text_field :description, :size => 80 %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', topics_path %>
+  <%= form_for(@topic) do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label :title %><br />
+      <%= f.text_field :title, :size => 50 %>
+    </p>
+    <p>
+      Describe the topic in a sentence: <br />
+      <%= f.text_field :description, :size => 80 %>
+    </p>
+    <p>
+      <%= f.submit "Create", :class => "button" %>
+    </p>
+  <% end %>
+  <br><br><br>
+  <%= link_to 'Back', topics_path %>
+</div>

@@ -1,3 +1,15 @@
+<div id="rightPanel">
+  <div class='sidebar_block'>
+    <h2>More from <strong><%= @story.topic.title %></strong></h2>
+  </div>
+  <div class='sidebar_block'>
+    <h2>Related stories</h2>
+  </div>
+  <div class='sidebar_block'>
+    <h2>Related tags</h2>
+    <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
+  </div>
+</div>
 <div id="contentPanel">
   <div class="storyHeader">
     <%if @story.kind ==  Story::Link%>
@@ -12,44 +24,69 @@
         <%= @story.title %>
       </div>
     <%end%>
-    <div class="storyHeaderTagList">
-      <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
+    <div class="storyMeta">
+      by <%= link_to @story.user.login, @story.user %> •
+      <%= time_ago_in_words @story.created_at %> ago
+      <%if logged_in? and @story.user_id == current_user.id%>
+        • <%= link_to 'edit', edit_story_path(@story) %> •
+        <%= link_to 'delete', @story, :confirm => 'Are you sure you want to delete this post? You will not be able to restore it later.', :method => :delete, :class => "negative" %>
+      <%end%>
     </div>
 </div>
 
-<div class="storyDescription">
+<div class="storyContent">
   <%= sanitize(@story.description) %>
 </div>
-<div class="storyMeta">
-  <%if logged_in? and @story.user_id == current_user.id%>
-    <div style="float: right; clear: both;">
-      <div align="right">
-        <a class="button" href="<%=edit_story_path(@story)%>" >
-          Edit
-        </a>
-        <%= link_to 'Delete', @story, :confirm => 'Are you sure you want to delete this post? You will not be able to restore it later.', :method => :delete, :class => "negative button" %>
-      </div>
-    </div>
-  <%end%>
-  <div>
-    <div style="float: left; margin-right: 10px">
-      <a href="<%=url_for(@story.user)%>">
-        <%= gravatar_image_tag(@story.user.email, :gravatar => { :size => 40 }) %>
-      </a>
-    </div>
-    <div>
-      <%= link_to @story.user.login, @story.user %>
-    </div>
-    <div>
-      <%= @story.created_at.to_s(:cool) %> (<%= time_ago_in_words @story.created_at %> ago).
-    </div>
-  </div>
+
+<!-- Google +1 -->
+<!-- Place this tag where you want the +1 button to render -->
+<!-- Place this tag where you want the +1 button to render -->
+<div style="margin-top: 5px; display: block; float: left">
+  <g:plusone size="medium" annotation="none"></g:plusone>
 </div>
 
-<br>
+<!-- Tweet -->
+<div style="margin-top: 5px; float: left; margin-left: 5px">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="ahujaankit">Tweet</a>
+  <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+</div>
+
+<!-- Place this render call where appropriate -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Facebook Like -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=278338722193468&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div style="margin-top: 5px; float: left; margin-left: 5px">
+<div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="lucida grande"></div>
+</div>
+
+<br><br>
+<h2>
+  Top voters
+</h2>
+<br><br>
 
 <h2>
-  <%= @story.comments.count %> Comments
+  <%= @story.comments.count %>
+  <% if @story.comments.count == 1 %>
+    Comment
+  <% else %>
+    Comments
+  <% end %>
 </h2>
 
 <% for comment in @story.comments %>
@@ -66,7 +103,7 @@
     <div class="commentInfo">
       <%= time_ago_in_words comment.created_at %> ago
       <% if logged_in? and comment.user_id == current_user.id %>
-           | <%= link_to 'Delete', url_for(:controller => "stories",
+           | <%= link_to 'delete', url_for(:controller => "stories",
           :action => "delete_comment",
           :id => @story.id,
           :cid => comment.id),

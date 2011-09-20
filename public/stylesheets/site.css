@@ -163,10 +163,10 @@ a.bookmarklet {
 }
 
 .storyMeta {
-  background-color: #DFE5EB;
-  padding: 5px;
-  margin-top: 20px;
-  overflow: auto;
+  padding: 2px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #555;
 }
 
 .storyItemEdit {
@@ -188,7 +188,7 @@ a.bookmarklet {
 
 .storyTitle {
   display: block;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: normal;
   margin: 7px 0 0 0;
 }
@@ -244,8 +244,8 @@ Don't edit here, instead, regenerate, and copy paste. */
   padding: 0px;
 }
 
-div.storyHeaderTagList {
-  padding-top: 3px;
+div.storyTagList {
+  padding-top: 10px;
 }
 
 .storyHeaderLink {
@@ -261,9 +261,10 @@ div.storyHeaderTagList {
   color: #990000;
 }
 
-.storyDescription {
+.storyContent {
   clear: left;
-  padding-top: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
 }
 
 .stories {
@@ -279,6 +280,10 @@ div.storyHeaderTagList {
 }
 
 .storyItemLayout1 .storyItemContent {
+  height: 175px;
+}
+
+.storyItemLayout1 .storyItemPic {
   height: 165px;
 }
 
@@ -310,22 +315,29 @@ div.storyHeaderTagList {
   width: 60px;
 }
 
+.storyItemPic {
+  float: left;
+  margin-right: 10px;
+}
+
 .storyItemContent {
   border-bottom: 1px solid #eee;
 }
 
 #contentPanel {
-  clear: none;
+  border-right: 1px solid #eee;
   float: left;
-  width: 75%;
+  overflow: auto;
+  min-height: 500px;
+  width: 74%;
+  padding-right: 5px;
 }
 
 #rightPanel {
-  width: 22%;
+  width: 24%;
   float: right;
   vertical-align: top;
-  margin-right: 20px;
-  margin-top: -30px;
+  padding: 0 5px;
 }
 
 #topicsPanel {
@@ -410,15 +422,9 @@ div.storyHeaderTagList {
   min-height: 600px;
   min-width: 75%;
   overflow: auto;
-/*  padding: 10px;
-  -webkit-box-shadow: 0px 0px 6px #aaa;*/
   background-color: #fff;
   padding-left: 10px;
   border-left: 1px solid #eee;
-}
-
-.storyTagList {
-  margin: 5px 0;
 }
 
 .tag {
@@ -426,14 +432,13 @@ div.storyHeaderTagList {
   font-size: 10px;
   color: #333;
   background-color: #eee;
-  padding-left:4px;
-  padding-right:4px;
-  padding-top:2px;
-  padding-bottom:2px;
-  width:auto;
-  margin-top: 2px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   margin-right: 4px;
-  margin-bottom: 2px;
 }
 
 .tag a,
@@ -443,7 +448,7 @@ div.storyHeaderTagList {
 }
 
 .tag:hover {
-  background-color: #dfdfef;
+  background-color: #fff;
 }
 
 a.tagLink,
@@ -804,7 +809,8 @@ ul#tabnav a:hover { /* settings for hover effect */
 /* Credit: http://particletree.com/features/rediscovering-the-button-element/ */
 
 a.button,
-button {
+button,
+input[type=submit] {
   display: block;
   float: left;
   margin: 0 7px 0 0;
@@ -822,7 +828,8 @@ button {
   padding: 5px 10px 6px 7px;
 }
 
-button {
+button,
+input[type=submit] {
   width: auto;
   overflow: visible;
   padding: 4px 10px 3px 7px; /* IE6 */
@@ -849,13 +856,15 @@ a.button img {
 /* STANDARD */
 
 button:hover,
-a.button:hover {
+a.button:hover,
+input[type=submit]:hover {
   background-color: #dff4ff;
   border: 1px solid #c2e1ef;
   color: #336699;
 }
 
-a.button:active {
+a.button:active,
+input[type=submit]:active {
   background-color: #6299c5;
   border: 1px solid #6299c5;
   color: #fff;

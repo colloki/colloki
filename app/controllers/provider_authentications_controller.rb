@@ -8,6 +8,7 @@ class ProviderAuthenticationsController < ApplicationController
   # POST /provider_authentications
   # POST /provider_authentications.xml
   def create
+    #todo: Fill in the created_at, activated fields
     omniauth = request.env["omniauth.auth"]
     authentication = ProviderAuthentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 

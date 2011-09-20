@@ -1,7 +1,5 @@
 class StoriesController < ApplicationController
 
-  uses_yui_editor
-
   #Declaration for in-place editing plugin
   # in_place_edit_for :story, :title
 

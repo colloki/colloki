@@ -37,5 +37,8 @@ Colloki::Application.routes.draw do
 
   match '/auth/:provider/callback', :to => 'provider_authentications#create'
 
+  match 'top', :to => 'topics#index'
+  match 'latest', :to => 'topics#latest'
+
   match ':controller(/:action(/:id(/:id2)))'
 end

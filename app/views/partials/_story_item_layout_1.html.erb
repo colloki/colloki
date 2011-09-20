@@ -1,16 +1,14 @@
 <div class="storyItemLayout1">
-  <h4>
-    <%= link_to story.title, story %><br>
-  </h4>
   <div class="storyItemContent">
+    <div class="storyItemPic">
+      <%= link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 15 }), story.user, :title => story.user.login %>
+    </div>
+    <h4>
+      <%= link_to story.title, story %><br>
+    </h4>
     <%= truncate(strip_tags(story.description), :length => 150, :omission => "...") %>
     <div class="storyItemMeta">
-      <% if story.kind == Story::Link %>
-        Shared by
-      <% else %>
-        Posted by
-      <% end %>
-      <%= link_to story.user.login, {
+      By <%= link_to story.user.login, {
         :controller => "users",
         :action => "show", :id => story.user.id }
       %> •
