@@ -6,24 +6,55 @@
     <h2>Related stories</h2>
   </div>
   <div class='sidebar_block'>
-    <h2>Related tags</h2>
+    <h2>Tags</h2>
     <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
   </div>
+  <div class='sidebar_block'>
+    <h2>Share</h2>
+    <!-- Google +1 -->
+    <div style="display: block; float: left">
+      <g:plusone size="medium" annotation="none"></g:plusone>
+    </div>
+
+    <!-- Tweet -->
+    <div style="float: left; margin-left: 5px">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="ahujaankit">Tweet</a>
+      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    </div>
+
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+
+    <!-- Facebook Like -->
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#appId=278338722193468&xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div style="float: left; margin-left: 5px; display: inline-block">
+      <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="lucida grande"></div>
+    </div>
+    <div id="fb-root"></div>
+  </div>
 </div>
+
 <div id="contentPanel">
   <div class="storyHeader">
+    <div class="storyTitle">
     <%if @story.kind ==  Story::Link%>
-      <div class="storyTitle">
         <%= link_to @story.title, @story.url %>
-      </div>
-      <div class="storyHeaderLink">
-        <%= link_to @story.url, @story.url %>
-      </div>
     <%else%>
-      <div class="storyTitle">
         <%= @story.title %>
-      </div>
     <%end%>
+    <%= render :partial => "partials/story_item_vote_panel", :locals => { :story => @story } %>
+    </div>
     <div class="storyMeta">
       by <%= link_to @story.user.login, @story.user %> •
       <%= time_ago_in_words @story.created_at %> ago
@@ -32,98 +63,61 @@
         <%= link_to 'delete', @story, :confirm => 'Are you sure you want to delete this post? You will not be able to restore it later.', :method => :delete, :class => "negative" %>
       <%end%>
     </div>
-</div>
-
-<div class="storyContent">
-  <%= sanitize(@story.description) %>
-</div>
-
-<!-- Google +1 -->
-<!-- Place this tag where you want the +1 button to render -->
-<!-- Place this tag where you want the +1 button to render -->
-<div style="margin-top: 5px; display: block; float: left">
-  <g:plusone size="medium" annotation="none"></g:plusone>
-</div>
-
-<!-- Tweet -->
-<div style="margin-top: 5px; float: left; margin-left: 5px">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="ahujaankit">Tweet</a>
-  <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-</div>
-
-<!-- Place this render call where appropriate -->
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-
-<!-- Facebook Like -->
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=278338722193468&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div style="margin-top: 5px; float: left; margin-left: 5px">
-<div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="lucida grande"></div>
-</div>
-
-<br><br>
-<h2>
-  Top voters
-</h2>
-<br><br>
-
-<h2>
-  <%= @story.comments.count %>
-  <% if @story.comments.count == 1 %>
-    Comment
-  <% else %>
-    Comments
-  <% end %>
-</h2>
-
-<% for comment in @story.comments %>
-<div class="comment">
-  <div class="commentPic">
-    <%= gravatar_image_tag(comment.user.email, :gravatar => { :size => 24 }) %>
   </div>
-  <div class="commentBody">
-    <%= link_to comment.user.login, {
-      :controller=> "users",
-      :action => "show",
-      :id => comment.user.id} %><br>
-    <%= comment.body %>
-    <div class="commentInfo">
-      <%= time_ago_in_words comment.created_at %> ago
-      <% if logged_in? and comment.user_id == current_user.id %>
-           | <%= link_to 'delete', url_for(:controller => "stories",
-          :action => "delete_comment",
-          :id => @story.id,
-          :cid => comment.id),
-          :confirm => 'Are you sure you want to delete this comment?',
-          :class => "negative" %>
-      <% end %>
+
+  <div class="storyContent">
+    <%= sanitize(@story.description) %>
+  </div>
+
+  <h2>
+    Likers
+  </h2>
+  <br><br>
+
+  <h2>
+    <%= @story.comments.count %>
+    <% if @story.comments.count == 1 %>
+      Response
+    <% else %>
+      Responses
+    <% end %>
+  </h2>
+
+  <% for comment in @story.comments %>
+  <div class="comment">
+    <div class="commentPic">
+      <%= gravatar_image_tag(comment.user.email, :gravatar => { :size => 24 }) %>
+    </div>
+    <div class="commentBody">
+      <%= link_to comment.user.login, {
+        :controller=> "users",
+        :action => "show",
+        :id => comment.user.id} %><br>
+      <%= comment.body %>
+      <div class="commentInfo">
+        <%= time_ago_in_words comment.created_at %> ago
+        <% if logged_in? and comment.user_id == current_user.id %>
+             | <%= link_to 'delete', url_for(:controller => "stories",
+            :action => "delete_comment",
+            :id => @story.id,
+            :cid => comment.id),
+            :confirm => 'Are you sure you want to delete this comment?',
+            :class => "negative" %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
-<% end %>
-<br>
-<h2>Add a response</h2>
-<% if logged_in? %>
-<%= form_tag :action => "comment" , :id => @story.id %>
-  <%= text_area "comment", "body" %> <br>
-  <%= submit_tag "Comment!", :class => "button" %>
-</form>
-<% else %>
-<p>
-  <i>Sign up or login to comment</i>
-</p>
-<% end %>
+  <% end %>
+  <br>
+  <h2>Add a response</h2>
+  <% if logged_in? %>
+  <%= form_tag :action => "comment" , :id => @story.id %>
+    <%= text_area "comment", "body" %> <br>
+    <%= submit_tag "Comment!", :class => "button" %>
+  </form>
+  <% else %>
+  <p>
+    <i>Sign up or login to comment</i>
+  </p>
+  <% end %>
 </div>

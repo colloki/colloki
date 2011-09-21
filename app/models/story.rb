@@ -1,6 +1,5 @@
 class Story < ActiveRecord::Base
-
-  #Constant Definitions
+  # Constant Definitions
   Link = 0
   Post = 1
   Event = 2
@@ -21,22 +20,20 @@ class Story < ActiveRecord::Base
   belongs_to :topic
   has_many :comments, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
+  has_many :votes
 
   acts_as_taggable
-  acts_as_voteable
 
   def is_link?
     kind == Story::Link
   end
 
-  # Regenerate the popularity score. Note:
-  # * The score is an INT. Did not want to introduce floating point calculations for this.
-  # * This method DOES NOT save. You need to do that seperately.
+  # Regenerate the popularity score
   def update_popularity
-    self.popularity = (self.votes_for - self.votes_against)*10 + self.comments.count*5
+    self.popularity = (self.votes.count * 10) + (self.comments.count * 5)
   end
 
-  # Updates the popularity of all Story objects.
+  # Updates the popularity of all Story objects
   def Story.update_popularity_all
     stories = Story.all
     stories.each do |story|

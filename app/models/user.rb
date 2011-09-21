@@ -34,8 +34,7 @@ class User < ActiveRecord::Base
   has_many :activity_items, :dependent => :destroy
   has_many :topics
   has_many :provider_authentications
-
-  acts_as_voter
+  has_many :votes
 
   # Activates the user in the database.
   def activate
@@ -113,6 +112,20 @@ class User < ActiveRecord::Base
     self.website = omniauth['user_info']['website'] if website.blank?
     self.realname = omniauth['user_info']['name'] if realname.blank?
     provider_authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  end
+
+  def voted_on?(story)
+    self.votes.any?{|vote| vote.story_id == story.id}
+  end
+
+  def vote(story)
+    self.votes.create(:story_id => story.id)
+    self.save
+  end
+
+  def unvote(story)
+    vote = Vote.find(:first, :conditions => {:user_id => self.id, :story_id => story.id})
+    vote.delete
   end
 
   def User.top_in_topic(topic_id)

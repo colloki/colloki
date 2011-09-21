@@ -1,14 +1,22 @@
-<div class="storyItemVotePanel">
-  <div class="voteCount">
-    <%= story.votes_for - story.votes_against %>
-  </div>
-  <% if logged_in? %>
-    <% #if (story.user.id != current_user.id) and !current_user.voted_on?(story) %>
-      <a href="<%=url_for(:controller=>"stories", :action => :vote, :id => story.id)%>" title="Vote">
-        <div class="voteButton">
-          <%= image_tag("plus.png", :border => 0, :title => "Vote", :alt => "Vote") %>
-        </div>
-      </a>
-    <% #end %>
+<% if logged_in? %>
+  <% if (story.user.id != current_user.id) %>
+    <% if !current_user.voted_on?(story) %>
+      <a href="<%=url_for(:controller=>"stories", :action => :vote, :id => story.id)%>" title="Like">
+        <div class="storyItemVotePanel">
+    <% else %>
+      <a href="<%=url_for(:controller=>"stories", :action => :unvote, :id => story.id)%>" title="Unlike">
+        <div class="storyItemVotePanel voted">
+    <% end %>
+  <% else %>
+    <div class="storyItemVotePanel disabled">
   <% end %>
+<% else %>
+  <div class="storyItemVotePanel disabled">
+<% end %>
+  ♥ <span class="voteCount"><%= story.votes.count %></span>
 </div>
+<% if logged_in? %>
+  <% if (story.user.id != current_user.id) and !current_user.voted_on?(story) %>
+    </a>
+  <% end %>
+<% end %>

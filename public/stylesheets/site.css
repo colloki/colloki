@@ -78,7 +78,7 @@ a.bookmarklet {
 .notice,
 .error,
 .alert {
-  width: 73%;
+  width: 72%;
   display: inline-block;
 }
 
@@ -240,8 +240,7 @@ Don't edit here, instead, regenerate, and copy paste. */
 /* Generated Code End */
 
 .storyHeader {
-  margin: 0px;
-  padding: 0px;
+  padding: 5px 0;
 }
 
 div.storyTagList {
@@ -264,7 +263,6 @@ div.storyTagList {
 .storyContent {
   clear: left;
   padding: 15px 0;
-  border-bottom: 1px solid #eee;
 }
 
 .stories {
@@ -280,11 +278,11 @@ div.storyTagList {
 }
 
 .storyItemLayout1 .storyItemContent {
-  height: 175px;
+  height: 200px;
 }
 
 .storyItemLayout1 .storyItemPic {
-  height: 165px;
+  height: 200px;
 }
 
 .storyItemLayout2 {
@@ -311,8 +309,34 @@ div.storyTagList {
 }
 
 .storyItemVotePanel {
-  float: left;
-  width: 60px;
+  float: right;
+  display: block;
+  font-size: 16px;
+  color: #555;
+  background-color: #eee;
+  border-radius: 5px;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+  padding: 2px 10px;
+}
+
+.storyItemVotePanel:hover {
+  background-color: #fbfbfb;
+  cursor: pointer;
+}
+
+.voted:hover {
+  background-color: #555;
+}
+
+.disabled:hover {
+  background-color: #eee;
+  cursor: default;
+}
+
+.voted {
+  background-color: #555;
+  color: #fff;
 }
 
 .storyItemPic {
@@ -329,8 +353,8 @@ div.storyTagList {
   float: left;
   overflow: auto;
   min-height: 500px;
-  width: 74%;
-  padding-right: 5px;
+  width: 73%;
+  padding-right: 10px;
 }
 
 #rightPanel {
@@ -409,6 +433,7 @@ div.storyTagList {
   padding-top: 10px;
   border-top: 1px solid #eee;
   text-align: center;
+  color: #555;
 }
 
 #wrap {
@@ -640,14 +665,6 @@ blockquote {
   font-size: 12px;
   margin-top: 3px;
   margin-bottom: 3px;
-}
-
-.voteCount {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  vertical-align: middle;
-  padding: 5px;
 }
 
 .voteButton {

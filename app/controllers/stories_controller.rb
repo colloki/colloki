@@ -18,7 +18,7 @@ class StoriesController < ApplicationController
     #TODO: Need to move this whole action onto the topic controller.
     stories_unsorted = Story.find(:all)
     if params[:id] == 'votes'
-      @stories = stories_unsorted.sort{|a,b| b.votes_for - b.votes_against  <=> a.votes_for - a.votes_against }
+      @stories = stories_unsorted.sort{|a,b| b.votes  <=> a.votes }
       @title = "Slurp! Most Voted Stories"
       @description = "Most voted  stories on the slurp link sharing site"
     elsif params[:id] == 'newest'
@@ -33,7 +33,7 @@ class StoriesController < ApplicationController
       @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}
     else
       #default sort by popular
-      @stories = stories_unsorted.sort{|a,b| (b.views/10) + b.votes_for - b.votes_against + b.comments.count <=> (a.views/10) + a.votes_for - a.votes_against + a.comments.count}
+      @stories = stories_unsorted.sort{|a,b| (b.views/10) + b.votes + b.comments.count <=> (a.views/10) + a.votes + a.comments.count}
       @title = "Slurp! Popular Stories"
       @description = "Popular stories on the slurp link sharing site"
     end
@@ -224,15 +224,15 @@ class StoriesController < ApplicationController
     if logged_in?
       story = Story.find(params[:id])
       if !current_user.voted_on?(story)
-        current_user.vote_for(story)
-        @story.update_popularity
-        @story.save
-        current_user.activity_items.create(:story_id => @story.id, :topic_id => @story.topic_id, :kind => ActivityItem::VoteType)
+        current_user.vote(story)
+        story.update_popularity
+        story.save
+        current_user.activity_items.create(:story_id => story.id, :topic_id => story.topic_id, :kind => ActivityItem::VoteType)
       else
-        flash[:alert] = "You cannot vote multiple times, so quit trying!"
+        flash[:alert] = "You cannot like multiple times, so quit trying!"
       end
     else
-      flash[:alert] = "You cannot vote without logging in, so quit trying!"
+      flash[:alert] = "You cannot like without logging in, so quit trying!"
     end
     redirect_to :back
   end
@@ -240,19 +240,19 @@ class StoriesController < ApplicationController
   #TODO: Make it ajaxy
   def unvote
     if logged_in?
-      @story = Story.find(params[:id])
-      if current_user.voted_on?(@story)
-        current_user.vote(@story, false)
-        @story.update_popularity
-        @story.save
+      story = Story.find(params[:id])
+      if current_user.voted_on?(story)
+        current_user.unvote(story)
+        story.update_popularity
+        story.save
 
-        activity_item = ActivityItem.find(:first, :conditions => {:user_id => current_user, :story_id => @story.id, :kind => ActivityItem::VoteType}, :order => "created_at DESC")
+        activity_item = ActivityItem.find(:first, :conditions => {:user_id => current_user, :story_id => story.id, :kind => ActivityItem::VoteType}, :order => "created_at DESC")
         activity_item.delete
       else
-        flash[:alert] = "You cannot un-vote multiple times."
+        flash[:alert] = "You cannot dislike multiple times."
       end
     else
-      flash[:alert] = "You cannot un-vote without logging in."
+      flash[:alert] = "You cannot dislike without logging in."
     end
     redirect_to :back
   end
