@@ -9,8 +9,8 @@
   <div id="contentPanel">
     <h2>Tagged: '<font color="blue"><%= @tag %></font>'</h2>
     <br>
-    <%=render :partial => "partials/story_items", :locals => { :stories => @stories }%>
-    <br />
+    <%=render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+    <br>
   </div>
 <% else %>
 <% # Else, do a global view. %>
@@ -22,9 +22,7 @@
   </div>
   <!-- TODO: Group this listing by topics -->
   <div id="contentPanel">
-    <h2>All stories  tagged with '<font color="blue"><%= @tag %></font>'</h2>
-    <br>
+    <h1>Stories tagged with '<%= link_to @tag, global_tags_url(:tag_list => @tag) %>'</h1>
     <%=render :partial => "partials/story_items", :locals => { :stories => @stories }%>
-    <br/>
   </div>
 <% end %>

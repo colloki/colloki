@@ -1,4 +1,4 @@
-<div class="storyItemLayout2">
+<div class="storyItemLayout3">
   <div class="storyItemContent">
     <div class="storyItemPic">
       <%= link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 15 }), story.user, :title => story.user.login %>
@@ -6,7 +6,7 @@
     <h4>
       <%= link_to story.title, story %><br>
     </h4>
-    <%= truncate(strip_tags(story.description), :length => 240, :omission => "...") %>
+    <%= truncate(strip_tags(story.description), :length => 340, :omission => "...") %>
     <div class="storyItemMeta">
       <% if story.kind == Story::Link %>
         Shared by

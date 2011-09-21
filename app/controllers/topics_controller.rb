@@ -7,6 +7,7 @@ class TopicsController < ApplicationController
     @stories.sort! { |a, b| a.popularity <=> b.popularity }
     @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 10)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
+    @tags = Story.tag_counts_on(:tags)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,6 +20,7 @@ class TopicsController < ApplicationController
     @stories = Story.all(:order => "created_at DESC")
     @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 10)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
+    @tags = Story.tag_counts_on(:tags)
   end
 
   # GET /topics/1
@@ -29,8 +31,6 @@ class TopicsController < ApplicationController
     if params[:sort] == 'newest'
       sort_order = "created_at DESC"
     elsif params[:sort] == 'votes'
-      #CRITICAL TODO: The "Votes" tab is not working right now
-      #to resolve it, first need to get rid of the plugin-based voting.
       sort_order = "created_at DESC"
     else
       sort_order = "popularity DESC, created_at DESC"
@@ -54,10 +54,6 @@ class TopicsController < ApplicationController
     @tags = @topic.stories.tag_counts
     @activity_items = ActivityItem.find(:all, :conditions => "topic_id = #{@topic.id}", :order => "created_at DESC", :limit => 10)
     #@activity_items = ActivityItem.find(:all, :order => "created_at DESC", :limit => 10)
-
-    # top_users_unsorted = @topic.stories.users
-    # @top_users = top_users_unsorted.sort {|a,b| b.stories.count + b.comments.count <=> a.stories.count + a.comments.count}
-    # @top_users = @top_users[0..4]
 
     @top_users = User.top_in_topic(@topic.id)
 
@@ -152,11 +148,11 @@ class TopicsController < ApplicationController
       @tag = tag_list.join(' + ')
     if params[:id]
       @topic = Topic.find(params[:id])
-      @stories = @topic.stories.find_tagged_with(tag_list, :match_all => true)
+      @stories = @topic.stories.tagged_with(tag_list, :match_all => true)
       @tags = @topic.stories.tag_counts
       @page_title = @topic.title + " posts and links tagged with " + @tag
     else
-      @stories = Story.find_tagged_with(tag_list, :match_all => true)
+      @stories = Story.tagged_with(tag_list, :any => true)
       @tags = Story.tag_counts
       @page_title = "Everything tagged with " + @tag
     end

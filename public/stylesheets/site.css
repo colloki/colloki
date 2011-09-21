@@ -277,12 +277,20 @@ div.storyTagList {
   border-right: 1px solid #eee;
 }
 
+.storyItemLayout3 {
+  clear: both;
+  padding: 5px 0;
+  margin: 0px;
+  width: 96%;
+  padding-top: 10px;
+}
+
 .storyItemLayout1 .storyItemContent {
-  height: 200px;
+  height: 210px;
 }
 
 .storyItemLayout1 .storyItemPic {
-  height: 200px;
+  height: 210px;
 }
 
 .storyItemLayout2 {
@@ -353,7 +361,7 @@ div.storyTagList {
   float: left;
   overflow: auto;
   min-height: 500px;
-  width: 73%;
+  width: 72%;
   padding-right: 10px;
 }
 
@@ -361,7 +369,8 @@ div.storyTagList {
   width: 24%;
   float: right;
   vertical-align: top;
-  padding: 0 5px;
+  padding-right: 2%;
+  padding-left: 5px;
 }
 
 #topicsPanel {
@@ -373,7 +382,6 @@ div.storyTagList {
   display: block;
   padding: 10px 0 0 8px;
   padding-top: 0;
-/*  border-right: 1px solid #eee;*/
   height: 100%;
   overflow: auto;
 }

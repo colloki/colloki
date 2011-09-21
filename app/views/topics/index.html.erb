@@ -10,6 +10,10 @@
       <%= link_to 'Add Topic', new_topic_path, :class => "button" %>
     </div><br>
   <% end %>
+  <div class="sidebar_block">
+    <h2>Popular Topics</h2>
+      <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
+  </div>
   <div class='sidebar_block'>
     <h2>Latest Activity</h2>
     <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>

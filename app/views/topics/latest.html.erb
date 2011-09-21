@@ -2,9 +2,18 @@
   <% if !logged_in? %>
     <div class='sidebar_block'>
       <h2>What is Colloki?</h2>
-      Colloki is a place to share links and have conversations online. Choose a topic from the list, or <%= link_to 'create one', new_topic_path %>. Post your feedback in the <a href="">discussion topic</a>.
+      Colloki is a place to share links and have conversations online.
     </div>
+  <% else %>
+    <h2>Add a Topic</h2>
+    <div class='sidebar_block'>
+      <%= link_to 'Add Topic', new_topic_path, :class => "button" %>
+    </div><br>
   <% end %>
+  <div class="sidebar_block">
+    <h2>Popular Topics</h2>
+      <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
+  </div>
   <div class='sidebar_block'>
     <h2>Latest Activity</h2>
     <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>

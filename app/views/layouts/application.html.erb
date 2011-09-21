@@ -38,7 +38,11 @@
           <% end %>
             <a href="/">Top stories</a>
           </li>
-          <li>
+          <% if request.fullpath == "/latest" %>
+            <li class="selected">
+          <% else %>
+            <li>
+          <% end %>
             <a href="/latest">Latest</a>
           </li>
           <div class="separator"></div>
