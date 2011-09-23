@@ -1,23 +1,9 @@
 <div class="storyItemLayout2">
   <div class="storyItemContent">
-    <div class="storyItemPic">
-      <%= link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 15 }), story.user, :title => story.user.login %>
-    </div>
-    <h4>
-      <%= link_to story.title, story %><br>
-    </h4>
-    <%= truncate(strip_tags(story.description), :length => 240, :omission => "...") %>
-    <div class="storyItemMeta">
-      <% if story.kind == Story::Link %>
-        Shared by
-      <% else %>
-        Posted by
-      <% end %>
-      <%= link_to story.user.login, {
-        :controller => "users",
-        :action => "show", :id => story.user.id }
-      %> •
-      <%= time_ago_in_words story.created_at %> ago • <%=link_to story.comments.count.to_s + " comments", story %>
-    </div>
+    <%= story_icon(story) %>
+    <%= story_thumbnail(story) %>
+    <%= story_title(story) %>
+    <%= story_content(story) %>
+    <%= story_meta(story) %>
   </div>
 </div>

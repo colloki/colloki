@@ -5,7 +5,7 @@ class TopicsController < ApplicationController
     @page_title = "Top Stories"
     @stories = Story.all(:order => "created_at DESC", :limit => 20)
     @stories.sort! { |a, b| a.popularity <=> b.popularity }
-    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 10)
+    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
 

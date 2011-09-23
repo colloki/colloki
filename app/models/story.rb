@@ -9,18 +9,17 @@ class Story < ActiveRecord::Base
   validates_presence_of :kind
 
   validates_presence_of :url, :if => :is_link?
-  # CRITICAL TODO: This no longer works with deployment setup of 2.3.2. Not sure if its due to the rails upgrade, or that there is some gem required.
-  #  validates_uri_existence_of :url, :if => :is_link?,:with =>
-  #          /(^$)|(^(http|https):*)/ix
 
   validates_format_of :url,
-              :with => /(^$)|(^(http|https):*)/ix,
-              :message => "can only be a valid URL."
+                      :with => /(^$)|(^(http|https):*)/ix,
+                      :message => "can only be a valid URL."
   belongs_to :user
   belongs_to :topic
   has_many :comments, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
   has_many :votes
+
+  has_attached_file :image, :styles => { :thumb => "200x200>" }
 
   acts_as_taggable
 

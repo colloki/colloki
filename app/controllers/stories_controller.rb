@@ -1,8 +1,5 @@
 class StoriesController < ApplicationController
 
-  #Declaration for in-place editing plugin
-  # in_place_edit_for :story, :title
-
   # Added this for implementing search functionality which currently only exists in Mobile Safari apps
   # -MM Nov 25, 2008
   def search
@@ -32,7 +29,7 @@ class StoriesController < ApplicationController
       stories_unsorted = Story.find_tagged_with(tag_list, :match_all => true)
       @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}
     else
-      #default sort by popular
+      # default sort by popular
       @stories = stories_unsorted.sort{|a,b| (b.views/10) + b.votes + b.comments.count <=> (a.views/10) + a.votes + a.comments.count}
       @title = "Slurp! Popular Stories"
       @description = "Popular stories on the slurp link sharing site"
@@ -41,7 +38,8 @@ class StoriesController < ApplicationController
     headers["Content-Type"] = "application/xml"
   end
 
-  # TODO: The URL for this action is currently http://site/stories/<ID>. It needs to be http://site/topic/<Topic_ID>/story/<ID>, or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>
+  # TODO: The URL for this action is currently http://site/stories/<ID>. It needs to be http://site/topic/<Topic_ID>/story/<ID>
+  # or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>
   def show
     @story = Story.find(params[:id])
     if (!@story)
@@ -114,12 +112,23 @@ class StoriesController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @story = @topic.stories.build(params[:story])
+    # Check for img tags to store images.
+    # todo: this is just for testing at the moment.
+    require 'nokogiri'
+    require 'open-uri'
+    doc = Nokogiri::HTML(params[:story]['description'])
+    img_tag = doc.search('img').first
+    if img_tag
+      #store it as an attachment
+      src = img_tag['src']
+      @story.image = open(URI.parse(src))
+    end
+
     @story.views = 0
     if logged_in?
       @story.user_id = current_user.id
       @story.update_popularity
       if @story.save
-        #TODO: Validate proper URL if its kind is link
         if @story.is_link?
           current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreateLinkType)
         else

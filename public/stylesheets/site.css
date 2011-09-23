@@ -2,7 +2,6 @@ body {
   margin: 0;
   padding: 0;
   color: #000;
-/*  background-color: #eee;*/
 }
 
 body, p, ol, ul, td {
@@ -78,7 +77,7 @@ a.bookmarklet {
 .notice,
 .error,
 .alert {
-  width: 72%;
+  width: 70%;
   display: inline-block;
 }
 
@@ -285,11 +284,24 @@ div.storyTagList {
   padding-top: 10px;
 }
 
-.storyItemLayout1 .storyItemContent {
-  height: 210px;
+.storyItemLayout3 .storyItemContent,
+.storyItemLayout3 .storyItemIcon {
+  height: 130px;
 }
 
-.storyItemLayout1 .storyItemPic {
+.storyItemLayout3 .storyItemThumbnail {
+  float: left;
+  margin-right: 10px;
+}
+
+.storyItemLayout1 .storyItemContent {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+
+.storyItemLayout1 .storyItemContent,
+.storyItemLayout1 .storyItemIcon {
   height: 210px;
 }
 
@@ -347,7 +359,7 @@ div.storyTagList {
   color: #fff;
 }
 
-.storyItemPic {
+.storyItemIcon {
   float: left;
   margin-right: 10px;
 }
@@ -620,7 +632,8 @@ h4 {
   font-size: 14px;
   font-weight: bold;
   color: #333333;
-  margin: 5px 0;
+  margin: 0;
+  margin-bottom: 5px;
 }
 
 blockquote {

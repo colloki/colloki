@@ -104,7 +104,9 @@
   <div class="fieldValue">
     <a href="http://en.gravatar.com/site/signup" class="button">
       Sign up for Gravatar
-    </a>
+    </a>``
+    
+    
     <br><br>
     <span class="fieldMeta">Remember to use <%= @user.email %> as your email id.</span>
   </div>
@@ -127,7 +129,7 @@
   </div>
   <div class="fieldValue">
     <% if @is_twitter_connected %>
-      <%= link_to "Remove", "auth/twitter", :class => "button" %>
+      <%= link_to "Remove", "auth/twitter", :class => "button negative" %>
     <% else %>
       <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
     <% end %>
