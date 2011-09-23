@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
         current_user.remember_me unless current_user.remember_token?
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-        redirect_to(params[:redir], :notice => "Logged in successfully")
+        redirect_to(params[:redir], :notice => "Welcome #{self.current_user.login}")
     else
       redirect_to("/login", :alert => "Invalid credentials. Please try again")
     end
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = "You successfully logged out."
     redirect_back_or('/')
   end
 end

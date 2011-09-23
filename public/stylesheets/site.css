@@ -112,8 +112,8 @@ a.bookmarklet {
   color: #eee;
   font-size: 20px;
   font-weight: bold;
-  padding-top: 10px;
   padding-left: 5px;
+  padding: 5px 0;
 }
 
 #header a {
@@ -125,8 +125,11 @@ a.bookmarklet {
 }
 
 #header_title {
+  padding-top: 5px;
+  float: left;
   display: inline-block;
   color: #fff !important;
+  width: 14%;
 }
 
 #userInfo {
@@ -134,6 +137,22 @@ a.bookmarklet {
   width: 300;
   float: right;
   text-align: right;
+  margin-right: 10px;
+  padding: 5px 0;
+}
+
+#search {
+  display: inline-block;
+  padding-top: 2px;
+  float: left;
+}
+
+#search input {
+  font-size: 12px;
+  -webkit-appearance: textfield;
+  border-radius: 2px;
+  padding: 2px;
+  width: 200px;
 }
 
 #errorExplanation {
@@ -278,7 +297,7 @@ div.storyTagList {
   width: 30%;
   padding: 5px 10px 0 0;
   margin-right: 10px;
-  border-right: 1px solid #eee;
+/*  border-right: 1px solid #eee;*/
 }
 
 .storyItemLayout3 {
@@ -388,7 +407,6 @@ div.storyTagList {
   float: right;
   vertical-align: top;
   padding-right: 2%;
-  padding-left: 5px;
 }
 
 #topicsPanel {
@@ -994,18 +1012,4 @@ a.button.negative:active {
 
 #facebook_signin_bt:active {
   background: 0px 23px url('../images/facebook_signin.png');
-}
-
-#search {
-  display: inline-block;
-  float: right;
-  margin-right: 5px;
-  margin-top: -3px;
-}
-
-#search input {
-  font-size: 12px;
-  -webkit-appearance: textfield;
-  border-radius: 2px;
-  padding: 2px;
 }
