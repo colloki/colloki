@@ -3,10 +3,8 @@
   <% for story in @stories %>
     <% if i == 0 %>
       <%= render :partial => "partials/story_item_layout_3", :locals => {:story => story} %>
-    <% elsif i < 4 %>
-      <%= render :partial => "partials/story_item_layout_1", :locals => {:story => story} %>
     <% else %>
-      <%= render :partial => "partials/story_item_layout_2", :locals => {:story => story} %>
+      <%= render :partial => "partials/story_item_layout_1", :locals => {:story => story} %>
     <% end %>
     <% i += 1 %>
   <% end %>

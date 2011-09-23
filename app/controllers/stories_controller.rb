@@ -48,6 +48,7 @@ class StoriesController < ApplicationController
 
     @topic = Topic.find(@story.topic_id)
     @page_title = @story.title
+
     if @story.views == nil
       @story.views = 1
     else
@@ -55,6 +56,11 @@ class StoriesController < ApplicationController
     end
     @story.update_popularity
     @story.save
+
+    @likers = []
+    for vote in @story.votes
+      @likers << User.find(vote[:user_id])
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }

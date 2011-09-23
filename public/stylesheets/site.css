@@ -166,6 +166,7 @@ a.bookmarklet {
   margin-top: 8px;
   font-size: 12px;
   color: #555;
+  clear: both;
 }
 
 .storyItemEdit {
@@ -187,9 +188,13 @@ a.bookmarklet {
 
 .storyTitle {
   display: block;
+  float: left;
+  clear: both;
+  width: 90%;
   font-size: 24px;
   font-weight: normal;
   margin: 7px 0 0 0;
+  line-height: 28px;
 }
 
 .tagCloudContent {
@@ -302,7 +307,7 @@ div.storyTagList {
 
 .storyItemLayout1 .storyItemContent,
 .storyItemLayout1 .storyItemIcon {
-  height: 210px;
+  height: 240px;
 }
 
 .storyItemLayout2 {
@@ -328,19 +333,20 @@ div.storyTagList {
   color: #990000;
 }
 
-.storyItemVotePanel {
+.storyVotePanel {
   float: right;
   display: block;
   font-size: 16px;
   color: #555;
   background-color: #eee;
   border-radius: 5px;
+  margin-top: 10px;
   margin-right: 5px;
   border: 1px solid #ddd;
   padding: 2px 10px;
 }
 
-.storyItemVotePanel:hover {
+.storyVotePanel:hover {
   background-color: #fbfbfb;
   cursor: pointer;
 }
@@ -449,15 +455,16 @@ div.storyTagList {
 #footer{
   clear: both;
   font-size: 10px;
-  margin: 5px;
-  padding-top: 10px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 10px 0;
   border-top: 1px solid #eee;
   text-align: center;
   color: #555;
+  width: 80%;
 }
 
 #wrap {
-/*  width: 980px;*/
   margin: 0 auto;
   padding-top: 5px;
   overflow: auto;

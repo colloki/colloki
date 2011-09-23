@@ -3,7 +3,7 @@ module TopicsHelper
   def story_thumbnail(story)
     if story.image.exists?
       "<div class=\"storyItemThumbnail\">
-      #{image_tag story.image.url(:thumb)}
+      #{link_to image_tag(story.image.url(:thumb)), story}
       </div>".html_safe
     end
   end
@@ -22,7 +22,7 @@ module TopicsHelper
     </div>".html_safe
   end
 
-  def story_content(story, length_with_image=80, length_without_image=240)
+  def story_content(story, length_with_image=80, length_without_image=200)
     if story.image.exists?
       return truncate(strip_tags(story.description), :length => length_with_image, :omission => "...")
     else
@@ -32,7 +32,7 @@ module TopicsHelper
 
   def story_title(story)
     "<h4>
-    #{link_to truncate(strip_tags(story.title), :length => 100, :omission => "..."), story}
+    #{link_to truncate(strip_tags(story.title), :length => 50, :omission => "..."), story}
     <br>
     </h4>".html_safe
   end

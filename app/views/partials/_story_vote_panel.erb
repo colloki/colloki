@@ -2,16 +2,16 @@
   <% if (story.user.id != current_user.id) %>
     <% if !current_user.voted_on?(story) %>
       <a href="<%=url_for(:controller=>"stories", :action => :vote, :id => story.id)%>" title="Like">
-        <div class="storyItemVotePanel">
+        <div class="storyVotePanel">
     <% else %>
       <a href="<%=url_for(:controller=>"stories", :action => :unvote, :id => story.id)%>" title="Unlike">
-        <div class="storyItemVotePanel voted">
+        <div class="storyVotePanel voted">
     <% end %>
   <% else %>
-    <div class="storyItemVotePanel disabled">
+    <div class="storyVotePanel disabled">
   <% end %>
 <% else %>
-  <div class="storyItemVotePanel disabled">
+  <div class="storyVotePanel disabled">
 <% end %>
   ♥ <span class="voteCount"><%= story.votes.count %></span>
 </div>

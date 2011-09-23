@@ -53,8 +53,8 @@
     <%else%>
         <%= @story.title %>
     <%end%>
-    <%= render :partial => "partials/story_item_vote_panel", :locals => { :story => @story } %>
     </div>
+    <%= render :partial => "partials/story_vote_panel", :locals => { :story => @story } %>
     <div class="storyMeta">
       by <%= link_to @story.user.login, @story.user %> •
       <%= time_ago_in_words @story.created_at %> ago
@@ -72,6 +72,7 @@
   <h2>
     Likers
   </h2>
+  <%= likers(@likers) %>
   <br><br>
 
   <h2>

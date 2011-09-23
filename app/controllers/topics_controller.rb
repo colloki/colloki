@@ -2,9 +2,9 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.xml
   def index
-    @page_title = "Top Stories"
+    @page_title = "Most Popular"
     @stories = Story.all(:order => "created_at DESC", :limit => 20)
-    @stories.sort! { |a, b| a.popularity <=> b.popularity }
+    @stories.sort! { |a, b| b.popularity <=> a.popularity }
     @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
@@ -18,7 +18,7 @@ class TopicsController < ApplicationController
   def latest
     @page_title = "Latest"
     @stories = Story.all(:order => "created_at DESC")
-    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 10)
+    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
   end
