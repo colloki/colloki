@@ -1,8 +1,14 @@
+<div id="contentPanel">
+  <a href="<%= @root_url %>">
+    <h1>Most Popular</h1>
+  </a>
+  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+</div>
 <div id="rightPanel">
   <% if !logged_in? %>
     <div class='sidebar_block'>
       <h2>What is Colloki?</h2>
-      Colloki is a place to share links and have conversations online.
+      Colloki is a place to converse with other people in the local community.
     </div>
   <% else %>
     <h2>Add a Topic</h2>
@@ -24,10 +30,4 @@
       <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
     <% end %>
   </div>
-</div>
-<div id="contentPanel">
-  <a href="<%= @root_url %>">
-    <h1>Most Popular</h1>
-  </a>
-  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>

@@ -63,24 +63,22 @@
       <% end %>
     </div>
   <% end %>
-  <div id="content">
-    <% if flash[:notice] %>
-      <div class="notice">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
-    <% if flash[:alert] %>
-      <div class="alert">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-    <% if flash[:error] %>
-      <div class="error">
-        <%= flash[:error] %>
-      </div>
-    <% end %>
-    <%= yield %>
-  </div>
+  <% if flash[:notice] %>
+    <div class="notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+  <% if flash[:error] %>
+    <div class="error">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+  <%= yield %>
   <div id="footer">
     <%= link_to "About", about_url %> |
     <%= link_to "Changelog", changelog_url %> |

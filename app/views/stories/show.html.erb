@@ -1,50 +1,3 @@
-<div id="rightPanel">
-  <div class='sidebar_block'>
-    <h2>More from <strong><%= @story.topic.title %></strong></h2>
-  </div>
-  <div class='sidebar_block'>
-    <h2>Related stories</h2>
-  </div>
-  <div class='sidebar_block'>
-    <h2>Tags</h2>
-    <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
-  </div>
-  <div class='sidebar_block'>
-    <h2>Share</h2>
-    <!-- Google +1 -->
-    <div style="display: block; float: left">
-      <g:plusone size="medium" annotation="none"></g:plusone>
-    </div>
-
-    <!-- Tweet -->
-    <div style="float: left; margin-left: 5px">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="ahujaankit">Tweet</a>
-      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-    </div>
-
-    <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>
-
-    <!-- Facebook Like -->
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#appId=278338722193468&xfbml=1";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    <div style="float: left; margin-left: 5px; display: inline-block">
-      <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="lucida grande"></div>
-    </div>
-    <div id="fb-root"></div>
-  </div>
-</div>
-
 <div id="contentPanel">
   <div class="storyHeader">
     <div class="storyTitle">
@@ -121,4 +74,51 @@
     <i>Sign up or login to comment</i>
   </p>
   <% end %>
+</div>
+
+<div id="rightPanel">
+  <div class='sidebar_block'>
+    <h2>More from <strong><%= @story.topic.title %></strong></h2>
+  </div>
+  <div class='sidebar_block'>
+    <h2>Related stories</h2>
+  </div>
+  <div class='sidebar_block'>
+    <h2>Tags</h2>
+    <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
+  </div>
+  <div class='sidebar_block'>
+    <h2>Share</h2>
+    <!-- Google +1 -->
+    <div style="display: block; float: left">
+      <g:plusone size="medium" annotation="none"></g:plusone>
+    </div>
+
+    <!-- Tweet -->
+    <div style="float: left; margin-left: 5px">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="ahujaankit">Tweet</a>
+      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    </div>
+
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+
+    <!-- Facebook Like -->
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#appId=278338722193468&xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div style="float: left; margin-left: 5px; display: inline-block">
+      <div class="fb-like" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="lucida grande"></div>
+    </div>
+    <div id="fb-root"></div>
+  </div>
 </div>

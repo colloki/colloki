@@ -1,3 +1,9 @@
+<div id="contentPanel">
+  <a href="<%= @root_url %>">
+    <h1>Search Results for '<%= @query %>'</h1>
+  </a>
+  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+</div>
 <div id="rightPanel">
   <% if !logged_in? %>
     <div class='sidebar_block'>
@@ -19,10 +25,4 @@
       <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
     <% end %>
   </div>
-</div>
-<div id="contentPanel">
-  <a href="<%= @root_url %>">
-    <h1>Search Results for '<%= @query %>'</h1>
-  </a>
-  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>

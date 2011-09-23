@@ -77,7 +77,7 @@ a.bookmarklet {
 .notice,
 .error,
 .alert {
-  width: 70%;
+  width: 60%;
   display: inline-block;
 }
 
@@ -134,7 +134,6 @@ a.bookmarklet {
 
 #userInfo {
   font-size: 11px;
-  width: 300;
   float: right;
   text-align: right;
   margin-right: 10px;
@@ -142,9 +141,10 @@ a.bookmarklet {
 }
 
 #search {
-  display: inline-block;
+  display: block;
   padding-top: 2px;
-  float: left;
+  float: right;
+  width: 24%;
 }
 
 #search input {
@@ -296,7 +296,8 @@ div.storyTagList {
   float: left;
   width: 30%;
   padding: 5px 10px 0 0;
-  margin-right: 10px;
+  margin-right: 1%;
+  min-width: 220px;
 /*  border-right: 1px solid #eee;*/
 }
 
@@ -398,21 +399,23 @@ div.storyTagList {
   float: left;
   overflow: auto;
   min-height: 500px;
-  width: 72%;
-  padding-right: 10px;
+  width: 60%;
+  padding-right: 1%;
+  min-height: 600px;
+  overflow: auto;
+  background-color: #fff;
+  padding-left: 1%;
+  border-left: 1px solid #eee;
 }
 
 #rightPanel {
-  width: 24%;
-  float: right;
-  vertical-align: top;
-  padding-right: 2%;
+  width: 20%;
+  float: left;
+  margin-left: 1%;
+  padding-right: 3%;
 }
 
 #topicsPanel {
-  margin: 10px;
-  margin-left: 0px;
-  margin-top: 0px;
   width: 13%;
   float: left;
   display: block;
@@ -488,7 +491,7 @@ div.storyTagList {
   overflow: auto;
 }
 
-#content {
+/*#content {
   min-height: 600px;
   min-width: 75%;
   overflow: auto;
@@ -496,7 +499,7 @@ div.storyTagList {
   padding-left: 10px;
   border-left: 1px solid #eee;
 }
-
+*/
 .tag {
   font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
   font-size: 10px;
