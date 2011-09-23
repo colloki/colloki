@@ -1,16 +1,5 @@
 class StoriesController < ApplicationController
 
-  # Added this for implementing search functionality which currently only exists in Mobile Safari apps
-  # -MM Nov 25, 2008
-  def search
-    @stories = Story.find :all, :conditions =>  [ "title like ? OR description like ? ", "%#{params[:query]}%", "%#{params[:query]}%"]
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @stories }
-      # format.mobilesafari { render :layout => false }
-    end
-  end
-
   def rss
     #TODO: Need to move this whole action onto the topic controller.
     stories_unsorted = Story.find(:all)

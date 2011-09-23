@@ -40,5 +40,7 @@ Colloki::Application.routes.draw do
   match 'top', :to => 'topics#index'
   match 'latest', :to => 'topics#latest'
 
+  match 'search', :to => 'topics#search'
+
   match ':controller(/:action(/:id(/:id2)))'
 end

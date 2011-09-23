@@ -15,6 +15,19 @@ class TopicsController < ApplicationController
     end
   end
 
+  def search
+    @query = params[:query]
+    @page_title = "Search results for #{@query}"
+    @stories = Story.find :all, :conditions =>  [ "title like ? OR description like ? ", "%#{@query}%", "%#{@query}%"]
+    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
+    @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
+    @tags = Story.tag_counts_on(:tags)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @stories }
+    end
+  end
+
   def latest
     @page_title = "Latest"
     @stories = Story.all(:order => "created_at DESC")

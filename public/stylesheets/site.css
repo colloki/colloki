@@ -995,3 +995,17 @@ a.button.negative:active {
 #facebook_signin_bt:active {
   background: 0px 23px url('../images/facebook_signin.png');
 }
+
+#search {
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+  margin-top: -3px;
+}
+
+#search input {
+  font-size: 12px;
+  -webkit-appearance: textfield;
+  border-radius: 2px;
+  padding: 2px;
+}
