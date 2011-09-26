@@ -29,7 +29,8 @@
   </div>
 </div>
 <div id="wrap">
-  <% if request.fullpath != "/login" %>
+  <% places_without_topics = ["/login", "/signup", "/forgot_password", "/reset_password", "/change_password"] %>
+  <% if (!places_without_topics.include? request.fullpath and !request.fullpath.include? 'auth') %>
     <div id="topicsPanel">
       <h1>Sections</h1>
       <% if @topics %>

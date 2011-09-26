@@ -79,6 +79,7 @@ a.bookmarklet {
 .alert {
   width: 64%;
   display: inline-block;
+  margin-left: 10px;
 }
 
 .notice {
@@ -406,6 +407,13 @@ div.storyTagList {
   background-color: #fff;
   padding-left: 1%;
   border-left: 1px solid #eee;
+}
+
+#centeredContentPanel {
+  width: 800px;
+  margin: 0 auto;
+  min-height: 600px;
+  padding: 10px;
 }
 
 #rightPanel {

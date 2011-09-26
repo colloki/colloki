@@ -9,3 +9,4 @@ gem 'gravatar_image_tag' # https://github.com/mdeering/gravatar_image_tag
 gem 'omniauth'
 gem 'nokogiri' # http://nokogiri.org/
 gem 'paperclip', "~> 2.4"
+gem 'capistrano'

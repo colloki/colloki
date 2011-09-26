@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     end
     user = User.find(:first, :conditions => {:email => params[:email]})
     if !user
-      flash[:alert] = "That email id is not registered on slurp. Please enter the email id you used to register."
+      flash[:alert] = "That email id is not registered on Colloki. Please enter the email id you used to register."
       redirect_to forgot_password_url
     else
       user.make_reset_code

@@ -1,0 +1,38 @@
+# Bootstrap RVM
+$:.unshift(File.expand_path("~/.rvm/lib"))
+require 'rvm/capistrano'
+# automatically runs "bundle install"
+require "bundler/capistrano"
+
+set :application, "colloki"
+set :repository, "git@github.com:colloki/colloki.git"
+set :scm, :git
+
+set :user, "user"
+set :deploy_to, "path_to_app_on_server"
+
+server "server_name", :app, :web, :db, :primary => true
+
+set :rails_env, "production"
+set :use_sudo, false
+
+set :rvm_type, :user
+set :rvm_ruby_string, "1.9.2@colloki"
+
+set :deploy_via, :remote_cache
+
+namespace :deploy do
+  # this is temporary. we'll use passenger or some other solution
+  task :start, :roles => :app do
+    run "cd #{current_path}; rails server -d -e=production -p=4000"
+  end
+
+  task :stop, :roles => :app do
+    run "kill -9 $(cat #{current_path}/tmp/pids/server.pid)"
+  end
+
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "kill -9 $(cat #{current_path}/tmp/pids/server.pid); cd #{current_path}; rails server -d -e=production -p=4000"
+  end
+end
