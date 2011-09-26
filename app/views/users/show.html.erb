@@ -1,27 +1,32 @@
-<div class="userProfileBanner">
-  <% if @user.email and @user.email != '' %>
-    <div class="userProfilePic">
-      <%= gravatar_image_tag(@user.email, :gravatar => { :size => 50 }) %>
-    </div>
-  <% end %>
-  <h3>
-    <% if @user.realname and @user.realname != '' %>
-      <%= @user.realname %> /
+<div id="contentPanel">
+  <div class="userProfileBanner">
+    <% if @user.email and @user.email != '' %>
+      <div class="userProfilePic">
+        <%= gravatar_image_tag(@user.email, :gravatar => { :size => 50 }) %>
+      </div>
     <% end %>
-    <%= @user.login %>
-  </h3>
-  <% if @user.website and @user.website != ''%>
-    <%= link_to @user.website, @user.website %> ●
-  <% end %>
-  <% if @user.bio and @user.bio != ''%>
-    <%= @user.bio %> ●
-  <% end %>
-  <% if @user.location and @user.location != ''%>
-    <%= @user.location %><br>
-  <% end %>
-  <%=@user.stories.count%> Links, <%=@user.comments.count%> Comments
+    <h3>
+      <% if @user.realname and @user.realname != '' %>
+        <%= @user.realname %> /
+      <% end %>
+      <%= @user.login %>
+    </h3>
+    <% if @user.website and @user.website != ''%>
+      <%= link_to @user.website, @user.website %> ●
+    <% end %>
+    <% if @user.bio and @user.bio != ''%>
+      <%= @user.bio %> ●
+    <% end %>
+    <% if @user.location and @user.location != ''%>
+      <%= @user.location %><br>
+    <% end %>
+    <%=@user.stories.count%> Links, <%=@user.comments.count%> Comments
+  </div>
+  <br>
+  <h2>Latest from <%=@user.login%></h2>
+  <!-- TODO: Pagination here -->
+  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>
-
 <div id="rightPanel">
   <h2>
     <%=@user.login%>'s tag cloud
@@ -36,10 +41,4 @@
     </blockquote>
     <small>On <%=comment.created_at.to_s(:cool)%> in response to <strong><%=link_to comment.story.title, {:controller=>"stories", :action=>"show", :id=>comment.story.id}%></strong></small>
   <%end%>
-</div>
-
-<div id="contentPanel">
-  <h2>Latest from <%=@user.login%></h2>
-  <!-- TODO: Pagination here -->
-  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>
