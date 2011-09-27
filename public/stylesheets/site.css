@@ -88,7 +88,6 @@ a.bookmarklet {
   padding: 5px 10px;
   border: 1px solid #188a09;
   opacity: 0.88;
-  margin: 0 auto;
 }
 
 .alert,
@@ -420,6 +419,7 @@ div.storyTagList {
   width: 21%;
   float: left;
   margin-left: 1%;
+  margin-top: 10px;
 }
 
 #topicsPanel {
@@ -486,7 +486,6 @@ div.storyTagList {
   margin: 0 auto;
   margin-top: 20px;
   padding: 10px 0;
-  border-top: 1px solid #eee;
   text-align: center;
   color: #555;
   width: 80%;
@@ -498,15 +497,6 @@ div.storyTagList {
   overflow: auto;
 }
 
-/*#content {
-  min-height: 600px;
-  min-width: 75%;
-  overflow: auto;
-  background-color: #fff;
-  padding-left: 10px;
-  border-left: 1px solid #eee;
-}
-*/
 .tag {
   font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
   font-size: 10px;

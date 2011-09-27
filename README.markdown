@@ -8,5 +8,6 @@ Colloki is a grad school research project which aims to foster meaningful discus
 * Create `config/initializers/omniauth.rb` from `config/initializers/omniauth.rb.tmpl`
 * Create `config/initializers/setup_mail.rb` from `config/initializers/setup_mail.rb.tmpl`
 * If you want to use Capistrano for deployment, create `config/deploy.rb` from `config/deploy.rb.tmpl`
+* If you are using RVM, create `.rvmrc` in the root of the project folder.
 
 _This README is a work in progress_

@@ -1,7 +1,5 @@
-<% @discover_link = auto_discovery_link_tag(:rss, {:controller => 'stories', :action => 'rss', :id => params[:id]}) %>
-<%= render :partial => "partials/topic_header", :locals => {:topic => @topic} %>
-
 <div id="contentPanel">
+  <%= render :partial => "partials/topic_header", :locals => {:topic => @topic} %>
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
   <%= will_paginate @stories %>
 </div>
