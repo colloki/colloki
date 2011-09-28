@@ -29,7 +29,13 @@
   </div>
 </div>
 <div id="wrap">
-  <% places_without_topics = ["/login", "/signup", "/forgot_password", "/reset_password", "/change_password"] %>
+  <% places_without_topics = ["/login",
+    "/signup",
+    "/forgot_password",
+    "/reset_password",
+    "/change_password",
+    "/about",
+    "/changelog"] %>
   <% if (!places_without_topics.include? request.fullpath and !request.fullpath.include? 'auth') %>
     <div id="topicsPanel">
       <h1>Sections</h1>
@@ -83,7 +89,7 @@
   <div id="footer">
     <%= link_to "About", about_url %> |
     <%= link_to "Changelog", changelog_url %> |
-    <%= link_to "Report an issue", "http://github.com/colloki/colloki/issues" %>
+    <%= link_to "Report a problem", "http://github.com/colloki/colloki/issues" %>
   </div>
 </div>
 </body>

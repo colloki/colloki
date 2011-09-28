@@ -14,7 +14,7 @@ class ActivityItem < ActiveRecord::Base
   UnVoteType        = 4
   CreateLinkType    = 5
   CreatePostType    = 6
-  
+
   def sentence
     if self.kind == CommentType
       "commented on "
@@ -32,5 +32,5 @@ class ActivityItem < ActiveRecord::Base
       " "
     end
   end
-  
+
 end

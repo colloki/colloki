@@ -35,7 +35,10 @@ class StoriesController < ApplicationController
       redirect_to root_url
     end
 
-    @topic = Topic.find(@story.topic_id)
+    if @story.topic_id != -1
+      @topic = Topic.find(@story.topic_id)
+    end
+
     @page_title = @story.title
 
     if @story.views == nil
@@ -66,7 +69,7 @@ class StoriesController < ApplicationController
       @topic = Topic.find(params[:topic_id])
       @story = @topic.stories.build
       @page_title = "Add a " + params[:kind] + " to " + @topic.title
-      if (params[:kind]=="link")
+      if params[:kind] == "link"
         @story.kind = Story::Link
         if params[:url]
           @story.url = params[:url]
@@ -77,10 +80,10 @@ class StoriesController < ApplicationController
         if params[:desc]
           @story.description = params[:desc]
         end
-      elsif (params[:kind]=="post")
+      elsif params[:kind] == "post"
         @story.kind = Story::Post
-      elsif (params[:kind]=="event")
-        @story.kind = Story::Event
+      elsif params[:kind] == "rss"
+        @story.kind = Story::Rss
       end
       respond_to do |format|
         format.html # new.html.erb
@@ -107,19 +110,8 @@ class StoriesController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @story = @topic.stories.build(params[:story])
-    # Check for img tags to store images.
-    # todo: this is just for testing at the moment.
-    require 'nokogiri'
-    require 'open-uri'
-    doc = Nokogiri::HTML(params[:story]['description'])
-    img_tag = doc.search('img').first
-    if img_tag
-      #store it as an attachment
-      src = img_tag['src']
-      @story.image = open(URI.parse(src))
-    end
-
     @story.views = 0
+
     if logged_in?
       @story.user_id = current_user.id
       @story.update_popularity

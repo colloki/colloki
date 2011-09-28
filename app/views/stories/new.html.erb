@@ -1,17 +1,12 @@
 <div id="contentPanel">
-<%= render :partial => "partials/topic_header", :locals => {:topic => @topic} %>
-<% if @story.kind == Story::Event %>
-  <h3>
-    Add an event to <%=@topic.title%>
-  </h3>
-<% elsif @story.kind == Story::Post %>
-  <h3>
-    Add a post to <%=@topic.title%>
-  </h3>
+<% if @story.kind == Story::Post %>
+  <h2>
+    Write a post in <strong><%= @topic.title %></strong>
+  </h2>
   <div class="addForm">
   <%= form_for [@topic, @story] do |f| %>
     <%= f.error_messages %>
-    <%= f.hidden_field :kind%>
+    <%= f.hidden_field :kind %>
     <p>
       <%= f.label :title %><br />
       <%= f.text_field :title, :class=>'title_input' %>
@@ -33,11 +28,13 @@
   </div>
 <% end %>
 <% elsif @story.kind ==  Story::Link %>
-  <h3>Add a link to <%=@topic.title%></h3>
+  <h2>
+    Add a link to <strong><%= @topic.title %></strong>
+  </h2>
   <div class="addForm">
   <%= form_for [@topic, @story] do |f| %>
     <%= f.error_messages %>
-    <%= f.hidden_field :kind%>
+    <%= f.hidden_field :kind %>
     <p>
       <%= f.label :url %><br />
       <%= f.text_field :url, :class=>'url_input' %>

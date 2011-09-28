@@ -1,31 +1,23 @@
 <div id="contentPanel">
   <div class="storyHeader">
-    <div class="storyTitle">
-    <%if @story.kind ==  Story::Link%>
-        <%= link_to @story.title, @story.url %>
-    <%else%>
-        <%= @story.title %>
-    <%end%>
-    </div>
+    <%= story_title(@story) %>
     <%= render :partial => "partials/story_vote_panel", :locals => { :story => @story } %>
-    <div class="storyMeta">
-      by <%= link_to @story.user.login, @story.user %> •
-      <%= time_ago_in_words @story.created_at %> ago
-      <%if logged_in? and @story.user_id == current_user.id%>
-        • <%= link_to 'edit', edit_story_path(@story) %> •
-        <%= link_to 'delete', @story, :confirm => 'Are you sure you want to delete this post? You will not be able to restore it later.', :method => :delete, :class => "negative" %>
-      <%end%>
-    </div>
+    <%= story_meta(@story) %>
   </div>
 
   <div class="storyContent">
+    <% if @story.image.exists? %>
+      <div class="storyImage">
+        <%= image_tag(@story.image.url) %>
+      </div>
+    <% end %>
     <%= sanitize(@story.description) %>
   </div>
 
   <h2>
     Likers
   </h2>
-  <%= likers(@likers) %>
+  <%= story_likers(@likers) %>
   <br><br>
 
   <h2>
@@ -78,14 +70,23 @@
 
 <div id="rightPanel">
   <div class='sidebar_block'>
-    <h2>More from <strong><%= @story.topic.title %></strong></h2>
+    <h2>
+      More from <strong>
+        <% if @story.topic %>
+          <%= @story.topic.title %>
+        <% else %>
+          Uncategorized
+        <% end %>
+  </strong></h2>
   </div>
   <div class='sidebar_block'>
     <h2>Related stories</h2>
   </div>
   <div class='sidebar_block'>
     <h2>Tags</h2>
-    <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
+    <% if @topic %>
+      <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
+    <% end %>
   </div>
   <div class='sidebar_block'>
     <h2>Share</h2>

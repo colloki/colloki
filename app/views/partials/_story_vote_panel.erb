@@ -1,5 +1,5 @@
 <% if logged_in? %>
-  <% if (story.user.id != current_user.id) %>
+  <% if story.user and story.user.id != current_user.id %>
     <% if !current_user.voted_on?(story) %>
       <a href="<%=url_for(:controller=>"stories", :action => :vote, :id => story.id)%>" title="Like">
         <div class="storyVotePanel">
@@ -16,7 +16,7 @@
   ♥ <span class="voteCount"><%= story.votes.count %></span>
 </div>
 <% if logged_in? %>
-  <% if (story.user.id != current_user.id) and !current_user.voted_on?(story) %>
+  <% if story.user and story.user.id != current_user.id and !current_user.voted_on?(story) %>
     </a>
   <% end %>
 <% end %>

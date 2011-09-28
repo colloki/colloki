@@ -1,0 +1,11 @@
+<div id="contentPanel">
+  <h2>Fetch a new story</h2>
+  <%= form_tag("/story_fetcher/parse") do %>
+  <%= label_tag "Story url:" %>
+  <%= text_field_tag :url, "", :size => 100 %>
+  <br><br>
+  <%= submit_tag("Fetch!") %>
+  <% end %>
+  <br><br>
+  <div style="color: #555; font-size: 11px">Currently supported: collegiatetimes.com, roanoke.com</div>
+</div>

@@ -1,0 +1,15 @@
+<div id="contentPanel">
+  Title:
+  <br><br>
+  <%= @title %>
+  <br><br>
+  <% if @image %>
+    Image:
+    <br><br>
+    <img src="<%= @image %>" />
+  <% end %>
+  <br><br>
+  Content:
+  <br><br>
+  <%= @content %>
+</div>

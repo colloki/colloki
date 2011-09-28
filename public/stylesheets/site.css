@@ -212,7 +212,7 @@ a.bookmarklet {
   width: 90%;
   font-size: 24px;
   font-weight: normal;
-  margin: 7px 0 0 0;
+  margin: 0;
   line-height: 28px;
 }
 
@@ -309,9 +309,8 @@ div.storyTagList {
   margin: 0px;
 }
 
-.storyItemLayout3 .storyItemContent,
-.storyItemLayout3 .storyItemIcon {
-  height: 130px;
+.storyItemLayout3 .storyItemContent {
+  height: 220px;
 }
 
 .storyItemLayout3 .storyItemThumbnail {
@@ -325,8 +324,7 @@ div.storyTagList {
   width: 100%;
 }
 
-.storyItemLayout1 .storyItemContent,
-.storyItemLayout1 .storyItemIcon {
+.storyItemLayout1 .storyItemContent {
   height: 240px;
 }
 
@@ -387,7 +385,7 @@ div.storyTagList {
 
 .storyItemIcon {
   float: left;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .storyItemContent {
