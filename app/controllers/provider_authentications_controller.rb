@@ -8,7 +8,6 @@ class ProviderAuthenticationsController < ApplicationController
   # POST /provider_authentications
   # POST /provider_authentications.xml
   def create
-    #todo: Fill in the created_at, activated fields
     omniauth = request.env["omniauth.auth"]
     authentication = ProviderAuthentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 
@@ -34,6 +33,7 @@ class ProviderAuthenticationsController < ApplicationController
       user.apply_omniauth(omniauth)
       if user.save
         self.current_user = user
+        self.current_user.activate
         redirect_to("/", :notice => "Welcome #{self.current_user.login}")
       else
         # show a page where user can enter login/email
@@ -51,6 +51,7 @@ class ProviderAuthenticationsController < ApplicationController
     user.email = params[:user]['email']
     if user.save!
       self.current_user = user
+      self.current_user.activate
       redirect_to("/", :notice => "Welcome #{self.current_user.login}")
     else
       redirect_to("/")
