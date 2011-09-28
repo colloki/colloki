@@ -28,7 +28,7 @@ module TopicsHelper
     html = "<div class=\"storyItemMeta\">"
     if story.kind != Story::Rss
       html << "By #{mini_story_icon(story)} #{link_to story.user.login,
-      { :controller => "users", :action => "show", :id => story.user.id }}"
+      { :controller => "users", :action => "show", :id => story.user.id }} "
     else
       html << "#{link_to story.source, story.source_url} "
     end
