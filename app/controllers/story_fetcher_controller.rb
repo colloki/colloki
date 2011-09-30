@@ -3,6 +3,7 @@ class StoryFetcherController < ApplicationController
   def parse
     require 'nokogiri'
     require 'net/http'
+    require 'open-uri'
     url = params[:url]
     doc = Nokogiri::HTML(Net::HTTP.get(URI.parse(url)))
 
