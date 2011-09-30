@@ -318,7 +318,7 @@ div.storyTagList {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
-  height: 225px;
+  max-height: 225px;
 }
 
 .storyItemLayout3 .storyItemContent {

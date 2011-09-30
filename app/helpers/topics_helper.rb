@@ -16,7 +16,7 @@ module TopicsHelper
   def mini_story_icon(story)
     html = "<div class=\"storyItemIcon\">"
     if story.kind != Story::Rss
-      html << "#{link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 15 }), story.user, :title => story.user.login}"
+      html << "#{link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login}"
     else
       # todo: get favicon!
     end
