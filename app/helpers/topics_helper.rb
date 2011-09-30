@@ -30,7 +30,8 @@ module TopicsHelper
       html << "Posted by #{mini_story_icon(story)} #{link_to story.user.login,
       { :controller => "users", :action => "show", :id => story.user.id }} "
     else
-      html << "via #{link_to story.source, story.source_url} "
+      link_content = image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "storyItemIcon") << story.source
+      html << "#{link_to link_content, story.source_url} "
     end
     html << "• #{time_ago_in_words story.created_at} ago
     • #{link_to story.comments.count.to_s + ' comments', story}
@@ -38,17 +39,30 @@ module TopicsHelper
     html.html_safe
   end
 
-  def mini_story_content(story, length_with_image=80, length_without_image=200)
+  def mini_story_content(story, length_with_image=-1, length_without_image=-1)
     if story.image.exists?
-      return truncate(strip_tags(story.description), :length => length_with_image, :omission => "...")
+      if length_with_image != -1
+        return truncate(strip_tags(story.description), :length => length_with_image, :omission => "...")
+      else
+        return strip_tags(story.description)
+      end
     else
-      return truncate(strip_tags(story.description), :length => length_without_image, :omission => "...")
+      if length_without_image != -1
+        return truncate(strip_tags(story.description), :length => length_without_image, :omission => "...")
+      else
+        return strip_tags(story.description)
+      end
     end
   end
 
-  def mini_story_title(story)
+  def mini_story_title(story, length=-1)
+    if length != -1
+      title = truncate(strip_tags(story.title), :length => length, :omission => "...")
+    else
+      title = strip_tags(story.title)
+    end
     "<h4>
-    #{link_to truncate(strip_tags(story.title), :length => 50, :omission => "..."), story}
+    #{link_to title, story}
     <br>
     </h4>".html_safe
   end

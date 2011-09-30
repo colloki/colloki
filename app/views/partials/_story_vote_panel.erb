@@ -1,12 +1,15 @@
 <% if logged_in? %>
   <% if story.user and story.user.id != current_user.id %>
     <% if !current_user.voted_on?(story) %>
-      <a href="<%=url_for(:controller=>"stories", :action => :vote, :id => story.id)%>" title="Like">
+      <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>" title="Like">
         <div class="storyVotePanel">
     <% else %>
-      <a href="<%=url_for(:controller=>"stories", :action => :unvote, :id => story.id)%>" title="Unlike">
+      <a href="<%= url_for(:controller=>"stories", :action => :unvote, :id => story.id) %>" title="Unlike">
         <div class="storyVotePanel voted">
     <% end %>
+  <% elsif story.kind == Story::Rss and !current_user.voted_on?(story) %>
+    <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>" title="Like">
+      <div class="storyVotePanel">
   <% else %>
     <div class="storyVotePanel disabled">
   <% end %>

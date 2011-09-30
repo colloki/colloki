@@ -25,7 +25,10 @@ module StoriesHelper
         :class => 'negative'}"
       end
     else
-      html << "#{link_to story.source, story.source_url}"
+      html << "#{link_to image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "storyItemIcon"), story.source_url}"
+      html << "via "
+      html << "#{link_to story.source, story.source_url} • "
+      html << "#{time_ago_in_words @story.created_at} ago "
     end
     html << "</div>"
     html.html_safe
