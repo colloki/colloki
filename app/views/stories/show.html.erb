@@ -15,7 +15,7 @@
   </div>
 
   <h2>
-    Likers
+    Voters
   </h2>
   <%= story_likers(@likers) %>
   <br><br>
@@ -77,13 +77,28 @@
         <% else %>
           Uncategorized
         <% end %>
-  </strong></h2>
+      </strong>
+    </h2>
+    <% if @more_stories %>
+      <% for @more_story in @more_stories %>
+        <ul>
+          <li>
+            <% if @more_story.kind == Story::Rss %>
+              <%= link_to image_tag(favicon_url(@more_story.source_url), :class => "rightPanelIcon"), @more_story.source_url %>
+            <% else %>
+              <%= link_to gravatar_image_tag(@meta_story.user.email, :gravatar => { :size => 12 }), @meta_story.user, :title => @meta_story.user.login %>
+            <% end %>
+            <%= link_to @more_story.title, @more_story %>
+          </li>
+        </ul>
+      <% end %>
+    <% end %>
   </div>
   <div class='sidebar_block'>
     <h2>Related stories</h2>
   </div>
   <div class='sidebar_block'>
-    <h2>Tags</h2>
+    <h2>Related tags</h2>
     <% if @topic %>
       <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
     <% end %>

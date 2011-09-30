@@ -31,12 +31,16 @@ class StoriesController < ApplicationController
   # or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>
   def show
     @story = Story.find(params[:id])
+
     if (!@story)
       redirect_to root_url
     end
 
     if @story.topic_id != -1
       @topic = Topic.find(@story.topic_id)
+      @more_stories = Story.find :all, :conditions => "topic_id = #{@topic.id} AND id != #{@story.id}", :order => "created_at DESC", :limit => 5
+    else
+      @more_stories = Story.find :all, :conditions => "topic_id = -1 AND id != #{@story.id}", :order => "created_at DESC", :limit => 5
     end
 
     @page_title = @story.title

@@ -14,4 +14,8 @@ module ApplicationHelper
     end
     s.html_safe
   end
+
+  def favicon_url(url)
+    "http://www.google.com/s2/favicons?domain_url=" << url
+  end
 end

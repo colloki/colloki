@@ -18,7 +18,7 @@ module TopicsHelper
     if story.kind != Story::Rss
       html << "#{link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login}"
     else
-      html << "#{link_to image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "storyItemIcon"), story.source_url}"
+      html << "#{link_to image_tag(favicon_url(story.source_url), :class => "storyItemIcon"), story.source_url}"
     end
     html << "</div>"
     html.html_safe

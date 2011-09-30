@@ -265,7 +265,13 @@ div.storyTagList {
 }
 
 .storyContent {
+  padding-top: 10px;
   clear: left;
+  margin: 0 auto;
+}
+
+.storyImage {
+  text-align: center;
 }
 
 .storyMeta {
@@ -318,7 +324,7 @@ div.storyTagList {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
-  max-height: 225px;
+  max-height: 205px;
 }
 
 .storyItemLayout3 .storyItemContent {
@@ -364,36 +370,32 @@ div.storyTagList {
   margin: 10px auto;
 }
 
-.storyVotePanel {
+.heart {
+  font-family: 'Lucida Grande', Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.storyVotePanel,
+.storyVotePanel.voted:hover {
   float: right;
   display: block;
   font-size: 16px;
-  color: #555;
-  background-color: #eee;
-  border-radius: 5px;
-  margin-top: 10px;
-  margin-right: 5px;
-  border: 1px solid #ddd;
-  padding: 2px 10px;
+  color: #666;
+  background-color: #fff;
+  border: none;
+  margin-top: 5px;
+  padding: 3px 10px;
 }
 
-.storyVotePanel:hover {
-  background-color: #fbfbfb;
+.storyVotePanel:hover, .voted {
+  background-color: #eee;
+  color: #555;
   cursor: pointer;
 }
 
-.voted:hover {
-  background-color: #555;
-}
-
 .disabled:hover {
-  background-color: #eee;
+  background: none;
   cursor: default;
-}
-
-.voted {
-  background-color: #555;
-  color: #fff;
 }
 
 .storyItemIcon {
@@ -404,6 +406,12 @@ div.storyTagList {
   border-top: 2px solid transparent;
   border-bottom: 3px solid transparent;
   opacity: 0.6;
+}
+
+.rightPanelIcon {
+  opacity: 0.6;
+  height: 12px;
+  width: 12px;
 }
 
 #contentPanel {
@@ -432,6 +440,16 @@ div.storyTagList {
   float: left;
   margin-left: 1%;
   margin-top: 10px;
+}
+
+#rightPanel ul {
+  padding: 0;
+}
+
+#rightPanel li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 #topicsPanel {

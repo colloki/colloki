@@ -1,22 +1,28 @@
 <% if logged_in? %>
   <% if story.user and story.user.id != current_user.id %>
     <% if !current_user.voted_on?(story) %>
-      <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>" title="Like">
+      <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>" title="Vote for this post">
         <div class="storyVotePanel">
     <% else %>
-      <a href="<%= url_for(:controller=>"stories", :action => :unvote, :id => story.id) %>" title="Unlike">
+      <a href="<%= url_for(:controller=>"stories", :action => :unvote, :id => story.id) %>" title="Unvote for this post">
         <div class="storyVotePanel voted">
     <% end %>
-  <% elsif story.kind == Story::Rss and !current_user.voted_on?(story) %>
-    <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>" title="Like">
-      <div class="storyVotePanel">
+  <% elsif story.kind == Story::Rss %>
+    <% if !current_user.voted_on?(story) %>
+      <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>" title="Vote for this post">
+        <div class="storyVotePanel">
+    <% else %>
+      <a href="<%= url_for(:controller=>"stories", :action => :unvote, :id => story.id) %>" title="Unvote for this post">
+        <div class="storyVotePanel voted">
+      <% end %>
   <% else %>
     <div class="storyVotePanel disabled">
   <% end %>
 <% else %>
   <div class="storyVotePanel disabled">
 <% end %>
-  ♥ <span class="voteCount"><%= story.votes.count %></span>
+<span class="heart">♥</span>
+<span class="voteCount"><%= story.votes.count %></span>
 </div>
 <% if logged_in? %>
   <% if story.user and story.user.id != current_user.id and !current_user.voted_on?(story) %>
