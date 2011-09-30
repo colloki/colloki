@@ -10,7 +10,6 @@ class StoryFetcherController < ApplicationController
     # we are assuming since it is a small town, we are going to have a limited no. of sources.
     if url.include? "collegiatetimes.com"
       source = "CollegiateTimes"
-      source_url = "http://www.collegiatetimes.com"
       @title = doc.css('p.headline').first.text
       @content = doc.css('#story>p').to_html.html_safe
       image_tags = doc.css('.img img')
@@ -19,7 +18,6 @@ class StoryFetcherController < ApplicationController
       end
     elsif url.include? "roanoke.com"
       source = "The Roanoke Times"
-      source_url = "http://www.roanoke.com"
       @title = doc.css('#main h1').first.text
       @content = doc.css('#story-text>p').to_html.html_safe
     end
@@ -28,13 +26,13 @@ class StoryFetcherController < ApplicationController
     story = Story.new
     story.title = @title
     story.description = @content
-    if (@image)
-      story.image = open(URI.parse(@image))
+    if @image
+      story.image = open(@image)
     end
     story.views = 0
     story.kind = Story::Rss
     story.source = source
-    story.source_url = source_url
+    story.source_url = url
     story.save
   end
 

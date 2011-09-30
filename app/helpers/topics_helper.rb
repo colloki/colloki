@@ -27,10 +27,10 @@ module TopicsHelper
   def mini_story_meta(story)
     html = "<div class=\"storyItemMeta\">"
     if story.kind != Story::Rss
-      html << "By #{mini_story_icon(story)} #{link_to story.user.login,
+      html << "Posted by #{mini_story_icon(story)} #{link_to story.user.login,
       { :controller => "users", :action => "show", :id => story.user.id }} "
     else
-      html << "#{link_to story.source, story.source_url} "
+      html << "via #{link_to story.source, story.source_url} "
     end
     html << "• #{time_ago_in_words story.created_at} ago
     • #{link_to story.comments.count.to_s + ' comments', story}
