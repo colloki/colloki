@@ -26,7 +26,6 @@ module StoriesHelper
       end
     else
       html << "#{link_to image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "storyItemIcon"), story.source_url}"
-      html << "via "
       html << "#{link_to story.source, story.source_url} • "
       html << "#{time_ago_in_words @story.created_at} ago "
     end
@@ -40,5 +39,14 @@ module StoriesHelper
       output += link_to gravatar_image_tag(user.email, :gravatar => { :size => 36 }), user
     end
     output.html_safe
+  end
+
+  def story_sidebar_link(story)
+    if story.kind == Story::Rss
+      output = link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url
+    else
+      output = link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login
+    end
+    output += link_to story.title, story, :class => "story_sidebar_link"
   end
 end

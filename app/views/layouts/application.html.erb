@@ -9,25 +9,6 @@
   <%= javascript_include_tag('application') %>
 </head>
 <body>
-<div id="header">
-  <div id="header_wrap">
-    <a href="<%=root_url%>" title="Colloki" id="header_title" tabIndex="1">
-      Colloki
-    </a>
-    <form id="search" action="search">
-      <input type="search" name="query" placeholder="Search" tabIndex="1" target="/search" />
-    </form>
-    <div id="userInfo">
-      <% if logged_in? %>
-        <%= link_to current_user.login, current_user, :tabIndex => 2 %> |
-        <%= link_to "Settings", settings_url, :tabIndex => 2 %> |
-        <%= link_to "Logout", logout_url, :tabIndex => 3 %>
-      <% else %>
-        <%= link_to "Sign in", login_url %> to create, vote and comment on stories
-      <% end %>
-    </div>
-  </div>
-</div>
 <div id="wrap">
   <% places_without_topics = ["/login",
     "/signup",
@@ -35,10 +16,10 @@
     "/reset_password",
     "/change_password",
     "/about",
+    "/settings",
     "/changelog"] %>
   <% if (!places_without_topics.include? request.fullpath and !request.fullpath.include? 'auth') %>
-    <div id="topicsPanel">
-      <h1>Sections</h1>
+    <div id="left">
       <% if @topics %>
         <ul id="topics">
           <% if request.fullpath == "/" %>
@@ -66,10 +47,32 @@
             <%= link_to topic.title, topical_path(topic) %>
             </li>
           <% end %>
+          <li>
+            <%= link_to "Uncategorized", topical_path(-1) %>
+          </li>
         </ul>
       <% end %>
     </div>
   <% end %>
+  <div id="header">
+    <div id="header_wrap">
+      <a href="<%=root_url%>" title="Colloki" id="header_title" tabIndex="1">
+        Colloki
+      </a>
+      <form id="search" action="search">
+        <input type="search" name="query" placeholder="Search" tabIndex="1" target="/search" />
+      </form>
+      <div id="userInfo">
+        <% if logged_in? %>
+          <%= link_to current_user.login, current_user, :tabIndex => 2 %>
+          <%= link_to "Settings", settings_url, :tabIndex => 2 %>
+          <%= link_to "Logout", logout_url, :tabIndex => 3 %>
+        <% else %>
+          <%= link_to "Sign in", login_url %> to create, vote and comment on stories
+        <% end %>
+      </div>
+    </div>
+  </div>
   <% if flash[:notice] %>
     <div class="notice">
       <%= flash[:notice] %>
@@ -85,11 +88,12 @@
       <%= flash[:error] %>
     </div>
   <% end %>
-  <%= yield %>
+  <div id="content">
+    <%= yield %>
+  </div>
   <div id="footer">
     <%= link_to "About", about_url %> |
-    <%= link_to "Changelog", changelog_url %> |
-    <%= link_to "Report a problem", "http://github.com/colloki/colloki/issues" %>
+    <%= link_to "Report an issue", "http://github.com/colloki/colloki/issues" %>
   </div>
 </div>
 </body>

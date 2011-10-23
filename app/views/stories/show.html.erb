@@ -1,4 +1,4 @@
-<div id="contentPanel">
+<div id="middle">
   <div class="storyHeader">
     <%= story_title(@story) %>
     <%= render :partial => "partials/story_vote_panel", :locals => { :story => @story } %>
@@ -13,19 +13,20 @@
     <% end %>
     <%= sanitize(@story.description) %>
   </div>
-
-  <h2>
-    Voters
-  </h2>
-  <%= story_likers(@likers) %>
-  <br><br>
-
+  <br>
+  <% if @likers.count != 0 %>
+    <h2>
+      Voters
+    </h2>
+    <%= story_likers(@likers) %>
+    <br><br>
+  <% end %>
   <h2>
     <%= @story.comments.count %>
     <% if @story.comments.count == 1 %>
-      Response
+      Comment
     <% else %>
-      Responses
+      Comments
     <% end %>
   </h2>
 
@@ -55,11 +56,11 @@
   </div>
   <% end %>
   <br>
-  <h2>Add a response</h2>
+  <h2>Add a comment</h2>
   <% if logged_in? %>
   <%= form_tag :action => "comment" , :id => @story.id %>
     <%= text_area "comment", "body" %> <br>
-    <%= submit_tag "Comment!", :class => "button" %>
+    <%= submit_tag "Comment", :class => "button" %>
   </form>
   <% else %>
   <p>
@@ -68,73 +69,36 @@
   <% end %>
 </div>
 
-<div id="rightPanel">
-  <div class='sidebar_block'>
-    <h2>
-      More from <strong>
-        <% if @story.topic %>
-          <%= @story.topic.title %>
-        <% else %>
-          Uncategorized
-        <% end %>
-      </strong>
-    </h2>
+<div id="right">
+  <div class="block">
     <% if @more_stories %>
-      <% for @more_story in @more_stories %>
+      <h2>
+        More from <strong>
+          <% if @story.topic %>
+            <%= @story.topic.title %>
+          <% else %>
+            Uncategorized
+          <% end %>
+        </strong>
+      </h2>
         <ul>
-          <li>
-            <% if @more_story.kind == Story::Rss %>
-              <%= link_to image_tag(favicon_url(@more_story.source_url), :class => "rightPanelIcon"), @more_story.source_url %>
-            <% else %>
-              <%= link_to gravatar_image_tag(@meta_story.user.email, :gravatar => { :size => 12 }), @meta_story.user, :title => @meta_story.user.login %>
-            <% end %>
-            <%= link_to @more_story.title, @more_story %>
-          </li>
+          <% for @more_story in @more_stories %>
+            <li>
+              <%= story_sidebar_link(@more_story) %>
+            </li>
+          <% end %>
         </ul>
-      <% end %>
-    <% end %>
-  </div>
-  <div class='sidebar_block'>
+    </div>
+  <% end %>
+  <!-- <div class="block">
     <h2>Related stories</h2>
-  </div>
-  <div class='sidebar_block'>
-    <h2>Related tags</h2>
-    <% if @topic %>
-      <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
-    <% end %>
-  </div>
-  <div class='sidebar_block'>
-    <h2>Share</h2>
-    <!-- Google +1 -->
-    <div style="display: block; float: left">
-      <g:plusone size="medium" annotation="none"></g:plusone>
+  </div> -->
+  <% if @story.tag_list.count != 0%>
+    <div class="block">
+      <h2>Related tags</h2>
+      <% if @topic %>
+        <%= render :partial => "partials/tag_list", :locals => { :list => @story.tag_list, :topic => @topic.id } %>
+      <% end %>
     </div>
-
-    <!-- Tweet -->
-    <div style="float: left; margin-left: 5px">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="ahujaankit">Tweet</a>
-      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-    </div>
-
-    <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-    </script>
-
-    <!-- Facebook Like -->
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#appId=278338722193468&xfbml=1";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    <div style="float: left; margin-left: 5px; display: inline-block">
-      <div class="fb-like" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="lucida grande"></div>
-    </div>
-    <div id="fb-root"></div>
-  </div>
+  <% end %>
 </div>

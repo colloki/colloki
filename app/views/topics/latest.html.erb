@@ -1,33 +1,39 @@
-<div id="contentPanel">
+<div id="middle">
   <a href="<%= @root_url %>">
     <h1>Latest</h1>
   </a>
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>
-<div id="rightPanel">
+<div id="right">
   <% if !logged_in? %>
-    <div class='sidebar_block'>
+    <div class="block">
       <h2>What is Colloki?</h2>
-      Colloki is a place to share links and have conversations online.
+      <%= colloki_description %>
     </div>
   <% else %>
     <h2>Add a Topic</h2>
-    <div class='sidebar_block'>
+    <div class="block">
       <%= link_to 'Add Topic', new_topic_path, :class => "button" %>
     </div><br>
   <% end %>
-  <div class="sidebar_block">
-    <h2>Popular Topics</h2>
-      <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
-  </div>
-  <div class='sidebar_block'>
-    <h2>Latest Activity</h2>
-    <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
-  </div>
-  <div class='sidebar_block'>
-    <h2>New Users</h2>
-    <% for user in @new_users %>
-      <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
-    <% end %>
-  </div>
+  <% if @tags.count != 0 %>
+    <div class="block">
+      <h2>Popular Topics</h2>
+        <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
+    </div>
+  <% end %>
+  <% if @activity_items.count != 0 %>
+    <div class="block">
+      <h2>Latest Activity</h2>
+      <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
+    </div>
+  <% end %>
+  <% if @new_users.count != 0 %>
+    <div class="block">
+      <h2>New Users</h2>
+      <% for user in @new_users %>
+        <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

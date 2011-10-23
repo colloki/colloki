@@ -2,10 +2,11 @@ body {
   margin: 0;
   padding: 0;
   color: #000;
+  background: #edf3f5;
 }
 
 body, p, ol, ul, td {
-  font-family: "Lucida Grande", helvetica, arial, verdana, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size:   13px;
   line-height: 18px;
 }
@@ -44,17 +45,15 @@ pre {
   font-size: 11px;
 }
 
-a {
-  color: #0066CC;
+a,
+a:visited {
+  color: #36C;
   text-decoration: none;
 }
 
-a:visited {
-  color: #0066cc;
-}
-
 a:hover {
-  color: #9ac267;
+/*  color: #9ac267;*/
+  text-decoration: underline;
 }
 
 a.negative {
@@ -79,7 +78,9 @@ a.bookmarklet {
 .alert {
   width: 64%;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 10%;
+  margin-bottom: 5px;
+  width: 82%;
 }
 
 .notice {
@@ -106,45 +107,55 @@ a.bookmarklet {
 }
 
 #header {
-  height: 28px;
-  min-width: 790px;
-  background-color: #51555c;
-  color: #eee;
-  font-size: 20px;
-  font-weight: bold;
-  padding-left: 5px;
-  padding: 5px 0;
-}
-
-#header a {
-  color: #fff36b;
+  height: 34px;
+  color: #333;
+  width: 86%;
+  margin-left: 10%;
+  padding: 2px;
 }
 
 #header_wrap {
-  margin: 0 10px;
+  margin: 0 auto;
 }
 
 #header_title {
-  padding-top: 5px;
+  padding-top: 7px;
   float: left;
   display: inline-block;
-  color: #fff !important;
-  width: 14%;
+  color: #111 !important;
+  font-size: 22px;
+  text-shadow: 1px 1px 1px #eee;
+  font-family: Palatino;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+
+#header_title:hover {
+  text-decoration: none;
 }
 
 #userInfo {
-  font-size: 11px;
+  font-size: 12px;
   float: right;
   text-align: right;
   margin-right: 10px;
-  padding: 5px 0;
+  padding: 6px 0;
+  font-weight: normal;
+}
+
+#userInfo a {
+  padding: 0 5px;
+}
+
+#userInfo a:hover {
+/*  text-decoration: none;*/
 }
 
 #search {
   display: block;
   padding-top: 2px;
   float: right;
-  width: 22%;
+  width: 20%;
 }
 
 #search input {
@@ -152,7 +163,7 @@ a.bookmarklet {
   -webkit-appearance: textfield;
   border-radius: 2px;
   padding: 2px;
-  width: 200px;
+  width: 180px;
 }
 
 #errorExplanation {
@@ -181,7 +192,7 @@ a.bookmarklet {
 }
 
 .storyItemEdit {
-  font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size: 10px;
   width: 100px;
   clear: left;
@@ -205,13 +216,16 @@ a.bookmarklet {
 /* Generated CSS from http://spiffycorners.com for tag cloud.
 Don't edit here, instead, regenerate, and copy paste. */
 
-.tagCloud{display:block}
-.tagCloud *{
-  display:block;
-  height:1px;
-  overflow:hidden;
-  font-size:.01em;
-  background:#F4F5F0}
+.tagCloud {
+  display:block
+}
+.tagCloud * {
+  display: block;
+  height: 1px;
+  overflow: hidden;
+  font-size: .01em;
+  background: #eee;
+}
 .tagCloud1{
   margin-left:3px;
   margin-right:3px;
@@ -219,7 +233,7 @@ Don't edit here, instead, regenerate, and copy paste. */
   padding-right:1px;
   border-left:1px solid #fafaf8;
   border-right:1px solid #fafaf8;
-  background:#f6f7f3}
+  background:#eee}
 .tagCloud2{
   margin-left:1px;
   margin-right:1px;
@@ -227,7 +241,7 @@ Don't edit here, instead, regenerate, and copy paste. */
   padding-left:1px;
   border-left:1px solid #fdfefd;
   border-right:1px solid #fdfefd;
-  background:#f6f6f2}
+  background:#eee}
 .tagCloud3{
   margin-left:1px;
   margin-right:1px;
@@ -240,7 +254,7 @@ Don't edit here, instead, regenerate, and copy paste. */
   border-left:1px solid #f6f7f3;
   border-right:1px solid #f6f7f3}
 .tagCloudfg{
-  background:#F4F5F0}
+  background:#eee}
 /* Generated Code End */
 
 div.storyTagList {
@@ -281,12 +295,16 @@ div.storyTagList {
   clear: both;
 }
 
+.storyMeta .storyItemIcon {
+  margin-top: 2px;
+}
+
 .storyTitle {
   display: block;
   float: left;
   clear: both;
   width: 90%;
-  font-size: 24px;
+  font-size: 21px;
   font-weight: normal;
   margin: 0;
   padding-bottom: 5px;
@@ -348,30 +366,22 @@ div.storyTagList {
 }
 
 .storyItemMeta {
-  font-size: 10px;
+  font-size: 11px;
   clear: none;
-  color: #646464;
+  color: #888;
   margin-top: 5px;
-}
-
-.storyItemMeta a {
-  color: #646464;
-}
-
-.storyItemMeta a:hover {
-  color: #9ac267;
 }
 
 .storyItemDivider {
   border: none;
   clear: both;
   border-top: 1px solid #eee;
-  width: 80%;
+  width: 90%;
   margin: 10px auto;
 }
 
 .heart {
-  font-family: 'Lucida Grande', Helvetica, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size: 14px;
 }
 
@@ -383,8 +393,9 @@ div.storyTagList {
   color: #666;
   background-color: #fff;
   border: none;
-  margin-top: 5px;
+  margin-top: 2px;
   padding: 3px 10px;
+  display: none;
 }
 
 .storyVotePanel:hover, .voted {
@@ -404,65 +415,87 @@ div.storyTagList {
   height: 12px;
   width: 12px;
   border-top: 2px solid transparent;
-  border-bottom: 3px solid transparent;
+  border-bottom: 2px solid transparent;
   opacity: 0.6;
 }
 
-.rightPanelIcon {
+#right ul li {
+  padding: 5px 0;
+  clear: both;
+}
+
+#right ul li .favicon {
   opacity: 0.6;
   height: 12px;
   width: 12px;
+  float: left;
+  margin-right: 5px;
+  margin-top: 2px;
 }
 
-#contentPanel {
+#right ul li .story_sidebar_link {
+  float: left;
+  width: 90%;
+}
+
+#content {
   border-right: 1px solid #eee;
   float: left;
-  overflow: auto;
-  min-height: 500px;
-  width: 65%;
-  padding-right: 1%;
+  width: 82%;
+  padding: 10px;
   min-height: 600px;
   overflow: auto;
   background-color: #fff;
-  padding-left: 1%;
-  border-left: 1px solid #eee;
+  border: 1px solid #ddd;
+  margin-left: 10%;
 }
 
-#centeredContentPanel {
+#middle {
+  float: left;
+  width: 73%;
+  padding-right: 1%;
+  min-height: 600px;
+  overflow: auto;
+  padding-left: 1%;
+  padding-bottom: 20px;
+}
+
+#centeredContent {
   width: 800px;
   margin: 0 auto;
   min-height: 600px;
   padding: 10px;
 }
 
-#rightPanel {
-  width: 21%;
-  float: left;
-  margin-left: 1%;
-  margin-top: 10px;
+#right {
+  width: 24%;
+  float: right;
 }
 
-#rightPanel ul {
+#right ul {
   padding: 0;
 }
 
-#rightPanel li {
+#right li {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#topicsPanel {
-  width: 10%;
+#left {
+  width: 9%;
   float: left;
   display: block;
-  padding: 10px 0 0 8px;
+  padding: 10px 0 0 2px;
   padding-top: 0;
   height: 100%;
   overflow: auto;
+  background: transparent;
+  position: fixed;
+  margin-top: 38px;
 }
 
-#topicsPanel h1 {
+#left h1 {
   color: #333;
   text-transform: none;
   margin: 10px 0;
@@ -470,65 +503,74 @@ div.storyTagList {
   float: none;
 }
 
-#topicsPanel ul {
+#left ul {
   margin: 0;
   padding: 0;
 }
 
-#topicsPanel li {
+#left li {
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
 
-#topicsPanel li a {
+#left li a {
   display: block;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: #555;
   padding: 5px 10px;
-  font-size: 10px;
+  font-size: 13px;
 }
 
-#topicsPanel li a:hover {
-  background-color: #eee;
+#left li a:hover {
+  background-color: #d1dae3;
+  color: #272d33;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.separator {
-  border-bottom: 1px solid #eee;
-  padding-top: 10px;
-  margin-bottom: 10px;
-}
-
-.selected {
-  background-color: #ddd;
-  color: #000;
+#left .selected a {
+  background-color: #d1dae3;
+  color: #272d33 !important;
   font-weight: bold;
 }
 
-.sidebar_block {
-  padding-bottom: 20px;
+#left .separator {
+  padding-top: 8px;
+  margin-bottom: 8px;
+  width: 50%;
+  margin: 0 auto;
 }
 
-#footer{
+.block {
+  padding: 8px 0;
+}
+
+.block:nth-child(1) {
+  padding-top: 0;
+}
+
+#footer {
   clear: both;
-  font-size: 10px;
+  font-size: 11px;
   margin: 0 auto;
-  margin-top: 20px;
-  padding: 10px 0;
   text-align: center;
   color: #555;
   width: 80%;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  height: 50px;
 }
 
 #wrap {
   margin: 0 auto;
   padding-top: 5px;
   overflow: auto;
+/*  width: 1200px;*/
 }
 
 .tag {
-  font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size: 10px;
   color: #333;
   background-color: #eee;
@@ -650,18 +692,6 @@ a.tagLink:visited {
 .css3 { font-size: 1.4em; }
 .css4 { font-size: 1.6em; }
 
-.headerTitle span {
-  border: 1px solid #5588dc;
-  font-size: 16px;
-  padding: 5px;
-  background-color: #4fbafd;
-  -webkit-box-shadow: #4fbafd 0px 0px 5px;
-  margin-bottom: 8px;
-  margin-top: 8px;
-  color: white;
-  opacity: 0.95;
-}
-
 h1 {
   font-size: 14px;
   color: #333;
@@ -670,11 +700,10 @@ h1 {
 }
 
 h2 {
-  color: #333333;
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  color: #333;
   font-weight: normal;
-  border-bottom: 1px solid #eee;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  font-size: 14px;
 }
 
 h3 {
@@ -683,8 +712,8 @@ h3 {
 }
 
 h4 {
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  font-size: 13px;
   font-weight: bold;
   color: #333333;
   margin: 0;
@@ -744,7 +773,7 @@ blockquote {
 }
 
 .voteButton {
-  font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size: 10px;
   background-color: #DBF0DC;
   padding: 3px;
@@ -760,7 +789,7 @@ blockquote {
 }
 
 .unVoteButton {
-  font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size: 9px;
   background-color: #F0E5CD;
   margin-right: 3px;
@@ -845,7 +874,7 @@ ul#tabnav {
   text-align: left;
   margin: 1em 0 0;
   font-size: 13px;
-  font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-weight: bold;
   border-bottom: 1px solid #b0b0b0;
   list-style-type: none;
@@ -911,14 +940,15 @@ input[type=submit] {
   border: 1px solid #c3c3c3;
   border-top: 1px solid #e6e6e6;
   border-left: 1px solid #e6e6e6;
-  font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size: 100%;
   line-height: 130%;
   text-decoration: none;
   font-weight: bold;
   color: #565656;
   cursor: pointer;
-  padding: 5px 10px 6px 7px;
+  padding: 5px 10px 5px 7px;
+  border-radius: 2px;
 }
 
 button,
@@ -1008,25 +1038,30 @@ a.button.negative:active {
 
 /** Login Form **/
 
-#login_form {
+#loginForm {
   width: 350px;
   text-align: center;
-  margin: 0 auto;
-  background-color: #f0f4f5;
   border: 1px solid #eee;
   padding: 20px;
-  border-radius: 10px;
+  margin: 0 auto;
+  background: #edf3f5;
 }
 
-#login_form label {
+#loginForm label {
   width: 190px;
   float: left;
   margin-top: 5px;
   text-align: left;
 }
 
-#login_form p {
+#loginForm p {
   text-align: left;
+}
+
+#loginFormFooter {
+  text-align: center;
+  width: 350px;
+  margin: 20px auto;
 }
 
 #facebook_signin_bt {

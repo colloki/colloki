@@ -1,7 +1,11 @@
 <div>
   <a href="<%=topical_url(:id => topic.id)%>" title="<%=topic.title%> - <%=topic.description%>">
     <h1>
-      <%= topic.title %>
+      <% if topic.title %>
+        <%= topic.title %>
+      <% else %>
+        Uncategorized
+      <% end %>
     </h1>
   </a>
 </div>

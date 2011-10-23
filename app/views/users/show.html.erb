@@ -1,4 +1,4 @@
-<div id="contentPanel">
+<div id="middle">
   <div class="userProfileBanner">
     <% if @user.email and @user.email != '' %>
       <div class="userProfilePic">
@@ -27,7 +27,7 @@
   <!-- TODO: Pagination here -->
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>
-<div id="rightPanel">
+<div id="right">
   <h2>
     <%=@user.login%>'s tag cloud
   </h2>

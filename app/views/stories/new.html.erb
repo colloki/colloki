@@ -1,4 +1,4 @@
-<div id="contentPanel">
+<div id="content">
 <% if @story.kind == Story::Post %>
   <h2>
     Write a post in <strong><%= @topic.title %></strong>
@@ -73,7 +73,7 @@
 <br><br>
 </div>
 <% if params[:url] %>
-  <div id="rightPanel">
+  <div id="right">
     Use our bookmarklet to easily add pages to this topic. Simply drag this link on to your bookmarks toolbar. Once you do that, whenever you want to add a page to Slurp!, all you need to do is click the bookmark.<br><br>Drag this:<br><br>
     <a class="bookmarklet" href="javascript:(function(){javascript:(function(){var%20t;try{t=((window.getSelection&&window.getSelection())||(document.getSelection&&document.getSelection())||(document.selection&&document.selection.createRange&&document.selection.createRange().text));}catch(e){t=%22%22;}location.href='<%=root_url%>topics/<%=@topic.id%>/stories/new/?kind=link&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)+'&desc='+encodeURIComponent(t);})();})();">
       + <%= @topic.title%> on Slurp!

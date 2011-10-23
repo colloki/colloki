@@ -1,44 +1,43 @@
-<div id="centeredContentPanel">
-  <h1>Sign in to Colloki</h1>
-  <br><br>
+<h1>Sign in to Colloki</h1>
+<br><br>
 
-  <%= form_tag create_session_path, :id => "login_form" do %>
+<%= form_tag create_session_path, :id => "loginForm" do %>
 
-  <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
-  <%= link_to content_tag(:div, "", :id => 'facebook_signin_bt'), "auth/facebook" %>
+<%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
+<%= link_to content_tag(:div, "", :id => 'facebook_signin_bt'), "auth/facebook" %>
 
-  <div style="font-style:italic; margin: 20px 0">
-    OR
-  </div>
+<div style="font-weight: bold; margin: 20px 0">
+  OR
+</div>
 
-  <p>
-    <label for="login">Username or Email</label>
-    <%= text_field_tag 'login' %>
-  </p>
+<p>
+  <label for="login">Username or Email</label>
+  <%= text_field_tag 'login' %>
+</p>
 
-  <p>
-    <label for="password">Password</label>
-    <%= password_field_tag 'password' %>
-  </p>
-  <p>
-    <label for="remember_me">
-      <%= check_box_tag 'remember_me' %>
-      Remember me
-    </label>
+<p>
+  <label for="password">Password</label>
+  <%= password_field_tag 'password' %>
+</p>
+<p>
+  <label for="remember_me">
+    <%= check_box_tag 'remember_me' %>
+    Remember me
+  </label>
 
-    <button type="submit" class="positive button" style="float: right">
-      Sign In
-    </button>
-  </p>
+  <button type="submit" class="positive button" style="float: right">
+    Sign In
+  </button>
 
-  <%= hidden_field_tag 'redir', @redir %>
+</p>
 
-  <br><br><br><br>
+<%= hidden_field_tag 'redir', @redir %>
 
-  <% end %>
-  <p style="text-align: center">
-    <%= link_to "Forgot your password?", forgot_password_url %>&nbsp;&nbsp;&nbsp;&nbsp;
-    <%= link_to "Join Colloki", signup_url %>
-  </p>
-  </div>
+<br><br><br>
+
+<% end %>
+<div id="loginFormFooter">
+  <%= link_to "Forgot your password?", forgot_password_url %>&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to "Join Colloki", signup_url %>
+</div>
 </div>

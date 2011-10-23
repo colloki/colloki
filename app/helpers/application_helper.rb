@@ -18,4 +18,9 @@ module ApplicationHelper
   def favicon_url(url)
     "http://www.google.com/s2/favicons?domain_url=" << url
   end
+
+  # Returns some descriptive text about Colloki
+  def colloki_description
+    "A place to learn about news related to Blacksburg and surrounding areas and have conversations with other residents."
+  end
 end

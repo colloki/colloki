@@ -1,32 +1,37 @@
-<div id="contentPanel">
+<div id="middle">
   <%= render :partial => "partials/topic_header", :locals => {:topic => @topic} %>
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
   <%= will_paginate @stories %>
 </div>
-
-<div id="rightPanel">
-  <div class="sidebar_block">
+<div id="right">
+  <h2>Post Story</h2>
+  <%%>
+  <div class="block">
     <a href="<%=new_topic_story_path(@topic, :kind=>'link')%>" class="positive button">
-      Share Link
+      Share a Link
     </a>
     <a href="<%=new_topic_story_path(@topic, :kind=>'post')%>" class="positive button">
       Write a Post
     </a>
     <br>
   </div>
-  <div class="sidebar_block">
+  <!-- <div class="block">
     <h2>Most Popular in <%= @topic.title %></h2>
-  </div>
-  <div class="sidebar_block">
-    <h2>Latest Activity</h2>
-    <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items}%>
-  </div>
-  <div class="sidebar_block">
-    <h2>Top Contributors</h2>
-    <%for user in @top_users%>
-      <%if user.story_count != '0'%>
-        <%=link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login%>
+  </div> -->
+  <% if @activity_items.count != 0 %>
+    <div class="block">
+      <h2>Latest Activity</h2>
+      <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items}%>
+    </div>
+  <% end %>
+  <% if @top_users.count != 0 %>
+    <div class="block">
+      <h2>Top Contributors</h2>
+      <%for user in @top_users%>
+        <%if user.story_count != '0'%>
+          <%=link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login%>
+        <%end%>
       <%end%>
-    <%end%>
-  </div>
+    </div>
+  <% end %>
 </div>
