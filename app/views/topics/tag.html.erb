@@ -1,8 +1,7 @@
-<% # If there is a param defined, go for a topic-only view. %>
-<% if params[:id]%>
+<% if params[:id] %>
   <% @discover_link = auto_discovery_link_tag(:rss, {:controller => 'stories', :action => 'rss', :id => 'tag', :id2 =>params[:id]}) %>
 <%=render :partial => "partials/topic_header", :locals => {:topic => @topic}%>
-  <div id="content">
+  <div id="middle">
     <h2>Tagged: '<font color="blue"><%= @tag %></font>'</h2>
     <br>
     <%=render :partial => "partials/story_items", :locals => { :stories => @stories } %>
@@ -14,10 +13,8 @@
   </div>
 <% else %>
 <% # Else, do a global view. %>
-  <!-- TODO: Auto-discovery RSS link for global tag feed -->
-  <%=render :partial => "partials/second_order_header", :locals => { :style => "bluegray", :title => "Tags" }%>
-  <!-- TODO: Group this listing by topics -->
-  <div id="content">
+  <!-- todo: Group this listing by topics -->
+  <div id="middle">
     <h1>Stories tagged with '<%= link_to @tag, global_tags_url(:tag_list => @tag) %>'</h1>
     <%=render :partial => "partials/story_items", :locals => { :stories => @stories }%>
   </div>
