@@ -3,15 +3,16 @@ class TopicsController < ApplicationController
   # GET /topics.xml
   def index
     @page_title = "Most Popular"
-    @stories = Story.all(:order => "created_at DESC", :limit => 20)
-    @stories.sort! { |a, b| b.popularity <=> a.popularity }
+    # todo: the set of popular posts should be restricted to a fixed time period (maybe last couple of weeks)
+    @stories = Story.paginate(:page => params[:page]).order('popularity DESC')
+    # @stories.sort! { |a, b| b.popularity <=> a.popularity }
     @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @topics }
+      format.xml  { render :xml => @stories }
     end
   end
 
@@ -30,7 +31,7 @@ class TopicsController < ApplicationController
 
   def latest
     @page_title = "Latest"
-    @stories = Story.all(:order => "created_at DESC")
+    @stories = Story.paginate(:page => params[:page]).order("created_at DESC")
     @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
@@ -59,7 +60,7 @@ class TopicsController < ApplicationController
       params[:tab] = 'all'
     end
 
-    @stories = Story.paginate(:conditions => query, :order => sort_order, :page => params[:page], :per_page => 10)
+    @stories = Story.paginate(:conditions => query, :order => sort_order, :page => params[:page])
 
     # TODO: This is not contextual. It shows the tag cloud for the topic, not the stories currently being displayed.
     # @stories.tag_counts doesn't work, apparently the method is not defined for @stories, meaning @stories is a different object

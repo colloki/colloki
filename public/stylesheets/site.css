@@ -633,7 +633,15 @@ a.tagLink:visited {
   text-align: right;
   margin-right: 10px;
   color: #595959;
-  font-size: 10px;
+  font-size: 12px;
+  background: #edf3f5;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.current {
+  font-style: normal;
+  font-weight: bold;
 }
 
 .userProfileBanner {

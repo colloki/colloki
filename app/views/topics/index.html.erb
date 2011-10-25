@@ -3,6 +3,7 @@
     <h1>Most Popular</h1>
   </a>
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+  <%= will_paginate @stories %>
 </div>
 <div id="right">
   <% if !logged_in? %>

@@ -1,6 +1,6 @@
 <% if params[:id] %>
   <% @discover_link = auto_discovery_link_tag(:rss, {:controller => 'stories', :action => 'rss', :id => 'tag', :id2 =>params[:id]}) %>
-<%=render :partial => "partials/topic_header", :locals => {:topic => @topic}%>
+<%=render :partial => "partials/topic_header", :locals => {:topic => @topic} %>
   <div id="middle">
     <h2>Tagged: '<font color="blue"><%= @tag %></font>'</h2>
     <br>

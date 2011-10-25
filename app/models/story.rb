@@ -23,6 +23,9 @@ class Story < ActiveRecord::Base
 
   acts_as_taggable
 
+  # pagination
+  self.per_page = 10
+
   def is_link?
     kind == Story::Link
   end

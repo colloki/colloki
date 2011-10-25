@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   def rss
-    #TODO: Need to move this whole action onto the topic controller.
+    # TODO: Need to move this whole action onto the topic controller.
     stories_unsorted = Story.find(:all)
     if params[:id] == 'votes'
       @stories = stories_unsorted.sort{|a,b| b.votes  <=> a.votes }
