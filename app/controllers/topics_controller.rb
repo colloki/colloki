@@ -157,8 +157,8 @@ class TopicsController < ApplicationController
   end
 
   def tag
-      tag_list = params[:tag_list].split('+')
-      @tag = tag_list.join(' + ')
+    tag_list = params[:tag_list].split('+')
+    @tag = tag_list.join(' + ')
     if params[:id]
       @topic = Topic.find(params[:id])
       @stories = @topic.stories.tagged_with(tag_list, :match_all => true)

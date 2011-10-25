@@ -730,7 +730,6 @@ blockquote {
 
 .comment {
   padding-top: 5px;
-  padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 0px;
   margin-top: 5px;
@@ -761,7 +760,7 @@ blockquote {
 }
 
 .commentInfo {
-  font-size: 12px;
+  font-size: 11px;
   color: #999999;
   margin-top: 5px;
 }

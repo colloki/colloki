@@ -1,5 +1,4 @@
 class StoriesController < ApplicationController
-
   def rss
     #TODO: Need to move this whole action onto the topic controller.
     stories_unsorted = Story.find(:all)
