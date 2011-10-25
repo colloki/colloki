@@ -6,6 +6,14 @@
   <br><br>
   <%= submit_tag("Fetch!") %>
   <% end %>
-  <br><br>
-  <div style="color: #555; font-size: 11px">Currently supported sites: collegiatetimes.com, roanoke.com, vtnews.vt.edu</div>
+  <br><br><br>
+  <div style="color: #555; font-size: 11px">
+    Currently supported: <br>
+    <% @source_urls.each_with_index {|url, i| %>
+    <%= url %>
+    <% if i != @source_urls.count - 1%>
+      ,
+    <% end %>
+    <% } %>
+  </div>
 </div>
