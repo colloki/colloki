@@ -1,6 +1,7 @@
 class StoryFetcherController < ApplicationController
   # todo: come up with a more independent, extendible way to plug-in modules for different sites
   # todo: This is a *very* flaky idea, it works on the assumption that these sites don't have any major design changes. If they do, these modules need to be updated asap
+  # todo: add field for original author of article
   Sources = Hash[
     "www.collegiatetimes.com" => Hash[
       "name" => "Collegiate Times",
@@ -53,43 +54,18 @@ class StoryFetcherController < ApplicationController
       "url" => "http://citizensfirstforblacksburg.org"
       ]
     ]
-
-  # Fetches a page's HTML and then parses it to get story title, content and any images. Then saves the story.
-  def parse
-    require 'nokogiri'
-    require 'net/http'
-    require 'open-uri'
-    url = params[:url]
-    domain = url.split('/')[2]
-    doc = Nokogiri::HTML(Net::HTTP.get(URI.parse(url)))
-
-    if StoryFetcherController::Sources[domain] != nil
-      name = StoryFetcherController::Sources[domain]["name"]
-      @title = doc.css(StoryFetcherController::Sources[domain]["title"]).first.text
-      @content = doc.css(StoryFetcherController::Sources[domain]["content"]).to_html.html_safe
-      if StoryFetcherController::Sources[domain]["image"] != nil
-        img_tags = doc.css(StoryFetcherController::Sources[domain]["image"])
-        if !img_tags.empty?
-          @image = "#{StoryFetcherController::Sources[domain]["url"]}#{img_tags.first['src']}"
-        end
-      end
-    end
-
-    # save the fetched story
-    story = Story.new
-    story.title = @title
-    story.description = @content
-    if @image
-      story.image = open(@image)
-    end
-    story.views = 0
-    story.kind = Story::Rss
-    story.source = name
-    story.source_url = url
-    story.save
-  end
+    Sources.default = nil
 
   def index
     @source_urls = StoryFetcherController::Sources.keys
+  end
+
+  # Fetches a page's HTML and then parses it to get story title, content and any images. Then saves the story.
+  def parse
+    ParseAndPost::run(params[:url])
+  end
+
+  def autopost
+    system "rake fetchandpost --trace >> #{Rails.root}/log/rake.log"
   end
 end

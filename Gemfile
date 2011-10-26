@@ -10,3 +10,4 @@ gem 'omniauth'
 gem 'nokogiri' # http://nokogiri.org/
 gem 'paperclip', "~> 2.4"
 gem 'capistrano'
+gem 'whenever' # https://github.com/javan/whenever

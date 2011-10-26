@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="wrap">
-  <% places_without_topics = ["/login",
+  <% places_without_topics_list = ["/login",
     "/signup",
     "/forgot_password",
     "/reset_password",
@@ -18,7 +18,7 @@
     "/about",
     "/settings",
     "/changelog"] %>
-  <% if (!places_without_topics.include? request.fullpath and !request.fullpath.include? 'auth') %>
+  <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
     <div id="left">
       <% if @topics %>
         <ul id="topics">
@@ -47,7 +47,12 @@
             <%= link_to topic.title, topical_path(topic) %>
             </li>
           <% end %>
-          <li>
+          <!-- For uncategorized stories -->
+          <% if @story && @story.topic_id === -1 %>
+            <li class="selected">
+          <% else %>
+            <li>
+          <% end %>
             <%= link_to "Uncategorized", topical_path(-1) %>
           </li>
         </ul>

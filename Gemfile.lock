@@ -41,6 +41,7 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    chronic (0.6.4)
     cocaine (0.2.0)
     dynamic_form (1.1.4)
     erubis (2.6.6)
@@ -158,6 +159,9 @@ GEM
     tzinfo (0.3.29)
     uuid (2.3.4)
       macaddr (~> 1.0)
+    whenever (0.7.0)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
     will_paginate (3.0.1)
 
 PLATFORMS
@@ -173,4 +177,5 @@ DEPENDENCIES
   paperclip (~> 2.4)
   rails (= 3.0.10)
   sqlite3
+  whenever
   will_paginate (~> 3.0.0)
