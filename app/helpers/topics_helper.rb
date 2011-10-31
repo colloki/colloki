@@ -1,6 +1,6 @@
 # encoding: utf-8
 module TopicsHelper
-  def mini_story_thumbnail(story, size="thumb")
+  def story_item_thumbnail(story, size="thumb")
     if size == "medium"
       img_url = story.image.url(:medium)
     else
@@ -13,7 +13,7 @@ module TopicsHelper
     end
   end
 
-  def mini_story_icon(story)
+  def story_item_icon(story)
     html = "<div class=\"storyItemIcon\">"
     if story.kind != Story::Rss
       html << "#{link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login}"
@@ -24,13 +24,13 @@ module TopicsHelper
     html.html_safe
   end
 
-  def mini_story_meta(story)
+  def story_item_meta(story)
     html = "<div class=\"storyItemMeta\">"
     if story.kind != Story::Rss
-      html << "Posted by #{mini_story_icon(story)} #{link_to story.user.login,
+      html << "Posted by #{story_item_icon(story)} #{link_to story.user.login,
       { :controller => "users", :action => "show", :id => story.user.id }} "
     else
-      html << "#{mini_story_icon(story)}"
+      html << "#{story_item_icon(story)}"
       html << "#{link_to story.source, story.source_url} "
     end
     html << "• #{time_ago_in_words story.created_at} ago
@@ -39,7 +39,7 @@ module TopicsHelper
     html.html_safe
   end
 
-  def mini_story_content(story, length_with_image=-1, length_without_image=-1)
+  def story_item_content(story, length_with_image=-1, length_without_image=-1)
     if story.image.exists?
       if length_with_image != -1
         return truncate(strip_tags(story.description), :length => length_with_image, :omission => "...")
@@ -55,7 +55,7 @@ module TopicsHelper
     end
   end
 
-  def mini_story_title(story, length=-1)
+  def story_item_title(story, length=-1)
     if length != -1
       title = truncate(strip_tags(story.title), :length => length, :omission => "...")
     else

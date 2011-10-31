@@ -1,4 +1,4 @@
-<div id="content">
+<div id="middle">
   <a href="<%= @root_url %>">
     <h1>Search Results for '<%= @query %>'</h1>
   </a>
@@ -8,17 +8,21 @@
   <% if !logged_in? %>
     <div class="block">
       <h2>What is Colloki?</h2>
-      Colloki is a place to share links and have conversations online.
+      <%= colloki_description %>
     </div>
   <% end %>
-  <div class="block">
-    <h2>Popular Topics</h2>
-      <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
-  </div>
-  <div class="block">
-    <h2>Latest Activity</h2>
-    <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
-  </div>
+  <% if @tags.count != 0 %>
+    <div class="block">
+      <h2>Popular Topics</h2>
+        <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
+    </div>
+  <% end %>
+  <% if @activity_items.count != 0 %>
+    <div class="block">
+      <h2>Latest Activity</h2>
+      <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
+    </div
+  <% end %>
   <div class="block">
     <h2>New Users</h2>
     <% for user in @new_users %>

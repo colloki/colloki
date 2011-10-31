@@ -1,5 +1,5 @@
 module ParseAndPost
-  def run(url)
+  def self.run(url)
     require 'nokogiri'
     require 'net/http'
     require 'open-uri'
@@ -16,7 +16,12 @@ module ParseAndPost
       if StoryFetcherController::Sources[domain]["image"] != nil
         img_tags = doc.css(StoryFetcherController::Sources[domain]["image"])
         if !img_tags.empty?
-          @image = "#{StoryFetcherController::Sources[domain]["url"]}#{img_tags.first['src']}"
+          src = img_tags.first['src']
+          if (src.index(StoryFetcherController::Sources[domain]["url"]))
+            @image = "#{src}"
+          else
+            @image = "#{StoryFetcherController::Sources[domain]["url"]}#{src}"
+          end
         end
       end
       # save the fetched story

@@ -1,8 +1,10 @@
 <div class="storyItemLayout2">
   <div class="storyItemContent">
-    <%= mini_story_thumbnail(story) %>
-    <%= mini_story_title(story) %>
-    <%= mini_story_content(story, 200, 200) %>
-    <%= mini_story_meta(story) %>
+    <%= story_item_thumbnail(story) %>
+    <%= story_item_title(story) %>
+    <div class="storyItemText">
+      <%= story_item_content(story, 200, 200) %>
+    </div>
+    <%= story_item_meta(story) %>
   </div>
 </div>

@@ -22,14 +22,16 @@
     <div id="left">
       <% if @topics %>
         <ul id="topics">
-          <% if request.fullpath == "/" %>
+          <% # todo: This is not foolproof. fix this %>
+          <% if request.fullpath == "/" || (request.fullpath.index("topic") and !@topics) %>
             <li class="selected">
           <% else %>
             <li>
           <% end %>
             <a href="/">Most Popular</a>
           </li>
-          <% if request.fullpath == "/latest" %>
+          <% # todo: This is not foolproof. fix this %>
+          <% if request.fullpath.index("latest") %>
             <li class="selected">
           <% else %>
             <li>

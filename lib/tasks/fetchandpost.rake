@@ -1,4 +1,5 @@
 desc "Automatically post stories to Colloki from the cached rss stories"
+
 task :fetchandpost => :environment do
   include ParseAndPost
   require 'net/http'
@@ -20,4 +21,7 @@ task :fetchandpost => :environment do
   CSV.parse(stories_csv) do |row|
     ParseAndPost::run(row[3])
   end
+
+  # todo: add a reference to the associated topics to each story
+  # todo: create a separate topics table for this
 end

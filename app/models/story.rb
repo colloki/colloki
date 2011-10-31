@@ -19,7 +19,7 @@ class Story < ActiveRecord::Base
   has_many :activity_items, :dependent => :destroy
   has_many :votes
 
-  has_attached_file :image, :styles => { :thumb => "150x150>", :medium => "250x250>" }
+  has_attached_file :image, :styles => { :thumb => "200x150>", :medium => "250x250>" }
 
   acts_as_taggable
 

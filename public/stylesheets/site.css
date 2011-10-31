@@ -144,25 +144,18 @@ a.bookmarklet {
 }
 
 #userInfo a {
-  padding: 0 5px;
-}
-
-#userInfo a:hover {
-/*  text-decoration: none;*/
+  margin-left: 10px;
 }
 
 #search {
   display: block;
-  padding-top: 2px;
+  padding-top: 3px;
   float: right;
   width: 20%;
 }
 
 #search input {
-  font-size: 12px;
-  -webkit-appearance: textfield;
-  border-radius: 2px;
-  padding: 2px;
+  font-size: 13px;
   width: 180px;
 }
 
@@ -212,50 +205,6 @@ a.bookmarklet {
   padding: 5px;
   text-align: center;
 }
-
-/* Generated CSS from http://spiffycorners.com for tag cloud.
-Don't edit here, instead, regenerate, and copy paste. */
-
-.tagCloud {
-  display:block
-}
-.tagCloud * {
-  display: block;
-  height: 1px;
-  overflow: hidden;
-  font-size: .01em;
-  background: #eee;
-}
-.tagCloud1{
-  margin-left:3px;
-  margin-right:3px;
-  padding-left:1px;
-  padding-right:1px;
-  border-left:1px solid #fafaf8;
-  border-right:1px solid #fafaf8;
-  background:#eee}
-.tagCloud2{
-  margin-left:1px;
-  margin-right:1px;
-  padding-right:1px;
-  padding-left:1px;
-  border-left:1px solid #fdfefd;
-  border-right:1px solid #fdfefd;
-  background:#eee}
-.tagCloud3{
-  margin-left:1px;
-  margin-right:1px;
-  border-left:1px solid #f6f6f2;
-  border-right:1px solid #f6f6f2;}
-.tagCloud4{
-  border-left:1px solid #fafaf8;
-  border-right:1px solid #fafaf8}
-.tagCloud5{
-  border-left:1px solid #f6f7f3;
-  border-right:1px solid #f6f7f3}
-.tagCloudfg{
-  background:#eee}
-/* Generated Code End */
 
 div.storyTagList {
   padding-top: 10px;
@@ -318,24 +267,26 @@ div.storyTagList {
 .storyItemLayout1 {
   float: left;
   width: 30%;
-  padding: 10px 10px 0 0;
-  margin-right: 10px;
-  margin-bottom: 15px;
+  padding: 15px 10px 15px 10px;
 }
 
 .storyItemLayout2 {
   clear: both;
-  padding: 5px 0;
   margin: 0px;
+  padding: 15px 5px 0 10px;
   width: 96%;
-  padding-top: 10px;
 }
 
 .storyItemLayout3 {
   clear: both;
-  padding: 5px 0;
-  padding-top: 10px;
+  padding: 10px 5px 10px 10px;
   width: 96%;
+}
+
+.storyItemText {
+  text-overflow: ellipsis;
+  max-height: 40px;
+  overflow: hidden;
 }
 
 .storyItemLayout1 .storyItemContent {
@@ -346,8 +297,11 @@ div.storyTagList {
 }
 
 .storyItemLayout3 .storyItemContent {
-  max-height: 200px;
   overflow: hidden;
+}
+
+.storyItemLayout3 .storyItemText {
+  max-height: 50px;
 }
 
 .storyItemLayout3 .storyItemThumbnail {
@@ -365,10 +319,16 @@ div.storyTagList {
   margin-right: 10px;
 }
 
+.storyItemLayout1:hover,
+.storyItemLayout2:hover,
+.storyItemLayout3:hover {
+/*  background: #edf3f5;*/
+}
+
 .storyItemMeta {
   font-size: 11px;
   clear: none;
-  color: #888;
+  color: #555;
   margin-top: 5px;
 }
 
@@ -377,7 +337,7 @@ div.storyTagList {
   clear: both;
   border-top: 1px solid #eee;
   width: 90%;
-  margin: 10px auto;
+  margin: 0 auto;
 }
 
 .heart {
@@ -701,9 +661,11 @@ a.tagLink:visited {
 .css4 { font-size: 1.6em; }
 
 h1 {
-  font-size: 14px;
+  font-size: 15px;
   color: #333;
-  margin: 10px 0 5px 0;
+  margin: 0;
+  padding: 10px 0 10px 0px;
+  font-weight: bold;
   text-transform: uppercase;
 }
 
@@ -725,6 +687,7 @@ h4 {
   font-weight: bold;
   color: #333333;
   margin: 0;
+  line-height: 17px;
   margin-bottom: 5px;
 }
 
@@ -1085,3 +1048,47 @@ a.button.negative:active {
 #facebook_signin_bt:active {
   background: 0px 23px url('../images/facebook_signin.png');
 }
+
+/* Generated CSS from http://spiffycorners.com for tag cloud.
+Don't edit here, instead, regenerate, and copy paste. */
+
+.tagCloud {
+  display:block
+}
+.tagCloud * {
+  display: block;
+  height: 1px;
+  overflow: hidden;
+  font-size: .01em;
+  background: #eee;
+}
+.tagCloud1{
+  margin-left:3px;
+  margin-right:3px;
+  padding-left:1px;
+  padding-right:1px;
+  border-left:1px solid #fafaf8;
+  border-right:1px solid #fafaf8;
+  background:#eee}
+.tagCloud2{
+  margin-left:1px;
+  margin-right:1px;
+  padding-right:1px;
+  padding-left:1px;
+  border-left:1px solid #fdfefd;
+  border-right:1px solid #fdfefd;
+  background:#eee}
+.tagCloud3{
+  margin-left:1px;
+  margin-right:1px;
+  border-left:1px solid #f6f6f2;
+  border-right:1px solid #f6f6f2;}
+.tagCloud4{
+  border-left:1px solid #fafaf8;
+  border-right:1px solid #fafaf8}
+.tagCloud5{
+  border-left:1px solid #f6f7f3;
+  border-right:1px solid #f6f7f3}
+.tagCloudfg{
+  background:#eee}
+/* Generated Code End */

@@ -1,4 +1,5 @@
 class StoryFetcherController < ApplicationController
+  include ParseAndPost
   # todo: come up with a more independent, extendible way to plug-in modules for different sites
   # todo: This is a *very* flaky idea, it works on the assumption that these sites don't have any major design changes. If they do, these modules need to be updated asap
   # todo: add field for original author of article
@@ -22,7 +23,7 @@ class StoryFetcherController < ApplicationController
       "name" => "Roanoke Times",
       "title" => "#main h1",
       "content" => "#story-text>p",
-      "image" => nil,
+      "image" => "#story-add-photos>img",
       "url" => "http://www.roanoke.com"
       ],
     "www.vtnews.vt.edu" => Hash[
