@@ -16,7 +16,7 @@ class StoryFetcherController < ApplicationController
       "name" => "The Burgs Blog",
       "title" => "#post>h1",
       "content" => "#post>p",
-      "image" => nil,
+      "image" => "#post img",
       "url" => "http://blogs.roanoke.com/theburgs"
       ],
     "www.roanoke.com" => Hash[
@@ -53,6 +53,20 @@ class StoryFetcherController < ApplicationController
       "content" => ".field-item>p",
       "image" => nil,
       "url" => "http://citizensfirstforblacksburg.org"
+      ],
+    "www.christiansburg.org" => Hash[
+      "name" => "Christiansburg Virginia",
+      "title" => ".item>h3",
+      "content" => ".content>p",
+      "image" => nil,
+      "url" => "http://www.christiansburg.org"
+      ],
+    "downtownblacksburg.wordpress.com" => Hash[
+      "name" => "Downtown Blacksburg Blog",
+      "title" => "h1.title",
+      "content" => ".entry>p",
+      "image" => ".entry img",
+      "url" => "http://downtownblacksburg.files.wordpress.com"
       ]
     ]
     Sources.default = nil

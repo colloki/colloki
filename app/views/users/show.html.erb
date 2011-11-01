@@ -1,5 +1,5 @@
 <div id="middle">
-  <div class="userProfileBanner">
+  <div class="userProfileHeader">
     <% if @user.email and @user.email != '' %>
       <div class="userProfilePic">
         <%= gravatar_image_tag(@user.email, :gravatar => { :size => 50 }) %>
@@ -28,17 +28,26 @@
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
 </div>
 <div id="right">
-  <h2>
-    <%=@user.login%>'s tag cloud
-  </h2>
-  <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
-<br>
-  <h2><%=@user.login%>'s latest comments</h2>
+  <% if @tags.count != 0%>
+    <div class="block">
+      <h2>
+        <%=@user.login%>'s tag cloud
+      </h2>
+      <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
+    </div>
+  <% end %>
+  <% if @comments.count != 0 %>
+    <div class="block">
+      <h2>
+        <%=@user.login%>'s latest comments
+      </h2>
 
-  <%for comment in @comments%>
-    <blockquote>
-      <%=comment.body%>
-    </blockquote>
-    <small>On <%=comment.created_at.to_s(:cool)%> in response to <strong><%=link_to comment.story.title, {:controller=>"stories", :action=>"show", :id=>comment.story.id}%></strong></small>
-  <%end%>
+      <%for comment in @comments%>
+        <blockquote>
+          <%=comment.body%>
+        </blockquote>
+        <small>On <%=comment.created_at.to_s(:cool)%> in response to <strong><%=link_to comment.story.title, {:controller=>"stories", :action=>"show", :id=>comment.story.id}%></strong></small>
+      <%end%>
+    </div>
+  <% end %>
 </div>

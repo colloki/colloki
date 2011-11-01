@@ -16,57 +16,59 @@
   <br>
   <% if @likers.count != 0 %>
     <h2>
-      Voters
+      Liked by
     </h2>
     <%= story_likers(@likers) %>
     <br><br>
   <% end %>
-  <h2>
-    <%= @story.comments.count %>
-    <% if @story.comments.count == 1 %>
-      Comment
-    <% else %>
-      Comments
-    <% end %>
-  </h2>
+  <div id="comments">
+    <h2>
+      <%= @story.comments.count %>
+      <% if @story.comments.count == 1 %>
+        Comment
+      <% else %>
+        Comments
+      <% end %>
+    </h2>
 
-  <% for comment in @story.comments %>
-  <div class="comment">
-    <div class="commentPic">
-      <%= gravatar_image_tag(comment.user.email, :gravatar => { :size => 24 }) %>
-    </div>
-    <div class="commentBody">
-      <%= link_to comment.user.login, {
-        :controller=> "users",
-        :action => "show",
-        :id => comment.user.id} %><br>
-      <%= comment.body %>
-      <div class="commentInfo">
-        <%= time_ago_in_words comment.created_at %> ago
-        <% if logged_in? and comment.user_id == current_user.id %>
-             | <%= link_to 'delete', url_for(:controller => "stories",
-            :action => "delete_comment",
-            :id => @story.id,
-            :cid => comment.id),
-            :confirm => 'Are you sure you want to delete this comment?',
-            :class => "negative" %>
-        <% end %>
+    <% for comment in @story.comments %>
+    <div class="comment">
+      <div class="commentPic">
+        <%= gravatar_image_tag(comment.user.email, :gravatar => { :size => 24 }) %>
+      </div>
+      <div class="commentBody">
+        <%= link_to comment.user.login, {
+          :controller=> "users",
+          :action => "show",
+          :id => comment.user.id} %><br>
+        <%= comment.body %>
+        <div class="commentInfo">
+          <%= time_ago_in_words comment.created_at %> ago
+          <% if logged_in? and comment.user_id == current_user.id %>
+               | <%= link_to 'delete', url_for(:controller => "stories",
+              :action => "delete_comment",
+              :id => @story.id,
+              :cid => comment.id),
+              :confirm => 'Are you sure you want to delete this comment?',
+              :class => "negative" %>
+          <% end %>
+        </div>
       </div>
     </div>
+    <% end %>
+    <br>
+    <h2>Add a comment</h2>
+    <% if logged_in? %>
+    <%= form_tag :action => "comment" , :id => @story.id %>
+      <%= text_area "comment", "body" %> <br>
+      <%= submit_tag "Comment", :class => "button" %>
+    </form>
+    <% else %>
+    <p>
+      <i>Sign up or login to comment</i>
+    </p>
+    <% end %>
   </div>
-  <% end %>
-  <br>
-  <h2>Add a comment</h2>
-  <% if logged_in? %>
-  <%= form_tag :action => "comment" , :id => @story.id %>
-    <%= text_area "comment", "body" %> <br>
-    <%= submit_tag "Comment", :class => "button" %>
-  </form>
-  <% else %>
-  <p>
-    <i>Sign up or login to comment</i>
-  </p>
-  <% end %>
 </div>
 
 <div id="right">

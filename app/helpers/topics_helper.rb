@@ -33,8 +33,13 @@ module TopicsHelper
       html << "#{story_item_icon(story)}"
       html << "#{link_to story.source, story.source_url} "
     end
-    html << "• #{time_ago_in_words story.created_at} ago
-    • #{link_to story.comments.count.to_s + ' comments', story}
+    html << "  •  #{time_ago_in_words story.created_at} ago"
+    html << "  •  "
+    html << "
+      #{link_to '<span class=\'storyItemCommentCount\'>'.html_safe + story.comments.count.to_s + '</span>'.html_safe, story_path(story.id) + "#comments"}"
+    html << "  •  "
+    html << "
+      #{link_to '<span class=\'storyItemLikeCount\'>'.html_safe + story.votes.count.to_s + '</span>'.html_safe, story_path(story.id)}
     </div>"
     html.html_safe
   end

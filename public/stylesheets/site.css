@@ -2,7 +2,8 @@ body {
   margin: 0;
   padding: 0;
   color: #000;
-  background: #edf3f5;
+  background-color: #edf3f5;
+  background: url("../images/bgpattern.png");
 }
 
 body, p, ol, ul, td {
@@ -128,6 +129,10 @@ a.bookmarklet {
   font-family: Palatino;
   font-variant: small-caps;
   font-weight: bold;
+}
+
+#header_title:focus {
+  outline: none;
 }
 
 #header_title:hover {
@@ -328,8 +333,40 @@ div.storyTagList {
 .storyItemMeta {
   font-size: 11px;
   clear: none;
-  color: #555;
-  margin-top: 5px;
+  color: #888;
+  margin-top: 10px;
+}
+
+.storyItemCommentCount,
+.storyItemLikeCount {
+  padding-left: 13px;
+}
+
+.storyItemCommentCount {
+    background: url('../images/icons/comments.png') no-repeat 0 2px;
+}
+
+.storyItemLikeCount {
+    background: url('../images/icons/heart.png') no-repeat 0 2px;
+}
+
+a .storyItemCommentCount,
+a .storyItemLikeCount {
+  color: #ccc;
+  text-decoration: none !important;
+}
+
+a:hover .storyItemCommentCount,
+a:hover .storyItemLikeCount {
+  color: #333;
+}
+
+a:hover .storyItemCommentCount {
+  background: url('../images/icons/comments_hover.png') no-repeat 0 2px;
+}
+
+a:hover .storyItemLikeCount {
+  background: url('../images/icons/heart_hover.png') no-repeat 0 2px;
 }
 
 .storyItemDivider {
@@ -340,28 +377,38 @@ div.storyTagList {
   margin: 0 auto;
 }
 
-.heart {
-  font-family: Helvetica, Arial, Verdana, sans-serif;
-  font-size: 14px;
+.storyItemMeta a {
+  color: #555;
 }
 
-.storyVotePanel,
-.storyVotePanel.voted:hover {
+.storyItemMeta a:hover {
+  text-decoration: none;
+}
+
+.storyHeartContainer:hover {
+  text-decoration: none;
+}
+
+.storyHeart,
+.storyHeart.voted:hover {
   float: right;
   display: block;
-  font-size: 16px;
-  color: #666;
+  font-size: 15px;
+  color: #ccc;
+  height: 30px;
   background-color: #fff;
   border: none;
-  margin-top: 2px;
-  padding: 3px 10px;
-  display: none;
+  margin-top: 7px;
+  margin-right: 10px;
+  padding-left: 20px;
+  background: url('../images/icons/bigheart.png') no-repeat 0 2px;
 }
 
-.storyVotePanel:hover, .voted {
-  background-color: #eee;
-  color: #555;
+.storyHeart:hover,
+.voted {
+  color: #333;
   cursor: pointer;
+  background: url('../images/icons/bigheart_hover.png') no-repeat 0 2px;
 }
 
 .disabled:hover {
@@ -373,6 +420,7 @@ div.storyTagList {
   float: left;
   margin-right: 5px;
   height: 12px;
+  margin-bottom: 12px;
   width: 12px;
   border-top: 2px solid transparent;
   border-bottom: 2px solid transparent;
@@ -604,15 +652,14 @@ a.tagLink:visited {
   font-weight: bold;
 }
 
-.userProfileBanner {
-  font-size: 12px;
+.userProfileHeader {
+  font-size: 13px;
   margin: 8px 0;
   color: #353535;
-  opacity: 0.95;
 }
 
-.userProfileBanner h3 {
-  font-size: 16px;
+.userProfileHeader h3 {
+  font-size: 15px;
 }
 
 .userProfilePic {

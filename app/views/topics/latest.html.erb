@@ -11,11 +11,6 @@
       <h2>What is Colloki?</h2>
       <%= colloki_description %>
     </div>
-  <% else %>
-    <h2>Add a Topic</h2>
-    <div class="block">
-      <%= link_to 'Add Topic', new_topic_path, :class => "button" %>
-    </div><br>
   <% end %>
   <% if @tags.count != 0 %>
     <div class="block">
