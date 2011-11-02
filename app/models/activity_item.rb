@@ -21,9 +21,9 @@ class ActivityItem < ActiveRecord::Base
     elsif self.kind == UpdateType
       "updated "
     elsif self.kind == VoteType
-      "voted for "
+      "liked "
     elsif self.kind == UnVoteType
-      "un-voted "
+      "unliked "
     elsif self.kind == CreateLinkType
       "posted link "
     elsif self.kind == CreatePostType

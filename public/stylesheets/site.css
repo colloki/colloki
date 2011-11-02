@@ -428,11 +428,13 @@ a:hover .storyItemLikeCount {
 }
 
 #right ul li {
-  padding: 5px 0;
+  padding: 7px 0;
   clear: both;
+  height: 50px;
+  overflow: hidden;
 }
 
-#right ul li .favicon {
+.sidebarStoryFavicon {
   opacity: 0.6;
   height: 12px;
   width: 12px;
@@ -441,9 +443,16 @@ a:hover .storyItemLikeCount {
   margin-top: 2px;
 }
 
-#right ul li .story_sidebar_link {
+.sidebarStoryContent {
   float: left;
   width: 90%;
+}
+
+.sidebarStoryImage {
+  width: 5em;
+  margin-right: 5px;
+  float: left;
+  padding: 3px 0;
 }
 
 #content {
@@ -843,7 +852,7 @@ input {
 
 input:focus {
   border-color: #555;
-  background-color: #F5EFE6;
+  background-color: #edf3f5;
 }
 
 textarea {
@@ -855,8 +864,8 @@ textarea {
 }
 
 textarea:focus {
-  border-color: #000;
-  background-color: #F5EFE6;
+  border-color: #555;
+  background-color: #edf3f5;
 }
 
 .url_input {

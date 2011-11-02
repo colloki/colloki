@@ -34,19 +34,26 @@ module StoriesHelper
   end
 
   def story_likers(likers)
-    output = ""
+    html = ""
     for user in likers
-      output += link_to gravatar_image_tag(user.email, :gravatar => { :size => 36 }), user
+      html += link_to gravatar_image_tag(user.email, :gravatar => { :size => 36 }), user
     end
-    output.html_safe
+    html.html_safe
   end
 
   def story_sidebar_link(story)
+    html = ""
     if story.kind == Story::Rss
-      output = link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url
+      html += link_to image_tag(favicon_url(story.source_url), :class => "sidebarStoryFavicon"), story.source_url
     else
-      output = link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login
+      html += link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login
     end
-    output += link_to story.title, story, :class => "story_sidebar_link"
+    html += "<div class='sidebarStoryContent'>"
+    if story.image.exists?
+        html += link_to image_tag(story.image.url(:thumb), :class => "sidebarStoryImage"), story
+    end
+    html += link_to story.title, story, :class => "sidebarStoryLink"
+    html += "</div>"
+    html.html_safe
   end
 end
