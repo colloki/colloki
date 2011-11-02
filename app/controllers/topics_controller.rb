@@ -2,10 +2,12 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.xml
   def index
+    require 'will_paginate/array'
     @page_title = "Most Popular"
-    # todo: the set of popular posts should be restricted to a fixed time period (maybe last couple of weeks)
-    @stories = Story.paginate(:page => params[:page]).order('popularity DESC')
-    # @stories.sort! { |a, b| b.popularity <=> a.popularity }
+    # todo: find a more optimized way (via sql query) to get the top recent posts
+    @stories = Story.find(:all, :order => "created_at DESC", :limit => 50)
+    @stories.sort! { |a, b| b.popularity <=> a.popularity }
+    @stories = @stories.paginate(:page => params[:page], :per_page => 10)
     @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
