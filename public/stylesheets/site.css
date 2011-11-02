@@ -430,7 +430,7 @@ a:hover .storyItemLikeCount {
 #right ul li {
   padding: 7px 0;
   clear: both;
-  height: 50px;
+  max-height: 50px;
   overflow: hidden;
 }
 
@@ -560,11 +560,11 @@ a:hover .storyItemLikeCount {
 }
 
 .block {
-  padding: 8px 0;
+  padding-top: 5px;
 }
 
 .block:nth-child(1) {
-  padding-top: 0;
+  padding-top: 3px;
 }
 
 #footer {
@@ -730,6 +730,8 @@ h2 {
   font-weight: normal;
   font-family: Helvetica, Arial, Verdana, sans-serif;
   font-size: 14px;
+  padding: 5px 0;
+  margin: 0;
 }
 
 h3 {
