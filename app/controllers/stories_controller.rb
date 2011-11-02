@@ -26,7 +26,8 @@ class StoriesController < ApplicationController
     headers["Content-Type"] = "application/xml"
   end
 
-  # TODO: The URL for this action is currently http://site/stories/<ID>. It needs to be http://site/topic/<Topic_ID>/story/<ID>
+  # TODO: The URL for this action is currently http://site/stories/<ID>.
+  # It needs to be http://site/topic/<Topic_ID>/story/<ID>
   # or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>
   def show
     @story = Story.find(params[:id])
@@ -37,9 +38,17 @@ class StoriesController < ApplicationController
 
     if @story.topic_id != -1
       @topic = Topic.find(@story.topic_id)
-      @more_stories = Story.find :all, :conditions => "topic_id = #{@topic.id} AND id != #{@story.id}", :order => "created_at DESC", :limit => 5
-    else
-      @more_stories = Story.find :all, :conditions => "topic_id = -1 AND id != #{@story.id}", :order => "created_at DESC", :limit => 5
+      @more_stories = Story.find :all,
+        :conditions => "topic_id = #{@topic.id} AND id != #{@story.id}",
+        :order => "created_at DESC",
+        :limit => 5
+    end
+
+    if @story.source
+      @more_stories_from_source = Story.find :all,
+        :conditions => "source = '#{@story.source}' AND id != #{@story.id}",
+        :order => "created_at DESC",
+        :limit => 5
     end
 
     @page_title = @story.title
@@ -49,6 +58,7 @@ class StoriesController < ApplicationController
     else
       @story.views = @story.views + 1
     end
+
     @story.update_popularity
     @story.save
 
@@ -59,7 +69,6 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }
-      # format.mobilesafari { render :layout => false }
     end
   end
 

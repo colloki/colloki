@@ -11,13 +11,7 @@
 <body>
 <div id="wrap">
   <% places_without_topics_list = ["/login",
-    "/signup",
-    "/forgot_password",
-    "/reset_password",
-    "/change_password",
-    "/about",
-    "/settings",
-    "/changelog"] %>
+    "/signup"] %>
   <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
     <div id="left">
       <% if @topics %>

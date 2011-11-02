@@ -12,7 +12,7 @@
     <div class="fieldValue">
       <span class="fieldNotEditable"><%= @user.login %></span>
       <br>
-      <span class="fieldMeta">Slurp! doesn't allow users to change their usernames (yet)</span>
+      <span class="fieldMeta">You cannot change your username (yet!)</span>
     </div>
   </div>
 
@@ -21,7 +21,7 @@
     <div class="fieldValue">
       <span class="fieldNotEditable"><%= @user.email %></span>
       <br>
-      <span class="fieldMeta">Slurp! doesn't allow users to change their email ids (yet).</span>
+      <span class="fieldMeta">You cannot change your email (yet!)</span>
     </div>
   </div>
 
@@ -93,9 +93,9 @@
       <%= gravatar_image_tag(current_user.email) %>
       <br>
       <span class="fieldMeta">
-        Slurp uses your <a href="http://gravatar.com">Gravatar</a> (Globally Recognized Avatar) to represent you on this site.
+        We use your <a href="http://gravatar.com">Gravatar</a> to represent you on this site.
         <br>
-        <a href="http://gravatar.com">Gravatar</a> is a free service to manage your avatar across the web. Setting up a new account takes less than a minute!
+        <a href="http://gravatar.com">Gravatar</a> is a free service to manage your avatar across the web.
       </span>
     </div>
   </div>

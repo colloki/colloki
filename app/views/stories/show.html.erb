@@ -73,7 +73,7 @@
 
 <div id="right">
   <div class="block">
-    <% if @more_stories %>
+    <% if @more_stories && @more_stories.count != 0 %>
       <h2>
         More from <strong>
           <% if @story.topic %>
@@ -84,17 +84,26 @@
         </strong>
       </h2>
         <ul>
-          <% for @more_story in @more_stories %>
+          <% for @a_story in @more_stories %>
             <li>
-              <%= story_sidebar_link(@more_story) %>
+              <%= story_sidebar_link(@a_story) %>
             </li>
           <% end %>
         </ul>
     </div>
   <% end %>
-  <!-- <div class="block">
-    <h2>Related stories</h2>
-  </div> -->
+  <% if @more_stories_from_source %>
+    <div class="block">
+      <h2>More from <%= @story.source %></h2>
+      <ul>
+        <% for @a_story in @more_stories_from_source %>
+          <li>
+            <%= story_sidebar_link(@a_story) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <% if @story.tag_list.count != 0%>
     <div class="block">
       <h2>Related tags</h2>
