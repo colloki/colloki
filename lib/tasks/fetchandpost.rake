@@ -7,7 +7,7 @@ task :fetchandpost => :environment do
 
   begin
     # todo: put this into a config file somewhere
-    source = "http://happy.cs.vt.edu/collokimining/"
+    source = "http://click.cs.vt.edu/colloki_data_mining/"
 
     # fetch them for today. date format is DDMonYY
     today = Date.today
