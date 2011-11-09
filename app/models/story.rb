@@ -8,6 +8,9 @@ class Story < ActiveRecord::Base
   validates_presence_of :description
   validates_presence_of :kind
 
+  # prevent duplicate stories
+  validates_uniqueness_of :source_url
+
   validates_presence_of :url, :if => :is_link?
 
   validates_format_of :url,

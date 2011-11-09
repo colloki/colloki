@@ -11,14 +11,13 @@ class StoryFetcherController < ApplicationController
       "image" => ".img img",
       "url" => "http://www.collegiatetimes.com"
       ],
-    # todo: extend this to support multiple blogs from roanoke.com. This is for "The Burgs"
-    "blogs.roanoke.com" => Hash[
-      "name" => "The Burgs Blog",
-      "title" => "#post>h1",
-      "content" => "#post>p",
-      "image" => "#post img",
-      "url" => "http://blogs.roanoke.com/theburgs"
-      ],
+    # "blogs.roanoke.com" => Hash[
+    #   "name" => "The Burgs Blog",
+    #   "title" => "#post>h1",
+    #   "content" => "#post>p",
+    #   "image" => "#post img",
+    #   "url" => "http://blogs.roanoke.com/theburgs"
+    #   ],
     "www.roanoke.com" => Hash[
       "name" => "Roanoke Times",
       "title" => "#main h1",

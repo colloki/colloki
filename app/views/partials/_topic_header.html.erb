@@ -8,4 +8,14 @@
       <% end %>
     </h1>
   </a>
+  <% if topic.topic_keywords %>
+    <div id="topicTags">
+      <% topic.topic_keywords.each do |keyword| %>
+      <% font_size = [[keyword.distribution * 2, 12].max, 30].min %>
+        <span style="font-size: <%= font_size %>px">
+          <%= link_to keyword.name, "/search?query="+keyword.name %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
 </div>

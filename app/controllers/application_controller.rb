@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     end
 
     def get_topics
-      @topics = Topic.all
+      @topics = Topic.find(:all, :order => "created_at DESC", :limit => 10)
     end
 
   # Removing iPhone specific views for the time being
