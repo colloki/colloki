@@ -1,7 +1,9 @@
 <div id="middle">
-  <a href="<%= @root_url %>">
-    <h1>Most Popular</h1>
-  </a>
+  <h1>
+    <a href="<%= @root_url %>">
+      Most Popular
+    </a>
+  </h1>
   <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
   <%= will_paginate @stories %>
 </div>

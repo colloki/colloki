@@ -1,13 +1,13 @@
 <div>
-  <a href="<%=topical_url(:id => topic.id)%>" title="<%=topic.title%> - <%=topic.description%>">
-    <h1>
+  <h1>
+    <a href="<%=topical_url(:id => topic.id)%>" title="<%=topic.title%> - <%=topic.description%>">
       <% if topic.title %>
         <%= topic.title %>
       <% else %>
         Uncategorized
       <% end %>
-    </h1>
-  </a>
+    </a>
+  </h1>
   <% if topic.topic_keywords %>
     <div id="topicTags">
       <% topic.topic_keywords.each do |keyword| %>

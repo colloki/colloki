@@ -278,19 +278,19 @@ div.storyTagList {
 .storyItemLayout1 {
   float: left;
   width: 30%;
-  padding: 15px 10px 15px 10px;
+  padding: 15px 10px 15px 5px;
 }
 
 .storyItemLayout2 {
   clear: both;
   margin: 0px;
-  padding: 15px 5px 0 10px;
+  padding: 15px 5px 0 5px;
   width: 96%;
 }
 
 .storyItemLayout3 {
   clear: both;
-  padding: 10px 5px 10px 10px;
+  padding: 10px 5px 10px 5px;
   width: 96%;
 }
 
@@ -725,9 +725,17 @@ h1 {
   font-size: 15px;
   color: #333;
   margin: 0;
-  padding: 10px 0 10px 0px;
+  padding: 10px 0 10px 5px;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+h1 a {
+  color: #333 !important;
+}
+
+h1 a:hover {
+  text-decoration: none;
 }
 
 h2 {
@@ -1161,8 +1169,7 @@ Don't edit here, instead, regenerate, and copy paste. */
 #topicTags {
   color: #333;
   padding: 10px;
-  padding-left: 0;
-  margin-left: -5px;
+  padding-left: 0px;
   line-height: 30px;
 }
 
