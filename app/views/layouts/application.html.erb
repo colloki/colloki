@@ -43,7 +43,13 @@
   </div>
   <div class="container">
     <div class="content">
-      <% places_without_topics_list = ["/login", "/signup", "/forgot_password", "/reset_password", "/about", "/sources"] %>
+      <% places_without_topics_list = ["/login",
+        "/signup",
+        "/forgot_password",
+        "/reset_password",
+        "/about",
+        "/sources",
+        "/settings"] %>
       <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
         <% if @topics %>
           <ul class="pills">
