@@ -21,6 +21,6 @@ module ApplicationHelper
 
   # Returns some descriptive text about Colloki
   def colloki_description
-    "A place to learn about news related to Blacksburg and surrounding areas and have conversations with other residents."
+    "A place to engage in discussions on local issues with other Blacksburg and Montgomery County residents"
   end
 end

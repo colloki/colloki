@@ -5,97 +5,103 @@
   <title>
     Colloki <% if !@page_title.blank? %> - <%= @page_title %><% end %>
   </title>
-  <%= stylesheet_link_tag 'site' %>
-  <%= javascript_include_tag('application') %>
+  <link rel="stylesheet/less" type="text/css" href="/stylesheets/bootstrap/bootstrap.less">
+  <link rel="stylesheet/less" type="text/css" href="/stylesheets/site.less">
+  <%= javascript_include_tag("libs/jquery") %>
+  <%= javascript_include_tag("application") %>
+  <%= javascript_include_tag("bootstrap/dropdown") %>
+  <%= javascript_include_tag("bootstrap/twipsy") %>
+  <%= javascript_include_tag("libs/less") %>
 </head>
 <body>
-<div id="wrap">
-  <% places_without_topics_list = ["/login",
-    "/signup"] %>
-  <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
-    <div id="left">
-      <% if @topics %>
-        <ul id="topics">
-          <% # todo: This is not foolproof. fix this %>
-          <% if request.fullpath == "/" || (request.fullpath.index("topic") and !@topics) %>
-            <li class="selected">
-          <% else %>
-            <li>
-          <% end %>
-            <a href="/">Most Popular</a>
-          </li>
-          <% # todo: This is not foolproof. fix this %>
-          <% if request.fullpath.index("latest") %>
-            <li class="selected">
-          <% else %>
-            <li>
-          <% end %>
-            <a href="/latest">Latest</a>
-          </li>
-          <div class="separator"></div>
-          <% for topic in @topics %>
-            <% if (@story and @story.topic_id == topic.id) ||
-              (@topic and @topic.id == topic.id) %>
-              <li class="selected">
-            <% else %>
-              <li>
-            <% end %>
-            <%= link_to topic.title, topical_path(topic) %>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="container">
+        <a href="<%=root_url%>" title="Colloki" class="brand" tabIndex="1">
+          Colloki
+        </a>
+        <form id="search" action="search" class="pull-right">
+          <input type="search" name="query" placeholder="Search" tabIndex="1" target="/search" />
+        </form>
+        <ul class="nav">
+          <% if logged_in? %>
+            <li><%= link_to "Your Stories", current_user, :tabIndex => 2 %></li>
+            <li><%= link_to "Discuss", "#" %></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle"><%= current_user.login %></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Settings", settings_url, :tabIndex => 2 %></li>
+                <li><%= link_to "Sign out", logout_url, :tabIndex => 3 %></li>
+              </ul>
             </li>
-          <% end %>
-          <!-- For uncategorized stories -->
-          <% if @story && @story.topic_id === -1 %>
-            <li class="selected">
           <% else %>
-            <li>
+            <li><%= link_to "Sign in", login_url %></li>
           <% end %>
-            <%= link_to "Uncategorized", topical_path(-1) %>
-          </li>
         </ul>
-      <% end %>
-    </div>
-  <% end %>
-  <div id="header">
-    <div id="header_wrap">
-      <a href="<%=root_url%>" title="Colloki" id="header_title" tabIndex="1">
-        Colloki
-      </a>
-      <form id="search" action="search">
-        <input type="search" name="query" placeholder="Search" tabIndex="1" target="/search" />
-      </form>
-      <div id="userInfo">
-        <% if logged_in? %>
-          <%= link_to current_user.login, current_user, :tabIndex => 2 %>
-          <%= link_to "Settings", settings_url, :tabIndex => 2 %>
-          <%= link_to "Logout", logout_url, :tabIndex => 3 %>
-        <% else %>
-          <%= link_to "Sign in", login_url %> to create, vote and comment on stories
-        <% end %>
       </div>
     </div>
   </div>
-  <% if flash[:notice] %>
-    <div class="notice">
-      <%= flash[:notice] %>
+  <div class="container">
+    <div class="content">
+      <% places_without_topics_list = ["/login", "/signup", "/forgot_password", "/reset_password", "/about", "/sources"] %>
+      <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
+        <% if @topics %>
+          <ul class="pills">
+            <% # todo: This is not foolproof. fix this %>
+            <% if request.fullpath == "/" || request.fullpath.index("latest") %>
+              <li class="active">
+            <% else %>
+              <li>
+            <% end %>
+              <a href="/latest">Latest</a>
+            </li>
+            <% # todo: This is not foolproof. fix this %>
+            <% if request.fullpath === "/popular" %>
+              <li class="active">
+            <% else %>
+              <li>
+            <% end %>
+              <a href="/popular">Most Popular</a>
+            </li>
+            <% for topic in @topics %>
+              <% if topic.stories.count != 0 %>
+                <% if (@story and @story.topic_id == topic.id) ||
+                  (@topic and @topic.id == topic.id) %>
+                  <li class="active">
+                <% else %>
+                  <li>
+                <% end %>
+                <%= link_to topic.title, topical_path(topic) %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+      <% if flash[:notice] %>
+        <div class="notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+      <% if flash[:error] %>
+        <div class="error">
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+      <%= yield %>
     </div>
-  <% end %>
-  <% if flash[:alert] %>
-    <div class="alert">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
-  <% if flash[:error] %>
-    <div class="error">
-      <%= flash[:error] %>
-    </div>
-  <% end %>
-  <div id="content">
-    <%= yield %>
+    <footer>
+      <p>
+        <%= link_to "About", about_url %> -
+        <%= link_to "Report an issue", "http://github.com/colloki/colloki/issues" %> -
+        <%= link_to "Sources", "" %>
+      </p>
+    </footer>
   </div>
-  <div id="footer">
-    <%= link_to "About", about_url %> |
-    <%= link_to "Report an issue", "http://github.com/colloki/colloki/issues" %>
-  </div>
-</div>
 </body>
 </html>

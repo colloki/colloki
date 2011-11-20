@@ -22,15 +22,4 @@ class ApplicationController < ActionController::Base
     def get_topics
       @topics = Topic.find(:all, :order => "created_at DESC", :limit => 10)
     end
-
-  # Removing iPhone specific views for the time being
-
-  #   before_filter :set_mobilesafari_format
-  #
-  # private
-  #   def set_mobilesafari_format
-  #     if request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
-  #       request.format = :mobilesafari
-  #     end
-  #   end
 end

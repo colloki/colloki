@@ -1,16 +1,16 @@
-<div id="middle">
-  <div class="userProfileHeader">
-    <% if @user.email and @user.email != '' %>
-      <div class="userProfilePic">
-        <%= gravatar_image_tag(@user.email, :gravatar => { :size => 50 }) %>
-      </div>
+<div class="well">
+  <% if @user.email and @user.email != '' %>
+    <div class="user-profile-avatar">
+      <%= gravatar_image_tag(@user.email, :gravatar => { :size => 50 }) %>
+    </div>
+  <% end %>
+  <h2>
+    <% if @user.realname and @user.realname != '' %>
+      <%= @user.realname %> /
     <% end %>
-    <h3>
-      <% if @user.realname and @user.realname != '' %>
-        <%= @user.realname %> /
-      <% end %>
-      <%= @user.login %>
-    </h3>
+    <%= @user.login %>
+  </h2>
+  <h5>
     <% if @user.website and @user.website != ''%>
       <%= link_to @user.website, @user.website %> •
     <% end %>
@@ -18,36 +18,35 @@
       <%= @user.bio %> •
     <% end %>
     <% if @user.location and @user.location != ''%>
-      <%= @user.location %><br>
+      <%= @user.location %> •
     <% end %>
-    <%=@user.stories.count%> Links, <%=@user.comments.count%> Comments
-  </div>
-  <br>
-  <h2>Latest from <%=@user.login%></h2>
-  <!-- TODO: Pagination here -->
-  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+    <%=@user.stories.count%> Links •
+    <%=@user.comments.count%> Comments
+  </h5>
 </div>
-<div id="right">
-  <% if @tags.count != 0%>
-    <div class="block">
-      <h2>
-        <%=@user.login%>'s tag cloud
-      </h2>
-      <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
+<h3>Stories by <%=@user.login%></h3>
+<br>
+<!-- TODO: Pagination here -->
+<%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+<% if @tags.count != 0%>
+    <h4>
+      <%=@user.login%>'s tag cloud
+    </h4>
+    <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
+<% end %>
+<% if @comments.count != 0 %>
+  <hr>
+  <h3>
+    <%=@user.login%>'s latest comments
+  </h3>
+  <br><br>
+  <% for comment in @comments %>
+    <div class="activity-item">
+      <blockquote>
+        <%=comment.body%>
+        <br><br>
+      <small>On <%=comment.created_at.to_s(:cool)%> in response to <strong><%=link_to comment.story.title, {:controller=>"stories", :action=>"show", :id=>comment.story.id}%></strong></small>
+      </blockquote>
     </div>
   <% end %>
-  <% if @comments.count != 0 %>
-    <div class="block">
-      <h2>
-        <%=@user.login%>'s latest comments
-      </h2>
-
-      <%for comment in @comments%>
-        <blockquote>
-          <%=comment.body%>
-        </blockquote>
-        <small>On <%=comment.created_at.to_s(:cool)%> in response to <strong><%=link_to comment.story.title, {:controller=>"stories", :action=>"show", :id=>comment.story.id}%></strong></small>
-      <%end%>
-    </div>
-  <% end %>
-</div>
+<% end %>

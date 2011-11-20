@@ -1,26 +1,27 @@
 <ul class="breadcrumb">
-  <li class="active">Latest</li>
+  <li class="active">
+    Most Popular
+  </li>
 </ul>
 <div class="row">
   <div class="span12">
     <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
-    <%= will_paginate @stories, :renderer => PaginationListLinkRenderer %>
+    <%= will_paginate @stories %>
   </div>
   <div class="span4 sidebar">
     <% if !logged_in? %>
       <h4>What is Colloki?</h4>
-      <%= colloki_description %>
+      <%= colloki_description() %>
     <% end %>
     <% if @tags.count != 0 %>
-      <h4>Popular</h4>
-      <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
+      <h4>Popular Topics</h4>
+        <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
     <% end %>
     <% if @activity_items.count != 0 %>
       <h4>Latest Activity</h4>
       <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
     <% end %>
     <% if @new_users.count != 0 %>
-      <hr>
       <h4>New Users</h4>
       <% for user in @new_users %>
         <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>

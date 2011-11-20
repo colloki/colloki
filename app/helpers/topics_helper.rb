@@ -7,14 +7,14 @@ module TopicsHelper
       img_url = story.image.url(:thumb)
     end
     if story.image.exists?
-      "<div class=\"storyItemThumbnail\">
+      "<div>
       #{link_to image_tag(img_url), story}
       </div>".html_safe
     end
   end
 
   def story_item_icon(story)
-    html = "<div class=\"storyItemIcon\">"
+    html = "<div class=\"favicon\">"
     if story.kind != Story::Rss
       html << "#{link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login}"
     else
@@ -25,7 +25,7 @@ module TopicsHelper
   end
 
   def story_item_meta(story)
-    html = "<div class=\"storyItemMeta\">"
+    html = "<div class=\"meta\">"
     if story.kind != Story::Rss
       html << "Posted by #{story_item_icon(story)} #{link_to story.user.login,
       { :controller => "users", :action => "show", :id => story.user.id }} "
@@ -33,13 +33,19 @@ module TopicsHelper
       html << "#{story_item_icon(story)}"
       html << "#{link_to story.source, story.source_url} "
     end
-    html << "  •  #{time_ago_in_words story.created_at} ago"
+    html << "<br>#{time_ago_in_words story.created_at} ago"
     html << "  •  "
     html << "
-      #{link_to '<span class=\'storyItemCommentCount\'>'.html_safe + story.comments.count.to_s + '</span>'.html_safe, story_path(story.id) + "#comments"}"
+      #{link_to story.comments.count.to_s,
+      story_path(story.id) + "#comments",
+      :class => 'comment-count',
+      :title => story.comments.count.to_s + ' comments'}"
     html << "  •  "
     html << "
-      #{link_to '<span class=\'storyItemLikeCount\'>'.html_safe + story.votes.count.to_s + '</span>'.html_safe, story_path(story.id)}
+      #{link_to story.votes.count.to_s,
+      story_path(story.id),
+      :class => 'like-count',
+      :title => story.votes.count.to_s + " likes"}
     </div>"
     html.html_safe
   end
@@ -66,9 +72,8 @@ module TopicsHelper
     else
       title = strip_tags(story.title)
     end
-    "<h4>
+    "<h5>
     #{link_to title, story}
-    <br>
-    </h4>".html_safe
+    </h5>".html_safe
   end
 end

@@ -1,43 +1,43 @@
-<h1>Sign in to Colloki</h1>
-<br><br>
+<h1>
+  Sign in to Colloki
+</h1>
+<br>
+<div class="span9" style="margin:0 auto">
+  <%= form_tag create_session_path do %>
+  <fieldset>
+    <legend>
+      <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
+      <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
+    </legend>
+  </fieldset>
+  <div class="clearfix">
+    <label for="login">Username or Email</label>
+    <div class="input">
+      <%= text_field_tag 'login' %>
+    </div>
+  </div>
 
-<%= form_tag create_session_path, :id => "loginForm" do %>
-
-<%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
-<%= link_to content_tag(:div, "", :id => 'facebook_signin_bt'), "auth/facebook" %>
-
-<div style="font-weight: bold; margin: 20px 0">
-  OR
-</div>
-
-<p>
-  <label for="login">Username or Email</label>
-  <%= text_field_tag 'login' %>
-</p>
-
-<p>
-  <label for="password">Password</label>
-  <%= password_field_tag 'password' %>
-</p>
-<p>
-  <label for="remember_me">
+  <div class="clearfix">
+    <label for="password">Password</label>
+    <div class="input">
+      <%= password_field_tag 'password' %>
+    </div>
+  </div>
+  <div class="clearfix">
+    <label for="remember_me">
     <%= check_box_tag 'remember_me' %>
-    Remember me
-  </label>
+    <span>Remember me</span>
+    </label>
+  </div>
 
-  <button type="submit" class="positive button" style="float: right">
-    Sign In
-  </button>
+  <div class="actions">
+    <button type="submit" class="btn primary">
+      Sign In
+    </button>
+    <%= link_to "Forgot password", forgot_password_url, :class => 'btn' %>
+    <%= link_to "Sign up!", signup_url, :class => 'btn' %>
+  </div>
 
-</p>
-
-<%= hidden_field_tag 'redir', @redir %>
-
-<br><br><br>
-
-<% end %>
-<div id="loginFormFooter">
-  <%= link_to "Forgot your password?", forgot_password_url %>&nbsp;&nbsp;&nbsp;&nbsp;
-  <%= link_to "Join Colloki", signup_url %>
-</div>
+  <%= hidden_field_tag 'redir', @redir %>
+  <% end %>
 </div>

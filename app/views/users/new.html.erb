@@ -1,42 +1,44 @@
-<div id="middle">
-  <h1>
-    Sign up to Colloki
-  </h1>
-  <br>
-  <%= error_messages_for :user %>
-  <%= form_for :user, :url => users_path do |f| -%>
+<h1>
+  Sign up to Colloki
+</h1>
+<br>
+<%= error_messages_for :user %>
+<%= form_for :user, :url => users_path do |f| -%>
 
-  <p>
-    <label for="login">Pick a username (Cannot have spaces or any other special characters)</label>
-    <br>
+<div class="clearfix">
+  <label for="login">
+    Pick a username <span class="help-block">(Cannot have spaces or any other special characters)</span>
+  </label>
+  <div class="input">
     <%= f.text_field :login %>
-  </p>
-
-  <p>
-    <label for="email">Email</label>
-    <br>
-    <%= f.text_field :email %>
-  </p>
-
-  <p>
-    <label for="password">Password (Five or more characters)</label>
-    <br>
-    <%= f.password_field :password %>
-  </p>
-
-  <p>
-    <label for="password_confirmation">Confirm Password</label>
-    <br>
-    <%= f.password_field :password_confirmation %>
-  </p>
-
-  <p>
-    <button type="submit" class="positive">
-      <%= image_tag "user.gif"%>
-        Sign Up!
-    </button>
-  </p>
-
-  <% end -%>
-  <br><br>
+  </div>
 </div>
+
+<div class="clearfix">
+  <label for="email">Email</label>
+  <div class="input">
+    <%= f.text_field :email %>
+  </div>
+</div>
+
+<div class="clearfix">
+  <label for="password">Password <span class="help-block">(Five or more characters)</span></label>
+  <div class="input">
+    <%= f.password_field :password %>
+  </div>
+</div>
+
+<div class="clearfix">
+  <label for="password_confirmation">Confirm Password</label>
+  <div class="input">
+    <%= f.password_field :password_confirmation %>
+  </div>
+</div>
+
+<div class="actions">
+  <button type="submit" class="btn primary">
+    Sign Up!
+  </button>
+</div>
+
+<% end -%>

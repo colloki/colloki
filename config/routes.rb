@@ -9,7 +9,7 @@ Colloki::Application.routes.draw do
 
   resources :comments, :users, :session
 
-  root :to => 'topics#index'
+  root :to => 'topics#latest'
 
   # sitealizer
   match '/sitealizer/:action', :to => 'sitealizer'
@@ -24,6 +24,7 @@ Colloki::Application.routes.draw do
   match '/about', :to => 'static#about', :as => 'about'
   match '/changelog', :to => 'static#changelog', :as => 'changelog'
   match '/specs', :to => 'static#specs', :as => 'specs'
+  match '/sources', :to => 'static#sources', :as => 'sources'
   match '/change_password', :to => 'users#change_password', :as => 'change_password'
   match '/forgot_password', :to => 'users#forgot_password', :as => 'forgot_password'
   match '/reset_password/:reset_code', :to => 'users#reset_password', :as => 'reset_password'
@@ -37,8 +38,8 @@ Colloki::Application.routes.draw do
 
   match '/auth/:provider/callback', :to => 'provider_authentications#create'
 
-  match 'top', :to => 'topics#index'
   match 'latest', :to => 'topics#latest'
+  match 'popular', :to => 'topics#popular'
 
   match 'search', :to => 'topics#search'
 

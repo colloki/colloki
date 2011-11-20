@@ -1,0 +1,32 @@
+<% if logged_in? %>
+  <% if story.user and story.user.id != current_user.id %>
+    <% if !current_user.voted_on?(story) %>
+      <div class="story-like btn success" title="Like">
+        <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>">
+    <% else %>
+      <div class="story-like btn success" title="Unlike">
+        <a href="<%= url_for(:controller=>"stories", :action => :unvote, :id => story.id) %>">
+    <% end %>
+  <% elsif story.kind == Story::Rss %>
+    <% if !current_user.voted_on?(story) %>
+      <div class="story-like btn success" title="Like">
+        <a href="<%= url_for(:controller=>"stories", :action => :vote, :id => story.id) %>">
+    <% else %>
+      <div class="story-like voted btn success" title="Unlike">
+        <a href="<%= url_for(:controller=>"stories", :action => :unvote, :id => story.id) %>">
+      <% end %>
+  <% else %>
+    <div class="story-like disabled btn">
+  <% end %>
+<% else %>
+  <div class="story-like disabled btn">
+<% end %>
+<div class="vote-count">
+  <%= story.votes.count %> likes
+</div>
+</div>
+<% if logged_in? %>
+  <% if story.user and story.user.id != current_user.id and !current_user.voted_on?(story) %>
+    </a>
+  <% end %>
+<% end %>

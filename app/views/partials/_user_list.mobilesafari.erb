@@ -1,5 +1,0 @@
-<% for user in @users %>
-   <% if user.stories.size > 0 %>
-  	<li><%= h user.login %> <%=h user.stories.size %> <%=h user.stories.size == 1 ? "story" : "stories" %> <%= link_to 'Show stories', user %></li>
-  <% end %>
-<% end %>

@@ -1,0 +1,98 @@
+@import "comments.less";
+@import "sidebar.less";
+@import "story.less";
+@import "user.less";
+
+body {
+  padding-top: 50px;
+}
+
+h5 {
+  line-height: 20px;
+}
+
+.meta {
+  color: #888;
+  font-size: 12px;
+  font-weight: 300;
+  
+  a {
+    color: #555;
+  }
+  
+  .small-icon (@url: '') {
+    color: #ccc;
+    background: url("@{url}.png") no-repeat 0 2px;
+    padding-left: 14px;
+    &:hover {
+      background: url("@{url}_hover.png") no-repeat 0 2px;
+      text-decoration: none !important;
+      color: #333;
+    }
+  }
+
+  .comment-count {
+    .small-icon('../images/icons/comments');
+  }
+
+  .like-count {
+    .small-icon('../images/icons/heart');
+  }
+}
+
+.favicon {
+  float: left;
+  margin-top: 2px;
+  margin-right: 2px;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+  img {
+    height: 12px;
+    width: 12px;
+  }
+}
+
+.content {
+  .span11,
+  .span12 {
+    border-right: 1px solid #eee;
+    padding-right: 15px;
+  }
+  .span5 {
+    width: 260px;
+  }
+  .sidebar {
+    width: 200px !important;
+  }
+}
+
+.topic-words {
+  a, a:visited {
+    color: #333;
+  }
+}
+
+footer {
+  color: #ccc;
+}
+
+#facebook-btn {
+  display: inline-block;
+  width: 150px;
+  height: 23px;
+  background: 0px -24px url('../images/facebook_signin.png');
+}
+
+.activity-item {
+  font-weight: 300;
+  margin-bottom: 10px;
+  small {
+    color: #888;
+    font-weight: 300;
+    a {
+      font-weight: 300;
+    }
+  }
+}

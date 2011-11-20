@@ -1,21 +1,19 @@
-<div>
-  <h1>
-    <a href="<%=topical_url(:id => topic.id)%>" title="<%=topic.title%> - <%=topic.description%>">
-      <% if topic.title %>
-        <%= topic.title %>
-      <% else %>
-        Uncategorized
-      <% end %>
-    </a>
-  </h1>
-  <% if topic.topic_keywords %>
-    <div id="topicTags">
-      <% topic.topic_keywords.each do |keyword| %>
-      <% font_size = [[keyword.distribution * 2, 12].max, 30].min %>
-        <span style="font-size: <%= font_size %>px">
-          <%= link_to keyword.name, "/search?query="+keyword.name %>
-        </span>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<ul class="breadcrumb">
+  <li class="active">
+    <% if topic.title %>
+      <%= topic.title %>
+    <% else %>
+      Uncategorized
+    <% end %>
+  </li>
+</ul>
+<% if topic.topic_keywords %>
+  <div class="well topic-words">
+    <% topic.topic_keywords.each do |keyword| %>
+    <% font_size = [[keyword.distribution * 2, 12].max, 30].min %>
+      <span style="font-size: <%= font_size %>px">
+        <%= link_to keyword.name, "/search?query="+keyword.name %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

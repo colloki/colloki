@@ -1,16 +1,17 @@
-<div class="stories">
+<div>
   <% i = 0 %>
   <% for story in @stories %>
-    <% if i == 1 or (i > 1 and (i - 1).remainder(3) == 0) %>
-      <div class="storyItemDivider"></div>
+    <% if i%3 == 0 %>
+      <% if i != 0 %>
+        </div>
+        <hr>
+      <% end %>
+      <div class="row">
     <% end %>
-    <% if i == 0 %>
-      <%= render :partial => "partials/story_item_layout_3", :locals => {:story => story} %>
-    <% else %>
-      <%= render :partial => "partials/story_item_layout_1", :locals => {:story => story} %>
-    <% # else %>
-      <%# render :partial => "partials/story_item_layout_2", :locals => {:story => story} %>
-    <% end %>
+    <%= render :partial => "partials/story_item", :locals => {:story => story} %>
     <% i += 1 %>
+    <% if i == @stories.length %>
+      </div>
+    <% end %>
   <% end %>
 </div>

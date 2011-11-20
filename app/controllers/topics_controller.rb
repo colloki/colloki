@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.xml
-  def index
+  def popular
     require 'will_paginate/array'
     @page_title = "Most Popular"
     # todo: find a more optimized way (via sql query) to get the top recent posts
