@@ -47,7 +47,7 @@ capybara-*.html
 /coverage/
 /spec/tmp/*
 **.orig
-config/*.yml
+config/database.yml
 rerun.txt
 pickle-email-*.html
 

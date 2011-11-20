@@ -1,0 +1,12 @@
+embed_assets: on
+
+javascripts:
+  common:
+    - public/javascripts/libs/*.js
+    - public/javascripts/bootstrap/*.js
+    - public/javascripts/application.js
+
+stylesheets:
+  common:
+    - public/stylesheets/bootstrap/bootstrap.less
+    - public/stylesheets/site.less
