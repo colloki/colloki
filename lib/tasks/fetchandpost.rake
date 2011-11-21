@@ -123,6 +123,8 @@ task :fetchandpost => :environment do
     CSV.parse(stories_csv) do |row|
       if stories_topics[row[0]]
         ParseAndPost::run(row[3], savedTopics[stories_topics[row[0]]])
+      else
+        ParseAndPost::run(row[3], nil)
       end
     end
   rescue
