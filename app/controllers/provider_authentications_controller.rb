@@ -17,8 +17,8 @@ class ProviderAuthenticationsController < ApplicationController
       redirect_to("/", :notice => "Welcome #{self.current_user.login}")
 
     # If the user is already logged in, create a new authentication for the user
-    elsif current_user
-      current_user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+    elsif self.current_user
+      self.current_user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       redirect_to("/", :notice => "Welcome #{self.current_user.login}")
 
     # If an account for this user already exists, connect with that account and log the user in

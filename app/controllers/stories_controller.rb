@@ -66,6 +66,21 @@ class StoriesController < ApplicationController
     for vote in @story.votes
       @likers << User.find(vote[:user_id])
     end
+
+    @comments = []
+    @story.comments.each do |comment|
+      @comments.push({
+        :id => comment.id,
+        :body => comment.body,
+        :user_login => comment.user.login,
+        :user_email_hash => Digest::MD5.hexdigest(current_user.email),
+        :user_id => comment.user.id,
+        :timestamp => comment.created_at
+      })
+    end
+
+    logger.info(@comments)
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }
@@ -194,40 +209,6 @@ class StoriesController < ApplicationController
     end
   end
 
-  def comment
-    if logged_in?
-      @story = Story.find(params["id"])
-      @story.comments.create(:body => params[:comment][:body].to_s, :user_id => current_user.id)
-      current_user.activity_items.create(:story_id => @story.id, :topic_id => @story.topic_id, :kind => ActivityItem::CommentType)
-
-      #Update the story's popularity
-      @story.update_popularity
-      @story.save
-
-      flash[:notice] = "Successfully created your comment."
-    else
-      flash[:alert] = "You cannot comment without logging in, so quit trying!"
-    end
-    redirect_to :action=>"show", :id => params[:id]
-  end
-
-
-  def delete_comment
-    if logged_in?
-      @story = Story.find(params["id"])
-      @comment = Comment.find(params["cid"])
-      if (@comment.user_id == current_user.id)
-        @comment.delete
-
-        #TODO: This is not ideal. Need to delete the exact related activity item, that can only be done if the activity_item model is completely re-thought. Later.
-        activity_item = ActivityItem.find(:first, :conditions => {:user_id => @comment.user_id, :story_id => @story.id, :kind => ActivityItem::CommentType }, :order => "created_at DESC")
-        activity_item.delete
-      end
-      redirect_to :back
-    end
-  end
-
-  #TODO: Make it ajaxy
   def vote
     if logged_in?
       story = Story.find(params[:id])
@@ -245,7 +226,6 @@ class StoriesController < ApplicationController
     redirect_to :back
   end
 
-  #TODO: Make it ajaxy
   def unvote
     if logged_in?
       story = Story.find(params[:id])
