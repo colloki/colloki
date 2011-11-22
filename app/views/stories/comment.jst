@@ -5,7 +5,7 @@
   <div class="span5 comment-body">
     <a href="/users/<%= model.user_id %>"><%= model.user_login %></a>
     <br>
-    <%= body %>
+    <%= model.body %>
     <div class="comment-meta">
       <%= pretty_timestamp %> &nbsp;&nbsp;<a class="btn small-btn error delete-comment" style="cursor: pointer" >delete</a>
     </div>
