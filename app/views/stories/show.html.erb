@@ -36,7 +36,7 @@
         <div class="clearfix">
           <%= text_area "comment", "body", :class => "xxlarge", :rows => "6" %>
         </div>
-          <%= hidden_field :story, :id, :id => "comment_story_id" %>
+        <%= hidden_field :story, :id, :id => "comment_story_id" %>
         <br>
         <%= submit_tag "Comment", :class => "btn", :id => "add-comment" %>
       <% else %>
@@ -82,7 +82,7 @@
 </div>
 <script>
   $(document).ready(function(e) {
-    var comments = new window.CommentsListView(<%= @comments.to_json.html_safe %>);
+    var comments = new window.CommentsListView(<%= @comments.to_json.html_safe %>, <%= @user_id %>);
     var vote = new window.VoteView(<%= @voting_data.to_json.html_safe %>);
   });
 </script>

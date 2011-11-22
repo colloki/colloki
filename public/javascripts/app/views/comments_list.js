@@ -6,11 +6,12 @@ $(function() {
       "click #add-comment": "add"
     },
 
-    initialize: function(data) {
+    initialize: function(data, user_id) {
       _.bindAll(this, 'render', 'add', 'addAll', 'append', 'remove');
 
       this.input = this.$("#comment_body");
       this.story_id = this.$("#comment_story_id").val();
+      this.user_id = user_id;
 
       this.collection = new Comments();
       this.collection.bind('reset', this.addAll);
@@ -50,7 +51,7 @@ $(function() {
 
     // Add single comment to UI
     append: function(comment) {
-      var view = new CommentView({ model: comment });
+      var view = new CommentView({ model: comment, user_id: this.user_id });
       $('.comment-entries', this.el).append(view.render().el);
       this.input.val('').focus();
       this.count ++;

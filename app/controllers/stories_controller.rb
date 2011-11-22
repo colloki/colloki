@@ -73,7 +73,7 @@ class StoriesController < ApplicationController
         :id => comment.id,
         :body => comment.body,
         :user_login => comment.user.login,
-        :user_email_hash => Digest::MD5.hexdigest(current_user.email),
+        :user_email_hash => Digest::MD5.hexdigest(comment.user.email),
         :user_id => comment.user.id,
         :timestamp => comment.created_at
       })
@@ -92,11 +92,17 @@ class StoriesController < ApplicationController
       state: state,
       id: (logged_in? and state == 1) ? current_user.get_vote(@story).id : nil,
       story_id: @story.id,
-      user_id: current_user.id,
-      user_email_hash: Digest::MD5.hexdigest(current_user.email),
-      user_login: current_user.login,
+      user_id: logged_in? ? current_user.id : nil,
+      user_email_hash: logged_in? ? Digest::MD5.hexdigest(current_user.email) : nil,
+      user_login: logged_in? ? current_user.login : nil,
       count: @story.votes.count
     };
+
+    if logged_in?
+      @user_id = current_user.id
+    else
+      @user_id = -1
+    end
 
     respond_to do |format|
       format.html # show.html.erb
