@@ -1,5 +1,5 @@
 $(function() {
   window.Vote = Backbone.Model.extend({
-    urlRoot: 'votes/'
+    urlRoot: '/votes'
   });
 });
