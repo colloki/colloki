@@ -11,5 +11,6 @@ $(document).ready(function(e) {
     delayIn: 10,
     placement: 'below'
   });
+  $(".alert-message").alert();
 });
 

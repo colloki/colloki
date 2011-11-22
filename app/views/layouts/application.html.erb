@@ -50,16 +50,16 @@
       <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
         <% if @topics %>
           <ul class="pills">
-            <% # todo: This is not foolproof. fix this %>
-            <% if request.fullpath == "/" || request.fullpath.index("latest") %>
+            <% if request.filtered_parameters["controller"] === "topics" &&
+              request.filtered_parameters["action"] === "latest" %>
               <li class="active">
             <% else %>
               <li>
             <% end %>
               <a href="/latest">Latest</a>
             </li>
-            <% # todo: This is not foolproof. fix this %>
-            <% if request.fullpath === "/popular" %>
+            <% if request.filtered_parameters["controller"] === "topics" &&
+              request.filtered_parameters["action"] === "popular" %>
               <li class="active">
             <% else %>
               <li>
@@ -82,17 +82,20 @@
         <% end %>
       <% end %>
       <% if flash[:notice] %>
-        <div class="notice">
+        <div class="alert-message success">
+          <a class="close" href="#">×</a>
           <%= flash[:notice] %>
         </div>
       <% end %>
       <% if flash[:alert] %>
-        <div class="alert">
+        <div class="alert-message info">
+          <a class="close" href="#">×</a>
           <%= flash[:alert] %>
         </div>
       <% end %>
       <% if flash[:error] %>
-        <div class="error">
+        <div class="alert-message error">
+          <a class="close" href="#">×</a>
           <%= flash[:error] %>
         </div>
       <% end %>

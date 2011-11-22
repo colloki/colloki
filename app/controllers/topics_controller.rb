@@ -2,18 +2,29 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.xml
   def popular
-    require 'will_paginate/array'
     @page_title = "Most Popular"
     # todo: find a more optimized way (via sql query) to get the top recent posts
     @stories = Story.find(:all, :order => "created_at DESC", :limit => 50)
     @stories.sort! { |a, b| b.popularity <=> a.popularity }
-    @stories = @stories.paginate(:page => params[:page], :per_page => 10)
+    @stories = @stories.paginate(:page => params[:page], :per_page => 9)
+
     @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
-
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
+      format.xml  { render :xml => @stories }
+    end
+  end
+
+  def latest
+    @page_title = "Latest"
+    @stories = Story.paginate(:page => params[:page]).order("created_at DESC")
+    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
+    @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
+    @tags = Story.tag_counts_on(:tags)
+    respond_to do |format|
+      format.html
       format.xml  { render :xml => @stories }
     end
   end
@@ -26,17 +37,9 @@ class TopicsController < ApplicationController
     @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
     @tags = Story.tag_counts_on(:tags)
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @stories }
     end
-  end
-
-  def latest
-    @page_title = "Latest"
-    @stories = Story.paginate(:page => params[:page]).order("created_at DESC")
-    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
-    @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
-    @tags = Story.tag_counts_on(:tags)
   end
 
   # GET /topics/1
