@@ -123,6 +123,10 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def get_vote(story)
+    Vote.find(:first, :conditions => {:user_id => self.id, :story_id => story.id})
+  end
+
   def unvote(story)
     vote = Vote.find(:first, :conditions => {:user_id => self.id, :story_id => story.id})
     vote.delete

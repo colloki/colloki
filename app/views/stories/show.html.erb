@@ -3,7 +3,10 @@
     <h2>
       <%= story_title(@story) %>
     </h2>
-    <%= render :partial => "partials/story_like", :locals => { :story => @story } %>
+    <a class="like-btn btn">
+      <div class="vote-count">
+      </div>
+    </a>
     <%= story_meta(@story) %>
     <div class="story-content">
       <% if @story.image.exists? %>
@@ -13,12 +16,16 @@
       <% end %>
       <%= sanitize(@story.description) %>
     </div>
-    <br>
+    <hr>
+    <div id="story-likers">
+      <% if @likers.count != 0 %>
+        <h4>
+          Liked by
+        </h4>
+        <%= story_likers(@likers) %>
+      <% end %>
+    </div>
     <% if @likers.count != 0 %>
-      <h4>
-        Liked by
-      </h4>
-      <%= story_likers(@likers) %>
       <hr>
     <% end %>
     <div id="comments">
@@ -70,13 +77,12 @@
       <hr>
     <% end %>
     <h4>Share</h4>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
-    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-      <iframe src="//www.facebook.com/plugins/like.php?href=<%= request.url %>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px; display: inline; margin-left: -10px" allowTransparency="true"></iframe>
+    <%= render :partial => "partials/share" %>
   </div>
 </div>
 <script>
   $(document).ready(function(e) {
     var comments = new window.CommentsListView(<%= @comments.to_json.html_safe %>);
+    var vote = new window.VoteView(<%= @voting_data.to_json.html_safe %>);
   });
 </script>

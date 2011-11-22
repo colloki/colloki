@@ -79,7 +79,24 @@ class StoriesController < ApplicationController
       })
     end
 
-    logger.info(@comments)
+    state = 0
+    if logged_in?
+      if (@story.user && @story.user.id == current_user.id) || current_user.voted_on?(@story)
+        state = 1
+      end
+    else
+      state = -1
+    end
+
+    @voting_data = {
+      state: state,
+      id: (logged_in? and state == 1) ? current_user.get_vote(@story).id : nil,
+      story_id: @story.id,
+      user_id: current_user.id,
+      user_email_hash: Digest::MD5.hexdigest(current_user.email),
+      user_login: current_user.login,
+      count: @story.votes.count
+    };
 
     respond_to do |format|
       format.html # show.html.erb
@@ -207,42 +224,6 @@ class StoriesController < ApplicationController
       @story.destroy
       redirect_to @topic
     end
-  end
-
-  def vote
-    if logged_in?
-      story = Story.find(params[:id])
-      if !current_user.voted_on?(story)
-        current_user.vote(story)
-        story.update_popularity
-        story.save
-        current_user.activity_items.create(:story_id => story.id, :topic_id => story.topic_id, :kind => ActivityItem::VoteType)
-      else
-        flash[:alert] = "You cannot like multiple times, so quit trying!"
-      end
-    else
-      flash[:alert] = "You cannot like without logging in, so quit trying!"
-    end
-    redirect_to :back
-  end
-
-  def unvote
-    if logged_in?
-      story = Story.find(params[:id])
-      if current_user.voted_on?(story)
-        current_user.unvote(story)
-        story.update_popularity
-        story.save
-
-        activity_item = ActivityItem.find(:first, :conditions => {:user_id => current_user, :story_id => story.id, :kind => ActivityItem::VoteType}, :order => "created_at DESC")
-        activity_item.delete
-      else
-        flash[:alert] = "You cannot dislike multiple times."
-      end
-    else
-      flash[:alert] = "You cannot dislike without logging in."
-    end
-    redirect_to :back
   end
 
   def feed_interface

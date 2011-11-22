@@ -1,9 +1,9 @@
 <div class="comment row">
   <div class="span1">
-    <img alt="Gravatar" src="http://gravatar.com/avatar/<%= user_email_hash %>?size=24">
+    <img alt="Gravatar" src="http://gravatar.com/avatar/<%= model.user_email_hash %>?size=24">
   </div>
   <div class="span5 comment-body">
-    <a href="/users/<%= user_id %>"><%= user_login %></a>
+    <a href="/users/<%= model.user_id %>"><%= model.user_login %></a>
     <br>
     <%= body %>
     <div class="comment-meta">

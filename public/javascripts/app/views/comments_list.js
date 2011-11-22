@@ -1,9 +1,9 @@
 $(function() {
   window.CommentsListView = Backbone.View.extend({
-    el: $('#comments'),
+    el: $("#comments"),
 
     events: {
-      'click #add-comment': 'add'
+      "click #add-comment": "add"
     },
 
     initialize: function(data) {
@@ -23,16 +23,17 @@ $(function() {
         this.collection.add(c);
         this.append(c);
       }
-
     },
 
     render: function() {
+      // Update the comment count
       var html = this.count + " Comment";
       if (this.count != 1)
         html += "s";
       this.$("#comment-count").html(html);
     },
 
+    // Save a new comment
     add: function(attribs) {
       var c = new Comment();
       var self = this;
@@ -42,10 +43,12 @@ $(function() {
       }});
     },
 
+    // Add all comments in collection to UI
     addAll: function() {
       this.collection.each(this.append);
     },
 
+    // Add single comment to UI
     append: function(comment) {
       var view = new CommentView({ model: comment });
       $('.comment-entries', this.el).append(view.render().el);
@@ -54,6 +57,7 @@ $(function() {
       this.render();
     },
 
+    // Remove comment from UI
     remove: function() {
       this.count --;
       this.render();

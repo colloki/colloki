@@ -36,7 +36,11 @@ module StoriesHelper
   def story_likers(likers)
     html = ""
     for user in likers
-      html += link_to gravatar_image_tag(user.email, :gravatar => { :size => 36 }), user
+      html += link_to gravatar_image_tag(user.email, :gravatar => { :size => 24 }),
+      user,
+      :id => "liker#{user.id}",
+      :class => "story-liker",
+      :title => user.login
     end
     html.html_safe
   end
