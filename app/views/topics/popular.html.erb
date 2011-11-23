@@ -12,14 +12,17 @@
     <% if !logged_in? %>
       <h4>What is Colloki?</h4>
       <%= colloki_description() %>
+      <hr>
     <% end %>
     <% if @tags.count != 0 %>
       <h4>Popular Topics</h4>
-        <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
+      <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
+      <hr>
     <% end %>
     <% if @activity_items.count != 0 %>
       <h4>Latest Activity</h4>
       <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
+      <hr>
     <% end %>
     <% if @new_users.count != 0 %>
       <h4>New Users</h4>

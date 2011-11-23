@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     @page_title = "Sign Up"
   end
 
-  #TODO: Enhance this or get rid of it.
+  #TODO: Enhance this
   def index
     @page_title = "People"
     if not logged_in?
@@ -34,12 +34,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @page_title = "Profile for "+ @user.login
     @tags = @user.stories.tag_counts
-    @stories = Story.find(:all, :order => "created_at DESC", :conditions => {:user_id => @user.id}, :limit => 15)
+    @stories = Story.find(:all, :order => "created_at DESC", :conditions => {:user_id => @user.id}, :limit => 10)
     @comments = Comment.find(:all, :order => "created_at DESC", :conditions => {:user_id => @user.id}, :limit => 7)
+    # @activities = ActivityItem.find(:all, :order => "created_at DESC", :conditions => {:user_id => @user.id}, :limit => 10)
+    votes = Vote.find(:all, :order => "created_at DESC", :conditions => {:user_id => @user.id}, :limit => 10)
+    @liked_stories = []
+    for vote in votes
+      @liked_stories.push(vote.story)
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }
-      # format.mobilesafari
     end
   end
 

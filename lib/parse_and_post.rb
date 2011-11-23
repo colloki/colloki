@@ -76,7 +76,6 @@ module ParseAndPost
     domain = url.split('/')[2]
 
     if Sources.has_key?(domain)
-
       # check if the story already exists. if yes, return it, instead of reposting it
       story = Story.find(:first, :conditions => {:source_url => url})
       if story
@@ -84,52 +83,52 @@ module ParseAndPost
           story.topic = topic
           story.save
         end
-      end
+      else
+        name = Sources[domain]["name"]
+        response = RedirectFollower.new(url, 3).resolve
 
-      name = Sources[domain]["name"]
-      response = RedirectFollower.new(url, 3).resolve
+        doc = Nokogiri::HTML(response.body)
 
-      doc = Nokogiri::HTML(response.body)
+        #todo: Have a stronger check here to determine if a document is parseable
+        if doc.title()
+          @title = doc.css(Sources[domain]["title"]).first.text
+          @image = nil
 
-      #todo: Have a stronger check here to determine if a document is parseable
-      if doc.title()
-        @title = doc.css(Sources[domain]["title"]).first.text
-        @image = nil
-
-        if Sources[domain]["image"] != nil
-          img_tags = doc.css(Sources[domain]["image"])
-          if !img_tags.empty?
-            src = img_tags.first['src']
-            if (src.index(Sources[domain]["url"]))
-              @image = "#{src}"
-            else
-              @image = "#{Sources[domain]["url"]}#{src}"
+          if Sources[domain]["image"] != nil
+            img_tags = doc.css(Sources[domain]["image"])
+            if !img_tags.empty?
+              src = img_tags.first['src']
+              if (src.index(Sources[domain]["url"]))
+                @image = "#{src}"
+              else
+                @image = "#{Sources[domain]["url"]}#{src}"
+              end
             end
           end
-        end
 
-        @content = doc.css(Sources[domain]["content"])
-        # get rid of any images, since we are already storing images separately
-        @content.xpath("//img").remove
-        @content = @content.to_html.html_safe
+          @content = doc.css(Sources[domain]["content"])
+          # get rid of any images, since we are already storing images separately
+          @content.xpath("//img").remove
+          @content = @content.to_html.html_safe
 
-        # save the fetched story
-        story = Story.new
-        story.title = @title
-        story.description = @content
-        if topic
-          story.topic = topic
-        else
-          story.topic_id = -1
+          # save the fetched story
+          story = Story.new
+          story.title = @title
+          story.description = @content
+          if topic
+            story.topic = topic
+          else
+            story.topic_id = -1
+          end
+          if @image
+            story.image = open(@image)
+          end
+          story.views = 0
+          story.kind = Story::Rss
+          story.source = name
+          story.source_url = url
+          story.save
         end
-        if @image
-          story.image = open(@image)
-        end
-        story.views = 0
-        story.kind = Story::Rss
-        story.source = name
-        story.source_url = url
-        story.save
       end
     end
   end

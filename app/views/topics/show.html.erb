@@ -13,17 +13,16 @@
       Write Post
     </a>
     <% if @activity_items.count != 0 %>
-      <hr>
       <h4>Latest Activity</h4>
       <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items}%>
+      <hr>
     <% end %>
     <% if @top_users.count != 0 %>
-      <hr>
       <h4>Top Contributors</h4>
-      <%for user in @top_users%>
-        <%if user.story_count != '0'%>
-          <%=link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login%>
-        <%end%>
+      <% for user in @top_users %>
+        <% if user.story_count != '0' %>
+          <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
+        <% end %>
       <%end%>
     <% end %>
   </div>

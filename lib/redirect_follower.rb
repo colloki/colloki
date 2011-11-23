@@ -20,10 +20,6 @@ class RedirectFollower
 
     self.response = Net::HTTP.get_response(URI.parse(url))
 
-    logger.info "redirect limit: #{redirect_limit}"
-    logger.info "response code: #{response.code}"
-    logger.debug "response body: #{response.body}"
-
     if response.kind_of?(Net::HTTPRedirection)
       self.url = redirect_url
       self.redirect_limit -= 1

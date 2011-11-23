@@ -1,30 +1,29 @@
-<div id="middle">
-  <h1>
-    Complete Sign Up
-  </h1>
-  <br>
-  <%= error_messages_for :user %>
-  <%= form_for :user, :url => complete_signup_url do |f| -%>
+<h1>
+  Complete Sign Up
+</h1>
 
-  <p>
-    <label for="login">Pick a username (Cannot have spaces or any other special characters)</label>
-    <br>
+<%= error_messages_for :user %>
+
+<%= form_for :user, :url => complete_signup_url do |f| -%>
+<div class="clearfix">
+  <label for="login">Pick a username</label>
+  <div class="input">
     <%= f.text_field :login, :value => @login %>
-  </p>
-
-  <p>
-    <label for="email">Email</label>
-    <br>
-    <%= f.text_field :email, :value => @email %>
-  </p>
-
-  <p>
-    <button type="submit" class="positive button">
-      <%= image_tag "user.gif"%>
-        Done
-    </button>
-  </p>
-
-  <% end -%>
-  <br><br>
+    <span class="help-block">Cannot have spaces or any other special characters</span>
+  </div>
 </div>
+
+<div class="clearfix">
+  <label for="email">Email</label>
+  <div class="input">
+    <%= f.text_field :email, :value => @email %>
+  </div>
+</div>
+
+<div class="actions">
+  <button type="submit" class="btn success">
+    Done
+  </button>
+</div>
+
+<% end %>

@@ -24,29 +24,33 @@
     <%=@user.comments.count%> Comments
   </h5>
 </div>
-<h3>Stories by <%=@user.login%></h3>
-<br>
-<!-- TODO: Pagination here -->
-<%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
-<% if @tags.count != 0%>
-    <h4>
-      <%=@user.login%>'s tag cloud
-    </h4>
-    <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
-<% end %>
-<% if @comments.count != 0 %>
-  <hr>
-  <h3>
-    <%=@user.login%>'s latest comments
-  </h3>
-  <br><br>
-  <% for comment in @comments %>
-    <div class="activity-item">
+<ul class="tabs">
+  <li class="active"><a href="#posts">Posts</a></li>
+  <li><a href="#comments">Comments</a></li>
+  <li><a href="#likes">Likes</a></li>
+</ul>
+<div class="pill-content">
+  <div class="active" id="posts">
+    <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+    <% if @tags.count != 0%>
+      <h4>
+        <%= @user.login %>'s tag cloud
+      </h4>
+      <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
+    <% end %>
+  </div>
+  <div id="likes">
+    <%= render :partial => "partials/story_items", :locals => { :stories => @liked_stories } %>
+  </div>
+  <div id="comments">
+    <% for comment in @comments %>
       <blockquote>
-        <%=comment.body%>
-        <br><br>
-      <small>On <%=comment.created_at.to_s(:cool)%> in response to <strong><%=link_to comment.story.title, {:controller=>"stories", :action=>"show", :id=>comment.story.id}%></strong></small>
+        <p>
+          <%= comment.body %>
+        </p>
+        <small>On <%= comment.created_at.to_s(:cool) %> in response to <strong>
+        <%= link_to comment.story.title, :controller => "stories", :action => "show", :id => comment.story.id %>
       </blockquote>
-    </div>
-  <% end %>
-<% end %>
+    <% end %>
+  </div>
+</div>
