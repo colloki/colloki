@@ -27,7 +27,10 @@
     <% if @new_users.count != 0 %>
       <h4>New Users</h4>
       <% for user in @new_users %>
-        <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
+        <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }),
+        user,
+        :title => user.login,
+        :class => "avatar" %>
       <% end %>
     <% end %>
   </div>

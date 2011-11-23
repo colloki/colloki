@@ -5,13 +5,6 @@
     <%= will_paginate @stories %>
   </div>
   <div class="span4 sidebar">
-    <h4>Post Story</h4>
-    <a href="<%=new_topic_story_path(@topic, :kind=>'link')%>" class="btn">
-      Share Link
-    </a>
-    <a href="<%=new_topic_story_path(@topic, :kind=>'post')%>" class="btn">
-      Write Post
-    </a>
     <% if @activity_items.count != 0 %>
       <h4>Latest Activity</h4>
       <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items}%>

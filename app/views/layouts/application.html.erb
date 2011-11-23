@@ -9,6 +9,15 @@
   <link rel="stylesheet/less" type="text/css" href="/stylesheets/bootstrap/bootstrap.less">
   <link rel="stylesheet/less" type="text/css" href="/stylesheets/site.less">
   <%= include_javascripts :common %>
+  <!-- UserVoice for feedback -->
+  <script type="text/javascript">
+    var uvOptions = {};
+    (function() {
+      var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+      uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/pLtn5f9SjZ6cvVzbO7NeUQ.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+    })();
+  </script>
 </head>
 <body>
   <div class="topbar">
@@ -102,11 +111,20 @@
       <%= yield %>
     </div>
     <footer>
+      <p class="pull-right">
+        &copy; Virginia Tech ·
+        <a href="http://cs.vt.edu">Computer Science</a> ·
+        <a href="http://comm.vt.edu">Communication</a>
+      </p>
       <p>
         <%= link_to "About", about_url %> -
-        <%= link_to "Report an issue", "http://github.com/colloki/colloki/issues" %> -
-        <%= link_to "Sources", sources_url %>
+        <%= link_to "Send us Feedback",
+        "javascript:UserVoice.showPopupWidget();",
+        :title => "Send us feedback!"
+        %> -
+        <%= link_to "News sources", sources_url %>
       </p>
+
     </footer>
   </div>
 </body>

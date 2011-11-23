@@ -61,7 +61,7 @@ task :fetchandpost => :environment do
         end
         i += 1
       end
-      # todo: maybe restrict the search to topics created the same day.
+      # todo: Produce only 10 topics everyday (replace any existing topics produced earlier in the day)
       # The current model of topic modeling makes it unlikely that any two topics from different days will be similar
       newTopic = Topic.find(:first, :conditions => {:keywords => keyword_string})
       if !newTopic
@@ -74,6 +74,7 @@ task :fetchandpost => :environment do
 
         # save the words for each topic
         # todo: reuse words
+        # todo: Produce only 10*20 keywords everyday. Replace any existing keywords for the day
         words.each do |word|
           topic_keyword = TopicKeyword.new
           topic_keyword.topic = newTopic

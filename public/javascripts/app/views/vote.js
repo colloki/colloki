@@ -52,10 +52,12 @@ $(function() {
       this.model = new Vote();
       var self = this;
       this.model.save({story_id: this.data.story_id}, {success: function(model, response) {
-        $(self.likers_el).append(JST.story_liker({
-          data: self.data,
-          liked_by_exists: ($(self.likers_el + " > h4").length == 1)
-        }));
+        if ($("#liker" + self.data.user_id).length == 0) {
+          $(self.likers_el).append(JST.story_liker({
+            data: self.data,
+            liked_by_exists: ($(self.likers_el + " > h4").length == 1)
+          }));
+        }
       }});
       this.data.count ++;
       this.data.state = 1;

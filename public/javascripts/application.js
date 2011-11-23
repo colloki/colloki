@@ -6,7 +6,7 @@ $(document).ready(function(e) {
     animate: false,
     delayIn: 10
   });
-  $(".story-liker").twipsy({
+  $(".story-liker, .avatar").twipsy({
     animate: false,
     delayIn: 10,
     placement: 'below'
