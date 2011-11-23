@@ -1,6 +1,8 @@
 ##Colloki
 
-Colloki is a grad school research project which aims to foster meaningful discussions among local communities. It is being developed at Virginia Tech, Blacksburg, VA.
+Colloki is an online platform to foster meaningful conversations among residents of local communities. This particular instance of Colloki focusses on Blacksburg and neighboring communities. 
+
+Colloki is an opensource research project being developed at the [SocialComp Group](http://diggov.cs.vt.edu) at the [Center for Human-Computer Interaction](http://hci.vt.edu) in the [Department of Computer Science](http://www.cs.vt.edu) and the [Department of Communication Studies](http://www.comm.vt.edu) at Virginia Tech.
 
 ## Installation
 
