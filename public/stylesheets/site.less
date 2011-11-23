@@ -23,21 +23,21 @@ h5 {
   
   .small-icon (@url: '') {
     color: #ccc;
-    background: url("@{url}.png") no-repeat 0 2px;
+    background: url("/images/icons/@{url}.png") no-repeat 0 2px;
     padding-left: 14px;
     &:hover {
-      background: url("@{url}_hover.png") no-repeat 0 2px;
+      background: url("/images/icons/@{url}_hover.png") no-repeat 0 2px;
       text-decoration: none !important;
       color: #333;
     }
   }
 
   .comment-count {
-    .small-icon('../images/icons/comments');
+    .small-icon('comments');
   }
 
   .like-count {
-    .small-icon('../images/icons/heart');
+    .small-icon('heart');
   }
 }
 
@@ -107,4 +107,32 @@ footer {
   font-size: 11px !important;
   padding: 3px !important;
   font-weight: normal !important;
+}
+
+.big-label {
+  font-size: 13px !important;
+  line-height: 25px !important;
+  margin: 0 5px 0 0;
+  white-space: normal !important;
+  padding-left: 5px !important;
+  padding-right: 2px !important;
+  a {
+    color: #fff !important;
+  }
+  &:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+    opacity: 1 !important;
+    cursor: pointer !important;    
+    a {
+      color: #fff !important;
+      text-decoration: none;
+    }
+  }
+  .close {
+    float: none !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    padding-bottom: 1px !important;
+  }
 }

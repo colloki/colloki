@@ -2,7 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 $(document).ready(function(e) {
   $(".topbar").dropdown();
-  $(".like-count, .comment-count, .like-btn").twipsy({
+  $(".like-count, .comment-count, .like-btn, .topic-keyword").twipsy({
     animate: false,
     delayIn: 10
   });
@@ -14,4 +14,3 @@ $(document).ready(function(e) {
   $(".alert-message").alert();
   $('.tabs').tabs();
 });
-

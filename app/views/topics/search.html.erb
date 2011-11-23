@@ -1,32 +1,32 @@
-<div id="middle">
-  <a href="<%= @root_url %>">
-    <h1>Search Results for '<%= @query %>'</h1>
-  </a>
-  <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
-</div>
-<div id="right">
-  <% if !logged_in? %>
-    <div class="block">
-      <h2>What is Colloki?</h2>
-      <%= colloki_description %>
-    </div>
-  <% end %>
-  <% if @tags.count != 0 %>
-    <div class="block">
-      <h2>Popular Topics</h2>
-        <%=render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil}%>
-    </div>
-  <% end %>
-  <% if @activity_items.count != 0 %>
-    <div class="block">
-      <h2>Latest Activity</h2>
-      <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
-    </div
-  <% end %>
-  <div class="block">
-    <h2>New Users</h2>
-    <% for user in @new_users %>
-      <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
-    <% end %>
+<ul class="breadcrumb">
+  <li class="active">
+    Search Results for '<strong><%= @query %></strong>'
+  </li>
+</ul>
+<div class="row">
+  <div class="span12">
+    <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
   </div>
+  <div class="span4 sidebar">
+    <% if !logged_in? %>
+      <h4>What is Colloki?</h4>
+      <%= colloki_description %>
+      <hr>
+    <% end %>
+    <% if @tags.count != 0 %>
+      <h4>Popular Topics</h4>
+      <%= render :partial => "partials/tag_cloud", :locals => {:tags => @tags, :topic => nil} %>
+      <hr>
+    <% end %>
+    <% if @activity_items.count != 0 %>
+      <h4>Latest Activity</h4>
+      <%=render :partial => "partials/activity_items", :locals => {:activity_items => @activity_items} %>
+      <hr>
+    <% end %>
+    <% if @new_users.count != 0 %>
+      <h4>New Users</h2>
+      <% for user in @new_users %>
+        <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }), user, :title => user.login %>
+      <% end %>
+    <% end %>
 </div>

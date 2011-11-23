@@ -31,9 +31,23 @@
         </form>
         <ul class="nav">
           <% if logged_in? %>
-            <li><%= link_to "Your Stories", current_user, :tabIndex => 2 %></li>
-            <li><%= link_to "Discuss", "#" %></li>
-            <li class="dropdown">
+            <% if request.filtered_parameters["controller"] === "users" &&
+              request.filtered_parameters["action"] === "show" %>
+              <li class="active">
+            <% else %>
+              <li>
+            <% end %>
+              <%= link_to "Your Stories", current_user, :tabIndex => 2 %>
+            </li>
+            <li>
+              <%= link_to "Discuss", "#" %>
+            </li>
+            <% if request.filtered_parameters["controller"] === "users" &&
+              request.filtered_parameters["action"] === "settings" %>
+              <li class="dropdown active">
+            <% else %>
+              <li class="dropdown">
+            <% end %>
               <a href="#" class="dropdown-toggle"><%= current_user.login %></a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Settings", settings_url, :tabIndex => 2 %></li>
