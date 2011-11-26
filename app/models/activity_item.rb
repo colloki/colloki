@@ -34,7 +34,7 @@ class ActivityItem < ActiveRecord::Base
   end
 
   def self.recent(limit=5)
-    all(:order => "created_at DESC")
+    all(:order => "created_at DESC", :limit => limit)
   end
 
   def self.find_for_topic(topic_id, limit=5)
