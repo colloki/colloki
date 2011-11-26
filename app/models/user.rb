@@ -132,12 +132,15 @@ class User < ActiveRecord::Base
     vote.delete
   end
 
-  def User.top_in_topic(topic_id)
-      #TODO: very soon we will need to do this differently, with a seperate table.
+  def self.top_in_topic(topic_id)
       User.find_by_sql("SELECT a.id, a.email, a.login, a.activated_at,
         (SELECT count(*) FROM stories b WHERE b.user_id = a.id AND topic_id = #{topic_id}) as story_count FROM users a WHERE
         a.activated_at IS NOT NULL
         LIMIT 0, 10")
+  end
+
+  def self.newly_activated
+    find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
   end
 
   protected

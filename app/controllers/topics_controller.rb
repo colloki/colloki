@@ -3,13 +3,9 @@ class TopicsController < ApplicationController
   # GET /topics.xml
   def popular
     @page_title = "Most Popular"
-    # todo: find a more optimized way (via sql query) to get the top recent posts
-    @stories = Story.find(:all, :order => "created_at DESC", :limit => 50)
-    @stories.sort! { |a, b| b.popularity <=> a.popularity }
-    @stories = @stories.paginate(:page => params[:page], :per_page => 9)
-
-    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
-    @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
+    @stories = Story.popular(params[:page])
+    @new_users = User.newly_activated
+    @activity_items = ActivityItem.recent
     @tags = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
@@ -19,9 +15,9 @@ class TopicsController < ApplicationController
 
   def latest
     @page_title = "Latest"
-    @stories = Story.paginate(:page => params[:page]).order("created_at DESC")
-    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
-    @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
+    @stories = Story.latest(params[:page])
+    @new_users = User.newly_activated
+    @activity_items = ActivityItem.recent
     @tags = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
@@ -31,10 +27,10 @@ class TopicsController < ApplicationController
 
   def search
     @query = params[:query]
-    @page_title = "Search results for #{@query}"
-    @stories = Story.find :all, :conditions =>  [ "title like ? OR description like ? ", "%#{@query}%", "%#{@query}%"]
-    @activity_items = ActivityItem.all(:order => "created_at DESC", :limit => 5)
-    @new_users = User.find(:all, :conditions => "activated_at IS NOT NULL", :order => "created_at DESC")
+    @page_title = "Search results for '#{params[:query]}'"
+    @stories = Story.search(params[:query], params[:page])
+    @new_users = User.newly_activated
+    @activity_items = ActivityItem.recent
     @tags = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
@@ -46,34 +42,9 @@ class TopicsController < ApplicationController
   # GET /topics/1.xml
   def show
     @topic = Topic.find(params[:id])
-
-    if params[:sort] == 'newest'
-      sort_order = "created_at DESC"
-    elsif params[:sort] == 'votes'
-      sort_order = "created_at DESC"
-    else
-      sort_order = "popularity DESC, created_at DESC"
-      params[:sort] = 'popular'
-    end
-
-    if params[:tab] == 'links'
-      query = {:topic_id => @topic.id, :kind => Story::Link}
-    elsif params[:tab] == 'posts'
-      query = {:topic_id => @topic.id, :kind => Story::Post}
-    else
-      query = {:topic_id => @topic.id}
-      params[:tab] = 'all'
-    end
-
-    @stories = Story.paginate(:conditions => query, :order => sort_order, :page => params[:page])
-
-    # TODO: This is not contextual. It shows the tag cloud for the topic, not the stories currently being displayed.
-    # @stories.tag_counts doesn't work, apparently the method is not defined for @stories, meaning @stories is a different object
-    # from @topic.stories
+    @stories = Story.find_for_topic(@topic.id, params[:sort], params[:page])
     @tags = @topic.stories.tag_counts
-    @activity_items = ActivityItem.find(:all, :conditions => "topic_id = #{@topic.id}", :order => "created_at DESC", :limit => 10)
-    #@activity_items = ActivityItem.find(:all, :order => "created_at DESC", :limit => 10)
-
+    @activity_items = ActivityItem.find_for_topic(@topic.id)
     @top_users = User.top_in_topic(@topic.id)
 
     if params[:tab] != 'all'
@@ -83,9 +54,8 @@ class TopicsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @stories }
-      # format.mobilesafari
     end
   end
 

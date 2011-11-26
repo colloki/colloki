@@ -38,12 +38,41 @@ class Story < ActiveRecord::Base
     self.popularity = (self.votes.count * 10) + (self.comments.count * 5)
   end
 
-  # Updates the popularity of all Story objects
-  def Story.update_popularity_all
+  # update popularity for all stories
+  def self.update_popularity_all
     stories = Story.all
     stories.each do |story|
       story.update_popularity
       story.save
     end
+  end
+
+  def self.popular(page)
+    require 'will_paginate/array'
+    popular = find :all, :order => "created_at DESC", :limit => 50
+    popular.sort! { |a, b| b.popularity <=> a.popularity }
+    popular.paginate(:page => page, :per_page => 9)
+  end
+
+  def self.latest(page)
+    page(page).order("created_at DESC")
+  end
+
+  def self.search(query, page)
+    paginate(:page => page,
+    :conditions => [ "title like ? OR description like ? ", "%#{query}%", "%#{query}%"])
+  end
+
+  def self.find_for_topic(topic_id, sort_by, page)
+    if sort_by == 'newest'
+      order = "created_at DESC"
+    elsif sort_by == 'votes'
+      order = "created_at DESC"
+    else
+      order = "popularity DESC, created_at DESC"
+    end
+    paginate(:page => page,
+    :conditions => {:topic_id => topic_id},
+    :order => order)
   end
 end

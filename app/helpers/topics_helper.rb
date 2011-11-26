@@ -7,9 +7,7 @@ module TopicsHelper
       img_url = story.image.url(:thumb)
     end
     if story.image.exists?
-      "<div>
-      #{link_to image_tag(img_url), story}
-      </div>".html_safe
+      link_to image_tag(img_url), story
     end
   end
 
