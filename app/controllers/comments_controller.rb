@@ -36,7 +36,11 @@ class CommentsController < ApplicationController
 
         #TODO: This is not ideal. Need to delete the exact related activity item,
         #that can only be done if the activity_item model is completely re-thought. Later.
-        activity_item = ActivityItem.find(:first, :conditions => {:user_id => @comment.user_id, :story_id => @comment.story.id, :kind => ActivityItem::CommentType }, :order => "created_at DESC")
+        activity_item = ActivityItem.find :first,
+        :conditions => {:user_id => @comment.user_id,
+          :story_id => @comment.story.id,
+          :kind => ActivityItem::CommentType },
+          :order => "created_at DESC"
         activity_item.delete
       end
 

@@ -1,4 +1,4 @@
-<% for activity_item in activity_items%>
+<% for activity_item in activity_items %>
   <div class='activity-item'>
     <%= link_to activity_item.user.login, :controller => "users", :action => "show", :id => activity_item.user.id %>
     <%= activity_item.sentence %>

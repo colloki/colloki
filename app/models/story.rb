@@ -75,4 +75,23 @@ class Story < ActiveRecord::Base
     :conditions => {:topic_id => topic_id},
     :order => order)
   end
+
+  def self.find_by_user(user_id, limit=10)
+    find :all,
+    :order => "created_at DESC",
+    :conditions => {:user_id => user_id},
+    :limit => limit
+  end
+
+  def self.find_liked_by_user(user_id, limit=10)
+    likes = Vote.find :all,
+    :order => "created_at DESC",
+    :conditions => {:user_id => user_id},
+    :limit => limit
+    stories = []
+    for like in likes
+      stories.push(like.story)
+    end
+    stories
+  end
 end
