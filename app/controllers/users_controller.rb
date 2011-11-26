@@ -6,8 +6,7 @@ class UsersController < ApplicationController
   def index
     @page_title = "People"
     if not logged_in?
-      flash[:alert] = "You need to login to view users."
-      #redirect_to "/"
+      flash[:alert] = "You need to be logged in to view users."
     end
 
     users_unsorted = User.find(:all)
@@ -28,12 +27,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @page_title = "Profile for "+ @user.login
-    @tags = @user.stories.tag_counts
-    @stories = Story.find_by_user(@user.id)
-    @comments = Comment.find_by_user(@user.id)
-    @liked_stories = Story.find_liked_by_user(@user.id)
+    begin
+      @user = User.find(params[:id])
+      @page_title = "Profile for " + @user.login
+      @tags = @user.stories.tag_counts
+      @stories = Story.find_by_user(@user.id)
+      @comments = Comment.find_by_user(@user.id)
+      @liked_stories = Story.find_liked_by_user(@user.id)
+    rescue
+      @page_title = "User not found"
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }

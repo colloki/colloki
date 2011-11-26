@@ -46,12 +46,7 @@ class TopicsController < ApplicationController
     @tags = @topic.stories.tag_counts
     @activity_items = ActivityItem.find_for_topic(@topic.id)
     @top_users = User.top_in_topic(@topic.id)
-
-    if params[:tab] != 'all'
-      @page_title = @topic.title + " " + params[:tab]
-    else
-      @page_title = @topic.title
-    end
+    @page_title = @topic.title
 
     respond_to do |format|
       format.html

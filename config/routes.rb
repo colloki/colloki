@@ -33,8 +33,8 @@ Colloki::Application.routes.draw do
   match '/topics/:id/tag/:tag_list', :to => 'topics#tag', :as => 'tags'
   match '/tag/:tag_list', :to => 'topics#tag', :as => 'global_tags'
 
-  match '/topics/:id/:tab/:sort', :to => 'topics#show', :tab => 'all', :sort => 'popular', :as => 'topical'
-  match '/topics/:id', :to => 'topics#show', :tab => 'all', :sort => 'popular'
+  match '/topics/:id/:sort', :to => 'topics#show'
+  match '/topics/:id', :to => 'topics#show', :as => 'topical'
 
   match '/auth/:provider/callback', :to => 'provider_authentications#create'
 
