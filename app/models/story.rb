@@ -18,9 +18,10 @@ class Story < ActiveRecord::Base
                       :message => "can only be a valid URL."
   belongs_to :user
   belongs_to :topic
+
   has_many :comments, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
-  has_many :votes
+  has_many :votes, :dependent => :destroy
 
   has_attached_file :image, :styles => { :thumb => "200x150>", :medium => "250x250>" }
 

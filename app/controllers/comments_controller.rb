@@ -1,16 +1,22 @@
 class CommentsController < ApplicationController
   def create
     if logged_in?
-      comment = Comment.create(:body => params[:body].to_s, :user_id => current_user.id, :story_id => params[:story_id].to_i)
+      comment = Comment.create(:body => params[:body].to_s,
+        :user_id => current_user.id,
+        :story_id => params[:story_id].to_i)
       comment.save
 
-      # update story popularity
+      # increment story popularity
       story = Story.find(params[:story_id])
       story.update_popularity
       story.save
 
-      # update user activity stream
-      current_user.activity_items.create(:story_id => story.id, :topic_id => story.topic_id, :kind => ActivityItem::CommentType)
+      # create activity
+      activity = ActivityItem.create(:story_id => story.id,
+        :user_id => current_user.id,
+        :topic_id => story.topic_id,
+        :comment_id => comment.id,
+        :kind => ActivityItem::CommentType)
 
       @comment = {
         :id => comment.id,
@@ -30,20 +36,11 @@ class CommentsController < ApplicationController
 
   def destroy
     if logged_in?
-      @comment = Comment.find(params["id"])
-      if (@comment.user_id == current_user.id)
-        @comment.delete
-
-        #TODO: This is not ideal. Need to delete the exact related activity item,
-        #that can only be done if the activity_item model is completely re-thought. Later.
-        activity_item = ActivityItem.find :first,
-        :conditions => {:user_id => @comment.user_id,
-          :story_id => @comment.story.id,
-          :kind => ActivityItem::CommentType },
-          :order => "created_at DESC"
-        activity_item.delete
+      comment = Comment.find params["id"]
+      if comment.user == current_user
+        comment.activity_item.delete
+        comment.delete
       end
-
       render :json => ""
     end
   end

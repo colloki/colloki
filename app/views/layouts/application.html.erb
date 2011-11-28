@@ -37,10 +37,10 @@
             <% else %>
               <li>
             <% end %>
-              <%= link_to "Your Stories", current_user, :tabIndex => 2 %>
+              <%= link_to "Profile", current_user %>
             </li>
             <li>
-              <%= link_to "Discuss", "#" %>
+              <%= link_to "Discuss", "/discuss" %>
             </li>
             <% if request.filtered_parameters["controller"] === "users" &&
               request.filtered_parameters["action"] === "settings" %>
@@ -50,8 +50,8 @@
             <% end %>
               <a href="#" class="dropdown-toggle"><%= current_user.login %></a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Settings", settings_url, :tabIndex => 2 %></li>
-                <li><%= link_to "Sign out", logout_url, :tabIndex => 3 %></li>
+                <li><%= link_to "Settings", settings_url %></li>
+                <li><%= link_to "Sign out", logout_url %></li>
               </ul>
             </li>
           <% else %>

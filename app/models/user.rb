@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :activity_items, :dependent => :destroy
   has_many :topics
   has_many :provider_authentications
-  has_many :votes
+  has_many :votes, :dependent => :destroy
 
   # Activates the user in the database.
   def activate
@@ -119,17 +119,20 @@ class User < ActiveRecord::Base
   end
 
   def vote(story)
-    self.votes.create(:story_id => story.id)
+    vote = self.votes.create(:story_id => story.id)
     self.save
+    vote
   end
 
   def get_vote(story)
     Vote.find(:first, :conditions => {:user_id => self.id, :story_id => story.id})
   end
 
-  def unvote(story)
-    vote = Vote.find(:first, :conditions => {:user_id => self.id, :story_id => story.id})
+  def unvote(vote)
+    story = vote.story
     vote.delete
+    story.update_popularity
+    story.save
   end
 
   def self.top_in_topic(topic_id)

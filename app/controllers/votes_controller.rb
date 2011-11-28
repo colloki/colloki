@@ -6,7 +6,11 @@ class VotesController < ApplicationController
         @vote = current_user.vote(story)
         story.update_popularity
         story.save
-        current_user.activity_items.create(:story_id => story.id, :topic_id => story.topic_id, :kind => ActivityItem::VoteType)
+        current_user.activity_items.create(
+          :story_id => story.id,
+          :topic_id => story.topic_id,
+          :vote_id => @vote.id,
+          :kind => ActivityItem::VoteType)
       else
         # todo: send error response
       end
@@ -21,13 +25,10 @@ class VotesController < ApplicationController
   def destroy
     if logged_in?
       vote = Vote.find(params[:id])
-      if current_user.voted_on?(vote.story)
-        current_user.unvote(vote.story)
-        vote.story.update_popularity
-        vote.story.save
 
-        activity_item = ActivityItem.find(:first, :conditions => {:user_id => current_user, :story_id => vote.story.id, :kind => ActivityItem::VoteType}, :order => "created_at DESC")
-        activity_item.delete
+      if current_user.voted_on?(vote.story)
+        vote.activity_item.delete
+        current_user.unvote(vote)
       else
         # todo: send error response
       end

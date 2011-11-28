@@ -4,6 +4,9 @@ class ActivityItem < ActiveRecord::Base
   belongs_to :story
   belongs_to :topic
 
+  belongs_to :comment
+  belongs_to :vote
+
   # Constant Definitions
   # Note: DO NOT change the numeric values. If you do, reset the database, because the bindings would be all wrong.
   # Ideally, just create a new type with a new number, and add its representation to the sentence definition below.
@@ -17,7 +20,7 @@ class ActivityItem < ActiveRecord::Base
 
   def sentence
     if self.kind == CommentType
-      "commented on "
+      "commented "
     elsif self.kind == UpdateType
       "updated "
     elsif self.kind == VoteType
@@ -27,7 +30,7 @@ class ActivityItem < ActiveRecord::Base
     elsif self.kind == CreateLinkType
       "posted link "
     elsif self.kind == CreatePostType
-      "posted opinion "
+      "posted "
     elsif self.kind == NullType
       " "
     end

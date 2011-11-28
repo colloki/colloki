@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111108230033) do
+ActiveRecord::Schema.define(:version => 20111128175043) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20111108230033) do
     t.datetime "updated_at"
     t.integer  "topic_id",   :default => -1, :null => false
     t.integer  "kind",       :default => 0,  :null => false
+    t.integer  "comment_id", :default => -1
+    t.integer  "vote_id",    :default => -1
   end
 
   create_table "comments", :force => true do |t|
