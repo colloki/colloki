@@ -3,6 +3,7 @@ module ParseAndPost
   # todo: This is a *very* flaky idea, it works on the assumption that these sites don't have any major design changes. If they do, these modules need to be updated asap
   # todo: add field for original author of article
   Sources = Hash[
+    # Collegiate Times
     "www.collegiatetimes.com" => Hash[
       "name" => "Collegiate Times",
       "title" => "p.headline",
@@ -10,6 +11,7 @@ module ParseAndPost
       "image" => ".img img",
       "url" => "http://www.collegiatetimes.com"
       ],
+    # The Burgs
     "blogs.roanoke.com" => Hash[
       "name" => "The Burgs",
       "title" => "#post>h1",
@@ -17,6 +19,7 @@ module ParseAndPost
       "image" => "#post img:not([alt=Share])",
       "url" => "http://blogs.roanoke.com/theburgs"
       ],
+    # Roanoke Times
     "www.roanoke.com" => Hash[
       "name" => "Roanoke Times",
       "title" => "#main h1",
@@ -24,6 +27,7 @@ module ParseAndPost
       "image" => "#story-add-photos>img",
       "url" => "http://www.roanoke.com"
       ],
+    # Virginia Tech News
     "www.vtnews.vt.edu" => Hash[
       "name" => "Virginia Tech News",
       "title" => "h2.vt_pr_storytitle",
@@ -31,6 +35,7 @@ module ParseAndPost
       "image" => "#vt_pr_storyimage img",
       "url" => "http://www.vtnews.vt.edu"
       ],
+    # Blacksburg Electronic Village
     "www.bev.net" => Hash[
       "name" => "Blacksburg Electronic Village",
       "title" => ".listingTitle",
@@ -38,6 +43,7 @@ module ParseAndPost
       "image" => nil,
       "url" => "http://www.bev.net"
       ],
+    # Town of Blacksburg
     "www.blacksburg.va.us" => Hash[
       "name" => "Town of Blacksburg",
       "title" => "#_ctl0_titleLabel",
@@ -45,6 +51,7 @@ module ParseAndPost
       "image" => nil,
       "url" => "http://www.blacksburg.va.us"
       ],
+    # Citizens First for Blacksburg
     "citizensfirstforblacksburg.org" => Hash[
       "name" => "Citizens First For Blacksburg",
       "title" => "#tabs-wrapper>h1",
@@ -52,6 +59,7 @@ module ParseAndPost
       "image" => nil,
       "url" => "http://citizensfirstforblacksburg.org"
       ],
+    # Christiansburg Virginia
     "www.christiansburg.org" => Hash[
       "name" => "Christiansburg Virginia",
       "title" => ".item>h3",
@@ -59,12 +67,42 @@ module ParseAndPost
       "image" => nil,
       "url" => "http://www.christiansburg.org"
       ],
+    # Downtown Blacksburg
     "downtownblacksburg.wordpress.com" => Hash[
       "name" => "Downtown Blacksburg Blog",
       "title" => "h1.title",
       "content" => ".entry>p",
       "image" => ".entry img",
       "url" => "http://downtownblacksburg.files.wordpress.com"
+      ],
+    # Depotdazed blog
+    "www.myvaresources.com" => Hash[
+      "name" => "Depotdazed",
+      "title" => "h2.post-title > a",
+      "content" => ".post-body>p",
+      "image" => "p.wp-caption-dt img",
+      "url" => "http://www.myvaresources.com/blogs/depotdazed"
+      ],
+    # NRV News
+    "nrvnews.com" => Hash[
+      "name" => "NRV News",
+      "title" => "h1.title",
+      "content" => ".module-inner2",
+      "image" => ".module-inner2 img"
+      ],
+    # SWVA Today
+    "www2.swvatoday.com" => Hash[
+      "name" => "SWVA Today",
+      "title" => "h1.story_headline",
+      "content" => ".entry-content p",
+      "image" => ".img img"
+      ],
+    # The Southwest Times
+    "www.southwesttimes.com" => Hash[
+      "name" => "The Southwest Times",
+      "title" => "h1.entry_title",
+      "content" => ".post p",
+      "image" => ".post img"
       ]
     ]
 
