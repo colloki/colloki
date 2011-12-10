@@ -1,5 +1,4 @@
 desc "Automatically post stories to Colloki from the cached rss stories"
-
 task :fetchandpost => :environment do
   include ParseAndPost
   require "net/http"
