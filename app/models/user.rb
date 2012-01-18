@@ -136,10 +136,10 @@ class User < ActiveRecord::Base
   end
 
   def self.top_in_topic(topic_id)
-      User.find_by_sql("SELECT a.id, a.email, a.login, a.activated_at,
-        (SELECT count(*) FROM stories b WHERE b.user_id = a.id AND topic_id = #{topic_id}) as story_count FROM users a WHERE
-        a.activated_at IS NOT NULL
-        LIMIT 0, 10")
+    User.find_by_sql("SELECT a.id, a.email, a.login, a.activated_at,
+      (SELECT count(*) FROM stories b WHERE b.user_id = a.id AND topic_id = #{topic_id}) as story_count FROM users a WHERE
+      a.activated_at IS NOT NULL
+      LIMIT 0, 10")
   end
 
   def self.newly_activated

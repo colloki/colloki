@@ -1,7 +1,6 @@
 module ParseAndPost
-  # todo: come up with a more independent, extendible way to plug-in modules for different sites
-  # todo: This is a *very* flaky idea, it works on the assumption that these sites don't have any major design changes. If they do, these modules need to be updated asap
-  # todo: add field for original author of article
+  # TODO: come up with a more independent, extendible way to plug-in modules for different sites
+  # TODO: add field for original author of article
   Sources = Hash[
     # Collegiate Times
     "www.collegiatetimes.com" => Hash[
