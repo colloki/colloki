@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery :only => [:create, :update, :destroy] # :secret => '6862e2c9b157c719a7f15caf25016e73'
 
+  @@topic_limit = 5
+
   private
     def redirect_back_or(path)
       redirect_to :back
@@ -20,6 +22,6 @@ class ApplicationController < ActionController::Base
     end
 
     def get_topics
-      @topics = Topic.find(:all, :order => "created_at DESC", :limit => 10)
+      @topics = Topic.find(:all, :order => "created_at DESC", :limit => @@topic_limit)
     end
 end
