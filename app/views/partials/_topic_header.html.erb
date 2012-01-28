@@ -7,18 +7,3 @@
     <% end %>
   </li>
 </ul>
-<% if topic.topic_keywords %>
-  <div class="topic-keywords" style="margin: 20px 0">
-    <% sum_of_distributions = 0 %>
-    <% topic.topic_keywords.each do |keyword| %>
-      <% sum_of_distributions = sum_of_distributions + keyword.distribution %>
-    <% end %>
-    <% topic.topic_keywords.each do |keyword| %>
-    <% weight = (keyword.distribution / sum_of_distributions) * 10 %>
-    <span class="label big-label topic-keyword" style="opacity: <%= weight %>;" title="Search for <%= keyword.name %>">
-      <%= link_to keyword.name, "/search?query=" + keyword.name %>
-      <!-- <a class="close" href="#">×</a> -->
-    </span>
-    <% end %>
-  </div>
-<% end %>

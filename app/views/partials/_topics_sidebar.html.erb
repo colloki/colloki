@@ -4,16 +4,36 @@
     <%= colloki_description %>
     <hr>
   <% end %>
+  <!-- Topic keywords -->
+  <% if defined? topic and topic.topic_keywords %>
+    <div class="topic-keywords">
+      <h4><%= topic.title %></h4>
+      <% sum_of_distributions = 0 %>
+      <% topic.topic_keywords.each do |keyword| %>
+        <% sum_of_distributions = sum_of_distributions + keyword.distribution %>
+      <% end %>
+      <% topic.topic_keywords.each do |keyword| %>
+      <% weight = ((keyword.distribution / sum_of_distributions) * 100).to_int %>
+      <% keyword_size = (weight + 15).to_s %>
+      <span class="topic-keyword" style="font-size: <%=keyword_size%>px" title="Search for <%= keyword.name %>">
+        <%= link_to keyword.name, "/search?query=" + keyword.name %>
+      </span>
+      <% end %>
+    </div>
+  <% end %>
+  <!-- Popular tags -->
   <% if tags and tags.count != 0 %>
     <h4>Popular Topics</h4>
     <%= render :partial => "partials/tag_cloud", :locals => {:tags => tags, :topic => nil} %>
     <hr>
   <% end %>
+  <!-- Recent user activity -->
   <% if activity_items and activity_items.count != 0 %>
     <h4>Latest Activity</h4>
     <%= render :partial => "partials/activity_items", :locals => {:activity_items => activity_items} %>
     <hr>
   <% end %>
+  <!-- New users -->
   <% if new_users and new_users.count != 0 %>
     <h4>New Users</h4>
     <% for user in new_users %>

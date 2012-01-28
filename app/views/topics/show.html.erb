@@ -4,5 +4,11 @@
     <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
     <%= will_paginate @stories, :renderer => PaginationListLinkRenderer %>
   </div>
-    <%= render :partial => "partials/topics_sidebar", :locals => { :stories => @stories, :tags => @tags, :activity_items => @activity_items, :new_users => @new_users } %>
+    <%= render :partial => "partials/topics_sidebar", :locals => { 
+      :topic => @topic,
+      :stories => @stories, 
+      :tags => @tags, 
+      :activity_items => @activity_items, 
+      :new_users => @new_users } 
+    %>
 </div>
