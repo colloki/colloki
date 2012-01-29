@@ -16,6 +16,10 @@
       <% end %>
       <%= sanitize(@story.description) %>
     </div>
+    <% if @story.kind == Story::Rss %>
+      <hr>
+      Read the original article on: <%= link_to @story.source_url, @story.source_url %>
+    <% end %>
     <hr>
     <div id="story-likers">
       <% if @likers.count != 0 %>

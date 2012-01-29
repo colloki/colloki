@@ -50,13 +50,13 @@ class Story < ActiveRecord::Base
 
   def self.popular(page)
     require 'will_paginate/array'
-    popular = find :all, :order => "created_at DESC", :limit => 50
+    popular = find :all, :order => "published_at DESC", :limit => 50
     popular.sort! { |a, b| b.popularity <=> a.popularity }
     popular.paginate(:page => page, :per_page => 9)
   end
 
   def self.latest(page)
-    page(page).order("created_at DESC")
+    page(page).order("published_at DESC")
   end
 
   def self.search(query, page)

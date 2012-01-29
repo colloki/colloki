@@ -13,7 +13,6 @@
           </p>
           <small>
             <%= link_to activity.user.login, :controller => "users", :action => "show", :id => activity.user.id %> on <%= link_to activity.story.title, :controller => "stories", :action => "show", :id => activity.story.id  %>
-
           </small>
         </blockquote>
       <% else %>

@@ -16,7 +16,7 @@ module StoriesHelper
     html = "<div class=\"story-meta\">"
     if story.kind != Story::Rss
       html << "by #{link_to story.user.login, story.user} • "
-      html << "#{time_ago_in_words @story.created_at} ago "
+      html << "#{time_ago_in_words @story.published_at} ago "
       if logged_in? and story.user_id == current_user.id
         html << "• #{link_to 'edit', edit_story_path(story), :class=>'btn'} • "
         html << "#{link_to 'delete', story,
@@ -27,7 +27,7 @@ module StoriesHelper
     else
       html << "#{link_to image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "favicon"), story.source_url}"
       html << "#{link_to story.source, story.source_url} • "
-      html << "#{time_ago_in_words @story.created_at} ago "
+      html << "#{time_ago_in_words @story.published_at} ago "
     end
     html << "</div>"
     html.html_safe

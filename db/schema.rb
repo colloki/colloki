@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111128175043) do
+ActiveRecord::Schema.define(:version => 20120128234734) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20111128175043) do
     t.datetime "image_updated_at"
     t.string   "source"
     t.string   "source_url"
+    t.datetime "published_at"
   end
 
   create_table "taggings", :force => true do |t|

@@ -31,7 +31,11 @@ module TopicsHelper
       html << "#{story_item_icon(story)}"
       html << "#{link_to story.source, story.source_url} "
     end
-    html << "<br>#{time_ago_in_words story.created_at} ago"
+    if story.published_at
+      html << "<br>#{time_ago_in_words story.published_at} ago"
+    else
+      html << "<br>#{time_ago_in_words story.created_at} ago"
+    end
     html << "  •  "
     html << "
       #{link_to story.comments.count.to_s,

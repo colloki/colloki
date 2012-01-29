@@ -62,10 +62,18 @@ task :fetch => :environment do
           end
           new_story.views = 0
           new_story.kind = Story::Rss
-          new_story.source = story["source"] # todo: Needs to be source name
+          if story["source-name"]
+            new_story.source = story["source-name"]
+          else
+            new_story.source = story["source"]
+          end
           new_story.source_url = story["link"]
-          # puts "Topic: " + topic
           new_story.topic = topic
+          if story["published-at"]
+            new_story.published_at = DateTime.strptime(story["published-at"], '%Y-%m-%dT%H:%M:%S%z')
+          else
+            new_story.published_at = DateTime.now
+          end
           new_story.save
           puts "Successfully saved story: " + story["link"]
         end
