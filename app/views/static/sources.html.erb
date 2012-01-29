@@ -1,12 +1,50 @@
-<h1>News Sources</h1>
-We are fetching content from the the following sources to identify important issues in Blacksburg:
+<h1>Local news and groups' blogs</h1>
+We get content from the following local blogs in Blacksburg and Montgomery County:
 <br><br>
 <ul>
   <li><a href="http://www.collegiatetimes.com">Collegiate Times</a></li>
+  <li><a href="http://blogs.roanoke.com/theburgs">The Burgs Blog</a></li>
   <li><a href="http://www.roanoke.com">Roanoke Times</a></li>
   <li><a href="http://www.vtnews.vt.edu">Virginia Tech News</a></li>
   <li><a href="http://www.bev.net">Blacksburg Electronic Village</a></li>
   <li><a href="http://www.blacksburg.va.us">Town of Blacksburg</a></li>
   <li><a href="http://www.citizensfirstforblacksburg.org">Citizens First For Blacksburg</a></li>
   <li><a href="http://downtownblacksburg.wordpress.com/">Downtown Blacksburg</a></li>
+  <li><a href="http://www.christiansburg.org/">Christiansburg</a></li>
+  <li><a href="http://www.myvaresources.com/blogs/depotdazed/">Depotdazed</a></li>
+  <li><a href="http://nrvnews.com/">NRV News</a></li>
+  <li><a href="http://www2.swvatoday.com/">SWVA Today</a></li>
+  <li><a href="http://www.southwesttimes.com/">The Southwest Times</a></li>
+  <li><a href="http://www.lwvmcva.org">LWVMCA</a></li>
 </ul>
+Did we miss a blog you read? Please send us a link using the following form or 
+<a href="mailto:ahuja.ankit@vt.edu">email us.</a>
+<br><br>
+<!-- TODO: make this form work -->
+<%= form_for :user, :url => users_path do |f| -%>
+  <div class="clearfix">
+    <label>
+      Blog Link
+    </label>
+    <div class="input">
+      <%= f.text_field :link, :class=>"xlarge" %>
+    </div>
+  </div>
+  <div class="clearfix">
+    <label>
+      Description<span class="help-block">optional</span>
+    </label>
+    <div class="input">
+      <%= f.text_area :description, :class=>"xlarge", :rows=>5 %>
+    </div>
+  </div>
+  <div class="actions">
+  <button type="submit" class="btn primary">
+    Send!
+  </button>
+</div>
+<% end -%>
+<br><br>
+
+Have suggestions? <a href="mailto:ahuja.ankit@vt.edu">Email us</a>!<br>
+To know more about this research project, please see the <a href="/about">About</a> page.
