@@ -19,8 +19,10 @@ module ApplicationHelper
     "http://www.google.com/s2/favicons?domain_url=" << url
   end
 
-  # Returns some descriptive text about Colloki
   def colloki_description
-    "A place to engage in discussions on local issues with other Blacksburg and Montgomery County residents"
+    ("Colloki is a place to learn and discuss local issues with 
+    other Blacksburg and Montgomery County residents.<br><br>" +  
+    " Sign up today to participate in discussions!<br><br>" + 
+    link_to('Sign Up', signup_url, :class=>'btn primary')).html_safe
   end
 end
