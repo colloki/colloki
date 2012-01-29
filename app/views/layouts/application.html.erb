@@ -18,6 +18,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
     })();
   </script>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed" />
 </head>
 <body>
   <div class="topbar">
@@ -137,8 +138,8 @@
         :title => "Send us feedback!"
         %> -
         <%= link_to "News sources", sources_url %>
+        <%= link_to image_tag("feed-icon-small.png"), "/feed", :class => "small-rss-icon" %>
       </p>
-
     </footer>
   </div>
 </body>

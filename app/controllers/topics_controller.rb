@@ -9,7 +9,6 @@ class TopicsController < ApplicationController
     @tags = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @stories }
     end
   end
 
@@ -21,7 +20,6 @@ class TopicsController < ApplicationController
     @tags = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @stories }
     end
   end
 
@@ -34,7 +32,6 @@ class TopicsController < ApplicationController
     @tags = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @stories }
     end
   end
 
@@ -50,7 +47,6 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @stories }
     end
   end
 

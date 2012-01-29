@@ -4,10 +4,9 @@ Colloki::Application.routes.draw do
   resources :topics do
     resources :stories
   end
-
   resources :stories
-
   resources :comments, :users, :session, :votes
+  resources :feeds
 
   root :to => 'topics#latest'
 
@@ -40,6 +39,7 @@ Colloki::Application.routes.draw do
 
   match 'latest', :to => 'topics#latest'
   match 'popular', :to => 'topics#popular'
+  match 'feed', :to => 'feeds#latest'
   match 'search', :to => 'topics#search', :as => '/search'
 
   match ':controller(/:action(/:id(/:id2)))'

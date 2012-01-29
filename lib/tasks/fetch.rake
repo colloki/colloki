@@ -85,7 +85,7 @@ task :fetch => :environment do
           end
           new_story.source_url = story["link"]
           new_story.topic = topic
-          if story["published-at"]
+          if story["published-at"] and !story["published-at"].empty?
             new_story.published_at = DateTime.strptime(story["published-at"], '%Y-%m-%dT%H:%M:%S%z')
           else
             new_story.published_at = DateTime.now

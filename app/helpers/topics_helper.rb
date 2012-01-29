@@ -2,12 +2,14 @@
 module TopicsHelper
   def story_item_thumbnail(story, size="thumb")
     if size == "medium"
-      img_url = story.image.url(:medium)
+      img_url = story.image.url(:medium, :host=>request.host)
     else
-      img_url = story.image.url(:thumb)
+      img_url = story.image.url(:thumb, :host=>request.host)
     end
     if story.image.exists?
-      link_to image_tag(img_url), story
+      return link_to image_tag(img_url), story
+    else
+      return ""
     end
   end
 
@@ -19,7 +21,7 @@ module TopicsHelper
       html << "#{link_to image_tag(favicon_url(story.source_url), :class => "storyItemIcon"), story.source_url}"
     end
     html << "</div>"
-    html.html_safe
+    return html.html_safe
   end
 
   def story_item_meta(story)

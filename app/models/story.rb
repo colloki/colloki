@@ -55,8 +55,12 @@ class Story < ActiveRecord::Base
     popular.paginate(:page => page, :per_page => 9)
   end
 
-  def self.latest(page)
-    page(page).order("published_at DESC")
+  def self.latest(page, should_paginate=true)
+    if should_paginate
+      page(page).order("published_at DESC")
+    else
+      find :all, :order => "published_at DESC", :limit => 20
+    end
   end
 
   def self.search(query, page)
