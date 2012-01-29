@@ -1,6 +1,22 @@
 require "colloki_mining_store.rb"
 require "open-uri"
 
+@@source_names = Hash[
+  "www.collegiatetimes.com" => "Collegiate Times",
+  "blogs.roanoke.com" => "The Burgs Blog",
+  "www.roanoke.com" => "The Roanoke Times",
+  "www.vtnews.vt.edu" => "Virginia Tech News",
+  "www.bev.net" => "Blacksburg Electronic Village",
+  "www.citizensfirstforblacksburg.org" => "Citizens First For Blacksburg",
+  "www.christiansburg.org" => "Christiansburg Virginia",
+  "downtownblacksburg.wordpress.com" => "Downtown Blacksburg Blog",
+  "www.myvaresources.com" => "Depotdazed",
+  "nrvnews.com" => "NRV News",
+  "www2.swvatoday.com" => "SWVA Today",
+  "www.southwesttimes.com" => "The Southwest Times",
+  "www.lwvmcva.org" => "League of Women Voters in Montgomery County"
+]
+
 desc "Automatically post stories to Colloki from the cached rss stories"
 task :fetch => :environment do
   begin
@@ -64,8 +80,8 @@ task :fetch => :environment do
           new_story.kind = Story::Rss
           if story["source-name"]
             new_story.source = story["source-name"]
-          else
-            new_story.source = story["source"]
+          elsif @@source_names[story["source"]]
+            new_story.source = @@source_names[story["source"]]
           end
           new_story.source_url = story["link"]
           new_story.topic = topic
