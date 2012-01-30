@@ -1,0 +1,18 @@
+<ul class="breadcrumb">
+  <li class="active">
+    Archive
+  </li>
+</ul>
+
+<div class="row">
+  <div class="span12">
+    <% @all_topics.group_by { |t| t.day }.each do |day, topics| %>
+      <hr>
+      <%= topics[0].day %>
+      <hr>
+      <% topics.each do |topic| %>
+        <strong><%= topic.title %></strong> - <%= topic.keywords %><br><br>
+      <% end %>
+    <% end %>
+  </div>
+</div>

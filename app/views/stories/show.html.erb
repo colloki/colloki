@@ -18,7 +18,9 @@
     </div>
     <% if @story.kind == Story::Rss %>
       <hr>
-      Read the original article on: <%= link_to @story.source_url, @story.source_url %>
+      <div class="story-footer">
+        Original article: <%= link_to @story.source_url, @story.source_url %>
+      </div>
     <% end %>
     <hr>
     <div id="story-likers">

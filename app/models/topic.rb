@@ -6,4 +6,9 @@ class Topic < ActiveRecord::Base
   has_many :activity_items, :dependent => :destroy
 
   belongs_to :user
+
+  def self.all_sorted_by_day
+    find :all,
+    :order => "day DESC"
+  end
 end

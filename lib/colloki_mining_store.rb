@@ -25,6 +25,10 @@ class CollokiMiningStore
     return @stories
   end
 
+  def formatted_date
+    return @formatted_date
+  end
+
   def get_topic_index_for_story(story)
     return @distribution[story["id"]]
   end
@@ -40,7 +44,11 @@ class CollokiMiningStore
 
     # As a temporary placeholder, we create a label out of the top two words
     def get_label(keywords)
-      return keywords[0]["name"] + " + " + keywords[1]["name"]
+      if keywords and !keywords.empty?
+        return keywords[0]["name"] + " + " + keywords[1]["name"]
+      else
+        return nil
+      end
     end
 
     # Keyword strings are of the form 'word1, word2, ...'

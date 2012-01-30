@@ -35,6 +35,14 @@ class TopicsController < ApplicationController
     end
   end
 
+  def archive
+    @page_title = "Archive"
+    @all_topics = Topic.all_sorted_by_day
+    respond_to do |format|
+      format.html
+    end
+  end
+
   # GET /topics/1
   # GET /topics/1.xml
   def show

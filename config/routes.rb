@@ -39,8 +39,10 @@ Colloki::Application.routes.draw do
 
   match 'latest', :to => 'topics#latest'
   match 'popular', :to => 'topics#popular'
-  match 'feed', :to => 'feeds#latest'
   match 'search', :to => 'topics#search', :as => '/search'
+  match 'archive', :to => 'topics#archive'
+
+  match 'feed', :to => 'feeds#latest'
 
   match ':controller(/:action(/:id(/:id2)))'
 end
