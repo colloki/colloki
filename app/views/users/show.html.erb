@@ -1,17 +1,17 @@
 <% if @user %>
-  <div class="well">
+  <div class="user-header">
     <% if @user.email and @user.email != '' %>
       <div class="user-profile-avatar">
         <%= gravatar_image_tag(@user.email, :gravatar => { :size => 50 }) %>
       </div>
     <% end %>
-    <h2>
+    <h3>
       <% if @user.realname and @user.realname != '' %>
         <%= @user.realname %> /
       <% end %>
       <%= @user.login %>
-    </h2>
-    <h5>
+    </h3>
+    <div class="user-info">
       <% if @user.website and @user.website != ''%>
         <%= link_to @user.website, @user.website %> •
       <% end %>
@@ -21,9 +21,9 @@
       <% if @user.location and @user.location != ''%>
         <%= @user.location %> •
       <% end %>
-      <%= @user.stories.count %> Links •
+      <%= @user.stories.count %> Posts •
       <%= @user.comments.count %> Comments
-    </h5>
+    </div>
   </div>
   <ul class="tabs">
     <li class="active"><a href="#posts">Posts</a></li>
@@ -33,25 +33,35 @@
   <div class="pill-content">
     <div class="active" id="posts">
       <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
-      <% if @tags.count != 0%>
+      <% if @tags.count != 0 %>
         <h4>
           <%= @user.login %>'s tag cloud
         </h4>
         <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
+      <% else %>
+        <em>No posts yet</em>
       <% end %>
     </div>
     <div id="likes">
-      <%= render :partial => "partials/story_items", :locals => { :stories => @liked_stories } %>
+      <% if @liked_stories.count != 0 %>
+        <%= render :partial => "partials/story_items", :locals => { :stories => @liked_stories } %>
+      <% else %>
+        <em>No stories liked yet</em>
+      <% end %>
     </div>
     <div id="comments">
-      <% for comment in @comments %>
-        <blockquote>
-          <p>
-            <%= comment.body %>
-          </p>
-          <small>On <%= comment.created_at.to_s(:cool) %> in response to <strong>
-          <%= link_to comment.story.title, :controller => "stories", :action => "show", :id => comment.story.id %>
-        </blockquote>
+      <% if @comments.count != 0 %>
+        <% for comment in @comments %>
+          <blockquote>
+            <p>
+              <%= comment.body %>
+            </p>
+            <small>On <%= comment.created_at.to_s(:cool) %> in response to <strong>
+            <%= link_to comment.story.title, :controller => "stories", :action => "show", :id => comment.story.id %>
+          </blockquote>
+        <% end %>
+      <% else %>
+        <em>No comments yet</em>
       <% end %>
     </div>
   </div>
