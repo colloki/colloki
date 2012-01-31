@@ -3,12 +3,16 @@
 <head>
   <%= csrf_meta_tag %>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <%= auto_discovery_link_tag :rss, {:action => "feed"} %>
+  
   <title>
     Colloki <% if !@page_title.blank? %> - <%= @page_title %><% end %>
   </title>
-  <link rel="stylesheet/less" type="text/css" href="/stylesheets/bootstrap/bootstrap.less">
-  <link rel="stylesheet/less" type="text/css" href="/stylesheets/site.less">
+  
+  <%= stylesheet_link_tag "bootstrap/bootstrap.less", :rel=>"stylesheet/less" %>
+  <%= stylesheet_link_tag "site.less", :rel=>"stylesheet/less" %>
   <%= include_javascripts :common %>
+
   <!-- UserVoice for feedback -->
   <script type="text/javascript">
     var uvOptions = {};
@@ -18,7 +22,6 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
     })();
   </script>
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed" />
 </head>
 <body>
   <div class="topbar">
