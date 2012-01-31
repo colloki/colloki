@@ -1,31 +1,4 @@
 class StoriesController < ApplicationController
-  def rss
-    # TODO: Need to move this whole action onto the topic controller.
-    stories_unsorted = Story.find(:all)
-    if params[:id] == 'votes'
-      @stories = stories_unsorted.sort{|a,b| b.votes  <=> a.votes }
-      @title = "Slurp! Most Voted Stories"
-      @description = "Most voted  stories on the slurp link sharing site"
-    elsif params[:id] == 'newest'
-      @title = "Slurp! Latest Stories"
-      @description = "Newest stories on the slurp link sharing site"
-      @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}
-    elsif (params[:id] == 'tag') && (params[:id2])
-      @title = "Slurp! Stories tagged " + params[:id2]
-      @description = "Stories on slurp tagged with " + params[:id2]
-      tag_list = params[:id2].split('+')
-      stories_unsorted = Story.find_tagged_with(tag_list, :match_all => true)
-      @stories = stories_unsorted.sort{|a,b| b.created_at <=> a.created_at}
-    else
-      # default sort by popular
-      @stories = stories_unsorted.sort{|a,b| (b.views/10) + b.votes + b.comments.count <=> (a.views/10) + a.votes + a.comments.count}
-      @title = "Slurp! Popular Stories"
-      @description = "Popular stories on the slurp link sharing site"
-    end
-    render :layout => false
-    headers["Content-Type"] = "application/xml"
-  end
-
   # TODO: The URL for this action is currently http://site/stories/<ID>.
   # It needs to be http://site/topic/<Topic_ID>/story/<ID>
   # or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>

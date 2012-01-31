@@ -21,17 +21,16 @@ desc "Automatically post stories to Colloki from the cached rss stories"
 task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
   begin
     args.with_defaults(:start_date => nil, :end_date => nil)
-    
     if args.start_date
       start_date = Date.strptime(args.start_date, "%m/%d/%Y")
     else
-      start_date = Time.zone.now.to_date
+      start_date = Time.now.in_time_zone('EST').to_date
     end
     
     if args.end_date
       end_date = Date.strptime(args.end_date, "%m/%d/%Y")
     else
-      end_date = Time.zone.now.to_date
+      end_date = Time.now.in_time_zone('EST').to_date
     end
 
     start_date.upto(end_date) do |day|

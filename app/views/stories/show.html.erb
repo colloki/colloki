@@ -34,20 +34,23 @@
     <% if @likers.count != 0 %>
       <hr>
     <% end %>
-    <div id="comments">
-      <h4 id="comment-count"></h4>
+    <div id="comments<%= @story.id %>">
+      <h4 class="comment-count"></h4>
       <div class="comment-entries"></div>
       <h4>Add a comment</h4>
       <% if logged_in? %>
         <div class="clearfix">
-          <%= text_area "comment", "body", :class => "xxlarge", :rows => "6" %>
+          <%= text_area "comment",
+                        "body",
+                        :class => "xxlarge comment-body",
+                        :rows => "6" %>
         </div>
-        <%= hidden_field :story, :id, :id => "comment_story_id" %>
         <br>
-        <%= submit_tag "Comment", :class => "btn", :id => "add-comment" %>
+        <%= submit_tag "Comment",
+                       :class => "btn add-comment" %>
       <% else %>
       <p>
-        <a class="small-btn btn" href="/signup">Sign up</a> or <a class="small-btn btn" href="/login">sign in</a> to comment
+        <a class="small-btn btn" href="/login">Sign in</a> to comment
       </p>
       <% end %>
     </div>
@@ -93,7 +96,9 @@
 </div>
 <script>
   $(document).ready(function(e) {
-    var comments = new window.CommentsListView(<%= @comments.to_json.html_safe %>, <%= @user_id %>);
+    var comments = new window.CommentsListView(<%= @comments.to_json.html_safe %>,
+      <%= @story.id %>,
+      <%= @user_id %>);
     var vote = new window.VoteView(<%= @voting_data.to_json.html_safe %>);
   });
 </script>

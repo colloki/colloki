@@ -1,30 +1,23 @@
-<div class="row activity">
+<div class="discussion row">
   <div class="span1">
     <%= link_to gravatar_image_tag(activity.user.email, :gravatar => { :size => 28 }) %>
   </div>
   <div class="span11">
     <div class="row">
-      <% if activity.kind == ActivityItem::CommentType %>
-        <blockquote>
-          <p>
-            <% if activity.comment %>
-              <%= activity.comment.body %>
-            <% end %>
-          </p>
+      <blockquote>
+        <p>
+          <%= link_to activity.user.login,
+            :controller => "users",
+            :action => "show",
+            :id => activity.user.id %>
+          <% if activity.comment %>
+            <%= activity.comment.body %>
+          <% end %>
           <small>
-            <%= link_to activity.user.login, :controller => "users", :action => "show", :id => activity.user.id %> on <%= link_to activity.story.title, :controller => "stories", :action => "show", :id => activity.story.id  %>
+            <%= time_ago_in_words activity.created_at %> ago
           </small>
-        </blockquote>
-      <% else %>
-        <%= link_to activity.user.login, :controller => "users", :action => "show", :id => activity.user.id %>
-        <%= activity.sentence %>
-        <%= link_to activity.story.title, :controller => "stories", :action => "show", :id => activity.story.id  %>
-      <% end %>
-    </div>
-    <div class="row">
-      <div class="pull-right">
-        <%= time_ago_in_words activity.created_at %> ago
-      </div>
+        </p>
+      </blockquote>
     </div>
   </div>
 </div>

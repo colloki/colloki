@@ -10,7 +10,9 @@ $(function() {
 
     render: function() {
       var pretty_timestamp = moment(this.model.attributes.timestamp).fromNow();
-      $(this.el).html(JST.comment({model: this.model.toJSON(), pretty_timestamp: pretty_timestamp, user_id: this.options.user_id}));
+      $(this.el).html(JST.comment({model: this.model.toJSON(),
+                                  pretty_timestamp: pretty_timestamp,
+                                  user_id: this.options.user_id}));
       return this;
     },
 

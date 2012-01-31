@@ -3,21 +3,50 @@
     <a href="/discuss">Discussion Dashboard</a>
   </li>
 </ul>
-<div class="row">
+<div class="activity row">
   <div class="span12">
     <div class="clearfix">
       <div class="input">
-        <textarea class="xxlarge" id="new_post" rows="5"></textarea>
+        <textarea class="xxlarge" 
+                  placeholder="Start a new discussion..." 
+                  rows="5"></textarea>
       </div>
     </div>
     <div class="clearfix">
       <br>
       <div class="input">
-        <a class="btn">Post</a>
+        <a class="btn primary">Post</a>
       </div>
     </div>
-    <% for activity in @activities %>
-      <%= render :partial => "partials/discussion", :locals => { :activity => activity } %>
+    <% for story in @stories %>
+      <div class="story-activity">
+        <div class="row">
+          <span class="span8" style="float: left; padding-right: 10px">
+            <%= story_item_title(story) %>
+            <%= story_item_content(story, 200, 240) %>
+          </span>
+          <span class="span3">
+            <%= story_item_thumbnail(story, "small") %>
+          </span>
+        </div>
+        <div id="comments<%= story.id %>">
+          <div class="comment-entries"></div>
+          <div class="input">
+            <textarea class="xxlarge comment-body" 
+                      placeholder="Post a reply..." 
+                      rows="2"></textarea>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
+<script>
+  $(document).ready(function(e) {
+    <% @stories.each do |story| %>
+      var c<%= story.id %> = new window.CommentsListView(<%= @comments[story.id].to_json.html_safe %>,
+                                                         <%= story.id %>,
+                                                         <%= @user_id %>);
+    <% end %>
+  });
+</script>

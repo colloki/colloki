@@ -1,17 +1,19 @@
 $(function() {
   window.CommentsListView = Backbone.View.extend({
-    el: $("#comments"),
 
     events: {
-      "click #add-comment": "add"
+      "click .add-comment": "add",
+      "keydown .comment-body": "add"
     },
 
-    initialize: function(data, user_id) {
+    initialize: function(data, story_id, user_id) {
       _.bindAll(this, 'render', 'add', 'addAll', 'append', 'remove');
 
-      this.input = this.$("#comment_body");
-      this.story_id = this.$("#comment_story_id").val();
+      this.el = $("#comments" + story_id);
+      this.input = $(".comment-body", this.el);
+      this.story_id = story_id;
       this.user_id = user_id;
+      this.delegateEvents();
 
       this.collection = new Comments();
       this.collection.bind('reset', this.addAll);
@@ -31,11 +33,12 @@ $(function() {
       var html = this.count + " Comment";
       if (this.count != 1)
         html += "s";
-      this.$("#comment-count").html(html);
+      $(".comment-count", this.el).html(html);
     },
 
     // Save a new comment
-    add: function(attribs) {
+    add: function(e) {
+      if (e.keyCode && e.keyCode != 13) { return; };
       var c = new Comment();
       var self = this;
       self.collection.add(c);
