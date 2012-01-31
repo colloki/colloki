@@ -40,34 +40,34 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
       begin
         mining_store = CollokiMiningStore.new(day)
       rescue
-        puts "Error fetching data for the day!"
+        puts "Error fetching data for the day"
         next
       end
 
       topics = []
 
+      # Delete all the existing topics for today. 
+      # TODO: Find a more efficient way, mate
+      Topic.delete_all(["day = ?", day.to_time.utc])
+      
       # Save the topics
       mining_store.topics.each do |topic|
-        # Check if the topic already exists
-        new_topic = Topic.find(:first, :conditions => {:keywords => topic["keyword_string"]})
-        # If it doesn't, create a new topic
-        if !new_topic
-          new_topic = Topic.new
-          new_topic.title = topic["label"]
-          new_topic.keywords = topic["keyword_string"]
-          new_topic.day = day
-          new_topic.save
+        new_topic = Topic.new
+        new_topic.title = topic["label"]
+        new_topic.keywords = topic["keyword_string"]
+        new_topic.day = day
+        new_topic.save
 
-          # Save the keywords for the topic. TODO: Reuse keywords
-          topic["keywords"].each do |word|
-            keyword = TopicKeyword.new
-            keyword.topic = new_topic
-            keyword.name = word["name"]
-            keyword.distribution = word["distribution"]
-            keyword.save
-          end
-          puts "Saved new topic: " + topic['keywords'].join(', ')
+        # Save the keywords for the topic. TODO: Reuse keywords
+        topic["keywords"].each do |word|
+          keyword = TopicKeyword.new
+          keyword.topic = new_topic
+          keyword.name = word["name"]
+          keyword.distribution = word["distribution"]
+          keyword.save
         end
+
+        puts "Saved new topic: " + topic['keywords'].join(', ')
         topics.push(new_topic)
       end
 
