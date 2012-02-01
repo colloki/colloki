@@ -4,7 +4,7 @@
   <%= csrf_meta_tag %>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <%= auto_discovery_link_tag :rss, {:action => "feed"} %>
-  
+
   <title>
     Colloki <% if !@page_title.blank? %> - <%= @page_title %><% end %>
   </title>
@@ -91,7 +91,7 @@
             <% else %>
               <li>
             <% end %>
-              <a href="/popular">Most Popular</a>
+              <%= link_to "Most Popular", popular_url %>
             </li>
             <% for topic in @topics %>
               <% if topic.stories.count != 0 %>

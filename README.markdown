@@ -22,4 +22,17 @@ Colloki is an opensource research project being developed at the [SocialComp Gro
 * The `nokogiri` gem may have dependencies you will need to install. 
     Macports is recommended for installing the `libxml2` and `libxslt` packages.
 
+* You will also need to install `imagemagick` for `paperclip` (if not installed). 
+    You can use `homebrew`: `brew install imagemagick`
+
 * `rake db:migrate`
+
+## Deployment
+
+We recommend deploying using Apache+Passenger:
+
+* Setting up Passenger and deploying app: (http://www.modrails.com/install.html) (Follow steps 1 and 2)
+
+* Deploying to sub URI on Apache: (http://www.modrails.com/documentation/Users%20guide%20Apache.html#deploying_rails_to_sub_uri)
+
+* Resources break if you deploy on a sub URI, how to fix that: (http://www.modrails.com/documentation/Users%20guide%20Apache.html#sub_uri_deployment_uri_fix)

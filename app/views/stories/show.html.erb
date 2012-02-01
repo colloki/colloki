@@ -50,7 +50,7 @@
                        :class => "btn add-comment" %>
       <% else %>
       <p>
-        <a class="small-btn btn" href="/login">Sign in</a> to comment
+        <%= link_to "Sign in", login_url, :class=>"small-btn btn" %> to comment
       </p>
       <% end %>
     </div>
