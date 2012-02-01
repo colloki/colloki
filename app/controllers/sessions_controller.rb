@@ -3,9 +3,8 @@ class SessionsController < ApplicationController
   # render new.rhtml
   def new
     if logged_in?
-      flash[:alert] = "You are already logged in."
-      redirect_back_or('/')
-    else
+      redirect_back_or(root_url)
+    elsif request.referer != login_url
       @redir = request.referer
     end
   end
@@ -19,7 +18,7 @@ class SessionsController < ApplicationController
       end
         redirect_to(params[:redir], :notice => "Welcome #{self.current_user.login}")
     else
-      redirect_to("/login", :alert => "Invalid credentials. Please try again")
+      redirect_to login_path, :alert => "Invalid credentials. Please try again"
     end
   end
 
@@ -28,6 +27,6 @@ class SessionsController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You successfully logged out."
-    redirect_back_or('/')
+    redirect_back_or(root_url)
   end
 end

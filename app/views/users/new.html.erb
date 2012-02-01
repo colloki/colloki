@@ -2,9 +2,7 @@
   Sign up to Colloki
 </h1>
 <br>
-<%= error_messages_for :user %>
 <%= form_for :user, :url => users_path do |f| -%>
-
 <div class="clearfix">
   <div style="text-align: center">
     <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
@@ -13,6 +11,7 @@
   <hr>
   <div id="OR">or</div>
   <hr>
+  <%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
   <label for="login">
     Pick a username <span class="help-block">Cannot have spaces or any other special characters</span>
   </label>

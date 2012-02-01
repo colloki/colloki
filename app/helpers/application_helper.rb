@@ -1,4 +1,4 @@
-# Methods added to this helper will be available to all templates in the application.
+# encoding: utf-8
 module ApplicationHelper
   include ActsAsTaggableOn::TagsHelper
 
@@ -24,5 +24,26 @@ module ApplicationHelper
     other Blacksburg and Montgomery County residents.<br><br>" +  
     " Sign up today to participate in discussions!<br><br>" + 
     link_to('Sign Up', signup_url, :class=>'btn primary')).html_safe
+  end
+
+  def errors_for(object, message=nil)
+    html = ""
+    unless !(defined? object.errors) or object.errors.blank?
+      html << "<div class='formErrors #{object.class.name.humanize.downcase}Errors'>\n"
+      if message.blank?
+        if object.new_record?
+          html << "\t\t<div class='alert-message'>There was a problem creating the #{object.class.name.humanize.downcase}</div>\n"
+        else
+          html << "\t\t<div class='alert-message'>There was a problem updating the #{object.class.name.humanize.downcase}</div>\n"
+        end    
+      else
+        html << "<h5>#{message}...</h5><br>"
+      end  
+      object.errors.full_messages.each do |error|
+        html << "\t\t\t<div class='error alert-message'><a class='close' href='#'>×</a>#{error}</div>\n"
+      end
+      html << "\t</div>\n"
+    end
+    html
   end
 end

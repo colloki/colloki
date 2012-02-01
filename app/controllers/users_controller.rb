@@ -144,7 +144,7 @@ class UsersController < ApplicationController
 
     if @user.errors.empty?
       UserMailer.signup_notification(@user).deliver
-      redirect_back_or_default('/')
+      redirect_back_or_default(root_url)
       flash[:notice] = "Thanks for signing up, we've sent you an activation email.
       \nPlease verify your email by clicking on the activation link in that email."
     else
@@ -158,7 +158,7 @@ class UsersController < ApplicationController
       current_user.activate
       flash[:notice] = "Signup complete!"
     end
-    redirect_back_or_default('/')
+    redirect_back_or_default(root_url)
   end
 
 end
