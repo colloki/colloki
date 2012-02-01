@@ -83,7 +83,7 @@
             <% else %>
               <li>
             <% end %>
-              <a href="/latest">Latest</a>
+              <%= link_to "Latest", latest_url %>
             </li>
             <% if request.filtered_parameters["controller"] === "topics" &&
               request.filtered_parameters["action"] === "popular" %>

@@ -25,6 +25,9 @@ Colloki is an opensource research project being developed at the [SocialComp Gro
 * You will also need to install `imagemagick` for `paperclip` (if not installed). 
     You can use `homebrew`: `brew install imagemagick`
 
+* You will also need to create and make `/public/system/images` writable:
+  `mkdir -p public/system/images; chmod +wx public/system/images`
+
 * `rake db:migrate`
 
 ## Deployment
