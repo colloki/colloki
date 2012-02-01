@@ -4,11 +4,11 @@ javascripts:
   common:
     - public/javascripts/libs/jquery.js
     - public/javascripts/libs/less.js
+    - public/javascripts/bootstrap.min.js
     - public/javascripts/libs/underscore.js
     - public/javascripts/libs/backbone.js
     - public/javascripts/libs/backbone_rails_sync.js
     - public/javascripts/libs/*.js
-    - public/javascripts/bootstrap/*.js
     - public/javascripts/app/**/*.js
     - public/javascripts/application.js
     - app/views/**/*.jst
