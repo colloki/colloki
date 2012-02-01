@@ -47,6 +47,7 @@
       var c<%= story.id %> = new window.CommentsListView(<%= @comments[story.id].to_json.html_safe %>,
                                                          <%= story.id %>,
                                                          <%= @user_id %>);
+      $("textarea").get(0).focus();
     <% end %>
   });
 </script>
