@@ -4,3 +4,6 @@
 <a href="/users/<%= data.user_id %>" title="<%= data.user_login %>" class="story-liker" id="liker<%= data.user_id %>">
   <img alt="Gravatar" src="http://gravatar.com/avatar/<%= data.user_email_hash %>?size=24">
 </a>
+<% if (!liked_by_exists && data.count == 1) { %>
+  <hr>
+<% } %>

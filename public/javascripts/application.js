@@ -16,5 +16,4 @@ $(document).ready(function(e) {
   //   placement: 'below'
   // });
   // $(".alert-message").alert();
-  // $('.tabs').tabs();
 });

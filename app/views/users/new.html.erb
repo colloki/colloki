@@ -2,8 +2,8 @@
   Sign up to Colloki
 </h1>
 <br>
-<%= form_for :user, :url => users_path do |f| -%>
-<div class="clearfix">
+<%= form_for :user, :url => users_path, :html => {:class => "form-horizontal"} do |f| -%>
+<div class="control-group">
   <div style="text-align: center">
     <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
     <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
@@ -11,38 +11,44 @@
   <hr>
   <div id="OR">or</div>
   <hr>
-  <%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
-  <label for="login">
-    Pick a username <span class="help-block">Cannot have spaces or any other special characters</span>
+</div>
+
+<%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
+
+<div class="control-group">
+  <label for="login" class="control-label">
+    Pick a username
   </label>
-  <div class="input">
+  <div class="controls">
     <%= f.text_field :login %>
+    <p class="help-block">Cannot have spaces or any other special characters</p>
   </div>
 </div>
 
-<div class="clearfix">
-  <label for="email">Email</label>
-  <div class="input">
+<div class="control-group">
+  <label class="control-label" for="email">Email</label>
+  <div class="controls">
     <%= f.text_field :email %>
   </div>
 </div>
 
-<div class="clearfix">
-  <label for="password">Password <span class="help-block">Five or more characters</span></label>
-  <div class="input">
+<div class="control-group">
+  <label for="password">Password </label>
+  <div class="controls">
     <%= f.password_field :password %>
+    <p class="help-block">Five or more characters</p>
   </div>
 </div>
 
-<div class="clearfix">
+<div class="control-group">
   <label for="password_confirmation">Confirm Password</label>
-  <div class="input">
+  <div class="controls">
     <%= f.password_field :password_confirmation %>
   </div>
 </div>
 
-<div class="actions">
-  <button type="submit" class="btn primary">
+<div class="form-actions">
+  <button type="submit" class="btn btn-primary">
     Sign Up!
   </button>
 </div>

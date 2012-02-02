@@ -48,7 +48,7 @@ module StoriesHelper
   def sidebar_story(story)
     html = "<div class='sidebar-story row'>"
     if story.image.exists?
-      html += "<div class='span2'>"
+      html += "<div class='span1' style='width: 100px;'>"
     else
       html += "<div class='span'>"
     end
@@ -62,9 +62,9 @@ module StoriesHelper
     end
     html += "</div>"
     if story.image.exists?
-      html += "<div class='span3 sidebar-story-content'>"
+      html += "<div class='span2 sidebar-story-content'>"
     else
-      html += "<div class='span4 sidebar-story-content'>"
+      html += "<div class='span3 sidebar-story-content'>"
     end
     html += link_to story.title, story
     html += "</div>"

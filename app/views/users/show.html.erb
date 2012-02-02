@@ -25,13 +25,13 @@
       <%= @user.comments.count %> Comments
     </div>
   </div>
-  <ul class="tabs">
-    <li class="active"><a href="#posts">Posts</a></li>
-    <li><a href="#comments">Comments</a></li>
-    <li><a href="#likes">Likes</a></li>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#posts" data-toggle="tab">Posts</a></li>
+    <li><a href="#comments" data-toggle="tab">Comments</a></li>
+    <li><a href="#likes" data-toggle="tab">Likes</a></li>
   </ul>
-  <div class="pill-content">
-    <div class="active" id="posts">
+  <div class="tab-content">
+    <div class="tab-pane active" id="posts">
       <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
       <% if @tags.count != 0 %>
         <h4>
@@ -42,14 +42,14 @@
         <em>No posts yet</em>
       <% end %>
     </div>
-    <div id="likes">
+    <div class="tab-pane" id="likes">
       <% if @liked_stories.count != 0 %>
         <%= render :partial => "partials/story_items", :locals => { :stories => @liked_stories } %>
       <% else %>
         <em>No stories liked yet</em>
       <% end %>
     </div>
-    <div id="comments">
+    <div class="tab-pane" id="comments">
       <% if @comments.count != 0 %>
         <% for comment in @comments %>
           <blockquote>
@@ -57,7 +57,9 @@
               <%= comment.body %>
             </p>
             <small>On <%= comment.created_at.to_s(:cool) %> in response to <strong>
-            <%= link_to comment.story.title, :controller => "stories", :action => "show", :id => comment.story.id %>
+            <%= link_to comment.story.title, :controller => "stories", 
+                                             :action => "show", 
+                                             :id => comment.story.id %>
           </blockquote>
         <% end %>
       <% else %>
@@ -66,7 +68,5 @@
     </div>
   </div>
 <% else %>
-  <div class="well">
-    <h2>User Not Found</h2>
-  </div>
+  <h2>Oops! User Not Found</h2>
 <% end %>

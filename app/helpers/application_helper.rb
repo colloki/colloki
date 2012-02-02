@@ -32,15 +32,18 @@ module ApplicationHelper
       html << "<div class='formErrors #{object.class.name.humanize.downcase}Errors'>\n"
       if message.blank?
         if object.new_record?
-          html << "\t\t<div class='alert-message'>There was a problem creating the #{object.class.name.humanize.downcase}</div>\n"
+          html << "\t\t<div class='alert'>There was a problem creating the #{object.class.name.humanize.downcase}</div>\n"
         else
-          html << "\t\t<div class='alert-message'>There was a problem updating the #{object.class.name.humanize.downcase}</div>\n"
-        end    
-      else
-        html << "<h5>#{message}...</h5><br>"
-      end  
-      object.errors.full_messages.each do |error|
-        html << "\t\t\t<div class='error alert-message'><a class='close' href='#'>×</a>#{error}</div>\n"
+          html << "\t\t<div class='alert'>There was a problem updating the #{object.class.name.humanize.downcase}</div>\n"
+        end
+      end
+      if object.errors.full_messages.count != 0
+        html << "\t\t\t<div class='alert-error alert' data-dismiss='alert'><a class='close' href='#'>&times;</a>"
+        html << "<p><strong>#{message}...</strong></p><br>"
+        object.errors.full_messages.each do |error|
+          html << "<p>#{error}</p>"
+        end
+        html << "</div>"
       end
       html << "\t</div>\n"
     end

@@ -1,78 +1,79 @@
-<h1>
+<h2>
   Settings
-</h1>
+</h2>
+<hr>
+<%= form_for(@user, :html => {:class=>"form-horizontal"}) do |f| %>
+  <%= f.error_messages %>
 
-<%= form_for(@user) do |f| %>
-<%= f.error_messages %>
-
-<h2>Basic</h2>
-<div class="clearfix">
-  <%= f.label "Username" %>
-  <div class="input">
-    <strong><%= @user.login %></strong>
-    <span class="help-block">You cannot change your username (yet!)</span>
+  <h3>Basic</h3>
+  <div class="control-group">
+    <%= f.label "Username", :class => "control-label" %>
+    <div class="controls">
+      <strong><%= @user.login %></strong>
+      <p class="help-block">You cannot change your username (yet!)</p>
+    </div>
   </div>
-</div>
-<div class="clearfix">
-  <%= f.label "Email" %>
-  <div class="input">
-    <%= @user.email %>
-    <span class="help-block">You cannot change your email (yet!)</span>
-  </div>
-</div>
 
-<div class="clearfix">
-  <%= f.label "Name" %>
-  <div class="input">
-    <%= f.text_field :realname %>
-    <span class="help-block">Your real name</span>
+  <div class="control-group">
+    <%= f.label "Email" %>
+    <div class="controls">
+      <%= @user.email %>
+      <p class="help-block">You cannot change your email (yet!)</p>
+    </div>
   </div>
-</div>
 
-<div class="clearfix">
-  <%= f.label "Bio" %>
-  <div class="input">
-    <%= f.text_field :bio %>
-    <span class="help-block">A short, one line bio of you.</span>
+  <div class="control-group">
+    <%= f.label "Name" %>
+    <div class="controls">
+      <%= f.text_field :realname %>
+      <p class="help-block">Your real name</p>
+    </div>
   </div>
-</div>
 
-<div class="clearfix">
-  <%= f.label "Website" %>
-  <div class="input">
-    <%= f.text_field :website %>
-    <span class="help-block">The URL to your website, in case you have one.</span>
+  <div class="control-group">
+    <%= f.label "Bio" %>
+    <div class="controls">
+      <%= f.text_field :bio %>
+      <p class="help-block">A short, one line bio of you.</p>
+    </div>
   </div>
-</div>
 
-<div class="clearfix">
-  <%= f.label "Location" %>
-  <div class="input">
-    <%= f.text_field :location %>
-    <span class="help-block">Where do you live?</span>
+  <div class="control-group">
+    <%= f.label "Website" %>
+    <div class="controls">
+      <%= f.text_field :website %>
+      <p class="help-block">The URL to your website, in case you have one.</p>
+    </div>
   </div>
-</div>
 
-<div class="actions">
-  <button type="submit" class="btn primary">
-    Update
-  </button>
-</div>
+  <div class="control-group">
+    <%= f.label "Location" %>
+    <div class="controls">
+      <%= f.text_field :location %>
+      <p class="help-block">Where do you live?</p>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">
+      Update
+    </button>
+  </div>
 <% end %>
 
 <hr>
 
-<h2>Password</h2>
-<div class="actions">
-  <a href="<%=change_password_url%>" class="btn primary">
+<h3>Password</h3>
+<div class="form-actions">
+  <a href="<%=change_password_url%>" class="btn btn-primary">
       Change Password
   </a>
 </div>
 
 <hr>
 
-<h2>Avatar</h2>
-<div class="clearfix">
+<h3>Avatar</h3>
+<div class="control-group">
   <br>
   <%= gravatar_image_tag(current_user.email) %>
   <br><br>
@@ -80,7 +81,7 @@
     We use your <a href="http://gravatar.com">Gravatar</a> to represent you on this site.
     Remember to use <strong><%= @user.email %></strong> as your email id.
   </span>
-  <div class="actions">
+  <div class="form-actions">
     <a href="http://en.gravatar.com/site/signup" class="btn">
       Sign up for Gravatar
     </a>
@@ -90,31 +91,27 @@
   </div>
 </div>
 <hr>
-<h2>Connected Accounts</h2>
+<h3>Connected Accounts</h3>
 <br>
-<div class="clearfix">
-  <label>
-    Twitter&nbsp;&nbsp;&nbsp;&nbsp;
-  </label>
-  <div class="input">
-    <% if @is_twitter_connected %>
-      <%= link_to "Remove", "auth/twitter", :class => "btn error" %>
-    <% else %>
-      <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
-    <% end %>
+<form class="form-horizontal">
+  <div class="control-group">
+    <label>Twitter</label>
+    <div class="controls">
+      <% if @is_twitter_connected %>
+        <%= link_to "Remove", "auth/twitter", :class => "btn btn-error" %>
+      <% else %>
+        <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
+      <% end %>
+    </div>
   </div>
-</div>
-<br>
-<div class="clearfix">
-  <label>
-    Facebook&nbsp;&nbsp;&nbsp;&nbsp;
-  </label>
-  <div class="input">
-    <% if @is_facebook_connected %>
-      <%= link_to "Remove", "auth/facebook", :class => "btn error" %>
-    <% else %>
-      <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
-    <% end %>
+  <div class="control-group">
+    <label>Facebook</label>
+    <div class="controls">
+      <% if @is_facebook_connected %>
+        <%= link_to "Remove", "auth/facebook", :class => "btn btn-error" %>
+      <% else %>
+        <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
+      <% end %>
+    </div>
   </div>
-</div>
-<br><br>
+</form>

@@ -2,13 +2,13 @@
   <div class="span1">
     <img alt="Gravatar" src="http://gravatar.com/avatar/<%= model.user_email_hash %>?size=24">
   </div>
-  <div class="comment-body span10">
+  <div class="comment-body span6">
     <a href="/users/<%= model.user_id %>"><%= model.user_login %></a>
     <%= model.body %>
     <div class="comment-meta">
       <%= pretty_timestamp %> &nbsp;&nbsp;
       <% if (user_id == model.user_id) { %>
-        <a class="btn small-btn error delete-comment" style="cursor: pointer" >delete</a>
+        <a class="btn small-btn btn-danger delete-comment" style="cursor: pointer" >delete</a>
       <% } %>
     </div>
   </div>

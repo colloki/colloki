@@ -112,24 +112,25 @@
       <% end %>
     <% end %>
     <% if flash[:notice] %>
-      <div class="alert-message success">
-        <a class="close" href="#">×</a>
+      <div class="alert alert-success" data-dismiss="alert">
+        <a class="close" href="#">&times;</a>
         <%= flash[:notice] %>
       </div>
     <% end %>
     <% if flash[:alert] %>
-      <div class="alert-message info">
-        <a class="close" href="#">×</a>
+      <div class="alert alert-info" data-dismiss="alert">
+        <a class="close" href="#">&times;</a>
         <%= flash[:alert] %>
       </div>
     <% end %>
     <% if flash[:error] %>
-      <div class="alert-message error">
-        <a class="close" href="#">×</a>
+      <div class="alert alert-error" data-dismiss="alert">
+        <a class="close" href="#">&times;</a>
         <%= flash[:error] %>
       </div>
     <% end %>
     <%= yield %>
+    <hr>
     <footer>
       <p class="pull-right">
         &copy; Virginia Tech ·

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span11 story">
+  <div class="span8 story">
     <h2>
       <%= story_title(@story) %>
     </h2>
@@ -42,7 +42,7 @@
         <div class="clearfix">
           <%= text_area "comment",
                         "body",
-                        :class => "xxlarge comment-body",
+                        :class => "input-xxlarge comment-body",
                         :rows => "6" %>
         </div>
         <br>
@@ -55,7 +55,7 @@
       <% end %>
     </div>
   </div>
-  <div class="span5">
+  <div class="span4">
     <% if !logged_in? %>
       <h4>What is Colloki?</h4>
       <%= colloki_description %>

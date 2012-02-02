@@ -28,12 +28,12 @@ $(function() {
       else if (this.data.state == 0) {
         $(this.el).attr("title", "Like")
         .removeClass("voted")
-        .addClass("success");
+        .addClass("btn-success");
       }
       else {
         $(this.el).attr("title", "Unlike")
         .addClass("voted")
-        .addClass("success");
+        .addClass("btn-success");
       }
       return this;
     },

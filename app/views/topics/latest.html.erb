@@ -4,7 +4,7 @@
   </li>
 </ul>
 <div class="row">
-  <div class="span12">
+  <div class="span9">
     <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
     <%= will_paginate @stories, :renderer => PaginationListLinkRenderer %>
   </div>
