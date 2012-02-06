@@ -2,9 +2,11 @@
 module TopicsHelper
   def story_item_thumbnail(story, size="thumb")
     if size == "medium"
-      img_url = story.image.url(:medium, :host=>request.host)
+      img_url = story.image.url(:medium, :host => request.host)
+    elsif size == "original"
+      img_url = story.image.url(:original, :host => request.host)
     else
-      img_url = story.image.url(:thumb, :host=>request.host)
+      img_url = story.image.url(:thumb, :host => request.host)
     end
     if story.image.exists?
       return link_to image_tag(img_url), story
@@ -76,8 +78,6 @@ module TopicsHelper
     else
       title = strip_tags(story.title)
     end
-    "<h5>
-    #{link_to title, story}
-    </h5>".html_safe
+    "#{link_to title, story}".html_safe
   end
 end

@@ -63,6 +63,14 @@ class Story < ActiveRecord::Base
     end
   end
 
+  def self.popular_with_photos
+    self.latest_with_photos.sort! { |a, b| b.popularity <=> a.popularity }
+  end
+
+  def self.latest_with_photos
+    find :all, :conditions => "image_file_size != ''", :order => "published_at DESC", :limit => 20
+  end
+
   def self.search(query, page)
     paginate(:page => page,
     :conditions => [ "title like ? OR description like ? ", "%#{query}%", "%#{query}%"])

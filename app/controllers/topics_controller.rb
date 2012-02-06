@@ -4,6 +4,7 @@ class TopicsController < ApplicationController
   def popular
     @page_title = "Most Popular"
     @stories = Story.popular(params[:page])
+    @stories_with_photos = Story.popular_with_photos
     @new_users = User.newly_activated
     @activity_items = ActivityItem.recent
     @tags = Story.tag_counts_on(:tags)
@@ -15,6 +16,8 @@ class TopicsController < ApplicationController
   def latest
     @page_title = "Latest"
     @stories = Story.latest(params[:page])
+    # todo: eliminate this duplicate, unhealthy request
+    @stories_with_photos = Story.latest_with_photos
     @new_users = User.newly_activated
     @activity_items = ActivityItem.recent
     @tags = Story.tag_counts_on(:tags)

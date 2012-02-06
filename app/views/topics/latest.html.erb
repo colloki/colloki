@@ -5,6 +5,7 @@
 </ul>
 <div class="row">
   <div class="span9">
+    <%= render :partial => "partials/carousel", :locals => { :stories => @stories_with_photos } %>
     <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
     <%= will_paginate @stories, :renderer => PaginationListLinkRenderer %>
   </div>
