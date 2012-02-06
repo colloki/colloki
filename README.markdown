@@ -39,3 +39,9 @@ We recommend deploying using Apache+Passenger:
 * Deploying to sub URI on Apache: (http://www.modrails.com/documentation/Users%20guide%20Apache.html#deploying_rails_to_sub_uri)
 
 * Resources break if you deploy on a sub URI, how to fix that: (http://www.modrails.com/documentation/Users%20guide%20Apache.html#sub_uri_deployment_uri_fix)
+
+##Fun stuff
+
+* Run `rake fetch[start_date, end_date]` to fetch articles for a range of dates. Both `start_date` and `end_date` are optional arguments. By default (with no arguments), `rake fetch` fetches the new articles for the day
+
+* Configure `lib/colloki_mining_store.rb` and `lib/tasks/fetch.rake` for other sources. Currently not very suited to run for other data sources. Will fix in the future
