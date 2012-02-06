@@ -35,6 +35,9 @@
         </form>
         <div class="nav-collapse">
           <ul class="nav">
+            <li>
+              <%= link_to "Discuss", discuss_url %>
+            </li>
             <% if logged_in? %>
               <% if request.filtered_parameters["controller"] === "users" &&
                 request.filtered_parameters["action"] === "show" %>
@@ -43,9 +46,6 @@
                 <li>
               <% end %>
                 <%= link_to "Profile", current_user %>
-              </li>
-              <li>
-                <%= link_to "Discuss", "/discuss" %>
               </li>
               <% if request.filtered_parameters["controller"] === "users" &&
                 request.filtered_parameters["action"] === "settings" %>

@@ -32,7 +32,7 @@
   <!-- Recent user activity -->
   <% if activity_items and activity_items.count != 0 %>
     <h4>Latest Activity</h4>
-    <%= render :partial => "partials/activity_items", :locals => {:activity_items => activity_items} %>
+    <%= render :partial => "partials/activity_items", :locals => { :activity_items => activity_items } %>
     <hr>
   <% end %>
   <!-- New users -->

@@ -23,7 +23,7 @@ module ApplicationHelper
     ("Colloki is a place to learn and discuss local issues with 
     other Blacksburg and Montgomery County residents.<br><br>" +  
     " Sign up today to participate in discussions!<br><br>" + 
-    link_to('Sign Up', signup_url, :class=>'btn primary')).html_safe
+    link_to('Sign Up', signup_url, :class => 'btn btn-primary')).html_safe
   end
 
   def errors_for(object, message=nil)

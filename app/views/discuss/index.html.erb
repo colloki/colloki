@@ -5,19 +5,26 @@
 </ul>
 <div class="activity row">
   <div class="span10">
-    <div class="clearfix">
-      <div class="input">
-        <textarea class="xxlarge" 
-                  placeholder="Start a new discussion..." 
-                  rows="5"></textarea>
+    <% if logged_in? %>
+      <div class="clearfix">
+        <div class="input">
+          <textarea class="xxlarge" 
+                    placeholder="Start a new discussion..." 
+                    rows="5"></textarea>
+        </div>
       </div>
-    </div>
-    <div class="clearfix">
-      <br>
-      <div class="input">
-        <a class="btn primary">Post</a>
+      <div class="clearfix">
+        <br>
+        <div class="input">
+          <a class="btn btn-primary">Post</a>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <%= link_to "Sign Up", signup_url, :class => "btn btn-primary" %>
+      <br><br>
+      Sign Up to participate in discussions now.
+      <hr>
+    <% end %>
     <% for story in @stories %>
       <div class="story-activity">
         <div class="row">
@@ -31,11 +38,17 @@
         </div>
         <div id="comments<%= story.id %>">
           <div class="comment-entries"></div>
-          <div class="input">
-            <textarea class="xxlarge comment-body" 
-                      placeholder="Post a reply..." 
-                      rows="2"></textarea>
-          </div>
+            <div class="input">
+            <% if logged_in? %>
+              <textarea class="xxlarge comment-body" 
+                        placeholder="Post a reply..." 
+                        rows="2"></textarea>
+            <% else %>
+            <p>
+              <%= link_to "Sign in", login_url, :class=>"small-btn btn" %> to comment
+            </p>
+            <% end %>
+            </div>
         </div>
       </div>
     <% end %>
@@ -47,7 +60,10 @@
       var c<%= story.id %> = new window.CommentsListView(<%= @comments[story.id].to_json.html_safe %>,
                                                          <%= story.id %>,
                                                          <%= @user_id %>);
-      $("textarea").get(0).focus();
+      var firstTextArea = $("textarea").get(0);
+      if (firstTextArea) {
+        firstTextArea.focus();
+      }
     <% end %>
   });
 </script>

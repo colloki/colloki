@@ -7,6 +7,7 @@ Colloki::Application.routes.draw do
   resources :stories
   resources :comments, :users, :session, :votes
   resources :feeds
+  resources :discuss
 
   root :to => 'topics#latest'
 
