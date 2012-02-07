@@ -1,56 +1,57 @@
 <h2>
   Sign up to Colloki
 </h2>
-<br>
-<%= form_for :user, :url => users_path, :html => {:class => "form-horizontal"} do |f| -%>
-<div class="control-group">
-  <div style="text-align: center">
-    <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
-    <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
+
+<%= form_for :user, :url => users_path, :html => {:class => "form-horizontal"} do |f| %>
+
+  <div class="control-group">
+    <div style="text-align: center">
+      <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
+      <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
+    </div>
+    <hr>
+    <div id="OR">or</div>
+    <hr>
   </div>
-  <hr>
-  <div id="OR">or</div>
-  <hr>
-</div>
 
-<%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
+  <%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
 
-<div class="control-group">
-  <label for="login" class="control-label">
-    Pick a username
-  </label>
-  <div class="controls">
-    <%= f.text_field :login %>
-    <p class="help-block">Cannot have spaces or any other special characters</p>
+  <div class="control-group">
+    <label for="login" class="control-label">
+      Pick a username
+    </label>
+    <div class="controls">
+      <%= f.text_field :login %>
+      <p class="help-block">Cannot have spaces or any other special characters</p>
+    </div>
   </div>
-</div>
 
-<div class="control-group">
-  <label class="control-label" for="email">Email</label>
-  <div class="controls">
-    <%= f.text_field :email %>
+  <div class="control-group">
+    <label class="control-label" for="email">Email</label>
+    <div class="controls">
+      <%= f.text_field :email %>
+    </div>
   </div>
-</div>
 
-<div class="control-group">
-  <label for="password">Password </label>
-  <div class="controls">
-    <%= f.password_field :password %>
-    <p class="help-block">Five or more characters</p>
+  <div class="control-group">
+    <label for="password">Password </label>
+    <div class="controls">
+      <%= f.password_field :password %>
+      <p class="help-block">Five or more characters</p>
+    </div>
   </div>
-</div>
 
-<div class="control-group">
-  <label for="password_confirmation">Confirm Password</label>
-  <div class="controls">
-    <%= f.password_field :password_confirmation %>
+  <div class="control-group">
+    <label for="password_confirmation">Confirm Password</label>
+    <div class="controls">
+      <%= f.password_field :password_confirmation %>
+    </div>
   </div>
-</div>
 
-<div class="form-actions">
-  <button type="submit" class="btn btn-primary">
-    Sign Up!
-  </button>
-</div>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">
+      Sign Up!
+    </button>
+  </div>
 
-<% end -%>
+<% end %>

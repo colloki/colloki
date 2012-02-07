@@ -1,6 +1,7 @@
-embed_assets: on
-# until we get it to work
-compress_assets: off
+embed_assets    : off
+# todo: turning packaging and compression off, unntil we fix it
+package_assets  : off
+compress_assets : off
 
 javascripts:
   common:

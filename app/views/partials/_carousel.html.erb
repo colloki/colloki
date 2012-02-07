@@ -1,23 +1,25 @@
-<div id="stories-carousel" class="carousel">
-  <div class="carousel-inner">
-    <% first = true %>
-    <% for story in stories %>
-      <% if story.image.exists? %>
-        <div class="item <% if first %>active<% first = false %><% end %>">
-          <%= story_item_thumbnail(story, "original") %>
-          <div class="carousel-caption">
-            <h4>
-              <%= story_item_title(story) %>
-            </h4>
-            <p>
-              <%= story_item_content(story, 200, 140) %>
-            </p>
+<% if stories.count != 0 %>
+  <div id="stories-carousel" class="carousel">
+    <div class="carousel-inner">
+      <% first = true %>
+      <% for story in stories %>
+        <% if story.image.exists? %>
+          <div class="item <% if first %>active<% first = false %><% end %>">
+            <%= story_item_thumbnail(story, "original") %>
+            <div class="carousel-caption">
+              <h4>
+                <%= story_item_title(story) %>
+              </h4>
+              <p>
+                <%= story_item_content(story, 200, 140) %>
+              </p>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#stories-carousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#stories-carousel" data-slide="next">&rsaquo;</a>
   </div>
-  <!-- Carousel nav -->
-  <a class="carousel-control left" href="#stories-carousel" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#stories-carousel" data-slide="next">&rsaquo;</a>
-</div>
+<% end %>

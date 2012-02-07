@@ -13,7 +13,6 @@ class UsersController < ApplicationController
     @users = users_unsorted.sort {|a,b| b.stories.size <=> a.stories.size}
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @users }
     end
   end
 
@@ -40,7 +39,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @story }
     end
   end
 
