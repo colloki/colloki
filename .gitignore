@@ -59,3 +59,4 @@ pickle-email-*.html
 config/initializers/omniauth.rb
 config/initializers/setup_mail.rb
 config/deploy.rb
+fetch.sh

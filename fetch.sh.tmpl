@@ -1,0 +1,2 @@
+# script to fetch and post articles for the day. Please configure the path and RAILS_ENV for your server.
+/bin/bash -l -c 'cd /absolute/path/to/colloki && RAILS_ENV=production bundle exec rake fetch --silent >> log/cron.log 2>&1'

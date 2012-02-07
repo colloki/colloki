@@ -30,6 +30,8 @@ Colloki is an opensource research project being developed at the [SocialComp Gro
 
 * `rake db:migrate`
 
+* Optional: Create and configure `fetch.sh` from `fetch.sh.tmpl` if you want to use the convinient script to fetch articles for the day. Suitable for calling via cron
+
 ## Deployment
 
 We recommend deploying using Apache+Passenger:
