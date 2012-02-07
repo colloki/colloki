@@ -1,4 +1,6 @@
 embed_assets: on
+# until we get it to work
+compress_assets: off
 
 javascripts:
   common:
