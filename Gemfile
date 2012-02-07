@@ -17,3 +17,4 @@ gem 'paperclip', "~> 2.4"
 gem 'capistrano'
 gem 'whenever' # https://github.com/javan/whenever
 gem 'jammit'
+gem 'mail'

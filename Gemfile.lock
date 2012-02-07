@@ -150,6 +150,7 @@ DEPENDENCIES
   dynamic_form
   gravatar_image_tag
   jammit
+  mail
   nokogiri
   omniauth-facebook
   omniauth-openid
