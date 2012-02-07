@@ -1,0 +1,34 @@
+// Topic Pages CSS
+
+// Meta fields for story items on topic pages
+.story-item {
+  .story-item-meta {
+    color: #888;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 16px;
+    
+    a {
+      color: #555;
+    }
+    
+    .small-icon (@image_name: '') {
+      color: #ccc;
+      background: url("../images/icons/@{image_name}.png") no-repeat 0 3px;
+      padding-left: 14px;
+      &:hover {
+        background: url("../images/icons/@{image_name}_hover.png") no-repeat 0 3px;
+        text-decoration: none !important;
+        color: #333;
+      }
+    }
+
+    .comment-count {
+      .small-icon('comments');
+    }
+
+    .like-count {
+      .small-icon('heart');
+    }
+  }
+}

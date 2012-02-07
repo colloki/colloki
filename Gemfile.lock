@@ -59,6 +59,11 @@ GEM
     jammit (0.6.3)
       yui-compressor (>= 0.9.3)
     json (1.6.1)
+    less (1.2.21)
+      mutter (>= 0.4.2)
+      treetop (>= 1.4.2)
+    less-rails (1.0.0)
+      less (~> 1.2.21)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -67,6 +72,7 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.3)
     multipart-post (1.1.4)
+    mutter (0.5.3)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -150,6 +156,7 @@ DEPENDENCIES
   dynamic_form
   gravatar_image_tag
   jammit
+  less-rails
   nokogiri
   omniauth-facebook
   omniauth-openid

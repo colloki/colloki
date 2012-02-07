@@ -1,18 +1,51 @@
-.sidebar-story {
-  .favicon {
-    margin-right: 5px;
+// (Right) Sidebar CSS
+
+.sidebar {
+  .sidebar-story {
+    .favicon {
+      margin-right: 5px;
+    }
+    margin-bottom: 10px;
+    font-weight: 300;
   }
-  margin-bottom: 10px;
-  font-weight: 300;
-}
 
-.sidebar-story-thumb {
-  width: 5em;
-  float: left;
-  margin-left: 5px;
-  margin-top: 3px;
-}
+  .sidebar-story-thumb {
+    width: 5em;
+    float: left;
+    margin-left: 5px;
+    margin-top: 3px;
+  }
 
-.sidebar-story-content {
-  margin-left: 0px !important;
+  .sidebar-story-content {
+    margin-left: 0px !important;
+  }
+
+  // Topic Keywords
+  .topic-keywords {
+    line-height: 26px;
+    .topic-keyword {
+      margin: 10px 2px;
+      margin-left: 0px;
+      a {
+        color: #888;
+        &:hover {
+          text-decoration: none;
+          color: #555;
+        }
+      }
+    }
+  }
+
+  // Activity Items
+  .activity-item {
+    font-weight: 300;
+    margin-bottom: 10px;
+    small {
+      color: #888;
+      font-weight: 300;
+      a {
+        font-weight: 300;
+      }
+    }
+  }
 }

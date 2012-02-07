@@ -1,61 +1,19 @@
-@import "comments.less";
+// The entire site's CSS, imports other *.less files
+
 @import "sidebar.less";
+@import "comments.less";
+@import "carousel.less";
+@import "footer.less";
+
+@import "topic.less";
 @import "story.less";
 @import "user.less";
-@import "activity.less";
+@import "discussion.less";
 
 body {
   padding-top: 50px;
   h4 {
     margin-bottom : 10px;
-  }
-}
-
-h5 {
-  line-height: 20px;
-}
-
-.meta {
-  color: #888;
-  font-size: 12px;
-  font-weight: 300;
-  line-height: 16px;
-  
-  a {
-    color: #555;
-  }
-  
-  .small-icon (@url: '') {
-    color: #ccc;
-    background: url("../images/icons/@{url}.png") no-repeat 0 3px;
-    padding-left: 14px;
-    &:hover {
-      background: url("../images/icons/@{url}_hover.png") no-repeat 0 3px;
-      text-decoration: none !important;
-      color: #333;
-    }
-  }
-
-  .comment-count {
-    .small-icon('comments');
-  }
-
-  .like-count {
-    .small-icon('heart');
-  }
-}
-
-.favicon {
-  float: left;
-  margin-top: 2px;
-  margin-right: 2px;
-  opacity: 0.5;
-  &:hover {
-    opacity: 1;
-  }
-  img {
-    height: 12px;
-    width: 12px;
   }
 }
 
@@ -73,92 +31,43 @@ h5 {
   }
 }
 
-.topic-words {
-  a, a:visited {
-    color: #333;
+h5 {
+  line-height: 20px;
+}
+
+// Favicons of sites
+.favicon {
+  float: left;
+  margin-top: 2px;
+  margin-right: 2px;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+  img {
+    height: 12px;
+    width: 12px;
   }
 }
 
-footer {
-  color: #ccc;
-  .pull-right {
-    a {
-      color: #aaa;
-    }
-  }
-}
-
-#facebook-btn {
-  display: inline-block;
-  width: 150px;
-  height: 23px;
-  background: 0px -24px url('images/facebook_signin.png');
-}
-
-.activity-item {
-  font-weight: 300;
-  margin-bottom: 10px;
-  small {
-    color: #888;
-    font-weight: 300;
-    a {
-      font-weight: 300;
-    }
-  }
-}
-
+// Small button
 .small-btn {
   font-size: 11px !important;
   padding: 0px 3px !important;
   font-weight: normal !important;
 }
 
-/** Topic Keywords **/
-
-.topic-keywords {
-  line-height: 26px;
-  .topic-keyword {
-    margin: 10px 2px;
-    margin-left: 0px;
-    a {
-      color: #888;
-      &:hover {
-        text-decoration: none;
-        color: #555;
-      }
-    }
-  }
-}
-
+// OR separator between different service logins and site's login system
 #OR {
   font-size: 20px;
   font-style: italic;
   text-align: center;
 }
 
-/** Carousel **/
-
-#stories-carousel {
-  min-width: 100%;
-  .item {
-    height: 300px;
-    a {
-      display: block;
-      text-align: center;
-    }
-    .carousel-caption {
-      a {
-        text-align: left;
-        color: #fff !important;
-      }
-    }
-    
-  }
-}
-
-/** Footer **/
-
-.small-rss-icon {
-  float: left;
-  padding-right: 10px;
+// Facebook Sign In button
+#facebook-btn {
+  display: inline-block;
+  width: 150px;
+  height: 23px;
+  background: 0px -24px url('images/facebook_signin.png');
 }

@@ -27,7 +27,7 @@ module TopicsHelper
   end
 
   def story_item_meta(story)
-    html = "<div class=\"meta\">"
+    html = "<div class=\"story-item-meta\">"
     if story.kind != Story::Rss
       html << "Posted by #{story_item_icon(story)} #{link_to story.user.login,
       { :controller => "users", :action => "show", :id => story.user.id }} "
