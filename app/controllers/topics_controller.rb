@@ -51,6 +51,7 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find(params[:id])
     @stories = Story.find_for_topic(@topic.id, params[:sort], params[:page])
+    @stories_with_photos = Story.find_with_photos_for_topic(@topic.id, params[:sort])
     @tags = @topic.stories.tag_counts
     @activity_items = ActivityItem.find_for_topic(@topic.id)
     @top_users = User.top_in_topic(@topic.id)

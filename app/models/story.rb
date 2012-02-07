@@ -89,6 +89,17 @@ class Story < ActiveRecord::Base
     :order => order)
   end
 
+  def self.find_with_photos_for_topic(topic_id, sort_by)
+    if sort_by == 'newest'
+        order = "created_at DESC"
+    elsif sort_by == 'votes'
+      order = "created_at DESC"
+    else
+      order = "popularity DESC, created_at DESC"
+    end
+    find :all, :order => order, :conditions => ["topic_id = ? and image_file_size != ''", topic_id], :limit => 20
+  end
+
   def self.find_by_user(user_id, limit=10)
     find :all,
     :order => "created_at DESC",
