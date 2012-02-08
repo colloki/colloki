@@ -11,6 +11,7 @@
   
   <%= stylesheet_link_tag "bootstrap.css" %>
   <%= stylesheet_link_tag "site.less", :rel => "stylesheet/less" %>
+
   <%= include_javascripts :common %>
 
   <!-- UserVoice for feedback -->
@@ -35,9 +36,6 @@
         </form>
         <div class="nav-collapse">
           <ul class="nav">
-            <li>
-              <%= link_to "Discuss", discuss_url %>
-            </li>
             <% if logged_in? %>
               <% if request.filtered_parameters["controller"] === "users" &&
                 request.filtered_parameters["action"] === "show" %>
@@ -80,6 +78,15 @@
     <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
       <% if @topics %>
         <ul class="nav nav-pills">
+          <% if request.filtered_parameters["controller"] === "discuss" &&
+            request.filtered_parameters["action"] === "index" %>
+            <li class="active">
+          <% else %>
+            <li>
+          <% end %>
+            <%= link_to "Discuss", discuss_url %>
+          </li>
+          <!-- <li style="margin-top: 9px; color: #ccc">|</li> -->
           <% if request.filtered_parameters["controller"] === "topics" &&
             request.filtered_parameters["action"] === "latest" %>
             <li class="active">

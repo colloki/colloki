@@ -2,8 +2,7 @@ $(function() {
   window.CommentsListView = Backbone.View.extend({
 
     events: {
-      "click .add-comment": "add",
-      "keydown .comment-body": "add"
+      "click .add-comment": "add"
     },
 
     initialize: function(data, story_id, user_id) {
@@ -38,7 +37,6 @@ $(function() {
 
     // Save a new comment
     add: function(e) {
-      if (e.keyCode && e.keyCode != 13) { return; };
       var c = new Comment();
       var self = this;
       self.collection.add(c);

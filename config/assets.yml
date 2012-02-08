@@ -15,8 +15,3 @@ javascripts:
     - public/javascripts/app/**/*.js
     - public/javascripts/application.js
     - app/views/**/*.jst
-
-stylesheets:
-  common:
-    - public/stylesheets/bootstrap/bootstrap.less
-    - public/stylesheets/site.less

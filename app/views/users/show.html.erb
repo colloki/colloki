@@ -33,13 +33,14 @@
   <div class="tab-content">
     <div class="tab-pane active" id="posts">
       <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
+      <% if @stories.count == 0 %>
+        <em>No posts yet</em>
+      <% end %>
       <% if @tags.count != 0 %>
         <h4>
           <%= @user.login %>'s tag cloud
         </h4>
         <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
-      <% else %>
-        <em>No posts yet</em>
       <% end %>
     </div>
     <div class="tab-pane" id="likes">

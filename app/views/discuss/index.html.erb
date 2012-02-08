@@ -1,48 +1,77 @@
 <ul class="breadcrumb">
   <li class="active">
-    <a href="/discuss">Discussion Dashboard</a>
+    <a href="/discuss">Discuss</a>
   </li>
 </ul>
 <div class="activity row">
-  <div class="span10">
+  <div class="span9">
     <% if logged_in? %>
-      <div class="clearfix">
-        <div class="input">
-          <textarea class="xxlarge" 
-                    placeholder="Start a new discussion..." 
-                    rows="5"></textarea>
+      <%= form_for :discuss, :url => discuss_path, :html => { :class => "form-horizontal" } do |f| %>
+        <h3>Start a new discussion</h3><br>
+        <div class="control-group">
+          <label class="control-label">
+            Title
+          </label>
+          <div class="controls">
+            <%= f.text_field :title,
+                             :class => "span6" %>
+          </div>
         </div>
-      </div>
-      <div class="clearfix">
-        <br>
-        <div class="input">
-          <a class="btn btn-primary">Post</a>
+        <div class="control-group">
+          <label class="control-label">
+            Message
+          </label>
+          <div class="controls">
+            <%= f.text_area :description,
+                            :rows => 5,
+                            :class => "span6" %>
+          </div>
         </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          Post Message
+        </button>
       </div>
+    <% end %>
     <% else %>
       <%= link_to "Sign Up", signup_url, :class => "btn btn-primary" %>
       <br><br>
       Sign Up to participate in discussions now.
-      <hr>
     <% end %>
+      <hr>
     <% for story in @stories %>
       <div class="story-activity">
         <div class="row">
-          <span class="span6" style="float: left; padding-right: 10px">
-            <%= story_item_title(story) %>
-            <%= story_item_content(story, 200, 240) %>
+          <span class="span1">
+            <% if story.user_id != -1 %>
+              <img alt="Gravatar" src="http://gravatar.com/avatar/<%= Digest::MD5.hexdigest(story.user.email) %>?size=48">
+            <% end %>
           </span>
-          <span class="span3">
+          <span class="span2">
             <%= story_item_thumbnail(story, "small") %>
           </span>
+          <span class="span6" style="float: left; padding-right: 10px">
+            <h4><%= story_item_title(story) %>
+              <% if story.user_id != -1 %>
+                by <a href="/users/<%= story.user_id %>"><%= story.user.login %></a>
+              <% end %>
+            </h4>
+            <%= story_item_content(story, 200, 240) %>
+          </span>
         </div>
+        <br>
         <div id="comments<%= story.id %>">
           <div class="comment-entries"></div>
             <div class="input">
             <% if logged_in? %>
-              <textarea class="xxlarge comment-body" 
+              <textarea class="span9 comment-body" 
                         placeholder="Post a reply..." 
-                        rows="2"></textarea>
+                        rows="3"></textarea>
+              <div class="clearfix">
+                <div class="input">
+                  <a class="btn pull-right add-comment">Reply</a>
+                </div>
+              </div>
             <% else %>
             <p>
               <%= link_to "Sign in", login_url, :class=>"small-btn btn" %> to comment
@@ -51,9 +80,13 @@
             </div>
         </div>
       </div>
+      <hr>
     <% end %>
   </div>
 </div>
+
+<%= will_paginate @stories, :renderer => PaginationListLinkRenderer %>
+
 <script>
   $(document).ready(function(e) {
     <% @stories.each do |story| %>

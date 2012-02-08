@@ -9,7 +9,7 @@ class Story < ActiveRecord::Base
   validates_presence_of :kind
 
   # prevent duplicate stories
-  validates_uniqueness_of :source_url
+  validates_uniqueness_of :source_url, :if => :is_rss?
 
   validates_presence_of :url, :if => :is_link?
 
@@ -34,6 +34,10 @@ class Story < ActiveRecord::Base
     kind == Story::Link
   end
 
+  def is_rss?
+    kind == Story::Rss
+  end
+
   # Regenerate the popularity score
   def update_popularity
     self.popularity = (self.votes.count * 10) + (self.comments.count * 5)
@@ -50,7 +54,10 @@ class Story < ActiveRecord::Base
 
   def self.popular(page)
     require 'will_paginate/array'
-    popular = find :all, :order => "published_at DESC", :limit => 50
+    popular = find :all, 
+                   :order => "published_at DESC", 
+                   :limit => 50, 
+                   :conditions => ["kind = ?", Story::Rss]
     popular.sort! { |a, b| b.popularity <=> a.popularity }
     popular.paginate(:page => page, :per_page => 9)
   end
@@ -68,7 +75,10 @@ class Story < ActiveRecord::Base
   end
 
   def self.latest_with_photos
-    find :all, :conditions => "image_file_size != ''", :order => "published_at DESC", :limit => 20
+    find :all, 
+         :conditions => ["image_file_size != '' and kind = ?", Story::Rss],
+         :order => "published_at DESC", 
+         :limit => 20
   end
 
   def self.search(query, page)
@@ -97,7 +107,10 @@ class Story < ActiveRecord::Base
     else
       order = "popularity DESC, created_at DESC"
     end
-    find :all, :order => order, :conditions => ["topic_id = ? and image_file_size != ''", topic_id], :limit => 20
+    find :all,
+         :order => order,
+         :conditions => ["topic_id = ? and image_file_size != '' and kind = ?", topic_id, Story::Rss],
+         :limit => 20
   end
 
   def self.find_by_user(user_id, limit=10)
