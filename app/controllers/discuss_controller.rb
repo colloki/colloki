@@ -34,7 +34,9 @@ class DiscussController < ApplicationController
       end
     end
 
-    @stories = @stories.paginate(:page => params[:page], :per_page => 5)
+    if @stories.count != 0
+      @stories = @stories.paginate(:page => params[:page], :per_page => 5)
+    end
 
     if logged_in?
       @user_id = current_user.id
