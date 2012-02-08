@@ -1,4 +1,5 @@
-<h1>Local news and groups' blogs</h1>
+<h2>Local news and groups' blogs</h2>
+<br>
 We get content from the following local blogs in Blacksburg and Montgomery County:
 <br><br>
 <ul>
@@ -17,34 +18,36 @@ We get content from the following local blogs in Blacksburg and Montgomery Count
   <li><a href="http://www.southwesttimes.com/">The Southwest Times</a></li>
   <li><a href="http://www.lwvmcva.org">LWVMCA</a></li>
 </ul>
+<hr>
 Did we miss a blog you read? Please send us a link using the following form or 
 <a href="mailto:ahuja.ankit@vt.edu">email us.</a>
 <br><br>
+
 <!-- TODO: make this form work -->
-<%= form_for :user, :url => users_path do |f| -%>
-  <div class="clearfix">
+
+<%= form_for :user, :url => users_path, :html => { :class => "form-horizontal" } do |f| %>
+  <div class="control-group">
     <label>
       Blog Link
     </label>
-    <div class="input">
-      <%= f.text_field :link, :class=>"xlarge" %>
+    <div class="controls">
+      <%= f.text_field :link, :class => "span5" %>
     </div>
   </div>
-  <div class="clearfix">
+  <div class="control-group">
     <label>
-      Description<span class="help-block">optional</span>
+      Description<p class="help-block">optional</p>
     </label>
-    <div class="input">
-      <%= f.text_area :description, :class=>"xlarge", :rows=>5 %>
+    <div class="controls">
+      <%= f.text_area :description, :class => "span5", :rows => 5 %>
     </div>
   </div>
-  <div class="actions">
-  <button type="submit" class="btn primary">
-    Send!
-  </button>
-</div>
-<% end -%>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">
+      Send!
+    </button>
+  </div>
+<% end %>
 <br><br>
 
-Have suggestions? <a href="mailto:ahuja.ankit@vt.edu">Email us</a>!<br>
-To know more about this research project, please see the <a href="/about">About</a> page.
+Have suggestions? <a href="mailto:ahuja.ankit@vt.edu">Email us</a>! To know more about this research project, please see the <a href="/about">About</a> page.

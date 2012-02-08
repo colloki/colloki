@@ -23,6 +23,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
     })();
   </script>
+
 </head>
 <body>
   <div class="navbar navbar-fixed-top">
@@ -69,12 +70,7 @@
   </div>
   <div class="container">
     <% places_without_topics_list = ["/login",
-      "/signup",
-      "/forgot_password",
-      "/reset_password",
-      "/about",
-      "/sources",
-      "/settings"] %>
+      "/signup"] %>
     <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
       <% if @topics %>
         <ul class="nav nav-pills">

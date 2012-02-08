@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   def new
-    @page_title = "Sign Up"
+    if logged_in?
+      redirect_back_or(root_url)
+    else
+      @page_title = "Sign Up"
+    end
   end
 
   def index
