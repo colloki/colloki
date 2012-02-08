@@ -85,7 +85,9 @@
   </div>
 </div>
 
-<%= will_paginate @stories, :renderer => PaginationListLinkRenderer %>
+<% if @stories.count != 0 %>
+  <%= will_paginate @stories, :renderer => PaginationListLinkRenderer %>
+<% end %>
 
 <script>
   $(document).ready(function(e) {
