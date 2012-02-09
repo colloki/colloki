@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class DiscussController < ApplicationController
   def index
     @page_title = "Discuss"
