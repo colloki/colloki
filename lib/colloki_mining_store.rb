@@ -5,7 +5,7 @@ require "cgi"
 class CollokiMiningStore
 
   # Class config variables
-  @@source                            = "http://click.cs.vt.edu/colloki_data_mining/"
+  @@source                            = "http://grumpy.cs.vt.edu/colloki_topic_modeling/"
   @@topics_path                       = "TopicsTerms.csv"
   @@document_topic_distribution_path  = "DocumentTopicsDist.csv"
   @@stories_path                      = "stories.csv"
