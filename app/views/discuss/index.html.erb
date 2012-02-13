@@ -34,9 +34,8 @@
       </div>
     <% end %>
     <% else %>
-      <%= link_to "Sign Up", signup_url, :class => "btn btn-primary" %>
-      <br><br>
-      Sign Up to participate in discussions now!
+      <%= link_to "Sign Up", signup_url, :class => "btn btn-primary" %> 
+      &nbsp;&nbsp;&nbsp;Sign Up to participate in discussions now!
     <% end %>
       <hr>
     <% for story in @stories %>
@@ -69,7 +68,7 @@
                         rows="3"></textarea>
               <div class="clearfix">
                 <div class="input">
-                  <a class="btn pull-right add-comment">Reply</a>
+                  <a class="btn small-btn pull-right add-comment">Reply</a>
                 </div>
               </div>
             <% else %>

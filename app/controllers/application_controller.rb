@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
     end
 
     def get_topics
-      @topics = Topic.find(:all, :order => "created_at DESC", :limit => @@topic_limit)
+      @today_topics = Topic.find(:all, :order => "created_at DESC", :limit => @@topic_limit)
     end
 end

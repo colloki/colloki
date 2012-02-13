@@ -6,7 +6,11 @@
   <link href="<%= feed_url %>" rel="alternate" title="RSS" type="application/rss+xml">
 
   <title>
-    Colloki <% if !@page_title.blank? %> - <%= @page_title %><% end %>
+    <% if @page_title.blank? %>
+      Virtual Town Square
+    <% else %>
+      VTS - <%= @page_title %>
+    <% end %>
   </title>
   
   <%= stylesheet_link_tag "bootstrap/css/bootstrap.css" %>
@@ -32,8 +36,8 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="<%=root_url%>" title="Colloki" tabIndex="1">
-          Colloki
+        <a class="brand" href="<%=root_url%>" title="Virtual Town Square" tabIndex="1">
+          Virtual Town Square
         </a>
         <form class="navbar-search pull-right" id="search" action="/search">
           <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
@@ -65,6 +69,7 @@
                 </ul>
               </li>
             <% else %>
+              <li><%= link_to "About", about_url %></li>
               <li><%= link_to "Sign in", login_url %></li>
             <% end %>
           </ul>
@@ -73,56 +78,99 @@
     </div>
   </div>
   <div class="container">
+    
+    <!-- Navigation -->
     <% places_without_topics_list = ["/login",
       "/signup"] %>
-    <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth') %>
-      <% if @topics %>
-        <ul class="nav nav-pills">
-          <% if request.filtered_parameters["controller"] === "discuss" &&
-            request.filtered_parameters["action"] === "index" %>
-            <li class="active">
-            <% icon = "icon-comment icon-white" %>
-          <% else %>
-            <li>
-            <% icon = "icon-comment" %>
-          <% end %>
-            <%= link_to ("<i class='" + icon + "'></i> Discuss").html_safe, discuss_url %>
-          </li>
-          <% if request.filtered_parameters["controller"] === "topics" &&
-            request.filtered_parameters["action"] === "latest" %>
-            <li class="active">
-            <% icon = "icon-time icon-white" %>
-          <% else %>
-            <li>
-            <% icon = "icon-time" %>
-          <% end %>
-            <%= link_to ("<i class='" + icon + "'></i> Latest").html_safe, latest_url %>
-          </li>
-          <% if request.filtered_parameters["controller"] === "topics" &&
-            request.filtered_parameters["action"] === "popular" %>
-            <li class="active">
-            <% icon = "icon-fire icon-white" %>
-          <% else %>
-            <li>
-            <% icon = "icon-fire" %>
-          <% end %>
-            <%= link_to ("<i class='" + icon + "'></i> Most Popular").html_safe, popular_url %>
-          </li>
-          <% for topic in @topics %>
-            <% if topic.stories.count != 0 %>
-              <% if (@story and @story.topic_id == topic.id) ||
-                (@topic and @topic.id == topic.id) %>
-                <li class="active">
-              <% else %>
-                <li>
-              <% end %>
-              <%= link_to topic.title, topical_path(topic) %>
-              </li>
+    
+    <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth' and @today_topics) %>
+       
+       <div class="row">
+        <div class="span4">
+          <ul class="nav nav-pills">
+            
+            <!-- Discuss -->
+            <% if request.filtered_parameters["controller"] === "discuss" &&
+              request.filtered_parameters["action"] === "index" %>
+              <li class="active">
+              <% icon = "icon-comment icon-white" %>
+            <% else %>
+              <li>
+              <% icon = "icon-comment" %>
             <% end %>
-          <% end %>
-        </ul>
-      <% end %>
+              <%= link_to ("<i class='" + icon + "'></i> Discuss").html_safe, discuss_url %>
+            </li>
+
+            <!-- Latest -->
+            <% if request.filtered_parameters["controller"] === "topics" &&
+              request.filtered_parameters["action"] === "latest" %>
+              <li class="active">
+              <% icon = "icon-time icon-white" %>
+            <% else %>
+              <li>
+              <% icon = "icon-time" %>
+            <% end %>
+              <%= link_to ("<i class='" + icon + "'></i> Latest").html_safe, latest_url %>
+            </li>
+
+            <!-- Most Popular -->
+            <% if request.filtered_parameters["controller"] === "topics" &&
+              request.filtered_parameters["action"] === "popular" %>
+              <li class="active">
+              <% icon = "icon-fire icon-white" %>
+            <% else %>
+              <li>
+              <% icon = "icon-fire" %>
+            <% end %>
+              <%= link_to ("<i class='" + icon + "'></i> Most Popular").html_safe, popular_url %>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pull-right">
+          <div class="row">
+            <!-- Time Period Selection for Topics -->
+            <div class="span1" style="width: 100px; margin-right: 0">
+              <ul class="nav nav-pills">
+                <li class="dropdown">
+                  <a class="dropdown-toggle active"
+                     data-toggle="dropdown"
+                     href="#">
+                     <i class="icon-list"></i>
+                     <span class="topic_when">Today</span>
+                     <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">This Week</a></li>
+                    <li><a href="#">This Month</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Topics for the chosen time period -->
+            <div class="span6" style="width: 400px; margin-left: 0">
+              <ul class="nav nav-pills">
+                <% for topic in @today_topics %>
+                  <% if topic.stories.count != 0 %>
+                    <% if (@story and @story.topic_id == topic.id) ||
+                      (@topic and @topic.id == topic.id) %>
+                      <li class="active">
+                    <% else %>
+                      <li>
+                    <% end %>
+                    <%= link_to topic.title, topical_path(topic) %>
+                    </li>
+                  <% end %>
+                <% end %>
+             </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
+
+    <!-- Message Notifications -->
     <% if flash[:notice] %>
       <div class="alert alert-success" data-dismiss="alert">
         <a class="close" href="#">&times;</a>
@@ -143,6 +191,8 @@
     <% end %>
     <%= yield %>
     <hr>
+
+    <!-- Footer -->
     <footer>
       <p class="pull-right">
         &copy; Virginia Tech ·
@@ -159,6 +209,7 @@
         <%= link_to image_tag("feed-icon-small.png"), "/feed", :class => "small-rss-icon" %>
       </p>
     </footer>
+
   </div>
 </body>
 </html>

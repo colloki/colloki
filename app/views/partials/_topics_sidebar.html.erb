@@ -1,4 +1,12 @@
 <div class="span3 sidebar">
+
+  <!-- Colloki Sign Up Note-->
+  <% if !logged_in? %>
+    <h4>What is VTS?</h4>
+    <%= colloki_description %>
+    <hr>
+  <% end %>
+
   <!-- Topic keywords -->
   <% if defined? topic and topic.topic_keywords %>
     <div class="topic-keywords">
@@ -15,13 +23,6 @@
       </span>
       <% end %>
     </div>
-    <hr>
-  <% end %>
-  
-  <!-- Colloki Sign Up -->
-  <% if !logged_in? %>
-    <h4>What is Colloki?</h4>
-    <%= colloki_description %>
     <hr>
   <% end %>
 
