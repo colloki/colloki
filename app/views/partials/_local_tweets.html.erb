@@ -1,0 +1,30 @@
+<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'list',
+  rpp: 30,
+  interval: 30000,
+  title: 'Local tweets!',
+  subject: 'Blacksburg and neighboring cities',
+  width: 220,
+  height: 250,
+  theme: {
+    shell: {
+      background: '#83a1b5',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#444444',
+      links: '#5294b3'
+    }
+  },
+  features: {
+    scrollbar: true,
+    loop: false,
+    live: true,
+    behavior: 'all'
+  }
+}).render().setList('vts_blacksburg', 'blacksburg-and-nearby').start();
+</script>

@@ -9,7 +9,7 @@
     Colloki <% if !@page_title.blank? %> - <%= @page_title %><% end %>
   </title>
   
-  <%= stylesheet_link_tag "bootstrap.css" %>
+  <%= stylesheet_link_tag "bootstrap/css/bootstrap.css" %>
   <%= stylesheet_link_tag "site.less", :rel => "stylesheet/less" %>
 
   <%= include_javascripts :common %>
@@ -57,6 +57,7 @@
               <% end %>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <%= current_user.login %>
+                  <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Settings", settings_url %></li>
@@ -80,27 +81,32 @@
           <% if request.filtered_parameters["controller"] === "discuss" &&
             request.filtered_parameters["action"] === "index" %>
             <li class="active">
+            <% icon = "icon-comment icon-white" %>
           <% else %>
             <li>
+            <% icon = "icon-comment" %>
           <% end %>
-            <%= link_to "Discuss", discuss_url %>
+            <%= link_to ("<i class='" + icon + "'></i> Discuss").html_safe, discuss_url %>
           </li>
-          <!-- <li style="margin-top: 9px; color: #ccc">|</li> -->
           <% if request.filtered_parameters["controller"] === "topics" &&
             request.filtered_parameters["action"] === "latest" %>
             <li class="active">
+            <% icon = "icon-time icon-white" %>
           <% else %>
             <li>
+            <% icon = "icon-time" %>
           <% end %>
-            <%= link_to "Latest", latest_url %>
+            <%= link_to ("<i class='" + icon + "'></i> Latest").html_safe, latest_url %>
           </li>
           <% if request.filtered_parameters["controller"] === "topics" &&
             request.filtered_parameters["action"] === "popular" %>
             <li class="active">
+            <% icon = "icon-fire icon-white" %>
           <% else %>
             <li>
+            <% icon = "icon-fire" %>
           <% end %>
-            <%= link_to "Most Popular", popular_url %>
+            <%= link_to ("<i class='" + icon + "'></i> Most Popular").html_safe, popular_url %>
           </li>
           <% for topic in @topics %>
             <% if topic.stories.count != 0 %>

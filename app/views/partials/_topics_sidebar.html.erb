@@ -17,24 +17,28 @@
     </div>
     <hr>
   <% end %>
+  
   <!-- Colloki Sign Up -->
   <% if !logged_in? %>
     <h4>What is Colloki?</h4>
     <%= colloki_description %>
     <hr>
   <% end %>
+
   <!-- Popular tags -->
   <% if tags and tags.count != 0 %>
     <h4>Popular Topics</h4>
     <%= render :partial => "partials/tag_cloud", :locals => {:tags => tags, :topic => nil} %>
     <hr>
   <% end %>
+
   <!-- Recent user activity -->
   <% if activity_items and activity_items.count != 0 %>
     <h4>Latest Activity</h4>
     <%= render :partial => "partials/activity_items", :locals => { :activity_items => activity_items } %>
     <hr>
   <% end %>
+
   <!-- New users -->
   <% if new_users and new_users.count != 0 %>
     <h4>New Users</h4>
@@ -44,5 +48,9 @@
       :title => user.login,
       :class => 'avatar' %>
     <% end %>
+    <hr>
   <% end %>
+
+  <!-- Local Tweets Widget -->
+  <%= render :partial => "partials/local_tweets" %>
 </div>

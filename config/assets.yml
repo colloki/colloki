@@ -7,7 +7,7 @@ javascripts:
   common:
     - public/javascripts/libs/jquery.js
     - public/javascripts/libs/less.js
-    - public/javascripts/bootstrap.min.js
+    - public/stylesheets/bootstrap/js/bootstrap.min.js
     - public/javascripts/libs/underscore.js
     - public/javascripts/libs/backbone.js
     - public/javascripts/libs/backbone_rails_sync.js
