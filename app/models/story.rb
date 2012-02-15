@@ -1,29 +1,27 @@
 class Story < ActiveRecord::Base
   # Constant Definitions
-  Link = 0
-  Post = 1
-  Rss = 2
+  Link  = 0
+  Post  = 1
+  Rss   = 2
 
-  validates_presence_of :title
-  validates_presence_of :description
-  validates_presence_of :kind
-
-  # prevent duplicate stories
-  validates_uniqueness_of :source_url, :if => :is_rss?
-
-  validates_presence_of :url, :if => :is_link?
-
-  validates_format_of :url,
-                      :with => /(^$)|(^(http|https):*)/ix,
-                      :message => "can only be a valid URL."
+  validates_presence_of   :title
+  validates_presence_of   :description
+  validates_presence_of   :kind
+  validates_uniqueness_of :source_url,  :if => :is_rss?
+  validates_presence_of   :url,         :if => :is_link?
+  validates_format_of     :url,
+                          :with => /(^$)|(^(http|https):*)/ix,
+                          :message => "can only be a valid URL."
   belongs_to :user
   belongs_to :topic
 
-  has_many :comments, :dependent => :destroy
+  has_many :comments,       :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
-  has_many :votes, :dependent => :destroy
+  has_many :votes,          :dependent => :destroy
 
-  has_attached_file :image, :styles => { :thumb => "200x150>", :medium => "250x250>" }
+  has_attached_file :image, :styles => { 
+    :thumb => "200x150>", 
+    :medium => "250x250>" }
 
   acts_as_taggable
 
@@ -75,15 +73,19 @@ class Story < ActiveRecord::Base
   end
 
   def self.latest_with_photos
-    find :all, 
-         :conditions => ["image_file_size != '' and kind = ?", Story::Rss],
+    find :all,
+         :conditions => ["image_file_size != '' and
+           image_file_name !='stringio.txt' and
+           kind = ?", Story::Rss],
          :order => "published_at DESC", 
          :limit => 20
   end
 
   def self.search(query, page)
     paginate(:page => page,
-    :conditions => [ "title like ? OR description like ? ", "%#{query}%", "%#{query}%"])
+      :conditions => [ "title like ? OR description like ? ",
+      "%#{query}%",
+      "%#{query}%"])
   end
 
   def self.find_for_topic(topic_id, sort_by, page)
@@ -109,22 +111,24 @@ class Story < ActiveRecord::Base
     end
     find :all,
          :order => order,
-         :conditions => ["topic_id = ? and image_file_size != '' and kind = ?", topic_id, Story::Rss],
+         :conditions => ["topic_id = ? and
+           image_file_size != '' and
+           kind = ?", topic_id, Story::Rss],
          :limit => 20
   end
 
   def self.find_by_user(user_id, limit=10)
     find :all,
-    :order => "created_at DESC",
-    :conditions => {:user_id => user_id},
-    :limit => limit
+         :order => "created_at DESC",
+         :conditions => {:user_id => user_id},
+         :limit => limit
   end
 
   def self.find_liked_by_user(user_id, limit=10)
     likes = Vote.find :all,
-    :order => "created_at DESC",
-    :conditions => {:user_id => user_id},
-    :limit => limit
+                      :order => "created_at DESC",
+                      :conditions => {:user_id => user_id},
+                      :limit => limit
     stories = []
     for like in likes
       stories.push(like.story)

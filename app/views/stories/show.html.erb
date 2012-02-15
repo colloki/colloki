@@ -10,7 +10,7 @@
     </a>
     <%= story_meta(@story) %>
     <div class="story-content">
-      <% if @story.image.exists? %>
+      <% if image_exists? @story.image_file_name %>
         <div class="story-image">
           <%= image_tag(@story.image.url) %>
         </div>

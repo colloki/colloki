@@ -49,4 +49,17 @@ module ApplicationHelper
     end
     html
   end
+
+  # Checks for the filename "stringio.txt" in addition to an empty string 
+  # to determine if a story image exists. This can be used across views 
+  # until we filter out invalid images at the time of saving.
+  def image_exists?(image_file_name)
+    if image_file_name and
+        image_file_name != "" and
+        image_file_name != "stringio.txt"
+      return true
+    else
+      return false
+    end
+  end
 end

@@ -1,14 +1,14 @@
 # encoding: utf-8
 module TopicsHelper
   def story_item_thumbnail(story, size="thumb")
-    if size == "medium"
-      img_url = story.image.url(:medium, :host => request.host)
-    elsif size == "original"
-      img_url = story.image.url(:original, :host => request.host)
-    else
-      img_url = story.image.url(:thumb, :host => request.host)
-    end
-    if story.image.exists?
+    if image_exists? story.image_file_name
+      if size == "medium"
+        img_url = story.image.url(:medium, :host => request.host)
+      elsif size == "original"
+        img_url = story.image.url(:original, :host => request.host)
+      else
+        img_url = story.image.url(:thumb, :host => request.host)
+      end
       return link_to image_tag(img_url), story
     else
       return ""
@@ -18,9 +18,14 @@ module TopicsHelper
   def story_item_icon(story)
     html = "<div class=\"favicon\">"
     if story.kind != Story::Rss
-      html << "#{link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login}"
+      html << "#{link_to gravatar_image_tag(story.user.email,
+                  :gravatar => { :size => 12 }),
+                  story.user,
+                  :title => story.user.login}"
     else
-      html << "#{link_to image_tag(favicon_url(story.source_url), :class => "storyItemIcon"), story.source_url}"
+      html << "#{link_to image_tag(favicon_url(story.source_url),
+                  :class => "storyItemIcon"),
+                  story.source_url}"
     end
     html << "</div>"
     return html.html_safe
@@ -57,15 +62,19 @@ module TopicsHelper
   end
 
   def story_item_content(story, length_with_image=-1, length_without_image=-1)
-    if story.image.exists?
+    if image_exists? story.image_file_name
       if length_with_image != -1
-        return truncate(strip_tags(story.description), :length => length_with_image, :omission => "...")
+        return truncate(strip_tags(story.description),
+                :length => length_with_image,
+                :omission => "...")
       else
         return strip_tags(story.description)
       end
     else
       if length_without_image != -1
-        return truncate(strip_tags(story.description), :length => length_without_image, :omission => "...")
+        return truncate(strip_tags(story.description),
+                :length => length_without_image,
+                :omission => "...")
       else
         return strip_tags(story.description)
       end
@@ -74,7 +83,9 @@ module TopicsHelper
 
   def story_item_title(story, length=-1)
     if length != -1
-      title = truncate(strip_tags(story.title), :length => length, :omission => "...")
+      title = truncate(strip_tags(story.title),
+                :length => length,
+                :omission => "...")
     else
       title = strip_tags(story.title)
     end

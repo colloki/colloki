@@ -36,36 +36,51 @@ module StoriesHelper
   def story_likers(likers)
     html = ""
     for user in likers
-      html += link_to gravatar_image_tag(user.email, :gravatar => { :size => 24 }),
-      user,
-      :id => "liker#{user.id}",
-      :class => "story-liker",
-      :title => user.login
+      html += link_to gravatar_image_tag(user.email,
+                :gravatar => { :size => 24 }),
+                user,
+                :id => "liker#{user.id}",
+                :class => "story-liker",
+                :title => user.login
     end
     html.html_safe
   end
 
+  def sidebar_story_image(story)
+    if image_exists? story.image_file_name
+      return link_to image_tag(story.image.url(:thumb), :class=>'sidebar-story-thumb'), story
+    else
+      return ""
+    end
+  end
+
   def sidebar_story(story)
     html = "<div class='sidebar-story row'>"
-    if story.image.exists?
+
+    if image_exists? story.image_file_name
       html += "<div class='span1' style='width: 100px;'>"
     else
       html += "<div class='span'>"
     end
+
     if story.kind == Story::Rss
       html += link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url
     else
-      html += link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 12 }), story.user, :title => story.user.login
+      html += link_to gravatar_image_tag(story.user.email,
+                :gravatar => { :size => 12 }),
+                story.user,
+                :title => story.user.login
     end
-    if story.image.exists?
-      html += link_to image_tag(story.image.url(:thumb), :class=>'sidebar-story-thumb'), story
-    end
+
+    html += sidebar_story_image(story)
     html += "</div>"
-    if story.image.exists?
+
+    if image_exists? story.image_file_name
       html += "<div class='span2 sidebar-story-content'>"
     else
       html += "<div class='span3 sidebar-story-content'>"
     end
+
     html += link_to story.title, story
     html += "</div>"
     html += "</div>"

@@ -97,6 +97,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
               new_story.topic_id = -1
             end
             if story["image-url"] && story["image-url"] != ""
+              # TODO: Only save image here if it was properly fetched
               new_story.image = open(URI::escape(story["image-url"]))
             end
             new_story.views = 0
