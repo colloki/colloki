@@ -15,18 +15,18 @@ class ProviderAuthenticationsController < ApplicationController
     # If the authentication exists, log the user in
     if authentication
       self.current_user = authentication.user
-      redirect_to("/", :notice => "Welcome #{self.current_user.login}")
+      redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
 
     # If the user is already logged in, create a new authentication for the user
     elsif self.current_user
       self.current_user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
-      redirect_to("/", :notice => "Welcome #{self.current_user.login}")
+      redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
 
     # If an account for this user already exists, connect with that account and log the user in
     elsif user = User.find_by_email(omniauth['info']['email'])
       user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       self.current_user = user
-      redirect_to("/", :notice => "Welcome #{self.current_user.login}")
+      redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
 
     # Create a new user
     else
@@ -35,7 +35,7 @@ class ProviderAuthenticationsController < ApplicationController
       if user.save
         self.current_user = user
         self.current_user.activate
-        redirect_to("/", :notice => "Welcome #{self.current_user.login}")
+        redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
       else
         # show a page where user can enter login/email
         session[:omniauth] = omniauth.except('extra')
@@ -53,9 +53,9 @@ class ProviderAuthenticationsController < ApplicationController
     if user.save!
       self.current_user = user
       self.current_user.activate
-      redirect_to("/", :notice => "Welcome #{self.current_user.login}")
+      redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
     else
-      redirect_to("/")
+      redirect_to(root_url)
     end
   end
 
