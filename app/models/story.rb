@@ -96,9 +96,10 @@ class Story < ActiveRecord::Base
     else
       order = "popularity DESC, created_at DESC"
     end
+
     paginate(:page => page,
-    :conditions => {:topic_id => topic_id},
-    :order => order)
+      :conditions => {:topic_id => topic_id},
+      :order => order)
   end
 
   def self.find_with_photos_for_topic(topic_id, sort_by)
@@ -113,6 +114,7 @@ class Story < ActiveRecord::Base
          :order => order,
          :conditions => ["topic_id = ? and
            image_file_size != '' and
+           image_file_name != 'stringio.txt' and
            kind = ?", topic_id, Story::Rss],
          :limit => 20
   end

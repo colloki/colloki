@@ -18,8 +18,20 @@
         <% end %>
       <% end %>
     </div>
-    <!-- Carousel nav -->
-    <a class="carousel-control left" href="#stories-carousel" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#stories-carousel" data-slide="next">&rsaquo;</a>
+    <% if stories.count != 1 %>
+      <!-- Carousel nav -->
+      <a class="carousel-control left" href="#stories-carousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#stories-carousel" data-slide="next">&rsaquo;</a>
+    <% end %>
   </div>
+<% end %>
+
+<% if stories.count > 1 %>
+   <script type='text/javascript'>
+     $(document).ready(function(e) {
+      $('.carousel').carousel({
+        interval: 5000
+      });
+    });
+  </script>
 <% end %>

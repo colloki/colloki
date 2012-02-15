@@ -2,9 +2,6 @@
 // This file is automatically included by javascript_include_tag :defaults
 $(document).ready(function(e) {
   $(".topbar").dropdown();
-  $('.carousel').carousel({
-    interval: 5000
-  });
   // $(".like-count, .comment-count, .like-btn").twipsy({
   //   animate: false,
   //   delayIn: 10
