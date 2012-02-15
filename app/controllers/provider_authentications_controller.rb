@@ -63,4 +63,9 @@ class ProviderAuthenticationsController < ApplicationController
   # DELETE /provider_authentications/1.xml
   def destroy
   end
+
+  def failure
+    flash[:notice] = params[:message]
+    redirect root_url
+  end
 end

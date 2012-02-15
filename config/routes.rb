@@ -34,6 +34,7 @@ Colloki::Application.routes.draw do
   match 'topics/:id', :to => 'topics#show', :as => 'topical'
 
   match 'auth/:provider/callback', :to => 'provider_authentications#create'
+  match 'auth/failure', :to => 'provider_authentications#failure'
 
   match 'latest', :to => 'topics#latest'
   match 'popular', :to => 'topics#popular'
