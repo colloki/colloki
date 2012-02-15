@@ -1,4 +1,5 @@
 class ProviderAuthenticationsController < ApplicationController
+
   # GET /provider_authentications
   # GET /provider_authentications.xml
   def index
@@ -22,7 +23,7 @@ class ProviderAuthenticationsController < ApplicationController
       redirect_to("/", :notice => "Welcome #{self.current_user.login}")
 
     # If an account for this user already exists, connect with that account and log the user in
-    elsif user = User.find_by_email(omniauth['user_info']['email'])
+    elsif user = User.find_by_email(omniauth['info']['email'])
       user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       self.current_user = user
       redirect_to("/", :notice => "Welcome #{self.current_user.login}")
@@ -38,8 +39,8 @@ class ProviderAuthenticationsController < ApplicationController
       else
         # show a page where user can enter login/email
         session[:omniauth] = omniauth.except('extra')
-        @login = omniauth['user_info']['nickname']
-        @email = omniauth['user_info']['email']
+        @login = omniauth['info']['nickname']
+        @email = omniauth['info']['email']
       end
     end
   end
