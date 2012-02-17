@@ -50,7 +50,7 @@ class ProviderAuthenticationsController < ApplicationController
     user.apply_omniauth(session['omniauth'])
     user.login = params[:user]['login']
     user.email = params[:user]['email']
-    if user.save!
+    if user.save
       self.current_user = user
       self.current_user.activate
       redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
