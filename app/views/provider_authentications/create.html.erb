@@ -1,18 +1,18 @@
 <h2>
-  Complete Sign Up
+  Please complete sign up
 </h2>
 <hr>
 
 <%= error_messages_for :user %>
 
-<%= form_for :user, :url => complete_signup_url, :html => { :class => "form_horizontal" } do |f| -%>
+<%= form_for :user, :url => complete_signup_url, :html => { :class => "form-horizontal" } do |f| -%>
   <div class="control-group">
     <label for="login" class="control-label">
       Pick a username
+      <p class="help-block">Cannot have spaces or any other special characters</p>
     </label>
     <div class="controls">
       <%= f.text_field :login, :value => @login %>
-      <p class="help-block">Cannot have spaces or any other special characters</p>
     </div>
   </div>
 

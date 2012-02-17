@@ -55,7 +55,7 @@ class ProviderAuthenticationsController < ApplicationController
       self.current_user.activate
       redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
     else
-      redirect_to(root_url)
+      render :action => 'create'
     end
   end
 
