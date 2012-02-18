@@ -1,14 +1,31 @@
 <div class="breadcrumb"><%= @story.topic.title %></div>
 <div class="row">
   <div class="span8 story">
-    <h2>
-      <%= story_title(@story) %>
-    </h2>
-    <a class="like-btn btn">
-      <div class="vote-count">
+    <div class="row">
+      <div class="span5">
+        <div class="row" style="margin-left: 0px">
+          <h2>
+            <%= story_title(@story) %>
+          </h2>
+        </div>
+        <div class="row" style="margin-left: 0px; margin-top: 5px">
+          <%= story_meta(@story) %>
+        </div>
       </div>
-    </a>
-    <%= story_meta(@story) %>
+      <div class="span2 pull-right" style="width: 175px; margin-top: 5px">
+        <div class="row pull-right">
+            <a class="like-btn btn">
+              <div class="vote-count">
+              </div>
+            </a>
+        </div>
+        <div class="row pull-right" style="margin-top: 10px">
+          <%= render :partial => "partials/share_button",
+          :locals => { :story => @story } %>
+        </div>
+      </div>
+    </div>
+
     <div class="story-content">
       <% if image_exists? @story.image_file_name %>
         <div class="story-image">
@@ -17,6 +34,7 @@
       <% end %>
       <%= sanitize(@story.description) %>
     </div>
+
     <% if @story.kind == Story::Rss %>
       <hr>
       <div class="story-footer">
@@ -24,6 +42,7 @@
       </div>
     <% end %>
     <hr>
+
     <div id="story-likers">
       <% if @likers.count != 0 %>
         <h4>

@@ -14,21 +14,33 @@ module StoriesHelper
 
   def story_meta(story)
     html = "<div class=\"story-meta\">"
+
     if story.kind != Story::Rss
       html << "by #{link_to story.user.login, story.user} • "
       html << "#{time_ago_in_words @story.published_at} ago "
+
       if logged_in? and story.user_id == current_user.id
         html << "• #{link_to 'edit', edit_story_path(story), :class=>'btn'} • "
         html << "#{link_to 'delete', story,
-        :confirm => 'Are you sure you want to delete this post? You will not be able to restore it later.',
-        :method => :delete,
-        :class => 'btn error'}"
+                    :confirm => 'Are you sure you want to delete this post?
+                      You will not be able to restore it later.',
+                    :method => :delete,
+                    :class => 'btn error'}"
       end
     else
-      html << "#{link_to image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "favicon"), story.source_url}"
+      img = image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "favicon")
+      html << "#{link_to img, story.source_url}"
+
       html << "#{link_to story.source, story.source_url} • "
-      html << "#{time_ago_in_words @story.published_at} ago "
+      html << "#{time_ago_in_words @story.published_at} ago • "
     end
+
+    html << story.popularity.to_s
+    html << " <i style='margin-top:1px' class='icon-fire'></i> • "
+
+    html << story.comments.count.to_s
+    html << " <i style='margin-top:1px' class='icon-comment'></i>"
+
     html << "</div>"
     html.html_safe
   end
