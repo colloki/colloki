@@ -8,10 +8,10 @@ $(function() {
     initialize: function(data, story_id, user_id) {
       _.bindAll(this, 'render', 'add', 'addAll', 'append', 'remove');
 
-      this.el = $("#comments" + story_id);
-      this.input = $(".comment-body", this.el);
+      this.el       = $("#comments" + story_id);
+      this.input    = $(".comment-body", this.el);
       this.story_id = story_id;
-      this.user_id = user_id;
+      this.user_id  = user_id;
       this.delegateEvents();
 
       this.collection = new Comments();

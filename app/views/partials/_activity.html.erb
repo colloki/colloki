@@ -1,0 +1,23 @@
+<% for activity in activity_items %>
+  <div class='activity-item row'>
+    <div class='span1' style='width: 30px;'>
+      <%= link_to gravatar_image_tag(activity.user.email, :gravatar => { :size => 28 }) %>
+    </div>
+    <div class='span8' style='margin-left: 10px; margin-top: -2px;'>
+      <%= link_to activity.user.login,      :controller => "users",
+                                            :action     => "show",
+                                            :id         => activity.user.id %>
+      <%= activity.sentence %>
+      <% if activity.comment %>
+        <em><%= activity.comment.body %></em> on
+      <% end %>
+      <%= link_to activity.story.title,     :controller  => "stories",
+                                            :action      => "show",
+                                            :id          => activity.story.id  %>
+      <div class="activity-at">
+        <%= time_ago_in_words activity.created_at %> ago
+      </div>
+    </div>
+  </div>
+  <hr>
+<% end %>

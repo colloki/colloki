@@ -43,12 +43,12 @@ class StoriesController < ApplicationController
     @comments = []
     @story.comments.each do |comment|
       @comments.push({
-        :id => comment.id,
-        :body => comment.body,
-        :user_login => comment.user.login,
-        :user_email_hash => Digest::MD5.hexdigest(comment.user.email),
-        :user_id => comment.user.id,
-        :timestamp => comment.created_at
+        :id               => comment.id,
+        :body             => comment.body,
+        :user_login       => comment.user.login,
+        :user_email_hash  => Digest::MD5.hexdigest(comment.user.email),
+        :user_id          => comment.user.id,
+        :timestamp        => comment.created_at
       })
     end
 
