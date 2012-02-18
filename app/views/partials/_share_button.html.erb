@@ -6,9 +6,17 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="">Facebook</a></li>
-      <li><a href="">Twitter</a></li>
-      <li><a href="">Email</a></li>
+      <li><a href="#"
+             target="_blank"
+             onclick="window.open('http://www.facebook.com/sharer.php?u=<%=request.url%>', 
+             'Share on Facebook',
+             'height=500,width=500'); return false;">Facebook</a></li>
+      <li><a href="#"
+             target="_blank"
+             onclick="window.open('http://twitter.com/share?url=<%= request.url %>', 
+             'Share on Twitter',
+             'height=500,width=700'); return false;">Twitter</a></li>
+      <li><a href="#">Email this story</a></li>
     </ul>
   </div>
 </div>
