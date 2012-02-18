@@ -19,7 +19,9 @@ class StoriesController < ApplicationController
 
     if @story.source
       @more_stories_from_source = Story.find :all,
-        :conditions => "source = '#{@story.source}' AND id != #{@story.id}",
+        :conditions => "source = '#{@story.source}' 
+                        AND id != #{@story.id} 
+                        AND topic_id != #{@topic.id}",
         :order => "created_at DESC",
         :limit => 5
     end
