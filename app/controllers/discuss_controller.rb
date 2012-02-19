@@ -63,15 +63,14 @@ class DiscussController < ApplicationController
       story.published_at = DateTime.now
       if story.save
         flash[:notice] = "Your story '" << story.title << "' was successfully posted!"
+        # create activity
+        activity = ActivityItem.create(
+          :story_id => story.id,
+          :user_id  => current_user.id,
+          :topic_id => params[:discuss][:topic].to_i,
+          :kind     => ActivityItem::CreatePostType)
+        activity.save
       end
-      
-      # create activity
-      activity = ActivityItem.create(
-        :story_id => story.id,
-        :user_id  => current_user.id,
-        :topic_id => params[:discuss][:topic].to_i,
-        :kind     => ActivityItem::CreatePostType)
-      activity.save
     else
       flash[:alert] = 'You need to be logged in to post a story!'
     end
