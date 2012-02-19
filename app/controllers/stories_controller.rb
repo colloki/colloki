@@ -2,6 +2,7 @@ class StoriesController < ApplicationController
   # TODO: The URL for this action is currently http://site/stories/<ID>.
   # It needs to be http://site/topic/<Topic_ID>/story/<ID>
   # or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>
+  #
   def show
     @story = Story.find(params[:id])
 
@@ -42,7 +43,10 @@ class StoriesController < ApplicationController
       @story.views = @story.views + 1
     end
 
-    @story.update_popularity
+    if !current_user or current_user == @story.user
+      @story.increase_popularity(Story::ScoreVisit)
+    end
+
     @story.save
 
     @likers = []

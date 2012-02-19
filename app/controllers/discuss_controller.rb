@@ -10,7 +10,8 @@ class DiscussController < ApplicationController
     @stories = []
     @story_activities = Hash.new
     for activity in activities
-      if activity.kind == ActivityItem::CommentType or activity.kind == ActivityItem::CreatePostType
+      if activity.kind == ActivityItem::CommentType or 
+          activity.kind == ActivityItem::CreatePostType
         if !@story_activities.has_key?(activity.story_id)
           @story_activities[activity.story_id] = [activity]
           @stories.push(Story.find(activity.story_id))
@@ -61,6 +62,8 @@ class DiscussController < ApplicationController
       story.user_id = current_user.id
       story.source_url = ""
       story.published_at = DateTime.now
+      # Give the user posted story an initial kick of popularity
+      story.increase_popularity(Story::ScorePost)
       if story.save
         flash[:notice] = "Your story '" << story.title << "' was successfully posted!"
         # create activity

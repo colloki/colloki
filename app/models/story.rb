@@ -4,6 +4,20 @@ class Story < ActiveRecord::Base
   Post  = 1
   Rss   = 2
 
+  # Scoring criteria:
+  #
+  # User Post: 30
+  # Comment: 20
+  # Share on Twitter, Facebook, Google+, Email: 10
+  # Like:    5
+  # Visit:   1
+  #
+  ScorePost       = 30
+  ScoreComment    = 20
+  ScoreShare      = 10
+  ScoreVote       = 5
+  ScoreVisit      = 1
+
   validates_presence_of   :title
   validates_presence_of   :description
   validates_presence_of   :kind
@@ -36,18 +50,14 @@ class Story < ActiveRecord::Base
     kind == Story::Rss
   end
 
-  # Regenerate the popularity score
-  def update_popularity
-    self.popularity = (self.votes.count * 10) + (self.comments.count * 5)
+  # increase popularity of story
+  def increase_popularity(score)
+    self.popularity = self.popularity + score
   end
 
-  # update popularity for all stories
-  def self.update_popularity_all
-    stories = Story.all
-    stories.each do |story|
-      story.update_popularity
-      story.save
-    end
+  # decrease popularity of story
+  def decrease_popularity(score)
+    self.popularity = self.popularity - score
   end
 
   def self.popular(page)

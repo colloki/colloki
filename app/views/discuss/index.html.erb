@@ -6,33 +6,7 @@
 <div class="activity row">
   <div class="span9">
     <% if logged_in? %>
-      <%= form_for :discuss, :url => discuss_path, :html => { :class => "form-horizontal" } do |f| %>
-        <h3>Start a new discussion</h3><br>
-        <div class="control-group">
-          <label class="control-label">
-            Title
-          </label>
-          <div class="controls">
-            <%= f.text_field :title,
-                             :class => "span6" %>
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">
-            Message
-          </label>
-          <div class="controls">
-            <%= f.text_area :description,
-                            :rows => 5,
-                            :class => "span6" %>
-          </div>
-        </div>
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">
-          Share
-        </button>
-      </div>
-    <% end %>
+      <%= render :partial => "partials/post_input", :locals => {:topic => nil} %>
     <% else %>
       <%= link_to "Sign Up", signup_url, :class => "btn btn-primary" %> 
       &nbsp;&nbsp;&nbsp;Sign Up to participate in discussions now!

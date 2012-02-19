@@ -4,7 +4,7 @@ class VotesController < ApplicationController
       story = Story.find(params[:story_id])
       if !current_user.voted_on?(story)
         @vote = current_user.vote(story)
-        story.update_popularity
+        story.increase_popularity(Story::ScoreVote)
         story.save
         current_user.activity_items.create(
           :story_id => story.id,
@@ -27,6 +27,8 @@ class VotesController < ApplicationController
       vote = Vote.find(params[:id])
 
       if current_user.voted_on?(vote.story)
+        vote.story.decrease_popularity(Story::ScoreVote)
+        vote.story.save
         vote.activity_item.delete
         current_user.unvote(vote)
       else

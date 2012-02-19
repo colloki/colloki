@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 
       # increment story popularity
       story = Story.find(params[:story_id])
-      story.update_popularity
+      story.increase_popularity(Story::ScoreComment)
       story.save
 
       # create activity
@@ -40,6 +40,8 @@ class CommentsController < ApplicationController
     if logged_in?
       comment = Comment.find params["id"]
       if comment.user == current_user
+        comment.story.decrease_popularity(Story::ScoreComment)
+        comment.story.save
         comment.activity_item.delete
         comment.delete
       end

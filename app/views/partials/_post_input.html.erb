@@ -14,7 +14,7 @@
         <div class="controls">
           <%= f.text_area :description,
                           :rows => 5,
-                          :placeholder => "Your text",
+                          :placeholder => "Your message...",
                           :class => "span6" %>
         </div>
       </div>
@@ -22,6 +22,13 @@
         <label><strong>Add a Photo</strong></label>
         <div class="controls">
           <%= f.file_field :photo %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label><strong>Share on...</strong></label>
+        <div class="controls">
+          <%= f.check_box :twitter %> Twitter&nbsp;&nbsp;&nbsp;
+          <%= f.check_box :facebook %> Facebook
         </div>
       </div>
       <%= f.hidden_field :topic,
