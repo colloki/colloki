@@ -18,9 +18,9 @@ module StoriesHelper
     if story.kind != Story::Rss
       html << "by #{link_to story.user.login, story.user} • "
       if @story.published_at
-        html << "#{time_ago_in_words @story.published_at} ago "
+        html << "#{time_ago_in_words @story.published_at} ago • "
       else
-        html << "#{time_ago_in_words @story.created_at} ago "
+        html << "#{time_ago_in_words @story.created_at} ago • "
       end
     else
       img = image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "favicon")
@@ -53,8 +53,23 @@ module StoriesHelper
     html << "<span class='caret'></span>"
     html << "</a>"
     html << "<ul class='dropdown-menu'>"
-    html << "<li><a href='#'>Delete</a></li>"
+    html << "<li>"
+    html << "<a data-toggle='modal' href='#delete_confirm_" << story.id.to_s << "'>Delete</a>"
+    html << "</li>"
     html << "</ul>"
+    html << "</div>"
+    html << "<div class='modal' style='display:none;' id='delete_confirm_" << story.id.to_s << "'>"
+    html << "<div class='modal-header'>"
+    html << "<a class='close' data-dismiss='modal'>&times;</a>"
+    html << "<h3>Are you sure?</h3>"
+    html << "</div>"
+    html << "<div class='modal-body'>"
+    html << "<p>You want to delete '" << story.title << "'</p>"
+    html << "</div>"
+    html << "<div class='modal-footer'>"
+    html << "<a href='#' class='btn' data-dismiss='modal'>Cancel</a>"
+    html << (link_to "Ok", story, :method => :delete, :class => 'btn btn-danger')
+    html << "</div>"
     html << "</div>"
     html.html_safe
   end

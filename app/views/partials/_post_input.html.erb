@@ -1,5 +1,5 @@
 <% if logged_in? %>
-  <%= form_for :discuss, :url => discuss_path do |f| %>
+  <%= form_for :discuss, :html => {:multipart => true}, :url => discuss_path do |f| %>
     <div class="control-group">
       <div class="controls">
         <%= f.text_field :title,
@@ -15,6 +15,12 @@
                           :rows => 5,
                           :placeholder => "Your text",
                           :class => "span6" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label><strong>Add a Photo</strong></label>
+        <div class="controls">
+          <%= f.file_field :photo %>
         </div>
       </div>
       <%= f.hidden_field :topic,

@@ -55,8 +55,12 @@ class DiscussController < ApplicationController
       story.description = params[:discuss][:description].to_s
       story.title = params[:discuss][:title].to_s
       story.topic_id = params[:discuss][:topic].to_i
+      if params[:discuss][:photo]
+        story.image = params[:discuss][:photo]
+      end
       story.user_id = current_user.id
       story.source_url = ""
+      story.published_at = DateTime.now
       if story.save
         flash[:notice] = "Your story '" << story.title << "' was successfully posted!"
       end

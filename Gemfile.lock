@@ -58,6 +58,9 @@ GEM
     i18n (0.5.0)
     jammit (0.6.3)
       yui-compressor (>= 0.9.3)
+    jquery-rails (1.0.19)
+      railties (~> 3.0)
+      thor (~> 0.14)
     json (1.6.1)
     mail (2.2.19)
       activesupport (>= 2.3.6)
@@ -150,6 +153,7 @@ DEPENDENCIES
   dynamic_form
   gravatar_image_tag
   jammit
+  jquery-rails (>= 1.0.12)
   mail
   nokogiri
   omniauth-facebook

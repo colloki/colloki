@@ -18,3 +18,5 @@ gem 'capistrano'
 gem 'whenever' # https://github.com/javan/whenever
 gem 'jammit'
 gem 'mail'
+
+gem 'jquery-rails', '>= 1.0.12'
