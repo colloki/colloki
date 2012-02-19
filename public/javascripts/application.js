@@ -8,18 +8,6 @@ $(document).ready(function(e) {
     delay: 500
   });
 
-  // $(".like-count, .comment-count, .like-btn").twipsy({
-  //   animate: false,
-  //   delayIn: 10
-  // });
-  // $(".topic-keyword").twipsy({
-  //   animate: false,
-  //   delayIn: 1000
-  // });
-  // $(".story-liker, .avatar").twipsy({
-  //   animate: false,
-  //   delayIn: 10,
-  //   placement: 'below'
-  // });
-  // $(".alert-message").alert();
+  // Tooltips
+  $(".has_tooltip").tooltip();
 });

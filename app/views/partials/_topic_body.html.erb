@@ -1,46 +1,45 @@
 <div class="row">
   <div class="span9">
-    <div class="row">
-      <% if stories_with_photos %>
-        <%= render :partial => "partials/carousel", 
-              :locals => { :stories => stories_with_photos } %>
-      <% end %>
-      <% if activity_items and activity_items.count != 0 %>
-        <div class="tabbable">
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <a href="#topic-stories" data-toggle="tab">
-                Stories
-              </a>
-            </li>
-            <li>
-              <a href="#topic-activity" data-toggle="tab">
-                Recent Activity
-              </a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="topic-stories">
-              <p>
-                <%= render :partial => "partials/story_items", 
-                  :locals => { :stories => stories } %>
-                <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
-              </p>
-            </div>
-            <div class="tab-pane" id="topic-activity">
-              <p>
-                <%= render :partial => "partials/activity", 
-                  :locals => { :activity_items => activity_items } %>
-              </p>
-            </div>
+    <%= render :partial => "partials/post_input", :locals => {:topic => (defined? topic) ? topic : nil} %>
+    <% if stories_with_photos %>
+      <%= render :partial => "partials/carousel", 
+            :locals => { :stories => stories_with_photos } %>
+    <% end %>
+    <% if activity_items and activity_items.count != 0 %>
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#topic-stories" data-toggle="tab">
+              Stories
+            </a>
+          </li>
+          <li>
+            <a href="#topic-activity" data-toggle="tab">
+              Recent Activity
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="topic-stories">
+            <p>
+              <%= render :partial => "partials/story_items", 
+                :locals => { :stories => stories } %>
+              <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
+            </p>
+          </div>
+          <div class="tab-pane" id="topic-activity">
+            <p>
+              <%= render :partial => "partials/activity", 
+                :locals => { :activity_items => activity_items } %>
+            </p>
           </div>
         </div>
-      <% else %>
-        <%= render :partial => "partials/story_items", 
-            :locals => { :stories => stories } %>
-        <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
-      <% end %>
-    </div>
+      </div>
+    <% else %>
+      <%= render :partial => "partials/story_items", 
+          :locals => { :stories => stories } %>
+      <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
+    <% end %>
   </div>
   <div class="span3 sidebar" style="width: 205px">
     <%= render :partial => "partials/topics_sidebar", 

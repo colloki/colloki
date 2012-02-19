@@ -9,7 +9,7 @@
   <!-- Topic keywords -->
   <% if topic and topic.topic_keywords %>
     <div class="topic-keywords">
-      <h4><%= topic.title %></h4>
+      <h4><%= link_to topic.title, topic_path(topic) %></h4>
       <% sum_of_distributions = 0 %>
       <% topic.topic_keywords.each do |keyword| %>
         <% sum_of_distributions = sum_of_distributions + keyword.distribution %>

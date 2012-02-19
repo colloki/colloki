@@ -17,15 +17,10 @@ module StoriesHelper
 
     if story.kind != Story::Rss
       html << "by #{link_to story.user.login, story.user} • "
-      html << "#{time_ago_in_words @story.published_at} ago "
-
-      if logged_in? and story.user_id == current_user.id
-        html << "• #{link_to 'edit', edit_story_path(story), :class=>'btn'} • "
-        html << "#{link_to 'delete', story,
-                    :confirm => 'Are you sure you want to delete this post?
-                      You will not be able to restore it later.',
-                    :method => :delete,
-                    :class => 'btn error'}"
+      if @story.published_at
+        html << "#{time_ago_in_words @story.published_at} ago "
+      else
+        html << "#{time_ago_in_words @story.created_at} ago "
       end
     else
       img = image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "favicon")
@@ -41,6 +36,25 @@ module StoriesHelper
     html << story.comments.count.to_s
     html << " <i style='margin-top:1px' class='icon-comment'></i>"
 
+    if story.kind != Story::Rss
+      if logged_in? and story.user_id == current_user.id
+        html << story_edit_btn(story)
+      end
+    end
+    html << "</div>"
+    html.html_safe
+  end
+
+  def story_edit_btn(story)
+    html = "&nbsp;"
+    html << "<div class='btn-group'>"
+    html << "<a class='btn btn-info btn-small' href='#'>Edit</a>"
+    html << "<a class='btn btn-info btn-small dropdown-toggle' data-toggle='dropdown' href='#'>"
+    html << "<span class='caret'></span>"
+    html << "</a>"
+    html << "<ul class='dropdown-menu'>"
+    html << "<li><a href='#'>Delete</a></li>"
+    html << "</ul>"
     html << "</div>"
     html.html_safe
   end
@@ -79,7 +93,7 @@ module StoriesHelper
       html += link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url
     else
       html += link_to gravatar_image_tag(story.user.email,
-                :gravatar => { :size => 12 }),
+                :gravatar => { :size => 20 }, :class => "favicon"),
                 story.user,
                 :title => story.user.login
     end

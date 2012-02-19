@@ -57,6 +57,9 @@ class StoriesController < ApplicationController
     state = 0
     if logged_in?
       if (@story.user && @story.user.id == current_user.id) || current_user.voted_on?(@story)
+        if current_user.voted_on?(@story)
+          vote =  current_user.get_vote(@story).id
+        end
         state = 1
       end
     else
@@ -65,7 +68,7 @@ class StoriesController < ApplicationController
 
     @voting_data = {
       state: state,
-      id: (logged_in? and state == 1) ? current_user.get_vote(@story).id : nil,
+      id: (defined? vote) ? vote : -1,
       story_id: @story.id,
       user_id: logged_in? ? current_user.id : nil,
       user_email_hash: logged_in? ? Digest::MD5.hexdigest(current_user.email) : nil,
@@ -142,9 +145,13 @@ class StoriesController < ApplicationController
       @story.update_popularity
       if @story.save
         if @story.is_link?
-          current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreateLinkType)
+          current_user.activity_items.create(:story_id => @story.id,
+                                             :topic_id => @topic.id,
+                                             :kind => ActivityItem::CreateLinkType)
         else
-          current_user.activity_items.create(:story_id => @story.id, :topic_id => @topic.id, :kind => ActivityItem::CreatePostType)
+          current_user.activity_items.create(:story_id => @story.id,
+                                             :topic_id => @topic.id,
+                                             :kind => ActivityItem::CreatePostType)
         end
 
         if params[:redirect]
@@ -159,7 +166,7 @@ class StoriesController < ApplicationController
         render :action => 'new'
       end
     else
-      flash[:alert] = "You need to login to create stories."
+      flash[:alert] = "You need to login to post stories!"
       logger.debug "[DEBUG] User didn't log on before trying to create a story."
       render :action => 'new'
     end

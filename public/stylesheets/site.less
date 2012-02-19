@@ -41,20 +41,21 @@ h5 {
   margin-top: 2px;
   margin-right: 2px;
   opacity: 0.5;
+
   &:hover {
     opacity: 1;
   }
-  img {
+
+  .user-avatar-icon {
+    height: 26px;
+    width: 26px;
+    margin-right: 5px;
+  }
+
+  .favicon-icon {
     height: 12px;
     width: 12px;
   }
-}
-
-// Small button
-.small-btn {
-  font-size: 11px !important;
-  padding: 1px 5px !important;
-  font-weight: normal !important;
 }
 
 // OR separator between different service logins and site's login system
@@ -74,4 +75,34 @@ h5 {
 
 .important {
     color: #c97979;
+}
+
+.btn-group {
+  display: inline-block;
+  margin-bottom: -6px;
+  margin-left: 5px;
+
+  .btn.dropdown-toggle {
+    margin-left: -6px;
+  }
+
+  .btn-small.dropdown-toggle {
+    margin-left: -1px !important;
+    padding: 2px 5px;
+  }
+}
+
+.btn {
+  .caret {
+    margin-top: 8px;
+  }
+}
+
+.btn-small {
+  font-size: 12px;
+  padding: 2px 5px;
+
+  .caret {
+    margin-top: 6px;
+  }
 }

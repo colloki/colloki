@@ -54,20 +54,22 @@ class DiscussController < ApplicationController
       story.kind = Story::Post
       story.description = params[:discuss][:description].to_s
       story.title = params[:discuss][:title].to_s
+      story.topic_id = params[:discuss][:topic].to_i
       story.user_id = current_user.id
-      story.topic_id = -1
       story.source_url = ""
-      story.save
-
+      if story.save
+        flash[:notice] = "Your story '" << story.title << "' was successfully posted!"
+      end
+      
       # create activity
       activity = ActivityItem.create(
         :story_id => story.id,
         :user_id  => current_user.id,
-        :topic_id => -1,
+        :topic_id => params[:discuss][:topic].to_i,
         :kind     => ActivityItem::CreatePostType)
       activity.save
     else
-      # todo: return error
+      flash[:alert] = 'You need to be logged in to post a story!'
     end
     redirect_back_or_default(discuss_url)
   end

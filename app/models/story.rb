@@ -89,12 +89,10 @@ class Story < ActiveRecord::Base
   end
 
   def self.find_for_topic(topic_id, sort_by, page)
-    if sort_by == 'newest'
-      order = "created_at DESC"
-    elsif sort_by == 'votes'
-      order = "created_at DESC"
-    else
+    if sort_by == 'popular'
       order = "popularity DESC, created_at DESC"
+    else
+      order = "created_at DESC"
     end
 
     paginate(:page => page,

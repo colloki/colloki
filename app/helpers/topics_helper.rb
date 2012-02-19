@@ -19,12 +19,12 @@ module TopicsHelper
     html = "<div class=\"favicon\">"
     if story.kind != Story::Rss
       html << "#{link_to gravatar_image_tag(story.user.email,
-                  :gravatar => { :size => 12 }),
+                  :gravatar => { :size => 26 }, :class => "user-avatar-icon"),
                   story.user,
                   :title => story.user.login}"
     else
       html << "#{link_to image_tag(favicon_url(story.source_url),
-                  :class => "storyItemIcon"),
+                  :class => "favicon-icon"),
                   story.source_url}"
     end
     html << "</div>"
@@ -45,19 +45,20 @@ module TopicsHelper
     else
       html << "<br>#{time_ago_in_words story.created_at} ago"
     end
-    html << "  •  "
+    html << " • "
     html << "
-      #{link_to story.comments.count.to_s,
+      #{link_to (story.comments.count.to_s << ' <i class=\'icon-comment\'></i>').html_safe,
       story_path(story.id) + "#comments",
-      :class => 'comment-count',
+      :class => 'comment-count has_tooltip',
       :title => story.comments.count.to_s + ' comments'}"
-    html << "  •  "
+    html << ""
+    html << " • "
     html << "
-      #{link_to story.votes.count.to_s,
+      #{link_to (story.votes.count.to_s << ' <i class=\'icon-heart\'></i>').html_safe,
       story_path(story.id),
-      :class => 'like-count',
-      :title => story.votes.count.to_s + " likes"}
-    </div>"
+      :class => 'like-count has_tooltip',
+      :title => story.votes.count.to_s + " likes"}"
+    html << "</div>"
     html.html_safe
   end
 
