@@ -10,4 +10,11 @@ $(document).ready(function(e) {
 
   // Tooltips
   $(".has_tooltip").tooltip();
+
+  // Expandable
+  $(".expandable").expander({
+    expandText      : 'Read More',
+    slicePoint      : 800,
+    userCollapseText: 'Read Less'
+  });
 });

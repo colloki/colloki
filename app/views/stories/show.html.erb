@@ -39,7 +39,9 @@
           <%= image_tag(@story.image.url) %>
         </div>
       <% end %>
-      <%= sanitize(@story.description) %>
+      <div class="expandable">
+        <%= sanitize(@story.description) %>
+      </div>
     </div>
 
     <% if @story.kind == Story::Rss %>

@@ -6,6 +6,7 @@ compress_assets : off
 javascripts:
   common:
     - public/javascripts/libs/jquery.js
+    - public/javascripts/libs/jquery.expander.min.js
     - public/javascripts/libs/less.js
     - public/stylesheets/bootstrap/js/bootstrap.min.js
     - public/javascripts/libs/underscore.js
