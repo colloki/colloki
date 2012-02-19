@@ -74,9 +74,7 @@ class Story < ActiveRecord::Base
 
   def self.latest_with_photos
     find :all,
-         :conditions => ["image_file_size != '' and
-           image_file_name !='stringio.txt' and
-           kind = ?", Story::Rss],
+         :conditions => ["image_file_size != '' and image_file_name !='stringio.txt'"],
          :order => "published_at DESC", 
          :limit => 20
   end

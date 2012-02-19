@@ -1,5 +1,6 @@
 <% if logged_in? %>
   <%= form_for :discuss, :html => {:multipart => true}, :url => discuss_path do |f| %>
+   <a class="close" id="close-share-box" style="display: none;">&times;</a>
     <div class="control-group">
       <div class="controls">
         <%= f.text_field :title,
@@ -36,6 +37,9 @@
 
 <script type='text/javascript'>
   $("#share-box").click(function(e) {
-    $("#share-box-content").show();
+    $("#share-box-content, #close-share-box").show();
+  });
+  $("#close-share-box").click(function(e) {
+    $("#share-box-content, #close-share-box").hide();
   });
 </script>
