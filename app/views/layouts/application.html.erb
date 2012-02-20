@@ -90,16 +90,16 @@
         <div class="span4">
           <ul class="nav nav-pills">
             
-            <!-- Discuss -->
-            <% if request.filtered_parameters["controller"] === "discuss" &&
-                  request.filtered_parameters["action"] === "index" %>
+            <!-- Active Discussions -->
+            <% if request.filtered_parameters["controller"] === "topics" &&
+                  request.filtered_parameters["action"] === "active" %>
               <li class="active">
               <% icon = "icon-comment icon-white" %>
             <% else %>
               <li>
               <% icon = "icon-comment" %>
             <% end %>
-              <%= link_to ("<i class='" + icon + "'></i> Discuss").html_safe, discuss_url %>
+              <%= link_to ("<i class='" + icon + "'></i> Active").html_safe, active_url %>
             </li>
 
             <!-- Latest -->

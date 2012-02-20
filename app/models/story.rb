@@ -62,12 +62,16 @@ class Story < ActiveRecord::Base
 
   def self.popular(page)
     require 'will_paginate/array'
-    popular = find :all, 
-                   :order => "published_at DESC", 
-                   :limit => 50, 
-                   :conditions => ["kind = ?", Story::Rss]
+    popular = find :all,
+                   :conditions => ["kind = ?", Story::Rss],
+                   :order => "published_at DESC",
+                   :limit => 50
     popular.sort! { |a, b| b.popularity <=> a.popularity }
     popular.paginate(:page => page, :per_page => 9)
+  end
+
+  def self.popular_with_photos
+    self.latest_with_photos.sort! { |a, b| b.popularity <=> a.popularity }
   end
 
   def self.latest(page, should_paginate=true)
@@ -78,14 +82,28 @@ class Story < ActiveRecord::Base
     end
   end
 
-  def self.popular_with_photos
-    self.latest_with_photos.sort! { |a, b| b.popularity <=> a.popularity }
-  end
-
   def self.latest_with_photos
     find :all,
          :conditions => ["image_file_size != '' and image_file_name !='stringio.txt'"],
          :order => "published_at DESC", 
+         :limit => 20
+  end
+
+  # TODO: This should also include stories with comments
+  def self.active(page)
+    active = find :all,
+                  :conditions => ["kind = ?", Story::Post],
+                  :order => "updated_at DESC, published_at DESC",
+                  :limit => 20
+    active.paginate(:page => page, :per_page => 9)
+  end
+
+  def self.active_with_photos
+    find :all,
+         :conditions => ["kind = ? and 
+            image_file_size != '' and 
+            image_file_name !='stringio.txt'", Story::Post],
+         :order => "updated_at DESC, published_at DESC",
          :limit => 20
   end
 

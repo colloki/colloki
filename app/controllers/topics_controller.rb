@@ -26,6 +26,19 @@ class TopicsController < ApplicationController
     end
   end
 
+  def active
+    @page_title = "Active Discussions"
+    @stories = Story.active(params[:page])
+    # todo: eliminate this duplicate, unhealthy request
+    @stories_with_photos = Story.active_with_photos
+    @new_users = User.newly_activated
+    @activity_items = ActivityItem.recent
+    @tags = Story.tag_counts_on(:tags)
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def search
     @query = params[:query]
     @page_title = "Search results for '#{params[:query]}'"

@@ -43,9 +43,10 @@ class StoriesController < ApplicationController
       @story.views = @story.views + 1
     end
 
-    if !current_user or current_user == @story.user
-      @story.increase_popularity(Story::ScoreVisit)
-    end
+    # TODO: Find a way to score unique visits
+    # if !current_user or current_user == @story.user
+    #   @story.increase_popularity(Story::ScoreVisit)
+    # end
 
     @story.save
 
