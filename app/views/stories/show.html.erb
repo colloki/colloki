@@ -88,6 +88,8 @@
       :story                    => @story,
       :more_stories             => @more_stories,
       :more_stories_from_source => @more_stories_from_source,
+      :user_posted_stories      => (defined? @user_posted_stories) ? @user_posted_stories : nil,
+      :all_posted_stories       => (defined? @all_posted_stories) ? @all_posted_stories : nil,
       :topic                    => @topic
     }
     %>

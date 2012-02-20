@@ -24,15 +24,24 @@ class StoriesController < ApplicationController
           :conditions => "source = '#{@story.source}' 
                           AND id != #{@story.id} 
                           AND topic_id != #{@topic.id}",
-          :order => "created_at DESC",
+          :order => "published_at DESC",
           :limit => 5
       else
         @more_stories_from_source = Story.find :all,
           :conditions => "source = '#{@story.source}' 
                           AND id != #{@story.id}",
-          :order => "created_at DESC",
+          :order => "published_at DESC",
           :limit => 5
       end
+    elsif @story.kind == Story::Post
+      @user_posted_stories = Story.find :all,
+        :conditions => ["user_id = ?", @story.user.id],
+        :order => "published_at DESC",
+        :limit => 5
+      @all_posted_stories = Story.find :all,
+        :conditions => ["kind = ? and user_id != ?", Story::Post, @story.user.id],
+        :order => "published_at DESC",
+        :limit => 5
     end
 
     @page_title = @story.title
