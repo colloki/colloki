@@ -83,8 +83,8 @@
     <% places_without_topics_list = ["/login",
       "/signup"] %>
     
-    <% if (!places_without_topics_list.include? request.fullpath 
-      and !request.fullpath.include? 'auth' and @today_topics) %>
+    <% if (!places_without_topics_list.include? request.fullpath and 
+      !request.fullpath.include? 'auth' and @today_topics) %>
        
        <div class="row">
         <div class="span4">
