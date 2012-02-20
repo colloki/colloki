@@ -56,7 +56,8 @@ pickle-email-*.html
 
 # Colloki-specific
 
-config/initializers/omniauth.rb
 config/initializers/setup_mail.rb
 config/deploy.rb
+config/facebook.yml
+config/twitter.yml
 fetch.sh

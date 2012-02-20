@@ -8,7 +8,7 @@ Colloki is an opensource research project being developed at the [SocialComp Gro
 
 * Create `config/database.yml` from `config/database.yml.tmpl`
 
-* Create `config/initializers/omniauth.rb` from `config/initializers/omniauth.rb.tmpl`
+* Create `config/facebook.yml` and `config/twitter.yml` from `config/facebook.yml.tmpl` and `config/twitter.yml.tmpl`
 
 * Create `config/initializers/setup_mail.rb` from `config/initializers/setup_mail.rb.tmpl`
 

@@ -20,3 +20,4 @@ gem 'jammit'
 gem 'mail'
 
 gem 'jquery-rails', '>= 1.0.12'
+gem "koala"

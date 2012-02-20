@@ -1,4 +1,4 @@
-# This controller handles the login/logout function of the site.
+# This controller handles the login / logout function of the site.
 class SessionsController < ApplicationController
   # render new.rhtml
   def new
@@ -14,11 +14,14 @@ class SessionsController < ApplicationController
     if logged_in?
       if params[:remember_me] == "1"
         current_user.remember_me unless current_user.remember_token?
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+        cookies[:auth_token] = { :value => self.current_user.remember_token,
+          :expires => self.current_user.remember_token_expires_at }
       end
-        redirect_to(params[:redir], :notice => "Welcome #{self.current_user.login}")
+        redirect_to params[:redir],
+          :notice => "Welcome #{self.current_user.login}"
     else
-      redirect_to login_path, :alert => "Invalid credentials. Please try again"
+      redirect_to login_path,
+        :alert => "Invalid credentials. Please try again"
     end
   end
 
