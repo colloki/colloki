@@ -8,7 +8,9 @@ Colloki is an opensource research project being developed at the [SocialComp Gro
 
 * Create `config/database.yml` from `config/database.yml.tmpl`
 
-* Create `config/facebook.yml` and `config/twitter.yml` from `config/facebook.yml.tmpl` and `config/twitter.yml.tmpl`
+* Create `config/twitter.yml` from `config/twitter.yml.tmpl`
+
+* Create `config/facebook.yml` from `config/facebook.yml.tmpl`. For creating the permanent access key, follow these steps: (http://liquid9.tv/blog/2011/may/12/obtaining-permanent-facebook-oauth-access-token/)
 
 * Create `config/initializers/setup_mail.rb` from `config/initializers/setup_mail.rb.tmpl`
 

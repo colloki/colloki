@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
           :expires => self.current_user.remember_token_expires_at }
       end
         redirect_to params[:redir],
-          :notice => "Welcome #{self.current_user.login}"
+          :notice => "Welcome back #{self.current_user.login}!"
     else
       redirect_to login_path,
         :alert => "Invalid credentials. Please try again"
