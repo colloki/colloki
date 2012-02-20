@@ -83,7 +83,8 @@
     <% places_without_topics_list = ["/login",
       "/signup"] %>
     
-    <% if (!places_without_topics_list.include? request.fullpath and !request.fullpath.include? 'auth' and @today_topics) %>
+    <% if (!places_without_topics_list.include? request.fullpath 
+      and !request.fullpath.include? 'auth' and @today_topics) %>
        
        <div class="row">
         <div class="span4">
@@ -91,7 +92,7 @@
             
             <!-- Discuss -->
             <% if request.filtered_parameters["controller"] === "discuss" &&
-              request.filtered_parameters["action"] === "index" %>
+                  request.filtered_parameters["action"] === "index" %>
               <li class="active">
               <% icon = "icon-comment icon-white" %>
             <% else %>

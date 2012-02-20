@@ -2,13 +2,17 @@ require "koala"
 
 class FacebookAutoposter
 
-  def self.run
-    user_graph        = Koala::Facebook::API.new(Facebook::ACCESS_KEY)
-    accounts          = user_graph.get_connections('me', 'accounts')
-    page_access_token = accounts[0]['access_token']
-    page_graph        = Koala::Facebook::GraphAPI.new(page_access_token)
+  def initialize
+    user_graph          = Koala::Facebook::API.new(Facebook::ACCESS_KEY)
+    accounts            = user_graph.get_connections('me', 'accounts')
+    page_access_token   = accounts[0]['access_token']
+    @page_graph         = Koala::Facebook::GraphAPI.new(page_access_token)
+  end
 
-    # page_graph.put_object(Facebook::PAGE_ID, 'feed', :message => 'This is posted as the user')
+  def post(story)
+    @page_graph.put_object(Facebook::PAGE_ID,
+    'feed',
+    :link => "http://vts.cs.vt.edu/stories/" + story.id.to_s)
   end
 
 end

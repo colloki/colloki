@@ -22,12 +22,13 @@ desc "Automatically post stories to Colloki from the cached rss stories"
 task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
   begin
     args.with_defaults(:start_date => nil, :end_date => nil)
+
     if args.start_date
       start_date = Date.strptime(args.start_date, "%m/%d/%Y")
     else
       start_date = Time.now.in_time_zone('EST').to_date
     end
-    
+
     if args.end_date
       end_date = Date.strptime(args.end_date, "%m/%d/%Y")
     else
@@ -40,6 +41,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
 
       begin
         mining_store = CollokiMiningStore.new(day)
+        facebook     = FacebookAutoposter.new
       rescue
         puts "Error fetching data for the day"
         next
@@ -81,8 +83,10 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
           else
             topic = nil
           end
+
           # check if the story already exists
           new_story = Story.find(:first, :conditions => {:source_url => story["link"]})
+
           if new_story
             if topic and new_story.topic != topic
               new_story.topic = topic
@@ -115,8 +119,11 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
               new_story.published_at = day
             end
             new_story.save
+
+            facebook.post(new_story)
             puts "Successfully saved story: " + story["link"]
           end
+
         rescue Exception => e
           puts e.message
           puts e.backtrace.inspect
