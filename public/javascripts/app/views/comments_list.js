@@ -1,6 +1,5 @@
 $(function() {
   window.CommentsListView = Backbone.View.extend({
-
     events: {
       "click .add-comment": "add"
     },
@@ -19,7 +18,8 @@ $(function() {
       this.collection.bind('destroy', this.remove);
       this.count = 0;
 
-      // todo: for some reason, collection.reset is not working. that'll be more elegant here
+      // TODO: for some reason, collection.reset is not working. 
+      // that'll be more elegant here
       for (var i = 0; i < data.length; i++) {
         var c = new Comment(data[i]);
         this.collection.add(c);

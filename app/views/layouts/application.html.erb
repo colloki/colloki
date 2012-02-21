@@ -3,6 +3,14 @@
 <head>
   <%= csrf_meta_tag %>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+  <% if request.filtered_parameters["controller"] === "stories" and
+        request.filtered_parameters["action"]     === "show" %>
+    <%= render :partial => "partials/story_open_graph_meta", :locals => {
+      :story => @story
+    } %>
+  <% end %>
+
   <link href="<%= feed_url %>" rel="alternate" title="RSS" type="application/rss+xml">
 
   <title>
@@ -45,7 +53,7 @@
         <div class="nav-collapse">
           <ul class="nav">
             <% if logged_in? %>
-              <% if request.filtered_parameters["controller"] === "users" &&
+              <% if request.filtered_parameters["controller"] === "users" and
                 request.filtered_parameters["action"] === "show" %>
                 <li class="active">
               <% else %>
@@ -53,7 +61,7 @@
               <% end %>
                 <%= link_to "Profile", current_user %>
               </li>
-              <% if request.filtered_parameters["controller"] === "users" &&
+              <% if request.filtered_parameters["controller"] === "users" and
                 request.filtered_parameters["action"] === "settings" %>
                 <li class="dropdown active">
               <% else %>
@@ -91,7 +99,7 @@
           <ul class="nav nav-pills">
             
             <!-- Active Discussions -->
-            <% if request.filtered_parameters["controller"] === "topics" &&
+            <% if request.filtered_parameters["controller"] === "topics" and
                   request.filtered_parameters["action"] === "active" %>
               <li class="active">
               <% icon = "icon-comment icon-white" %>
@@ -103,7 +111,7 @@
             </li>
 
             <!-- Latest -->
-            <% if request.filtered_parameters["controller"] === "topics" &&
+            <% if request.filtered_parameters["controller"] === "topics" and
               request.filtered_parameters["action"] === "latest" %>
               <li class="active">
               <% icon = "icon-time icon-white" %>
@@ -115,7 +123,7 @@
             </li>
 
             <!-- Most Popular -->
-            <% if request.filtered_parameters["controller"] === "topics" &&
+            <% if request.filtered_parameters["controller"] === "topics" and
               request.filtered_parameters["action"] === "popular" %>
               <li class="active">
               <% icon = "icon-fire icon-white" %>

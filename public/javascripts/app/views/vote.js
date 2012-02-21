@@ -1,8 +1,8 @@
 $(function() {
   window.VoteView = Backbone.View.extend({
-    el: ".like-btn",
-    count_el: ".vote-count",
-    likers_el: "#story-likers",
+    el        : ".like-btn",
+    count_el  : ".vote-count",
+    likers_el : "#story-likers",
 
     events: {
       "click": "vote"
