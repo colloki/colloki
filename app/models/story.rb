@@ -89,22 +89,27 @@ class Story < ActiveRecord::Base
          :limit => 20
   end
 
-  # TODO: This should also include stories with comments
-  def self.active(page)
-    active = find :all,
-                  :conditions => ["kind = ?", Story::Post],
-                  :order => "updated_at DESC, published_at DESC",
-                  :limit => 20
-    active.paginate(:page => page, :per_page => 9)
-  end
-
-  def self.active_with_photos
-    find :all,
-         :conditions => ["kind = ? and 
-            image_file_size != '' and 
-            image_file_name !='stringio.txt'", Story::Post],
-         :order => "updated_at DESC, published_at DESC",
-         :limit => 20
+  def self.active
+    # get the recent activities
+    activities = ActivityItem.find :all,
+                                   :conditions => ["kind = ? or kind = ?", 
+                                     ActivityItem::CommentType, 
+                                     ActivityItem::CreatePostType],
+                                   :order => "updated_at DESC"
+    stories = []
+    story_activities = Hash.new
+    for activity in activities
+      if activity.kind == ActivityItem::CommentType or 
+          activity.kind == ActivityItem::CreatePostType
+        if !story_activities.has_key?(activity.story_id)
+          story_activities[activity.story_id] = [activity]
+          stories.push(Story.find(activity.story_id))
+        else
+          story_activities[activity.story_id].push(activity)
+        end
+      end
+    end
+    return stories
   end
 
   def self.search(query, page)
