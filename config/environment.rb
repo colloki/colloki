@@ -6,3 +6,6 @@ Colloki::Application.initialize!
 
 require 'validates_uri_existence_of'
 Time::DATE_FORMATS[:cool] = "%A, %B %d, %Y"
+
+# path to ImageMagick
+Paperclip.options[:command_path] = "/usr/local/bin/"
