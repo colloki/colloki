@@ -3,5 +3,7 @@
 <meta property="og:url" content="<%= request.url %>"/>
 <% if image_exists? story.image_file_name %>
   <meta property="og:image" content="<%= root_url[0..-2] + story.image.url(:original) %>" />
+<% else %>
+  <meta property="og:image" content="" />
 <% end %>
 <meta property="og:description" content="<%= strip_tags(story.description) %>" />
