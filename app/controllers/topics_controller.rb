@@ -29,8 +29,15 @@ class TopicsController < ApplicationController
   def active
     @page_title = "Active Discussions"
     @stories = Story.active
-    @stories_with_photos = @stories.find_all{|story| story.image_file_size != '' and 
+    @stories_with_photos = @stories.find_all{|story|
+      story.image_file_size != '' and 
       story.image_file_name !='stringio.txt'}
+    @active_topics = []
+    @stories.each do |story|
+      if !@active_topics.include? (story.topic)
+        @active_topics.push(story.topic)
+      end
+    end
     @stories = @stories.paginate(:page => params[:page], :per_page => 9)
     @new_users = User.newly_activated
     @activity_items = ActivityItem.recent

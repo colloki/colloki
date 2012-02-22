@@ -1,6 +1,7 @@
 <div class="row">
   <div class="span9">
-    <%= render :partial => "partials/post_input", :locals => {:topic => (defined? topic) ? topic : nil} %>
+    <%= render :partial => "partials/post_input", 
+      :locals => {:topic => (defined? topic) ? topic : nil} %>
     <% if stories_with_photos %>
       <%= render :partial => "partials/carousel", 
             :locals => { :stories => stories_with_photos } %>
@@ -47,7 +48,8 @@
           :stories          => stories,
           :tags             => tags,
           :topic            => (defined? topic) ? topic : nil,
-          :new_users        => new_users 
+          :new_users        => new_users,
+          :active_topics    => (defined? active_topics) ? active_topics : nil
         }
     %>
   </div>

@@ -10,4 +10,4 @@ Time::DATE_FORMATS[:cool] = "%A, %B %d, %Y"
 # path to ImageMagick
 Paperclip.options[:command_path] = "/usr/local/bin/"
 
-require "will_paginate"
+require "will_paginate/array"

@@ -1,0 +1,17 @@
+<ul class="nav nav-pills">
+  <% topics.each do |topic| %>
+    <% if topic and topic.stories.count != 0 %>
+      <% if ((defined? story) and story and story.topic_id == topic.id) ||
+        ((defined? selected_topic) and selected_topic and selected_topic.id == topic.id) %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+      <%= link_to topic.title, topical_path(topic), 
+            :class                 => "has_popover",
+            "data-content"         => topic.keywords,
+            :title                 => topic.title %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

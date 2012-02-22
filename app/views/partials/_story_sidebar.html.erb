@@ -1,4 +1,5 @@
 <div class="span4 sidebar" style="width: 285px">
+
   <!-- Colloki Sign Up Note -->
   <% if !logged_in? %>
     <h4>What is VTS?</h4>
@@ -73,7 +74,8 @@
   <% if story.tag_list.count != 0 %>
     <h4>Related tags</h4>
     <% if topic %>
-      <%= render :partial => "partials/tag_list", :locals => { :list => story.tag_list, :topic => topic.id } %>
+      <%= render :partial => "partials/tag_list", 
+        :locals => { :list => story.tag_list, :topic => topic.id } %>
     <% end %>
     <hr>
   <% end %>
