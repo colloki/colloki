@@ -3,25 +3,25 @@
 </h2>
 <hr>
 
-<%= error_messages_for :user %>
+<%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
 
 <%= form_for :user, :url => complete_signup_url, :html => { :class => "form-horizontal" } do |f| -%>
   <div class="control-group">
     <label for="login" class="control-label">
-      Pick a username
+      Pick a username <span class="important">*</span>
       <p class="help-block">Cannot have spaces or any other special characters</p>
     </label>
     <div class="controls">
-      <%= f.text_field :login, :value => @login %>
+      <%= f.text_field :login, :value => (defined? @user) ? @user.login : '' %>
     </div>
   </div>
 
   <div class="control-group">
     <label for="email" class="control-label">
-      Email
+      Email <span class="important">*</span>
     </label>
     <div class="controls">
-      <%= f.text_field :email, :value => @email %>
+      <%= f.text_field :email, :value => (defined? @user) ? @user.email : '' %>
     </div>
   </div>
 
@@ -30,4 +30,5 @@
       Done
     </button>
   </div>
+  <span class="important">*</span> required
 <% end %>

@@ -10,23 +10,29 @@ class ProviderAuthenticationsController < ApplicationController
   # POST /provider_authentications.xml
   def create
     omniauth = request.env["omniauth.auth"]
-    authentication = ProviderAuthentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+    authentication = ProviderAuthentication.find_by_provider_and_uid(
+      omniauth['provider'],
+      omniauth['uid'])
 
     # If the authentication exists, log the user in
     if authentication
       self.current_user = authentication.user
-      redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
+      redirect_to(root_url, :notice => "Welcome back #{self.current_user.login}!")
 
     # If the user is already logged in, create a new authentication for the user
     elsif self.current_user
-      self.current_user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
-      redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
+      self.current_user.provider_authentications.create(
+        :provider => omniauth['provider'], 
+        :uid => omniauth['uid'])
+      redirect_to(root_url, :notice => "Welcome back #{self.current_user.login}!")
 
     # If an account for this user already exists, connect with that account and log the user in
     elsif user = User.find_by_email(omniauth['info']['email'])
-      user.provider_authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      user.provider_authentications.create(
+        :provider => omniauth['provider'],
+        :uid => omniauth['uid'])
       self.current_user = user
-      redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
+      redirect_to(root_url, :notice => "Welcome back #{self.current_user.login}!")
 
     # Create a new user
     else
@@ -35,9 +41,9 @@ class ProviderAuthenticationsController < ApplicationController
       if user.save
         self.current_user = user
         self.current_user.activate
-        redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
+        redirect_to(root_url, :notice => "Welcome #{self.current_user.login}!")
       else
-        # show a page where user can enter login/email
+        # show a page where user can enter login / email
         session[:omniauth] = omniauth.except('extra')
         @login = omniauth['info']['nickname']
         @email = omniauth['info']['email']
@@ -46,16 +52,16 @@ class ProviderAuthenticationsController < ApplicationController
   end
 
   def complete_signup
-    user = User.new
-    user.apply_omniauth(session['omniauth'])
-    user.login = params[:user]['login']
-    user.email = params[:user]['email']
-    if user.save
-      self.current_user = user
+    @user = User.new
+    @user.apply_omniauth(session['omniauth'])
+    @user.login = params[:user]['login']
+    @user.email = params[:user]['email']
+    if @user.save
+      self.current_user = @user
       self.current_user.activate
       redirect_to(root_url, :notice => "Welcome #{self.current_user.login}")
     else
-      render :action => 'create'
+      render :action => "create"
     end
   end
 
@@ -66,6 +72,6 @@ class ProviderAuthenticationsController < ApplicationController
 
   def failure
     flash[:notice] = params[:message]
-    redirect root_url
+    redirect_back_or root_url
   end
 end

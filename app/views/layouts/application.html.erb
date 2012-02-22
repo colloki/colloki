@@ -88,8 +88,8 @@
   <div class="container">
     
     <!-- Navigation -->
-    <% places_without_topics_list = ["/login",
-      "/signup"] %>
+    <% places_without_topics_list = 
+      ["/login", "/signup", "/complete_signup"] %>
     
     <% if (!places_without_topics_list.include? request.fullpath and 
       !request.fullpath.include? 'auth' and @today_topics) %>
