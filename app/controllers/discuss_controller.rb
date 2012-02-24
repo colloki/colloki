@@ -55,7 +55,11 @@ class DiscussController < ApplicationController
       story.kind = Story::Post
       story.description = params[:discuss][:description].to_s
       story.title = params[:discuss][:title].to_s
-      story.topic_id = params[:discuss][:topic].to_i
+      # TODO: Story should be associated with a topic.
+      # However, right now, topics are highly transient
+      # And the topic modeling code isn't flexible enough for me to run it on the user
+      # contributed stories.
+      story.topic_id = -1
       if params[:discuss][:photo]
         story.image = params[:discuss][:photo]
       end
@@ -70,13 +74,13 @@ class DiscussController < ApplicationController
         activity = ActivityItem.create(
           :story_id => story.id,
           :user_id  => current_user.id,
-          :topic_id => params[:discuss][:topic].to_i,
+          :topic_id => -1,
           :kind     => ActivityItem::CreatePostType)
         activity.save
       end
     else
       flash[:alert] = 'You need to be logged in to post a story!'
     end
-    redirect_back_or_default(discuss_url)
+    redirect_to(story_url(story))
   end
 end

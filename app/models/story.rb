@@ -63,7 +63,6 @@ class Story < ActiveRecord::Base
   def self.popular(page)
     require 'will_paginate/array'
     popular = find :all,
-                   :conditions => ["kind = ?", Story::Rss],
                    :order => "published_at DESC",
                    :limit => 50
     popular.sort! { |a, b| b.popularity <=> a.popularity }

@@ -49,8 +49,8 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
 
       topics = []
 
-      # Delete all the existing topics for today. 
-      # TODO: Find a more efficient way, mate
+      # Get rid of past topics created during the day.
+      # This is highly transient right now...
       Topic.delete_all(["day = ?", day.to_time.utc])
       
       # Save the topics
