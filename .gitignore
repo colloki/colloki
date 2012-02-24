@@ -58,6 +58,5 @@ pickle-email-*.html
 
 config/initializers/setup_mail.rb
 config/deploy.rb
-config/facebook.yml
-config/twitter.yml
+config/config.yml
 fetch.sh

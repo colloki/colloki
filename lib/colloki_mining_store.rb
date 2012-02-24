@@ -5,10 +5,10 @@ require "cgi"
 class CollokiMiningStore
 
   # Class config variables
-  @@source                            = "http://grumpy.cs.vt.edu/colloki_topic_modeling/"
-  @@topics_path                       = "TopicsTerms.csv"
-  @@document_topic_distribution_path  = "DocumentTopicsDist.csv"
-  @@stories_path                      = "stories.csv"
+  @@source                            = CONFIG['TM_url']
+  @@topics_path                       = CONFIG['TM_topics_path']
+  @@document_topic_distribution_path  = CONFIG['TM_document_topic_path']
+  @@stories_path                      = CONFIG['TM_stories_path']
 
   def initialize(date)
     @formatted_date = format_date(date)

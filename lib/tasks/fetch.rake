@@ -3,19 +3,19 @@ require "facebook_autoposter.rb"
 require "open-uri"
 
 @@source_names = Hash[
-  "www.collegiatetimes.com" => "Collegiate Times",
-  "blogs.roanoke.com" => "The Burgs Blog",
-  "www.roanoke.com" => "The Roanoke Times",
-  "www.vtnews.vt.edu" => "Virginia Tech News",
-  "www.bev.net" => "Blacksburg Electronic Village",
-  "www.citizensfirstforblacksburg.org" => "Citizens First For Blacksburg",
-  "www.christiansburg.org" => "Christiansburg Virginia",
-  "downtownblacksburg.wordpress.com" => "Downtown Blacksburg Blog",
-  "www.myvaresources.com" => "Depotdazed",
-  "nrvnews.com" => "NRV News",
-  "www2.swvatoday.com" => "SWVA Today",
-  "www.southwesttimes.com" => "The Southwest Times",
-  "www.lwvmcva.org" => "League of Women Voters in Montgomery County"
+  "www.collegiatetimes.com"             => "Collegiate Times",
+  "blogs.roanoke.com"                   => "The Burgs Blog",
+  "www.roanoke.com"                     => "The Roanoke Times",
+  "www.vtnews.vt.edu"                   => "Virginia Tech News",
+  "www.bev.net"                         => "Blacksburg Electronic Village",
+  "www.citizensfirstforblacksburg.org"  => "Citizens First For Blacksburg",
+  "www.christiansburg.org"              => "Christiansburg Virginia",
+  "downtownblacksburg.wordpress.com"    => "Downtown Blacksburg Blog",
+  "www.myvaresources.com"               => "Depotdazed",
+  "nrvnews.com"                         => "NRV News",
+  "www2.swvatoday.com"                  => "SWVA Today",
+  "www.southwesttimes.com"              => "The Southwest Times",
+  "www.lwvmcva.org"                     => "League of Women Voters in Montgomery County"
 ]
 
 desc "Automatically post stories to Colloki from the cached rss stories"

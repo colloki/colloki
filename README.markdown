@@ -8,13 +8,12 @@ Colloki is an opensource research project being developed at the [SocialComp Gro
 
 * Create `config/database.yml` from `config/database.yml.tmpl`
 
-* Create `config/twitter.yml` from `config/twitter.yml.tmpl`
-
-* Create `config/facebook.yml` from `config/facebook.yml.tmpl`. For creating the permanent access key, follow these steps: (http://liquid9.tv/blog/2011/may/12/obtaining-permanent-facebook-oauth-access-token/)
+* Create `config/config.yml` from `config/config.yml.tmpl`. For creating the permanent access key for Facebook, follow these steps: (http://liquid9.tv/blog/2011/may/12/obtaining-permanent-facebook-oauth-access-token/)
 
 * Create `config/initializers/setup_mail.rb` from `config/initializers/setup_mail.rb.tmpl`
 
-* Currently, ruby 1.9.2 is supported. Installing RVM is recommended (http://beginrescueend.com/): `rvm install 1.9.2`
+* Currently, ruby 1.9.2 is supported. Installing RVM is recommended (http://beginrescueend.com/): 
+`rvm install 1.9.2`
 
 * If you are using RVM, create `.rvmrc` in the root of the project folder.
     The content of this file should look something like: `rvm use 1.9.2`
