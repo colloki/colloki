@@ -4,6 +4,8 @@ require "cgi"
 
 class CollokiMiningStore
 
+  CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
+
   # Class config variables
   @@source                            = CONFIG['TM_url']
   @@topics_path                       = CONFIG['TM_topics_path']

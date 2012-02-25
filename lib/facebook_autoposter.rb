@@ -3,10 +3,14 @@ require "koala"
 class FacebookAutoposter
 
   def initialize
-    user_graph          = Koala::Facebook::API.new(Facebook::ACCESS_KEY)
-    accounts            = user_graph.get_connections('me', 'accounts')
-    page_access_token   = accounts[0]['access_token']
-    @page_graph         = Koala::Facebook::GraphAPI.new(page_access_token)
+    if Facebook::ACCESS_KEY != ""
+      user_graph          = Koala::Facebook::API.new(Facebook::ACCESS_KEY)
+      accounts            = user_graph.get_connections('me', 'accounts')
+      page_access_token   = accounts[0]['access_token']
+      @page_graph         = Koala::Facebook::GraphAPI.new(page_access_token)
+    else
+      nil
+    end
   end
 
   def post(story)
