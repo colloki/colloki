@@ -18,6 +18,7 @@ class StoriesController < ApplicationController
           :conditions => "topic_id = #{@topic.id} AND id != #{@story.id}",
           :order => "created_at DESC",
           :limit => 5
+      rescue
       end
     end
 
