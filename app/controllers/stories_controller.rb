@@ -11,7 +11,11 @@ class StoriesController < ApplicationController
     end
 
     if @story.topic_id != -1
-      @topic = Topic.find(@story.topic_id)
+      # topic maybe invalid..
+      begin
+        @topic = Topic.find(@story.topic_id)
+      rescue
+      end
       @more_stories = Story.find :all,
         :conditions => "topic_id = #{@topic.id} AND id != #{@story.id}",
         :order => "created_at DESC",
