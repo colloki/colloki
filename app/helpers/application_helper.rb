@@ -22,7 +22,8 @@ module ApplicationHelper
   def colloki_description
     ("Virtual Town Square is a place to learn and discuss local issues with 
     other Blacksburg and Montgomery County residents.<br><br>" +
-    " Sign up today to participate in discussions!<br><br>" +
+    " Sign up today to participate in discussions! You'll be able to post your own stories,
+     comment and like stories.<br><br>" +
     link_to('Sign Up', signup_url, :class => 'btn btn-primary')).html_safe
   end
 
@@ -32,9 +33,11 @@ module ApplicationHelper
       html << "<div class='formErrors #{object.class.name.humanize.downcase}Errors'>\n"
       if message.blank?
         if object.new_record?
-          html << "\t\t<div class='alert'>There was a problem creating the #{object.class.name.humanize.downcase}</div>\n"
+          html << "\t\t<div class='alert'>
+          There was a problem creating the #{object.class.name.humanize.downcase}</div>\n"
         else
-          html << "\t\t<div class='alert'>There was a problem updating the #{object.class.name.humanize.downcase}</div>\n"
+          html << "\t\t<div class='alert'>
+          There was a problem updating the #{object.class.name.humanize.downcase}</div>\n"
         end
       end
       if object.errors.full_messages.count != 0
