@@ -14,12 +14,11 @@ class StoriesController < ApplicationController
       # topic maybe invalid..
       begin
         @topic = Topic.find(@story.topic_id)
-      rescue
+        @more_stories = Story.find :all,
+          :conditions => "topic_id = #{@topic.id} AND id != #{@story.id}",
+          :order => "created_at DESC",
+          :limit => 5
       end
-      @more_stories = Story.find :all,
-        :conditions => "topic_id = #{@topic.id} AND id != #{@story.id}",
-        :order => "created_at DESC",
-        :limit => 5
     end
 
     if @story.source
