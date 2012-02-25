@@ -1,8 +1,8 @@
 xml.instruct! :xml, :version => "1.0" 
 xml.rss :version => "2.0" do
   xml.channel do
-    xml.title "Colloki Latest News"
-    xml.description "Latest issues and news about Blacksburg and Montgomery county"
+    xml.title "Virtual Town Square Latest"
+    xml.description "Latest issues and news in Blacksburg and Montgomery county"
     xml.link stories_url
 
     for story in @stories
