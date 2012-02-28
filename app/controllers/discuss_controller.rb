@@ -49,26 +49,29 @@ class DiscussController < ApplicationController
   end
 
   def create
-    if logged_in?
+    if not logged_in?
+      flash[:alert] = 'You need to be logged in to post a story!'
+      redirect_back_or(root_url)
+    else
       # save story
-      story = Story.new
-      story.kind = Story::Post
-      story.description = params[:discuss][:description].to_s
-      story.title = params[:discuss][:title].to_s
+      @user_story = Story.new
+      @user_story.kind = Story::Post
+      @user_story.description = params[:discuss][:description].to_s
+      @user_story.title = params[:discuss][:title].to_s
       # TODO: Story should be associated with a topic.
       # However, right now, topics are highly transient
       # And the topic modeling code isn't flexible enough for me to run it on the user
       # contributed stories.
-      story.topic_id = -1
+      @user_story.topic_id = -1
       if params[:discuss][:photo]
-        story.image = params[:discuss][:photo]
+        @user_story.image = params[:discuss][:photo]
       end
-      story.user_id = current_user.id
-      story.source_url = ""
-      story.published_at = DateTime.now
+      @user_story.user_id = current_user.id
+      @user_story.source_url = ""
+      @user_story.published_at = DateTime.now
       # Give the user posted story an initial kick of popularity
-      story.increase_popularity(Story::ScorePost)
-      if story.save
+      @user_story.increase_popularity(Story::ScorePost)
+      if @user_story.save
         flash[:notice] = "Your story '" << story.title << "' was successfully posted!"
         # create activity
         activity = ActivityItem.create(
@@ -77,10 +80,14 @@ class DiscussController < ApplicationController
           :topic_id => -1,
           :kind     => ActivityItem::CreatePostType)
         activity.save
+        redirect_to(story_url(@user_story))
       end
-    else
-      flash[:alert] = 'You need to be logged in to post a story!'
+      if @user_story.title == ""
+        flash[:error] = "Title of your story cannot be empty!"
+      elsif @user_story.description == ""
+        flash[:error] = "Content of your story cannot be empty!"
+      end
+      redirect_back_or(root_url)
     end
-    redirect_to(story_url(story))
   end
 end

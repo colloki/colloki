@@ -171,13 +171,15 @@ class StoriesController < ApplicationController
       @story.update_popularity
       if @story.save
         if @story.is_link?
-          current_user.activity_items.create(:story_id => @story.id,
-                                             :topic_id => @topic.id,
-                                             :kind => ActivityItem::CreateLinkType)
+          current_user.activity_items.create(
+            :story_id => @story.id,
+            :topic_id => @topic.id,
+            :kind     => ActivityItem::CreateLinkType)
         else
-          current_user.activity_items.create(:story_id => @story.id,
-                                             :topic_id => @topic.id,
-                                             :kind => ActivityItem::CreatePostType)
+          current_user.activity_items.create(
+            :story_id => @story.id,
+            :topic_id => @topic.id,
+            :kind     => ActivityItem::CreatePostType)
         end
 
         if params[:redirect]
