@@ -54,7 +54,7 @@ $(function() {
     append: function(comment) {
       var view = new CommentView({ model: comment, user_id: this.user_id });
       $('.comment-entries', this.el).append(view.render().el);
-      this.input.val('').focus();
+      this.input.val('');
       this.count ++;
       this.render();
     },
