@@ -1,0 +1,18 @@
+<footer>
+  <p class="pull-right">
+    &copy; Virginia Tech ·
+    <a href="http://cs.vt.edu">Computer Science</a> ·
+    <a href="http://comm.vt.edu">Communication</a>
+  </p>
+  <p>
+    <%= link_to image_tag("feed-icon-small.png"), "/feed", 
+      :class => "small-rss-icon" %>
+    <%= link_to "RSS", "/feed", :class => "small-rss-icon" %> · 
+    <%= link_to "About", about_url %> · 
+    <%= link_to "Give Feedback",
+    "javascript:UserVoice.showPopupWidget();",
+    :title => "Send us feedback!"
+    %> · 
+    <%= link_to "Sources", sources_url %>
+  </p>
+</footer>

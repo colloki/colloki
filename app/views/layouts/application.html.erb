@@ -26,15 +26,8 @@
 
   <%= include_javascripts :common %>
 
-  <!-- UserVoice for feedback -->
-  <script type="text/javascript">
-    var uvOptions = {};
-    (function() {
-      var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-      uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/pLtn5f9SjZ6cvVzbO7NeUQ.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-    })();
-  </script>
+  <%= render :partial => 'partials/uservoice' %>
+  <%= render :partial => 'partials/google_analytics' %>
 
   <script type="text/javascript">
     var APP_ROOT_PATH = "<%= root_url %>";
@@ -194,25 +187,7 @@
     <%= yield %>
     <hr>
 
-    <!-- Footer -->
-    <footer>
-      <p class="pull-right">
-        &copy; Virginia Tech ·
-        <a href="http://cs.vt.edu">Computer Science</a> ·
-        <a href="http://comm.vt.edu">Communication</a>
-      </p>
-      <p>
-        <%= link_to image_tag("feed-icon-small.png"), "/feed", :class => "small-rss-icon" %>
-        <%= link_to "RSS", "/feed", :class => "small-rss-icon" %> · 
-        <%= link_to "About", about_url %> · 
-        <%= link_to "Give Feedback",
-        "javascript:UserVoice.showPopupWidget();",
-        :title => "Send us feedback!"
-        %> · 
-        <%= link_to "Sources", sources_url %>
-      </p>
-    </footer>
-
+    <%= render :partial => 'partials/footer' %>
   </div>
 </body>
 </html>
