@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
     elsif request.referer != login_url
       @redir = request.referer
     end
+    @new_users = User.newly_activated
+    @stories   = Story.latest_with_photos
   end
 
   def create
