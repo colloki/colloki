@@ -62,7 +62,11 @@
       <div class="span4">
         <div class='slideshow'>
           <% @stories.each do |story| %>
-            <%= image_tag(story.image.url) %>
+            <%= link_to image_tag(story.image.url), story_url(story), 
+                :title => story.title,
+                :class => 'has_tooltip',
+                'data-placement' => 'top'
+            %>
           <% end %>
         </div>
         We find relevant local news and discussions happening across the web,
@@ -95,7 +99,7 @@
             <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }),
               user,
               :title => user.login,
-              'data-placement' => 'bottom',
+              'data-placement' => 'top',
               :class => 'has_tooltip avatar' %>
           <% end %>
         <% end %>
@@ -112,7 +116,8 @@
 
 <script type="text/javascript">  
  $(document).ready(function() {
-  $('.slideshow img').shuffle();
+  // getting links to work in slideshow
+  $('.slideshow a').shuffle();
   $('.slideshow').cycle({
     fx: 'fade',
     timeout: 5000
