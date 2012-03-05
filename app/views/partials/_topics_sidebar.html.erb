@@ -1,7 +1,7 @@
 <!-- Colloki Sign Up Note-->
 <% if !logged_in? %>
   <h4>What is VTS?</h4>
-  <%= colloki_description %>
+  <%= signin_description %>
   <hr>
 <% end %>
 
@@ -42,12 +42,7 @@
 <!-- New users -->
 <% if new_users and new_users.count != 0 %>
   <h4>New Users</h4>
-  <% for user in new_users %>
-    <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }),
-    user,
-    :title => user.login,
-    :class => 'avatar' %>
-  <% end %>
+  <%= render :partial => "partials/new_users", :locals => {:users => new_users} %>
   <hr>
 <% end %>
 

@@ -1,53 +1,40 @@
 <h2>
-  Sign in
+  Sign In
 </h2>
 <hr>
 <div class="row">
-  <div class="span5 pull-left" style="margin-top: 100px; padding-left: 50px;">
-    <h1>
-      Stay Informed. Debate. Decide.
-    </h1>
+  <div class="span6 pull-left" style="margin-top: 10px; width: 600px">
+    <div class="row" style="text-align: center; margin-bottom: 20px">
+      <h2>
+        Stay Informed. Debate. Decide.
+      </h2>
+    </div>
+    <div class='row' style='margin: auto;'>
+      <div class='slideshow'>
+        <% @stories.each do |story| %>
+          <%= link_to image_tag(story.image.url), story_url(story), 
+              :title => story.title,
+              :class => 'has_tooltip',
+              'data-placement' => 'top'
+          %>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="span5 pull-right">
-    <%= form_tag create_session_path do %>
-
-    <div class="control-group">
-      <%= link_to image_tag("sign-in-with-twitter.png", 
-        :alt => "Sign in with Twitter"), "auth/twitter" %>
-      <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
-    </div>
-    <br>
-    
-    <div class="control-group">
-      <label for="login" >Username or Email</label>
-      <div class="controls">
-        <%= text_field_tag 'login' %>
+  <div class="span4 pull-right">
+    <%= render :partial => "partials/signin_inline_form" %>
+    <%= render :partial => "partials/signup_short_form" %>
+    <div class="row" style='background-color:whiteSmoke; border-top: 1px solid #ddd; padding: 10px 0; margin-left: 0;'>
+      <div class="span1" style="width: 10px;margin-top: -3px">
+        <h3>or</h3>
+      </div>
+      <div class="span3" style="width: 220px">
+        <%= link_to image_tag("sign-in-with-twitter.png", 
+          :alt => "Sign in with Twitter"), "auth/twitter" %>
+          <br>
+        <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
       </div>
     </div>
-
-    <div class="control-group">
-      <label for="password">Password</label>
-      <div class="controls">
-        <%= password_field_tag 'password' %>
-      </div>
-    </div>
-    <div class="control-group">
-      <label class="checkbox" for="remember_me">
-        <%= check_box_tag 'remember_me' %>
-        Remember me
-      </label>
-    </div>
-
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">
-        Sign In
-      </button>
-      <%= link_to "Forgot password", forgot_password_url, :class => 'btn' %>
-      <%= link_to "Sign Up!", signup_url, :class => 'btn-info btn' %>
-    </div>
-
-    <%= hidden_field_tag 'redir', @redir %>
-    <% end %>
   </div>
 </div>
 <hr>
@@ -55,23 +42,14 @@
   <div class="span4">
     <div class="row">
       <div class="span4">
-        <h3>What's happening in my town?</h3>
+        <h3>What's happening in your town?</h3>
       </div>
     </div><br>
     <div class="row">
       <div class="span4">
-        <div class='slideshow'>
-          <% @stories.each do |story| %>
-            <%= link_to image_tag(story.image.url), story_url(story), 
-                :title => story.title,
-                :class => 'has_tooltip',
-                'data-placement' => 'top'
-            %>
-          <% end %>
-        </div>
         We find relevant local news and discussions happening across the web,
         so you don't have to.
-    </div>
+      </div>
     </div>
   </div>
   <div class="span4">
@@ -95,13 +73,8 @@
     <div class="row">
       <div class="span4">
         <% if @new_users and @new_users.count != 0 %>
-          <% for user in @new_users %>
-            <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }),
-              user,
-              :title => user.login,
-              'data-placement' => 'top',
-              :class => 'has_tooltip avatar' %>
-          <% end %>
+          <%= render :partial => "partials/new_users", 
+            :locals => {:users => @new_users} %>
         <% end %>
       </div>
     </div>

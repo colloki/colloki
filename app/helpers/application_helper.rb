@@ -19,12 +19,12 @@ module ApplicationHelper
     "http://www.google.com/s2/favicons?domain_url=" << url
   end
 
-  def colloki_description
+  def signin_description
     ("Virtual Town Square is a place to learn and discuss local issues with 
     other Blacksburg and Montgomery County residents.<br><br>" +
-    " Sign up today to participate in discussions! You'll be able to post your own stories,
+    " Sign in to participate in discussions. You'll be able to post your own stories,
      comment and like stories.<br><br>" +
-    link_to('Sign Up', signup_url, :class => 'btn btn-primary')).html_safe
+    link_to('Sign In', login_url, :class => 'btn btn-primary')).html_safe
   end
 
   def errors_for(object, message=nil)

@@ -1,64 +1,7 @@
-<h2>
-  Sign up
-</h2>
+<br>
+  <h2>
+    Join Virtual Town Square Today.
+  </h2>
+<hr>
 
-<%= form_for :user, :url => users_path, :html => { :class => "form-horizontal" } do |f| %>
-
-  <div class="control-group">
-    <div style="text-align: center">
-      <%= link_to image_tag("sign-in-with-twitter.png", 
-        :alt => "Sign in with Twitter"), "auth/twitter" %>
-      <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
-    </div>
-  </div>
-
-  <hr>
-
-  <%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
-
-  <div class="control-group">
-    <label class="control-label">
-      Pick a username <span class="important">*</span>
-    </label>
-    <div class="controls">
-      <%= f.text_field :login %>
-      <p class="help-block">Cannot have spaces or any other special characters</p>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <label class="control-label" for="email">
-      Email <span class="important">*</span>
-    </label>
-    <div class="controls">
-      <%= f.text_field :email %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <label for="password">
-      Password <span class="important">*</span>
-    </label>
-    <div class="controls">
-      <%= f.password_field :password %>
-      <p class="help-block">Five or more characters</p>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <label for="password_confirmation">
-      Confirm Password <span class="important">*</span>
-    </label>
-    <div class="controls">
-      <%= f.password_field :password_confirmation %>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <button type="submit" class="btn btn-primary">
-      Sign Up!
-    </button>
-  </div>
-
-  <span class="important">*</span> required
-<% end %>
+<%= render :partial => "partials/signup_form" %>

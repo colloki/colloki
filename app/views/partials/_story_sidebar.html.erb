@@ -3,14 +3,16 @@
   <!-- Colloki Sign Up Note -->
   <% if !logged_in? %>
     <h4>What is VTS?</h4>
-    <%= colloki_description %>
+    <%= signin_description %>
     <hr>
   <% end %>
 
   <!-- Topic keywords -->
   <% if topic and topic.topic_keywords %>
     <div class="topic-keywords">
-      <h4><%= link_to topic.title, topic_path(topic) %></h4>
+      <h4>
+        <%= link_to topic.title, topic_path(topic) %>
+      </h4>
       <% sum_of_distributions = 0 %>
       <% topic.topic_keywords.each do |keyword| %>
         <% sum_of_distributions = sum_of_distributions + keyword.distribution %>
@@ -18,7 +20,9 @@
       <% topic.topic_keywords.each do |keyword| %>
       <% weight = ((keyword.distribution / sum_of_distributions) * 100).to_int %>
       <% keyword_size = (weight + 15).to_s %>
-      <span class="topic-keyword" style="font-size: <%=keyword_size%>px" title="Search for <%= keyword.name %>">
+      <span class="topic-keyword"
+         style="font-size: <%=keyword_size%>px" 
+         title="Search for <%= keyword.name %>">
         <%= link_to keyword.name, "/search?query=" + keyword.name %>
       </span>
       <% end %>

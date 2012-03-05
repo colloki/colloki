@@ -19,11 +19,11 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token,
           :expires => self.current_user.remember_token_expires_at }
       end
-        redirect_to params[:redir],
-          :notice => "Welcome back #{self.current_user.login}!"
+        flash[:notice] = "Welcome back #{self.current_user.login}!"
+        redirect_to params[:redir]
     else
-      redirect_to login_path,
-        :alert => "Invalid credentials. Please try again"
+      flash[:error] = "Incorrect login / password. Please try again"
+      redirect_to login_path
     end
   end
 

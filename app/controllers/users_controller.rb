@@ -90,8 +90,8 @@ class UsersController < ApplicationController
     end
     user = User.find(:first, :conditions => {:email => params[:email]})
     if !user
-      flash[:alert] = "That email id is not registered on VTS. 
-        Please enter the email id you used to register."
+      flash[:alert] = "That email is not registered on VTS. 
+        Please enter the email you used to register."
       redirect_to forgot_password_url
     else
       user.make_reset_code
@@ -103,7 +103,8 @@ class UsersController < ApplicationController
         redirect_to login_url
       else
         flash[:alert] = 
-          "We're sorry, some error occured while trying to generate the reset code."
+          "We're sorry, an error occured while trying to generate the reset code. 
+          Please try again later"
       end
     end
   end
@@ -151,9 +152,9 @@ class UsersController < ApplicationController
 
     if @user.errors.empty?
       UserMailer.signup_notification(@user).deliver
-      redirect_back_or_default(root_url)
-      flash[:notice] = "Thanks for signing up, we've sent you an activation email.
+      flash[:notice] = "Thanks for signing up! We've sent you an activation email.
       \nPlease verify your email by clicking on the activation link in that email."
+      redirect_to root_url
     else
       render :action => 'new'
     end
