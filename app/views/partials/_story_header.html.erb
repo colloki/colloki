@@ -1,0 +1,41 @@
+<% Time::DATE_FORMATS[:day_month_and_year] = "%d %B %Y" %>
+<ul class="breadcrumb">
+  <% if story.topic %>
+    <% 
+      story_date = story.topic.day.to_date
+      today_date = DateTime.now.to_date
+    %>
+    <li>
+      <% if (story_date == today_date) %>
+        Today
+      <% elsif (today_date - story_date == 1) %>
+        Yesterday
+      <% else %>
+        <%= story.topic.day.to_formatted_s(:day_month_and_year) %>
+      <% end %>
+      <span class="divider">/</span>
+    </li>
+    <li>
+      [ <%= link_to story.topic.title, topic_url(story.topic) %> ]
+      <span class="divider">/</span>
+    </li>
+    <li>
+      <%= link_to story.source,
+        search_url + "?query=" + story.source 
+      %>
+      <span class="divider">/</span>
+    </li>
+  <% else %>
+  <li>
+    Uncategorized
+    <span class="divider">/</span>
+  </li>
+  <% end %>
+  <li class="active">
+    <%= story.title %>
+  </li>
+</ul>
+
+<%= render :partial => "partials/page_header",
+  :locals => {:title => story.title}
+%>

@@ -96,18 +96,6 @@
         <div class="span4">
           <ul class="nav nav-pills">
             
-            <!-- Active Discussions -->
-            <% if request.filtered_parameters["controller"] === "topics" and
-                  request.filtered_parameters["action"] === "active" %>
-              <li class="active">
-              <% icon = "icon-comment icon-white" %>
-            <% else %>
-              <li>
-              <% icon = "icon-comment" %>
-            <% end %>
-              <%= link_to ("<i class='" + icon + "'></i> Active").html_safe, active_url %>
-            </li>
-
             <!-- Latest -->
             <% if request.filtered_parameters["controller"] === "topics" and
               request.filtered_parameters["action"] === "latest" %>
@@ -129,7 +117,7 @@
               <li>
               <% icon = "icon-fire" %>
             <% end %>
-              <%= link_to ("<i class='" + icon + "'></i> Most Popular").html_safe, popular_url %>
+              <%= link_to ("<i class='" + icon + "'></i> Most Discussed").html_safe, popular_url %>
             </li>
           </ul>
         </div>

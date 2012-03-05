@@ -8,7 +8,9 @@
             <%= story_item_thumbnail(story, "original") %>
             <div class="carousel-caption">
               <h4>
-                <%= story_item_title(story) %>
+                <%= render :partial => "partials/story_item_title",
+                  :locals => {:story => story}
+                %>
               </h4>
               <p>
                 <%= story_item_content(story, 200, 140) %>

@@ -31,37 +31,6 @@ module TopicsHelper
     return html.html_safe
   end
 
-  def story_item_meta(story)
-    html = "<div class=\"story-item-meta\">"
-    if story.kind != Story::Rss
-      html << "Posted by #{story_item_icon(story)} #{link_to story.user.login,
-      { :controller => "users", :action => "show", :id => story.user.id }} "
-    else
-      html << "#{story_item_icon(story)}"
-      html << "#{link_to story.source, story.source_url} "
-    end
-    if story.published_at
-      html << "<br>#{time_ago_in_words story.published_at} ago"
-    else
-      html << "<br>#{time_ago_in_words story.created_at} ago"
-    end
-    html << " • "
-    html << "
-      #{link_to (story.comments.count.to_s << ' <i class=\'icon-comment\'></i>').html_safe,
-      story_path(story.id) + "#comments",
-      :class => 'comment-count has_tooltip',
-      :title => story.comments.count.to_s + ' comments'}"
-    html << ""
-    html << " • "
-    html << "
-      #{link_to (story.votes.count.to_s << ' <i class=\'icon-heart\'></i>').html_safe,
-      story_path(story.id),
-      :class => 'like-count has_tooltip',
-      :title => story.votes.count.to_s + " likes"}"
-    html << "</div>"
-    html.html_safe
-  end
-
   def story_item_content(story, length_with_image=-1, length_without_image=-1)
     if image_exists? story.image_file_name
       if length_with_image != -1
@@ -80,16 +49,5 @@ module TopicsHelper
         return strip_tags(story.description)
       end
     end
-  end
-
-  def story_item_title(story, length=-1)
-    if length != -1
-      title = truncate(strip_tags(story.title),
-                :length => length,
-                :omission => "...")
-    else
-      title = strip_tags(story.title)
-    end
-    "#{link_to title, story}".html_safe
   end
 end

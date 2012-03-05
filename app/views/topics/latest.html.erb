@@ -1,4 +1,5 @@
-<%= render :partial => "partials/topic_header", :locals => {:title => "Latest"} %>
+<%= render :partial => "partials/page_header", 
+  :locals => {:title => "Latest"} %>
 <%= render :partial => "partials/topic_body", :locals => {
   :stories_with_photos   => @stories_with_photos,
   :stories               => @stories,

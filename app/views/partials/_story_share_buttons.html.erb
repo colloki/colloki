@@ -1,0 +1,23 @@
+<div class="btn-group btn-small" style="margin-bottom: -6px;">
+  <a class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+    Share
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"
+           target="_blank"
+           onclick="window.open('http://www.facebook.com/sharer.php?u=<%=request.url%>', 
+           'Share on Facebook',
+           'height=500,width=500'); return false;">Facebook</a></li>
+    <li><a href="#"
+           target="_blank"
+           onclick="window.open('http://twitter.com/share?url=<%= request.url %>', 
+           'Share on Twitter',
+           'height=500,width=700'); return false;">Twitter</a></li>
+    <li><a href="#">Email this story</a></li>
+  </ul>
+</div>
+<div style="display: inline-block; margin-bottom: -20px">
+  <%= render :partial => "partials/google_plusone_button" %>
+  <%= render :partial => "partials/facebook_like_button" %>
+</div>

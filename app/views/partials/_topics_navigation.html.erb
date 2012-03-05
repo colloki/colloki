@@ -7,7 +7,8 @@
       <% else %>
         <li>
       <% end %>
-      <%= link_to topic.title, topical_path(topic), 
+      <%= link_to "[ " << topic.title << " ]",
+            topical_path(topic), 
             :class                 => "has_popover",
             "data-content"         => topic.keywords,
             :title                 => topic.title %>

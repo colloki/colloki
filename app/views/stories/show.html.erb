@@ -1,34 +1,27 @@
-<div class="breadcrumb">
-  <% if @story.topic %>
-    <%= @story.topic.title %>
-  <% else %>
-    Uncategorized
-  <% end %>
-</div>
+<%= render :partial => "partials/story_header",
+  :locals => {:story => @story}
+%>
 
 <div class="row">
   <div class="span8 story">
     <div class="row">
-      <div class="span6" style="width: 425px">
-        <div class="row" style="margin-left: 0px">
-          <h2>
-            <%= story_title(@story) %>
-          </h2>
-        </div>
+      <div class="span6" style="width: 325px">
         <div class="row" style="margin-left: 0px; margin-top: 5px">
-          <%= story_meta(@story) %>
+          <%= render :partial => "partials/story_meta",
+            :locals => {:story => @story}
+          %>
         </div>
       </div>
-      <div class="span2 pull-right" style="width: 175px; margin-top: 5px">
+      <div class="span2 pull-right" style="width: 220px; margin-top: 5px">
         <div class="row pull-right">
-            <a class="like-btn btn">
+          <div style="display: inline-table; margin-bottom: -5px;">
+            <a class="like-btn btn btn-small">
               <div class="vote-count">
               </div>
             </a>
-        </div>
-        <div class="row pull-right" style="margin-top: 10px">
-          <%= render :partial => "partials/share_button",
-          :locals => { :story => @story } %>
+          </div>
+          <%= render :partial => "partials/story_share_buttons",
+            :locals => { :story => @story } %>
         </div>
       </div>
     </div>

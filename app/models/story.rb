@@ -113,9 +113,12 @@ class Story < ActiveRecord::Base
 
   def self.search(query, page)
     paginate(:page => page,
-      :conditions => [ "title like ? OR description like ? ",
-      "%#{query}%",
-      "%#{query}%"])
+      :conditions => [ "title like ? OR description like ? OR source like ? OR source_url like ?",
+        "%#{query}%",
+        "%#{query}%",
+        "%#{query}%",
+        "%#{query}"],
+      :order => "published_at DESC")
   end
 
   def self.find_for_topic(topic_id, sort_by, page)

@@ -7,39 +7,6 @@
     font-size: 12px;
     font-weight: 300;
     line-height: 16px;
-    
-    a {
-      color: #555;
-    }
-    
-    // todo: this is a temporary fix to use data-uri's until we upgrade to Rails 3.1
-    .small-icon (@data_url, @hover_data_url) {
-      color: #ccc;
-      background: url(@data_url) no-repeat 0 3px;
-      padding-left: 14px;
-      &:hover {
-        background: url(@hover_data_url) no-repeat 0 3px;
-        text-decoration: none !important;
-        color: #333;
-      }
-    }
-
-    .comment-count,
-    .like-count {
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
-    i {
-      opacity: 0.3;
-      cursor: pointer;
-      &:hover {
-        opacity: 1.0;
-        -moz-opacity: 1.0;
-        filter:alpha(opacity=10);
-      }
-    }
   }
 }
 

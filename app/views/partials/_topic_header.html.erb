@@ -1,9 +1,27 @@
+<% Time::DATE_FORMATS[:day_month_and_year] = "%d %B %Y" %>
+<% 
+  topic_date = topic.day.to_date
+  today_date = DateTime.now.to_date
+%>
 <ul class="breadcrumb">
+  <li>
+    <% if (topic_date == today_date) %>
+      Today
+    <% elsif (today_date - topic_date == 1) %>
+      Yesterday
+    <% else %>
+      <%= topic.day.to_formatted_s(:day_month_and_year) %>
+    <% end %>
+    <span class="divider">/</span>
+  </li>
   <li class="active">
-    <% if title %>
-      <%= title %>
+    <% if topic.title %>
+      [ <%= topic.title %> ]
     <% else %>
       Uncategorized
     <% end %>
   </li>
 </ul>
+
+<%= render :partial => "partials/page_header", 
+  :locals => {:title => "[ " + topic.title + " ]"} %>
