@@ -19,6 +19,7 @@ Colloki::Application.routes.draw do
   match 'logout', :to => 'sessions#destroy', :as => 'logout'
   match 'session/create', :to => 'sessions#create', :as => 'create_session'
   match 'about', :to => 'static#about', :as => 'about'
+  match 'research', :to => 'static#about_research', :as => 'research'
   match 'changelog', :to => 'static#changelog', :as => 'changelog'
   match 'specs', :to => 'static#specs', :as => 'specs'
   match 'sources', :to => 'static#sources', :as => 'sources'
