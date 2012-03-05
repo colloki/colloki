@@ -16,12 +16,18 @@
       <span class="divider">/</span>
     </li>
     <li>
-      [ <%= link_to story.topic.title, topic_url(story.topic) %> ]
+      [ <%= link_to story.topic.title, 
+          topic_url(story.topic), 
+          :class => "has_tooltip",
+          :title => "View topic [ " + story.topic.title + " ]" %> 
+      ]
       <span class="divider">/</span>
     </li>
     <li>
       <%= link_to story.source,
-        search_url + "?query=" + story.source 
+        search_url + "?query=" + story.source,
+        :class => "has_tooltip",
+        :title => "View all from " + story.source
       %>
       <span class="divider">/</span>
     </li>

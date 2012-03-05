@@ -21,11 +21,7 @@
   <% end %> ago
 
   <div style="margin-top: 5px;">
-    <%= link_to ("<i class='icon-comment'></i> " << story.comments.count.to_s).html_safe, story_path(story.id), :class => 'comment-count has_tooltip btn btn-small', :title => story.comments.count.to_s + ' comments'
-    %>
-
-    <%= link_to ("<i class='icon-star icon-white'></i> " << story.votes.count.to_s).html_safe, story_path(story.id), :class => 'like-count has_tooltip btn btn-small btn-success', :title => story.votes.count.to_s + ' likes'
-    %>
+    <%= render :partial => "partials/comment_btn", :locals => {:story => story} %>
+    <%= render :partial => "partials/like_btn/html", :locals => {:story => story} %>
   </div>
-  
 </div>

@@ -1,0 +1,18 @@
+<div class="story-content">
+  <% if image_exists? story.image_file_name %>
+    <div class="story-image">
+      <%= image_tag(story.image.url) %>
+    </div>
+  <% end %>
+  <div class="expandable">
+    <%= sanitize(story.description) %>
+  </div>
+</div>
+
+<% if story.kind == Story::Rss %>
+  <hr>
+  <div class="story-footer">
+    Original article: <%= link_to story.source_url, story.source_url %>
+  </div>
+<% end %>
+<hr>

@@ -1,0 +1,6 @@
+<%= 
+  link_to ("<i class='icon-comment'></i> " << story.comments.count.to_s).html_safe, 
+  story_path(story.id), 
+  :class => 'comment-count has_tooltip btn btn-small', 
+  :title => story.comments.count.to_s + ' comments'
+%>

@@ -4,13 +4,13 @@ $(function() {
       "click .add-comment": "add"
     },
 
-    initialize: function(data, story_id, user_id) {
+    initialize: function() {
       _.bindAll(this, 'render', 'add', 'addAll', 'append', 'remove');
 
-      this.el       = $("#comments" + story_id);
-      this.input    = $(".comment-body", this.el);
-      this.story_id = story_id;
-      this.user_id  = user_id;
+      this.$count   = this.$el.find('.comment-count');
+      this.$input   = this.$el.find('.comment-body');
+      this.$entries = this.$el.find('.comment-entries');
+
       this.delegateEvents();
 
       this.collection = new Comments();
@@ -20,8 +20,8 @@ $(function() {
 
       // TODO: for some reason, collection.reset is not working. 
       // that'll be more elegant here
-      for (var i = 0; i < data.length; i++) {
-        var c = new Comment(data[i]);
+      for (var i = 0; i < this.options.data.length; i++) {
+        var c = new Comment(this.options.data[i]);
         this.collection.add(c);
         this.append(c);
       }
@@ -32,17 +32,23 @@ $(function() {
       var html = this.count + " Comment";
       if (this.count != 1)
         html += "s";
-      $(".comment-count", this.el).html(html);
+      this.$count.html(html);
     },
 
     // Save a new comment
     add: function(e) {
+      e.preventDefault();
       var c = new Comment();
       var self = this;
       self.collection.add(c);
-      c.save({ body: this.input.val(), story_id: this.story_id }, { success: function(c, response) {
-        self.append(c);
-      }});
+      c.save({ 
+        body: this.$input.val(),
+        story_id: this.options.story_id
+      }, {
+        success: function(c, response) {
+          self.append(c);
+        }
+      });
     },
 
     // Add all comments in collection to UI
@@ -52,9 +58,13 @@ $(function() {
 
     // Add single comment to UI
     append: function(comment) {
-      var view = new CommentView({ model: comment, user_id: this.user_id });
-      $('.comment-entries', this.el).append(view.render().el);
-      this.input.val('');
+      var view = new CommentView({
+        model: comment,
+        user_id: this.options.user_id
+      });
+
+      this.$entries.append(view.render().el);
+      this.$input.val('');
       this.count ++;
       this.render();
     },

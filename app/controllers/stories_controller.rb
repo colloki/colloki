@@ -2,7 +2,6 @@ class StoriesController < ApplicationController
   # TODO: The URL for this action is currently http://site/stories/<ID>.
   # It needs to be http://site/topic/<Topic_ID>/story/<ID>
   # or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>
-  #
   def show
     @story = Story.find(params[:id])
 
@@ -79,28 +78,6 @@ class StoriesController < ApplicationController
         :timestamp        => comment.created_at
       })
     end
-
-    state = 0
-    if logged_in?
-      if (@story.user && @story.user.id == current_user.id) || current_user.voted_on?(@story)
-        if current_user.voted_on?(@story)
-          vote =  current_user.get_vote(@story).id
-        end
-        state = 1
-      end
-    else
-      state = -1
-    end
-
-    @voting_data = {
-      state: state,
-      id: (defined? vote) ? vote : -1,
-      story_id: @story.id,
-      user_id: logged_in? ? current_user.id : nil,
-      user_email_hash: logged_in? ? Digest::MD5.hexdigest(current_user.email) : nil,
-      user_login: logged_in? ? current_user.login : nil,
-      count: @story.votes.count
-    };
 
     if logged_in?
       @user_id = current_user.id

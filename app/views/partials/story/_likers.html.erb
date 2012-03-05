@@ -1,0 +1,19 @@
+<div id="story-likers">
+  <% if users.count != 0 %>
+    <h4>
+      Liked by
+    </h4>
+    <% for user in users %>
+      <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 24 }),
+        user,
+        :id               => "liker#{user.id}",
+        :class            => "story-liker has_tooltip",
+        'data-placement'  => "bottom",
+        :title            => user.login
+      %>
+    <% end %>
+  <% end %>
+</div>
+<% if users.count != 0 %>
+  <hr>
+<% end %>

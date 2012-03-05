@@ -1,47 +1,67 @@
 $(function() {
   window.VoteView = Backbone.View.extend({
-    el        : ".like-btn",
-    count_el  : ".vote-count",
-    likers_el : "#story-likers",
 
     events: {
       "click": "vote"
     },
 
-    initialize: function(data) {
+    initialize: function() {
       _.bindAll(this, 'render', 'vote', 'add', 'remove');
-      this.data = data;
 
-      if (this.data.state == 1)
-        this.model = new Vote({id: this.data.id});
+      this.$count   = this.$el.find(".like-count");
+      this.$star    = this.$el.find("i");
+      this.$likers  = $("#story-likers");
+      this.$liker   = $("#story-liker" + this.options.user.id);
 
+      if (this.options.state == 1) {
+        this.model = new Vote({
+          id: this.options.id
+        });
+      }
+
+      this.delegateEvents();
       this.render();
     },
 
-    render: function() {
-      $(this.count_el).html(this.data.count + " likes");
+    setTitle: function(title) {
+      this.$el
+      .attr('data-original-title', title);
+    },
 
-      if (this.data.state == -1) {
-        $(this.el).attr("title", this.data.count + " likes")
-        .addClass("disabled");
+    render: function() {
+      this.$count.html(this.options.count);
+
+      if (this.options.state == -2) {
+        this.setTitle(this.options.count + " likes. Sign In to Like.");
+        this.$el.addClass("disabled");
       }
-      else if (this.data.state == 0) {
-        $(this.el).attr("title", "Like")
-        .removeClass("voted")
-        .addClass("btn-success");
+
+      else if (this.options.state == -1) {
+        this.setTitle(this.options.count + " likes");
+        this.$el.addClass("disabled");
       }
+
+      else if (this.options.state == 0) {
+        this.setTitle("Like");
+        this.$star
+        .removeClass('icon-star')
+        .addClass('icon-star-empty');
+      }
+
       else {
-        $(this.el).attr("title", "Unlike")
-        .addClass("voted")
-        .addClass("btn-success");
+        this.setTitle("Unlike");
+        this.$star
+        .removeClass('icon-star-empty')
+        .addClass('icon-star');
       }
+
       return this;
     },
 
     vote: function() {
-      if (this.data.state == -1)
+      if (this.options.state == -1)
         return;
-      if (this.data.state == 0)
+      if (this.options.state == 0)
         this.add();
       else
         this.remove();
@@ -51,16 +71,22 @@ $(function() {
     add: function() {
       this.model = new Vote();
       var self = this;
-      this.model.save({story_id: this.data.story_id}, {success: function(model, response) {
-        if ($("#liker" + self.data.user_id).length == 0) {
-          $(self.likers_el).append(JST.story_liker({
-            data: self.data,
-            liked_by_exists: ($(self.likers_el + " > h4").length == 1)
-          }));
+      this.model.save({
+        story_id: this.options.story_id}, {
+        success: function(model, response) {
+          if (!this.$liker || this.$liker.length == 0) {
+            self.$likers.append(JST.story_liker({
+              count: self.options.count,
+              user: self.options.user,
+              gravatar_url: get_gravatar_url(self.options.user.email, 24),
+              exists: self.$likers.find("h4").length == 1
+            }));
+          }
         }
-      }});
-      this.data.count ++;
-      this.data.state = 1;
+      });
+
+      this.options.count ++;
+      this.options.state = 1;
       this.render();
     },
 
@@ -68,10 +94,11 @@ $(function() {
     remove: function() {
       var self = this;
       this.model.destroy({success: function(model, response) {
-        $("#liker" + self.data.user_id).remove();
+        this.$liker.remove();
       }});
-      this.data.count --;
-      this.data.state = 0;
+
+      this.options.count --;
+      this.options.state = 0;
       this.render();
     }
   });

@@ -1,0 +1,22 @@
+<div id="comments<%= story.id %>">
+  <h4 class="comment-count"></h4>
+  <div class="comment-entries"></div>
+  <h3>Post a comment</h3>
+  <br>
+  <% if logged_in? %>
+    <div class="clearfix">
+      <%= text_area "comment",
+        "body",
+        :class => "input-xxlarge comment-body",
+        :rows => "6" %>
+    </div>
+    <br>
+    <%= submit_tag "Post Comment", :class => "btn add-comment btn-primary" %>
+  <% else %>
+  <p>
+    <%= link_to "Sign In", login_url, :class=>"btn-primary btn" %>
+    <br><br>
+    You need to be signed in to comment.
+  </p>
+  <% end %>
+</div>

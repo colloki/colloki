@@ -1,85 +1,43 @@
-<%= render :partial => "partials/story_header",
+<%= render :partial => "partials/story/header",
   :locals => {:story => @story}
 %>
 
 <div class="row">
   <div class="span8 story">
+
     <div class="row">
       <div class="span6" style="width: 325px">
-        <div class="row" style="margin-left: 0px; margin-top: 5px">
-          <%= render :partial => "partials/story_meta",
+        <div class="row" style="margin-left: 0px;">
+          <%= render :partial => "partials/story/meta",
             :locals => {:story => @story}
           %>
         </div>
       </div>
-      <div class="span2 pull-right" style="width: 220px; margin-top: 5px">
+      <div class="span2 pull-right" style="width: 220px; margin-top: 3px">
         <div class="row pull-right">
-          <div style="display: inline-table; margin-bottom: -5px;">
-            <a class="like-btn btn btn-small">
-              <div class="vote-count">
-              </div>
-            </a>
+          <div style="display: inline-table; margin-bottom: -4px;">
+            <%= render :partial => "partials/like_btn/html", :locals => {:story => @story} %>
           </div>
-          <%= render :partial => "partials/story_share_buttons",
+          <%= render :partial => "partials/story/share_buttons",
             :locals => { :story => @story } %>
         </div>
       </div>
     </div>
 
-    <div class="story-content">
-      <% if image_exists? @story.image_file_name %>
-        <div class="story-image">
-          <%= image_tag(@story.image.url) %>
-        </div>
-      <% end %>
-      <div class="expandable">
-        <%= sanitize(@story.description) %>
-      </div>
-    </div>
+    <%= render :partial => "partials/story/body", :locals => {
+      :story => @story
+    } %>
+    
+    <%= render :partial => "partials/story/likers",
+      :locals => {:story => @story, :users => @likers}
+    %>
 
-    <% if @story.kind == Story::Rss %>
-      <hr>
-      <div class="story-footer">
-        Original article: <%= link_to @story.source_url, @story.source_url %>
-      </div>
-    <% end %>
-    <hr>
-
-    <div id="story-likers">
-      <% if @likers.count != 0 %>
-        <h4>
-          Liked by
-        </h4>
-        <%= story_likers(@likers) %>
-      <% end %>
-    </div>
-    <% if @likers.count != 0 %>
-      <hr>
-    <% end %>
-    <div id="comments<%= @story.id %>">
-      <h4 class="comment-count"></h4>
-      <div class="comment-entries"></div>
-      <h3>Post a comment</h3>
-      <br>
-      <% if logged_in? %>
-        <div class="clearfix">
-          <%= text_area "comment",
-            "body",
-            :class => "input-xxlarge comment-body",
-            :rows => "6" %>
-        </div>
-        <br>
-        <%= submit_tag "Post Comment", :class => "btn add-comment btn-primary" %>
-      <% else %>
-      <p>
-        <%= link_to "Sign In", login_url, :class=>"btn-primary btn" %>
-        <br><br>
-        You need to be signed in to comment.
-      </p>
-      <% end %>
-    </div>
+    <%= render :partial => "partials/story/comments",
+      :locals => {:story => @story }
+    %>
   </div>
-  <%= render :partial => "partials/story_sidebar", :locals => {
+
+  <%= render :partial => "partials/story/sidebar", :locals => {
       :story                    => @story,
       :more_stories             => (defined? @more_stories) ? @more_stories : nil,
       :more_stories_from_source => @more_stories_from_source,
@@ -87,13 +45,13 @@
       :all_posted_stories       => (defined? @all_posted_stories) ? @all_posted_stories : nil,
       :topic                    => (defined? @topic) ? @topic : nil
     }
-    %>
+  %>
 </div>
-<script>
-  $(document).ready(function(e) {
-    var comments = new window.CommentsListView(<%= @comments.to_json.html_safe %>,
-      <%= @story.id %>,
-      <%= @user_id %>);
-    var vote = new window.VoteView(<%= @voting_data.to_json.html_safe %>);
-  });
-</script>
+
+<%= render :partial => "partials/story/footer", 
+  :locals => {
+    :story    => @story,
+    :user_id  => @user_id,
+    :comments => @comments
+  }
+%>

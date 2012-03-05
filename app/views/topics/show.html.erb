@@ -1,7 +1,8 @@
-<%= render :partial => "partials/topic_header", 
+<%= render :partial => "partials/topic/header", 
   :locals => {:topic => @topic}
 %>
-<%= render :partial => "partials/topic_body", :locals => {
+
+<%= render :partial => "partials/topic/body", :locals => {
   :stories_with_photos   => @stories_with_photos,
   :stories               => @stories,
   :activity_items        => @activity_items,
@@ -9,3 +10,6 @@
   :new_users             => @new_users,
   :topic                 => @topic
 } %>
+
+<%= render :partial => "partials/topic/footer", 
+  :locals => {:stories => @stories} %>

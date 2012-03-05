@@ -10,9 +10,9 @@
   <div class='topics-active'>
     <h4>Active Topics</h4>
     <%= render :partial => "partials/topics_navigation",
-          :locals => {
-            :topics => @active_topics
-          }
+      :locals => {
+        :topics => @active_topics
+      }
     %>
   </div>
 <% end %>
@@ -23,7 +23,7 @@
     <h4>
       [ <%= topic.title %> ]
     </h4>
-    <%= render :partial => "partials/topic_keywords",
+    <%= render :partial => "partials/topic/keywords",
           :locals => {
             :topic => topic
           }

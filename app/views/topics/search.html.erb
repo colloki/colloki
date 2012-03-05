@@ -1,10 +1,13 @@
 <%= render :partial => "partials/page_header", 
   :locals => {:title => "Search Results for '" << @query << "'"} %>
 
-<%= render :partial => "partials/topic_body", :locals => {
+<%= render :partial => "partials/topic/body", :locals => {
   :stories_with_photos   => @stories_with_photos,
   :stories               => @stories,
   :activity_items        => @activity_items,
   :tags                  => @tags,
   :new_users             => @new_users
 } %>
+
+<%= render :partial => "partials/topic/footer", 
+  :locals => {:stories => @stories} %>

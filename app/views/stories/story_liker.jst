@@ -1,9 +1,9 @@
-<% if (!liked_by_exists && data.count == 1) { %>
+<% if (!exists && count == 1) { %>
   <h4>Liked By</h4>
 <% } %>
-<a href="/users/<%= data.user_id %>" title="<%= data.user_login %>" class="story-liker" id="liker<%= data.user_id %>">
-  <img alt="Gravatar" src="http://gravatar.com/avatar/<%= data.user_email_hash %>?size=24">
+<a href="/users/<%= user.id %>" title="<%= user.login %>" class="story-liker" id="story-liker<%= user.id %>">
+  <img alt="Gravatar" src="<%= gravatar_url %>" />
 </a>
-<% if (!liked_by_exists && data.count == 1) { %>
+<% if (!exists && count == 1) { %>
   <hr>
 <% } %>

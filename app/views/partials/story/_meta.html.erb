@@ -1,6 +1,6 @@
 <div class="story-meta">
   <% if story.kind != Story::Rss %>
-    by <%= ink_to story.user.login, story.user %> • 
+    by <%= link_to story.user.login, story.user %> • 
     <% if story.published_at %>
       <%= time_ago_in_words story.published_at %>
     <% else %>
@@ -12,13 +12,13 @@
       :class => "favicon")
     %>
     <%= link_to img, story.source_url %>
-    <%= link_to story.source, story.source_url %> • 
+    <%= link_to story.source, story.source_url, 
+      :class => "has_tooltip",
+      'data-placement' => "bottom",
+      :title => "View original post" %> • 
     <%= time_ago_in_words story.published_at %> ago • 
   <% end %>
-  
-  <%= story.popularity.to_s %>
-  <i style='margin-top:1px' class='icon-fire'></i> • 
-  
+
   <%= story.comments.count.to_s %>
   <i style='margin-top:1px' class='icon-comment'></i>
 

@@ -7,8 +7,12 @@
   <% weight = ((keyword.distribution / sum_of_distributions) * 100).to_int %>
   <% keyword_size = (weight + 15).to_s %>
   <span class="topic-keyword" 
-    style="font-size: <%=keyword_size %>px" 
-    title="Search for <%= keyword.name %>">
-    <%= link_to keyword.name, "/search?query=" + keyword.name %>
+    style="font-size: <%=keyword_size %>px">
+    <%= link_to keyword.name, "/search?query=" + keyword.name,
+      :class => "has_tooltip",
+      'data-placement' => "top",
+      'data-delay' => "300",
+      :title => "Search for " + keyword.name
+    %>
   </span>
 <% end %>

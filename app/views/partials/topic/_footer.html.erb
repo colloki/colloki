@@ -1,0 +1,7 @@
+<script>
+  $(document).ready(function(e) {
+    <% for story in stories %>
+      <%= render :partial => "partials/like_btn/js", :locals => {:story => story} %>
+    <% end %>
+  });
+</script>

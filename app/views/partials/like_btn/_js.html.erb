@@ -1,0 +1,26 @@
+<%
+  if logged_in?
+    if story.user && story.user.id == current_user.id
+      state = -1
+    elsif current_user.voted_on?(story)
+      state = 1;
+    else
+      state = 0
+    end
+  else
+    state = -2
+  end
+%>
+
+var like<%= story.id %> = new window.VoteView({
+  el: $("#story-like<%= story.id %>"),
+  id: <%= state == 1 ? current_user.get_vote(story).id : -1 %>,
+  state: <%= state %>,
+  count: <%= story.votes.count %>,
+  story_id: <%= story.id %>,
+  user: {
+    id: "<%= current_user ? current_user.id : -1 %>",
+    email: "<%= current_user ? current_user.email : -1 %>",
+    login: "<%= current_user ? current_user.login : -1 %>",
+  }
+});

@@ -12,39 +12,6 @@ module StoriesHelper
     html.html_safe
   end
 
-  def story_meta(story)
-    html = "<div class=\"story-meta\">"
-
-    if story.kind != Story::Rss
-      html << "by #{link_to story.user.login, story.user} • "
-      if @story.published_at
-        html << "#{time_ago_in_words @story.published_at} ago • "
-      else
-        html << "#{time_ago_in_words @story.created_at} ago • "
-      end
-    else
-      img = image_tag("http://www.google.com/s2/favicons?domain_url=" << story.source_url, :class => "favicon")
-      html << "#{link_to img, story.source_url}"
-
-      html << "#{link_to story.source, story.source_url} • "
-      html << "#{time_ago_in_words @story.published_at} ago • "
-    end
-
-    html << story.popularity.to_s
-    html << " <i style='margin-top:1px' class='icon-fire'></i> • "
-
-    html << story.comments.count.to_s
-    html << " <i style='margin-top:1px' class='icon-comment'></i>"
-
-    if story.kind != Story::Rss
-      if logged_in? and story.user_id == current_user.id
-        html << story_edit_btn(story)
-      end
-    end
-    html << "</div>"
-    html.html_safe
-  end
-
   def story_edit_btn(story)
     html = "&nbsp;"
     html << "<div class='btn-group'>"
@@ -71,19 +38,6 @@ module StoriesHelper
     html << (link_to "Ok", story, :method => :delete, :class => 'btn btn-danger')
     html << "</div>"
     html << "</div>"
-    html.html_safe
-  end
-
-  def story_likers(likers)
-    html = ""
-    for user in likers
-      html += link_to gravatar_image_tag(user.email,
-                :gravatar => { :size => 24 }),
-                user,
-                :id => "liker#{user.id}",
-                :class => "story-liker",
-                :title => user.login
-    end
     html.html_safe
   end
 

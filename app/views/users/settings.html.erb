@@ -1,6 +1,7 @@
 <%= errors_for @user %>
 
-<div class="breadcrumb">Settings</div>
+<%= render :partial => "partials/page_header", 
+  :locals => {:title => "Settings"} %>
 
 <%= form_for(@user, :html => { :class => "form-horizontal" }) do |f| %>
   <ul class="nav nav-tabs">
