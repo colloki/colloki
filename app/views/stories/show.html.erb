@@ -24,6 +24,14 @@
       </div>
     </div>
 
+    <% if @story.kind != Story::Rss and logged_in? and @story.user_id == current_user.id %>
+      <div class="row pull-right">
+        <%= render :partial => "partials/story/edit_btn", 
+          :locals => {:story => @story}
+        %>
+      </div>
+    <% end %>
+
     <%= render :partial => "partials/story/body", :locals => {
       :story => @story
     } %>

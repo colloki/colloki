@@ -40,9 +40,21 @@
         <a class="brand" href="<%=root_url%>" title="Virtual Town Square" tabIndex="1">
           Virtual Town Square
         </a>
+
+        <!-- Search -->
         <form class="navbar-search pull-right" id="search" action="/search">
           <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
         </form>
+
+        <!-- Share Button -->
+        <div class="pull-right" id="navbar-share">
+          <a data-toggle="modal" href="#navbar-share-modal" class="btn btn-success">
+            <i class="icon-edit icon-white"></i>
+            Share
+          </a>
+          &nbsp;&nbsp;
+        </div>
+
         <div class="nav-collapse">
           <ul class="nav">
             <% if logged_in? %>
@@ -181,6 +193,10 @@
     <hr>
 
     <%= render :partial => 'partials/footer' %>
+
+    <!-- Modal for share button -->
+    <%= render :partial => "partials/share_modal" %>
+    
   </div>
 </body>
 </html>

@@ -1,0 +1,30 @@
+<div class='btn-group'>
+  <a class='btn btn-info btn-small' href='#'>
+    Edit
+  </a>
+  <a class='btn btn-info btn-small dropdown-toggle' data-toggle='dropdown' href='#'>
+    <span class='caret'></span>
+  </a>
+  <ul class='dropdown-menu'>
+    <li>
+      <a data-toggle='modal' href='#delete_confirm_" << story.id.to_s << "'>
+        Delete
+      </a>
+    </li>
+  </ul>
+</div>
+<div class='modal' style='display:none;' id='delete_confirm_" << story.id.to_s << "'>
+  <div class='modal-header'>
+    <a class='close' data-dismiss='modal'>&times;</a>
+    <h3>Are you sure?</h3>
+  </div>
+  <div class='modal-body'>
+    <p>You want to delete '<%= story.title %>'</p>
+  </div>
+  <div class='modal-footer'>
+    <a href='#' class='btn' data-dismiss='modal'>
+      Cancel
+    </a>
+    <%= link_to "Ok", story, :method => :delete, :class => 'btn btn-danger' %>
+  </div>
+</div>

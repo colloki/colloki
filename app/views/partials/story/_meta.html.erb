@@ -21,8 +21,4 @@
 
   <%= story.comments.count.to_s %>
   <i style='margin-top:1px' class='icon-comment'></i>
-
-  <% if story.kind != Story::Rss  and logged_in? and story.user_id == current_user.id %>
-    <%= story_edit_btn(story) %>
-  <% end %>
 </div>
