@@ -3,7 +3,7 @@
     <a class="close" data-dismiss="modal">&times;</a>
     <h3>Share what's happening</h3>
   </div>
-  <%= form_for :discuss, :html => {:multipart => true}, :url => discuss_path do |f| %>
+  <%= form_for :discuss, :html => {:multipart => true, :style => "margin-bottom: 0"}, :url => discuss_path do |f| %>
   <div class="modal-body">
     <p>      
       <div class="control-group">
@@ -49,3 +49,9 @@
   </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $("#navbar-share-modal").on('shown', function () {
+    $("#discuss_title").focus();
+  });
+</script>
