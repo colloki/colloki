@@ -5,8 +5,11 @@
   <% image_url = root_url[0..-2] + story.image.url(:original) %>
   <meta property="og:image" content="<%= image_url %>" />
   <link rel="image_src" href="<%= image_url %>" />
+  <meta itemprop="image" content="<%= image_url %>">
 <% else %>
   <meta property="og:image" content="" />
   <link rel="image_src" href="" />
+  <meta itemprop="image" content="">
 <% end %>
 <meta property="og:description" content="<%= strip_tags(story.description) %>" />
+
