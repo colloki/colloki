@@ -24,5 +24,7 @@
   </li>
 </ul>
 
-<%= render :partial => "partials/page_header", 
-  :locals => {:title => "[ " + topic.title + " ]"} %>
+<h3 class="title">
+  [ <%= topic.title %> ]
+  <a class="btn btn-small has_popover" title="What is [ <%=topic.title%> ]" data-content="It is a 'topic', <em>a group of words</em>, automatically generated from a day's stories.<br><br>These are the top two words. All of the words are shown on the right." data-delay="0" style="margin-left:10px; display: inline-table; margin-bottom: -2px; padding: 0px 4px !important;font-weight: bold; font-size: 12px; opacity: 0.4" href="#">?</a>
+</h3>
