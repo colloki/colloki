@@ -1,25 +1,32 @@
 <%= render :partial => "partials/page_header", 
   :locals => {:title => "About"} %>
-<p>
-  Virtual Town Square is a place to learn and discuss local issues with other Blacksburg and Montgomery County residents.
-</p>
-<br>
-<p>
-  <h4>What's happening in your town?</h4>
-  We find locally relevant news and discussions happening across the web everyday, so you don't have to! This can be the single place for you to catch up on local developments.
-</p>
-<hr>
-<p>
-  <h4>Have your voice heard</h4>
-  You can post new stories on the site. You can also comment on stories and like them. 
-</p>
-<hr>
-<p>
-  <h4>Are you a local blogger or publisher?</h4>
-  Let us know! We'll add your blog to our list of news and discussion sources. We want to catch all local information and make it accessible to a wider audience. 
-</p>
-<hr>
-<p>
-  <h4>More</h4>
-  This project is being developed as part of research at Virginia Tech. Learn more about it on the <%= link_to "About Research", research_url %> page. It is opensource and available on <a href='http://github.com/colloki/colloki'>Github</a>.
-</p>
+<div class="row">
+  <div class="span7">
+    <p>
+      Virtual Town Square is a place to learn and discuss local issues with other <strong>Blacksburg and Montgomery County</strong> residents.
+    </p>
+    <br>
+    <p>
+      <h3>What's happening in your town?</h3>
+      We find locally relevant news and discussions happening across the web everyday, so you don't have to. Easily catch up on local news and discussions daily.
+    </p>
+    <br>
+    <p>
+      <h3>Have your voice heard</h3>
+      You can post new articles on the site, comment on stories and like them. 
+    </p>
+    <br>
+    <p>
+      <h3>Are you a local blogger or publisher?</h3>
+      Let us know! We'll add your blog to our list of news and discussion sources. We want to catch all local information and make it accessible to a wider audience. 
+    </p>
+    <br>
+    <p>
+      <h3>Research</h3>
+      This project is being developed as part of research at <a href="http://vt.edu">Virginia Tech</a>. Learn more about it on the <%= link_to "About Research", research_url %> page. It is opensource and available on <a href='http://github.com/colloki/colloki'>Github</a>.
+    </p>
+  </div>
+  <div class="span5" style="margin-top: 50px;">
+    <%= image_tag "logo.png" %>
+  </div>
+</div>

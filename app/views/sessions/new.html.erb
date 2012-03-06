@@ -48,7 +48,7 @@
     <div class="row">
       <div class="span4">
         We find relevant local news and discussions happening across the web,
-        so you don't have to.
+        so you don't have to. Easily catch up on local news and discussions daily.
       </div>
     </div>
   </div>
@@ -60,14 +60,14 @@
     </div><br>
     <div class="row">
       <div class="span4">
-        Post new stories, comment on existing ones and like stories.
+        Post new stories, comment and like stories. Share your stories across your social networks on Twitter, Facebook or elsewhere.
       </div>
     </div>
   </div>
   <div class="span4">
     <div class="row">
       <div class="span4">
-        <h3>Recent Members</h3>
+        <h3>Who joined recently</h3>
       </div>
     </div><br>
     <div class="row">
@@ -80,8 +80,12 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <%= render :partial => "partials/facebook_facepile" %>
+<div class="row" style="margin-top: 20px">
+  <div class="span4">
+    <h3>Find us on Facebook</h3>
+    <br>
+    <%= render :partial => "partials/facebook_like_box" %>
+  </div>
 </div>
 
 <%= javascript_include_tag "libs/jquery.cycle.js" %>

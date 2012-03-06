@@ -3,50 +3,66 @@
     <a class="close" data-dismiss="modal">&times;</a>
     <h3>Share what's happening</h3>
   </div>
-  <%= form_for :discuss, :html => {:multipart => true, :style => "margin-bottom: 0"}, :url => discuss_path do |f| %>
-  <div class="modal-body">
-    <p>      
-      <div class="control-group">
-        <div class="controls">
-          <%= f.text_field :title,
-            :placeholder => "Enter a title...",
-            :class       => "span6"
-          %>
-        </div>
+  <% if logged_in? %>
+
+    <%= form_for :discuss, 
+      :html => {:multipart => true, :style => "margin-bottom: 0"}, 
+      :url => discuss_path do |f| %>
+
+      <div class="modal-body">
+        <p>      
+          <div class="control-group">
+            <div class="controls">
+              <%= f.text_field :title,
+                :placeholder => "Enter a title...",
+                :class       => "span6"
+              %>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <%= f.text_area :description,
+                :rows => 5,
+                :placeholder => "Your message...",
+                :class => "span6" %>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>
+              <strong>Add a Photo</strong>
+            </label>
+            <div class="controls">
+              <%= f.file_field :photo %>
+            </div>
+          </div>
+          <div class="control-group">
+            <label>
+              <strong>Share on...</strong>
+            </label>
+            <div class="controls">
+              <%= f.check_box :twitter %> Twitter&nbsp;&nbsp;&nbsp;
+              <%= f.check_box :facebook %> Facebook
+            </div>
+          </div>
+        </p>
       </div>
-      <div class="control-group">
-        <div class="controls">
-          <%= f.text_area :description,
-            :rows => 5,
-            :placeholder => "Your message...",
-            :class => "span6" %>
-        </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Cancel</a>
+        <button type="submit" class="btn btn-primary">
+          Share
+        </button>
       </div>
-      <div class="control-group">
-        <label>
-          <strong>Add a Photo</strong>
-        </label>
-        <div class="controls">
-          <%= f.file_field :photo %>
-        </div>
+    <% end %>
+  <% else %>
+    <div class="modal-body">
+      <p>
+        You need to be signed in to share a post
+      </p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+        <%= link_to "Sign In", login_url, :class => "btn btn-primary" %>
       </div>
-      <div class="control-group">
-        <label>
-          <strong>Share on...</strong>
-        </label>
-        <div class="controls">
-          <%= f.check_box :twitter %> Twitter&nbsp;&nbsp;&nbsp;
-          <%= f.check_box :facebook %> Facebook
-        </div>
-      </div>
-    </p>
-  </div>
-  <div class="modal-footer">
-    <a href="#" data-dismiss="modal" class="btn">Cancel</a>
-    <button type="submit" class="btn btn-primary">
-      Share
-    </button>
-  </div>
   <% end %>
 </div>
 
