@@ -12,8 +12,8 @@ class Story < ActiveRecord::Base
   # Like:    5
   # Visit:   1
   #
-  ScorePost       = 30
-  ScoreComment    = 20
+  ScorePost       = 10
+  ScoreComment    = 10
   ScoreShare      = 10
   ScoreVote       = 5
   ScoreVisit      = 1

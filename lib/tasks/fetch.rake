@@ -15,7 +15,8 @@ require "open-uri"
   "nrvnews.com"                         => "NRV News",
   "www2.swvatoday.com"                  => "SWVA Today",
   "www.southwesttimes.com"              => "The Southwest Times",
-  "www.lwvmcva.org"                     => "League of Women Voters in Montgomery County"
+  "www.lwvmcva.org"                     => "League of Women Voters in Montgomery County",
+  "www.blacksburg.va.us"                => "Town of Blacksburg"
 ]
 
 desc "Automatically post stories to Colloki from the cached rss stories"
@@ -111,6 +112,8 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
               new_story.source = story["source-name"]
             elsif @@source_names[story["source"]]
               new_story.source = @@source_names[story["source"]]
+            else
+              new_story.source = story["source"]
             end
             new_story.source_url = story["link"]
             if story["published-at"] and !story["published-at"].empty?

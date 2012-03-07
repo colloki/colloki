@@ -24,11 +24,23 @@
       <span class="divider">/</span>
     </li>
     <li>
-      <%= link_to story.source,
-        search_url + "?query=" + story.source,
-        :class => "has_tooltip",
-        :title => "View all from " + story.source
-      %>
+      <% if story.source == nil %>
+        <%= 
+        # todo: set source_name to a more generic value (domain of link)
+        source_name = source_url
+        link_to story.source_url,
+          search_url + "?query=" + source_name,
+          :class => "has_tooltip",
+          :title => "View all from " + source_name
+        %>
+      <% else %>
+        <%= 
+        link_to story.source,
+          search_url + "?query=" + story.source,
+          :class => "has_tooltip",
+          :title => "View all from " + story.source
+        %>
+      <% end %>
       <span class="divider">/</span>
     </li>
   <% else %>
