@@ -120,7 +120,7 @@
               <%= link_to ("<i class='" + icon + "'></i> Latest").html_safe, latest_url %>
             </li>
 
-            <!-- Most Popular -->
+            <!-- User Contributions -->
             <% if request.filtered_parameters["controller"] === "topics" and
               request.filtered_parameters["action"] === "popular" %>
               <li class="active">
@@ -129,7 +129,7 @@
               <li>
               <% icon = "icon-fire" %>
             <% end %>
-              <%= link_to ("<i class='" + icon + "'></i> Most Discussed").html_safe, popular_url %>
+              <%= link_to ("<i class='" + icon + "'></i> User Contributions").html_safe, popular_url %>
             </li>
           </ul>
         </div>

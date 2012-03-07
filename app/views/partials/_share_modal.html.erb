@@ -6,7 +6,7 @@
   <% if logged_in? %>
 
     <%= form_for :discuss, 
-      :html => {:multipart => true, :style => "margin-bottom: 0"}, 
+      :html => {:multipart => true}, 
       :url => discuss_path do |f| %>
 
       <div class="modal-body">

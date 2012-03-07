@@ -1,0 +1,77 @@
+<% if current_user %>
+  <% if current_user.realname %>
+    <% from_name = current_user.realname %>
+  <% else %>
+    <% from_name = current_user.login %>
+  <% end %>
+  <% if current_user.email %>
+    <% from_email = current_user.email %>
+  <% else %>
+    <% from_email = "" %>
+  <% end %>
+<% else %>
+  <% 
+    from_name   = ""
+    from_email  = ""
+  %>
+<% end %>
+
+<div class="modal hide" id="<%= id %>">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>Send link to this story</h3>
+  </div>
+  <%= form_tag :action => "send_email" do %>
+    <div class="modal-body">
+      <p>
+        <div class="control-group">
+          <label>Your name 
+            <span class="important">*</span>
+          </label>
+          <div class="controls">
+            <%= text_field "from", "name", :value => from_name %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>Your email 
+            <span class="important">*</span>
+          </label>
+          <div class="controls">
+            <%= text_field "from", "email", :value => from_email %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>
+            Recipient's email 
+            <span class="important">*</span>
+          </label>
+          <div class="controls">
+            <%= text_field "to", "email" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>
+            Your message
+          </label>
+          <div class="controls">
+            <%= text_area "message", nil, :class => 'span5', :rows => 5 %>
+          </div>
+        </div>
+        <%= hidden_field :story, :title %>
+        <%= hidden_field :story, :url, :value => story_url(story) %>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" data-dismiss="modal" class="btn">Close</a>
+      <button type="submit" class="btn btn-primary">
+        Send
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $("#<%=id%>").on('shown', function () {
+    $("#<%=id%> #from_name").focus();
+  });
+</script>

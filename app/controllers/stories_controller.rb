@@ -228,4 +228,14 @@ class StoriesController < ApplicationController
   def feed_interface
     @error_msg = params[:error_msg]
   end
+
+  def send_email
+    UserMailer.share_story(
+      params[:from], 
+      params[:to], 
+      params[:message][0],
+      params[:story]).deliver
+    flash[:notice] = "Email was successfully sent!"
+    redirect_back_or root_url
+  end
 end

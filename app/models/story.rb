@@ -61,16 +61,21 @@ class Story < ActiveRecord::Base
   end
 
   def self.popular(page)
-    require 'will_paginate/array'
-    popular = find :all,
-                   :order => "published_at DESC",
-                   :limit => 50
-    popular.sort! { |a, b| b.popularity <=> a.popularity }
-    popular.paginate(:page => page, :per_page => 9)
+    page(page).order("popularity DESC, published_at DESC")
+
+    # popular = find :all,
+    #                :order => "published_at DESC",
+    #                :limit => 50
+    # popular.sort! { |a, b| b.popularity <=> a.popularity }
+    # popular.paginate(:page => page, :per_page => 9)
   end
 
   def self.popular_with_photos
-    self.latest_with_photos.sort! { |a, b| b.popularity <=> a.popularity }
+    find :all,
+         :conditions => ["image_file_size != '' and image_file_name != 'stringio.txt'"],
+         :order => "popularity DESC",
+         :limit => 20
+    # self.latest_with_photos.sort! { |a, b| b.popularity <=> a.popularity }
   end
 
   def self.latest(page, should_paginate=true)
@@ -83,7 +88,7 @@ class Story < ActiveRecord::Base
 
   def self.latest_with_photos
     find :all,
-         :conditions => ["image_file_size != '' and image_file_name !='stringio.txt'"],
+         :conditions => ["image_file_size != '' and image_file_name != 'stringio.txt'"],
          :order => "published_at DESC", 
          :limit => 20
   end

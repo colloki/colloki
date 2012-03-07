@@ -22,6 +22,15 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => @subject)
   end
 
+  def share_story(from, to, message, story)
+    @subject  = "[VTS] " + from[:name] + " shared a story from Virtual Town Square"
+    @message  = message
+    @from_name     = from[:name]
+    @from_email    = from[:email]
+    @story    = story
+    mail(:to => to[:email], :subject => @subject)
+  end
+
   protected
     def setup_email(user)
       @subject     = "[VTS] "

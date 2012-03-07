@@ -1,0 +1,19 @@
+Hi,
+<br><br>
+
+<%= @from_name %> (<%= @from_email %>) shared a story with you from Virtual Town Square.
+<br><br>
+
+<%= @story[:title] %>: <%= @story[:url] %>
+<br><br>
+
+<% if @message and @message != '' %>
+  <%= @from_name %> also shared the following message:
+  <br><br>
+  <%= @message %>
+<% end %>
+
+<br><br>
+
+Thanks,<br>
+The VTS Team

@@ -1,8 +1,7 @@
 class TopicsController < ApplicationController
-  # GET /topics
-  # GET /topics.xml
+  # a.k.a user contributions
   def popular
-    @page_title = "Most Popular"
+    @page_title = "User Contributions"
     @stories = Story.popular(params[:page])
     @stories_with_photos = Story.popular_with_photos
     @new_users = User.newly_activated
