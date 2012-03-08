@@ -19,19 +19,17 @@ We get content from the following local blogs in Blacksburg and Montgomery Count
   <li><a href="http://www.lwvmcva.org">LWVMCA</a></li>
 </ul>
 <hr>
-Did we miss a blog you read? Please send us a link using the following form or 
+Are you a local publisher / blogger? Did we miss a blog you read? Please send us a link using the following form or 
 <a href="mailto:ahuja.ankit@vt.edu">email us.</a>
 <br><br>
 
-<!-- TODO: make this form work -->
-
-<%= form_for :user, :url => users_path, :html => { :class => "form-horizontal" } do |f| %>
+<%= form_tag :controller => :notifier, :action => :send_blog_suggestion do %>
   <div class="control-group">
     <label>
       Blog Link
     </label>
     <div class="controls">
-      <%= f.text_field :link, :class => "span5" %>
+      <%= text_field :blog, :url, :class => "span5" %>
     </div>
   </div>
   <div class="control-group">
@@ -39,7 +37,7 @@ Did we miss a blog you read? Please send us a link using the following form or
       Description<p class="help-block">optional</p>
     </label>
     <div class="controls">
-      <%= f.text_area :description, :class => "span5", :rows => 5 %>
+      <%= text_area :blog, :description, :class => "span5", :rows => 5 %>
     </div>
   </div>
   <div class="form-actions">

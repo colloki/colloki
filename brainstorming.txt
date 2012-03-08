@@ -1,0 +1,6 @@
+Random ideas. A quick place to post them keep them around...
+
+* Ability for user to vote on the usefulness / comprehensibility of a topic. Maybe two buttons, "This topic is useful" and "This topic is confusing/doesn't make sense"
+
+* Ability for user to report a story as irrelevant (not useful from a local perspective)
+

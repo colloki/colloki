@@ -31,6 +31,13 @@ class UserMailer < ActionMailer::Base
     mail(:to => to[:email], :subject => @subject)
   end
 
+  def blog_suggestion(blog)
+    @subject  = "[VTS] Blog suggestion received"
+    @blog     = blog
+    # todo: the :to should be in a config somewhere..
+    mail(:to => 'ahuja.ankit@gmail.com', :subject => @subject)
+  end
+
   protected
     def setup_email(user)
       @subject     = "[VTS] "
