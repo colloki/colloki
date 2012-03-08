@@ -41,7 +41,7 @@
 
 <!-- New users -->
 <% if new_users and new_users.count != 0 %>
-  <h4>New Users</h4>
+  <h4>Who joined recently</h4>
   <%= render :partial => "partials/new_users", :locals => {:users => new_users} %>
   <hr>
 <% end %>

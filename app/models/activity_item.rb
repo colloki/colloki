@@ -36,7 +36,7 @@ class ActivityItem < ActiveRecord::Base
     end
   end
 
-  def self.recent(limit=5)
+  def self.recent(limit=10)
     all(:order => "created_at DESC", :limit => limit)
   end
 
