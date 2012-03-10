@@ -94,6 +94,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
               new_story.save
             end
           else
+            puts "Saving new story: " + story["link"]
             new_story = Story.new
             new_story.title = story["title"]
             new_story.description = story["text"]
@@ -108,6 +109,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
             end
             new_story.views = 0
             new_story.kind = Story::Rss
+
             if story["source-name"]
               new_story.source = story["source-name"]
             elsif @@source_names[story["source"]]
@@ -115,7 +117,9 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
             else
               new_story.source = story["source"]
             end
+
             new_story.source_url = story["link"]
+
             if story["published-at"] and !story["published-at"].empty?
               new_story.published_at = DateTime.strptime(story["published-at"], '%Y-%m-%dT%H:%M:%S%z')
             else
@@ -123,9 +127,11 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
             end
             new_story.save
 
-            if facebook
+            # Post story to Facebook page
+            if facebook and new_story
               facebook.post(new_story)
             end
+
             puts "Successfully saved story: " + story["link"]
           end
 

@@ -16,9 +16,6 @@
       :class => "has_tooltip",
       'data-placement' => "bottom",
       :title => "View original post" %> • 
-    <%= time_ago_in_words story.published_at %> ago • 
+    <%= time_ago_in_words story.published_at %> ago
   <% end %>
-
-  <%= story.comments.count.to_s %>
-  <i style='margin-top:1px' class='icon-comment'></i>
 </div>
