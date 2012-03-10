@@ -6,10 +6,12 @@
       <%= render :partial => "partials/comment_btn/js", :locals => {:story => story} %>
     <% end %>
 
-    <% for story in stories_with_photos %>
-      <% if !stories.include?(story) %>
-        <%= render :partial => "partials/like_btn/js", :locals => {:story => story} %>
-        <%= render :partial => "partials/comment_btn/js", :locals => {:story => story} %>
+    <% if defined? stories_with_photos %>
+      <% for story in stories_with_photos %>
+        <% if !stories.include?(story) %>
+          <%= render :partial => "partials/like_btn/js", :locals => {:story => story} %>
+          <%= render :partial => "partials/comment_btn/js", :locals => {:story => story} %>
+        <% end %>
       <% end %>
     <% end %>
   });
@@ -20,8 +22,10 @@
   <%= render :partial => "partials/comment_btn/modal", :locals => {:story => story} %>
 <% end %>
 
-<% for story in stories_with_photos %>
-  <% if !stories.include?(story) %>
-    <%= render :partial => "partials/comment_btn/modal", :locals => {:story => story} %>
+<% if defined? stories_with_photos %>
+  <% for story in stories_with_photos %>
+    <% if !stories.include?(story) %>
+      <%= render :partial => "partials/comment_btn/modal", :locals => {:story => story} %>
+    <% end %>
   <% end %>
 <% end %>
