@@ -1,14 +1,12 @@
-<script>
-  $(document).ready(function(e) {
-    var comments = new window.CommentsListView({
-      el: $("#comments<%= story.id %>"),
-      data: <%= story.comments.to_json.html_safe %>,
-      story_id: <%= story.id %>,
-      user_id: <%= current_user ? current_user.id : -1 %>
-    });
+$(document).ready(function(e) {
+  var comments = new window.CommentsListView({
+    el: $("#comments<%= story.id %>"),
+    data: <%= story.comments.to_json.html_safe %>,
+    story_id: <%= story.id %>,
+    user_id: <%= current_user ? current_user.id : -1 %>
   });
+});
 
-  $("#story-modal-<%= story.id.to_s %>").on('shown', function () {
-    $(this).find('.comment-body').focus();
-  });
-</script>
+$("#story-modal-<%= story.id.to_s %>").on('shown', function () {
+  $(this).find('.comment-body').focus();
+});

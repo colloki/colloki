@@ -10,4 +10,7 @@
 } %>
 
 <%= render :partial => "partials/topic/footer", 
-  :locals => {:stories => @stories} %>
+  :locals => {
+    :stories              => @stories,
+    :stories_with_photos  => @stories_with_photos
+  } %>

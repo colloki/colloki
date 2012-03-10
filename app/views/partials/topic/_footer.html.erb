@@ -1,9 +1,27 @@
 <script>
   $(document).ready(function(e) {
+    // todo: make this more efficient
     <% for story in stories %>
       <%= render :partial => "partials/like_btn/js", :locals => {:story => story} %>
+      <%= render :partial => "partials/comment_btn/js", :locals => {:story => story} %>
+    <% end %>
+
+    <% for story in stories_with_photos %>
+      <% if !stories.include?(story) %>
+        <%= render :partial => "partials/like_btn/js", :locals => {:story => story} %>
+        <%= render :partial => "partials/comment_btn/js", :locals => {:story => story} %>
+      <% end %>
     <% end %>
   });
 </script>
 
-<%= render :partial => "partials/comment_btn/js", :locals => {:story => story} %>
+<!-- todo: make this more efficient -->
+<% for story in stories %>
+  <%= render :partial => "partials/comment_btn/modal", :locals => {:story => story} %>
+<% end %>
+
+<% for story in stories_with_photos %>
+  <% if !stories.include?(story) %>
+    <%= render :partial => "partials/comment_btn/modal", :locals => {:story => story} %>
+  <% end %>
+<% end %>
