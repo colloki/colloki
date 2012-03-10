@@ -13,7 +13,7 @@
 %>
 
 var like<%= story.id %> = new window.VoteView({
-  el: $("#story-like<%= story.id %>"),
+  el: $(".story-like<%= story.id %>"),
   id: <%= state == 1 ? current_user.get_vote(story).id : -1 %>,
   state: <%= state %>,
   count: <%= story.votes.count %>,

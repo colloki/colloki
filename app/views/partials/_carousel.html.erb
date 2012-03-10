@@ -10,7 +10,17 @@
               <h4>
                 <%= render :partial => "partials/story_item_title",
                   :locals => {:story => story}
-                %>
+                %> · 
+                <span class='story-published-at'>
+                  <% if story.published_at %>
+                    <%= time_ago_in_words story.published_at %>
+                  <% else %>
+                    <%= time_ago_in_words story.created_at %>
+                  <% end %> ago
+                </span>
+                 · 
+                <%= render :partial => "partials/comment_btn/html", :locals => {:story => story} %>
+                <%= render :partial => "partials/like_btn/html", :locals => {:story => story} %>
               </h4>
               <p>
                 <%= story_item_content(story, 200, 140) %>
