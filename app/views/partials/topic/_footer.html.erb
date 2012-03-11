@@ -6,7 +6,7 @@
       <%= render :partial => "partials/comment_btn/js", :locals => {:story => story} %>
     <% end %>
 
-    <% if defined? stories_with_photos %>
+    <% if defined? stories_with_photos and stories_with_photos %>
       <% for story in stories_with_photos %>
         <% if !stories.include?(story) %>
           <%= render :partial => "partials/like_btn/js", :locals => {:story => story} %>
@@ -22,7 +22,7 @@
   <%= render :partial => "partials/comment_btn/modal", :locals => {:story => story} %>
 <% end %>
 
-<% if defined? stories_with_photos %>
+<% if defined? stories_with_photos and stories_with_photos %>
   <% for story in stories_with_photos %>
     <% if !stories.include?(story) %>
       <%= render :partial => "partials/comment_btn/modal", :locals => {:story => story} %>
