@@ -1,0 +1,59 @@
+Let us know! If you've an <a href="http://en.wikipedia.org/wiki/RSS">RSS</a> feed, we'll add your blog to our list of news and discussion sources. 
+<br><br>
+Our goal is to collect all possible local information and make it accessible to a wider audience!
+<br><br>
+<a href="#local-publisher-modal" class='btn btn-primary' data-toggle="modal">
+  Suggest your blog or site
+</a>
+
+<div class="modal hide" id="local-publisher-modal">
+  <div class="modal-header">
+    <a data-dismiss="modal" class="close">&times;</a>
+    <h3>Suggest your blog or site</h3>
+  </div>
+  <%= form_tag :controller => :notifier, :action => :send_blog_suggestion do %>
+    <div class="modal-body">
+      <p>
+
+        <div class="control-group">
+          <label>
+            Link <span class="important">*</span>
+          </label>
+          <div class="controls">
+            <%= text_field :blog, :url, :class => "span5" %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Your email <span class="important">*</span> 
+            <span class="help-block">So that we can get back to you!</span>
+          </label>
+          <div class="controls">
+            <%= text_field :blog, :email, :class => "span5" %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>
+            Description <span class="help-block">optional</span>
+          </label>
+          <div class="controls">
+            <%= text_area :blog, :description, :class => "span5", :rows => 5 %>
+          </div>
+        </div>
+
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">Send</button>
+      <a href="#" data-dismiss="modal" class="btn">Close</a>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $("#local-publisher-modal").on('shown', function () {
+    $(this).find('#blog_url').focus();
+  });
+</script>

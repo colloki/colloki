@@ -26,26 +26,37 @@ Are you a local publisher / blogger? Did we miss a blog you read? Please send us
 <%= form_tag :controller => :notifier, :action => :send_blog_suggestion do %>
   <div class="control-group">
     <label>
-      Blog Link
+      Link <span class="important">*</span>
     </label>
     <div class="controls">
       <%= text_field :blog, :url, :class => "span5" %>
     </div>
   </div>
+
   <div class="control-group">
     <label>
-      Description<p class="help-block">optional</p>
+      Your email <span class="important">*</span> 
+      <span class="help-block">So that we can get back to you!</span>
+    </label>
+    <div class="controls">
+      <%= text_field :blog, :email, :class => "span5" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label>
+      Description <span class="help-block">optional</span>
     </label>
     <div class="controls">
       <%= text_area :blog, :description, :class => "span5", :rows => 5 %>
     </div>
   </div>
+
   <div class="form-actions">
     <button type="submit" class="btn btn-primary">
-      Send!
+      Send
     </button>
   </div>
 <% end %>
-<br><br>
 
-Have suggestions? <a href="mailto:ahuja.ankit@vt.edu">Email us</a>! To know more about this research project, please see the <a href="/about">About</a> page.
+Have suggestions? <a href="mailto:ahuja.ankit@vt.edu">Email us</a>! To know more about this project, please see the <a href="/about">About</a> page.
