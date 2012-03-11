@@ -6,7 +6,6 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this, 'render', 'add', 'addAll', 'append', 'remove');
-      console.log(this.options);
 
       this.$count   = this.$el.find('.comment-count');
       this.$input   = this.$el.find('.comment-body');

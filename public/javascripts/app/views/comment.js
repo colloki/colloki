@@ -11,7 +11,7 @@ $(function() {
     render: function() {
       var pretty_timestamp = 
         moment(this.model.attributes.created_at).fromNow();
-      console.log(this.model);
+
       this.$el.html(
         JST.comment({
           model: this.model.toJSON(),

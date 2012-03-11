@@ -19,21 +19,11 @@ class CommentsController < ApplicationController
         :topic_id   => story.topic_id,
         :comment_id => comment.id,
         :kind       => ActivityItem::CommentType)
-
-      @comment = {
-        :id               => comment.id,
-        :body             => comment.body,
-        :user_login       => current_user.login,
-        :user_email_hash  => Digest::MD5.hexdigest(current_user.email),
-        :user_id          => current_user.id,
-        :timestamp        => comment.created_at
-      }
-
     else
       # todo: send back error response
     end
 
-    render :json => @comment
+    render :json => comment.to_json(:methods => :user)
   end
 
   def destroy
