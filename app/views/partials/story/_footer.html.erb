@@ -1,12 +1,7 @@
 <script>
   $(document).ready(function(e) {
-    var comments = new window.CommentsListView({
-      el: $("#comments<%= story.id %>"),
-      data: <%= comments.to_json.html_safe %>,
-      story_id: <%= story.id %>,
-      user_id: <%= user_id %>
-    });
-
+    <%= render :partial => "partials/comment_btn/js", 
+      :locals => {:story => story, :user_id => user_id} %>
     <%= render :partial => "partials/like_btn/js", :locals => {:story => story} %>
   });
 </script>

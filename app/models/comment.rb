@@ -3,7 +3,8 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :story
-  has_one :activity_item, :dependent => :destroy # todo: why is this not working?
+  # todo: why is this not working?
+  has_one :activity_item, :dependent => :destroy
 
   def self.find_by_user(user_id, limit=5)
     find :all,

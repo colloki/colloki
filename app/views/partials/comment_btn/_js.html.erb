@@ -1,7 +1,7 @@
 $(document).ready(function(e) {
   var comments = new window.CommentsListView({
     el: $("#comments<%= story.id %>"),
-    data: <%= story.comments.to_json.html_safe %>,
+    data: <%= story.comments.to_json(:methods => :user).html_safe %>,
     story_id: <%= story.id %>,
     user_id: <%= current_user ? current_user.id : -1 %>
   });

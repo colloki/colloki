@@ -3,7 +3,7 @@ class StoriesController < ApplicationController
   # It needs to be http://site/topic/<Topic_ID>/story/<ID>
   # or if topics get mnemonics, then, http://site/<topic-mnemonic>/{links|posts}/<ID>
   def show
-    @story = Story.find(params[:id])
+    @story = Story.includes(:comments => :user).find(params[:id])
 
     if (!@story)
       redirect_to root_url
@@ -36,6 +36,7 @@ class StoriesController < ApplicationController
           :order => "published_at DESC",
           :limit => 5
       end
+
     elsif @story.kind == Story::Post
       @user_posted_stories = Story.find :all,
         :conditions => ["user_id = ?", @story.user.id],
@@ -65,18 +66,6 @@ class StoriesController < ApplicationController
     @likers = []
     for vote in @story.votes
       @likers << User.find(vote[:user_id])
-    end
-
-    @comments = []
-    @story.comments.each do |comment|
-      @comments.push({
-        :id               => comment.id,
-        :body             => comment.body,
-        :user_login       => comment.user.login,
-        :user_email_hash  => Digest::MD5.hexdigest(comment.user.email),
-        :user_id          => comment.user.id,
-        :timestamp        => comment.created_at
-      })
     end
 
     if logged_in?

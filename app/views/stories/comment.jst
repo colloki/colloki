@@ -1,14 +1,18 @@
 <div class="comment row">
   <div class="span1">
-    <img alt="Gravatar" src="http://gravatar.com/avatar/<%= model.user_email_hash %>?size=24">
+    <a href="/users/<%=model.user.id%>" title="<%= model.user.login %>" >
+      <img alt="Gravatar" src="<%= gravatar_url %>" />
+    </a>
   </div>
   <div class="comment-body span6">
-    <a href="/users/<%= model.user_id %>"><%= model.user_login %></a>
+    <a href="/users/<%= model.user.id %>"><%= model.user.login %></a>
     <%= model.body %>
     <div class="comment-meta">
       <%= pretty_timestamp %> &nbsp;&nbsp;
-      <% if (user_id == model.user_id) { %>
-        <a class="btn btn-small btn-danger delete-comment" style="cursor: pointer" >delete</a>
+      <% if (user_id == model.user.id) { %>
+        <a class="btn btn-small btn-danger delete-comment" style="cursor: pointer" >
+          delete
+        </a>
       <% } %>
     </div>
   </div>

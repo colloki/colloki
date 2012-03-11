@@ -9,10 +9,17 @@ $(function() {
     },
 
     render: function() {
-      var pretty_timestamp = moment(this.model.attributes.timestamp).fromNow();
-      $(this.el).html(JST.comment({model: this.model.toJSON(),
-                                  pretty_timestamp: pretty_timestamp,
-                                  user_id: this.options.user_id}));
+      var pretty_timestamp = 
+        moment(this.model.attributes.created_at).fromNow();
+      console.log(this.model);
+      this.$el.html(
+        JST.comment({
+          model: this.model.toJSON(),
+          gravatar_url: get_gravatar_url(this.model.attributes.user.email, 24),
+          pretty_timestamp: pretty_timestamp,
+          user_id: this.options.user_id
+        })
+      );
       return this;
     },
 
