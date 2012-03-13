@@ -5,6 +5,7 @@
 <div class="row">
   <div class="span8 story">
 
+    <!-- Story meta -->
     <div class="row">
       <div class="span6" style="width: 325px">
         <div class="row" style="margin-left: 0px;">
@@ -13,13 +14,23 @@
           %>
         </div>
       </div>
-      <div class="span2 pull-right" style="width: 220px; margin-top: 3px">
+
+      <!-- Buttons -->
+      <div class="span2 pull-right" style="width: 250px; margin-top: 3px">
         <div class="row pull-right">
+          <div style="display: inline-table; margin-bottom: -4px; margin-right: 5px">
+            <%= render :partial => "partials/speak_btn", 
+              :locals => {:story => @story} 
+            %>
+          </div>
           <div style="display: inline-table; margin-bottom: -4px;">
-            <%= render :partial => "partials/like_btn/html", :locals => {:story => @story} %>
+            <%= render :partial => "partials/like_btn/html", 
+              :locals => {:story => @story} 
+            %>
           </div>
           <%= render :partial => "partials/story/share_buttons",
-            :locals => { :story => @story } %>
+            :locals => { :story => @story } 
+          %>
         </div>
       </div>
     </div>
@@ -62,3 +73,7 @@
     :user_id  => @user_id
   }
 %>
+
+<script type="text/javascript">
+  <%= render :partial => "partials/vts_reader_js" %>
+</script>

@@ -8,6 +8,14 @@ $(document).ready(function(e) {
     delay: 500
   });
 
+  $(".has_persistent_popover").popover({
+    placement: 'bottom',
+    delay: {
+      show: 200,
+      hide: 2000
+    }
+  });
+
   // Tooltips
   $(".has_tooltip").tooltip();
 
