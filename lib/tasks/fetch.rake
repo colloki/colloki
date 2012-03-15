@@ -16,7 +16,8 @@ require "open-uri"
   "www2.swvatoday.com"                  => "SWVA Today",
   "www.southwesttimes.com"              => "The Southwest Times",
   "www.lwvmcva.org"                     => "League of Women Voters in Montgomery County",
-  "www.blacksburg.va.us"                => "Town of Blacksburg"
+  "www.blacksburg.va.us"                => "Town of Blacksburg",
+  "swvanews.com"                        => "Southwest Virginia Blogs"
 ]
 
 desc "Automatically post stories to Colloki from the cached rss stories"
