@@ -24,5 +24,11 @@
     <%= render :partial => "partials/comment_btn/html", :locals => {:story => story} %>
     <%= render :partial => "partials/like_btn/html", :locals => {:story => story} %>
     <%= render :partial => "partials/speak_btn", :locals => {:story => story} %>
+    <%= render :partial => "partials/delete_btn", 
+      :locals => {
+        :story => story,
+        :current_user => current_user
+      } 
+    %>
   </div>
 </div>

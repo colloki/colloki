@@ -49,6 +49,16 @@ class User < ActiveRecord::Base
     activation_code.nil?
   end
 
+  # todo: admin name is ankit here. Move this to a config somewhere
+  # todo: probably not the best way or safe, but works for now...
+  def is_admin?
+    if login == "ankit"
+      return true
+    else
+      return false
+    end
+  end
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] # need to get the salt

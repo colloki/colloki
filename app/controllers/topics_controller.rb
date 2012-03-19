@@ -1,25 +1,25 @@
 class TopicsController < ApplicationController
   # a.k.a user contributions
   def popular
-    @page_title = "User Contributions"
-    @stories = Story.popular(params[:page])
+    @page_title          = "User Contributions"
+    @stories             = Story.popular(params[:page])
     @stories_with_photos = Story.popular_with_photos
-    @new_users = User.newly_activated
-    @activity_items = ActivityItem.recent
-    @tags = Story.tag_counts_on(:tags)
+    @new_users           = User.newly_activated
+    @activity_items      = ActivityItem.recent
+    @tags                = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
     end
   end
 
   def latest
-    @page_title = "Latest"
-    @stories = Story.latest(params[:page])
-    # todo: eliminate this duplicate, unhealthy request
+    @page_title          = "Latest"
+    @stories             = Story.latest(params[:page])
+    # todo               : eliminate this duplicate, unhealthy request
     @stories_with_photos = Story.latest_with_photos
-    @new_users = User.newly_activated
-    @activity_items = ActivityItem.recent
-    @tags = Story.tag_counts_on(:tags)
+    @new_users           = User.newly_activated
+    @activity_items      = ActivityItem.recent
+    @tags                = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
     end
@@ -27,7 +27,7 @@ class TopicsController < ApplicationController
 
   def active
     @page_title = "Active Discussions"
-    @stories = Story.active
+    @stories    = Story.active
     @stories_with_photos = @stories.find_all{|story|
       story.image_file_size != '' and 
       story.image_file_name !='stringio.txt'}
@@ -37,22 +37,22 @@ class TopicsController < ApplicationController
         @active_topics.push(story.topic)
       end
     end
-    @stories = @stories.paginate(:page => params[:page], :per_page => 9)
-    @new_users = User.newly_activated
+    @stories        = @stories.paginate(:page => params[:page], :per_page => 9)
+    @new_users      = User.newly_activated
     @activity_items = ActivityItem.recent
-    @tags = Story.tag_counts_on(:tags)
+    @tags           = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
     end
   end
 
   def search
-    @query = params[:query]
-    @page_title = "Search results for '#{params[:query]}'"
-    @stories = Story.search(params[:query], params[:page])
-    @new_users = User.newly_activated
+    @query          = params[:query]
+    @page_title     = "Search results for '#{params[:query]}'"
+    @stories        = Story.search(params[:query], params[:page])
+    @new_users      = User.newly_activated
     @activity_items = ActivityItem.recent
-    @tags = Story.tag_counts_on(:tags)
+    @tags           = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
     end
@@ -69,13 +69,13 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.xml
   def show
-    @topic = Topic.find(params[:id])
-    @stories = Story.find_for_topic(@topic.id, params[:sort], params[:page])
+    @topic               = Topic.find(params[:id])
+    @stories             = Story.find_for_topic(@topic.id, params[:sort], params[:page])
     @stories_with_photos = Story.find_with_photos_for_topic(@topic.id, params[:sort])
-    @tags = @topic.stories.tag_counts
-    @activity_items = ActivityItem.find_for_topic(@topic.id)
-    @top_users = User.top_in_topic(@topic.id)
-    @page_title = @topic.title
+    @tags                = @topic.stories.tag_counts
+    @activity_items      = ActivityItem.find_for_topic(@topic.id)
+    @top_users           = User.top_in_topic(@topic.id)
+    @page_title          = @topic.title
 
     respond_to do |format|
       format.html
@@ -86,7 +86,7 @@ class TopicsController < ApplicationController
   # GET /topics/new.xml
   def new
     if logged_in?
-      @topic = Topic.new
+      @topic      = Topic.new
       @page_title = "Create a new topic"
       respond_to do |format|
         format.html # new.html.erb
@@ -159,13 +159,13 @@ class TopicsController < ApplicationController
     tag_list = params[:tag_list].split('+')
     @tag = tag_list.join(' + ')
     if params[:id]
-      @topic = Topic.find(params[:id])
-      @stories = @topic.stories.tagged_with(tag_list, :match_all => true)
-      @tags = @topic.stories.tag_counts
+      @topic      = Topic.find(params[:id])
+      @stories    = @topic.stories.tagged_with(tag_list, :match_all => true)
+      @tags       = @topic.stories.tag_counts
       @page_title = @topic.title + " posts and links tagged with " + @tag
     else
-      @stories = Story.tagged_with(tag_list, :any => true)
-      @tags = Story.tag_counts
+      @stories    = Story.tagged_with(tag_list, :any => true)
+      @tags       = Story.tag_counts
       @page_title = "Everything tagged with " + @tag
     end
   end

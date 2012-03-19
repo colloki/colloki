@@ -77,4 +77,8 @@ module ApplicationHelper
       return false
     end
   end
+
+  def is_admin?
+    return current_user ? (current_user.login == "ankit") : false
+  end
 end

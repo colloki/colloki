@@ -197,6 +197,17 @@ class StoriesController < ApplicationController
     if not logged_in?
       flash[:alert] = "You need to login to delete a story!"
       redirect_to :back
+    elsif current_user.is_admin?
+      @story = Story.find(params[:id])
+      @title = @story.title
+      @topic = @story.topic
+      @story.destroy
+      flash[:notice] = "The story '" << @title << " ' was successfully deleted!"
+      if @topic
+        redirect_to(@topic)
+      else
+        redirect_to(root_url)
+      end
     elsif not current_user.id == Story.find(params[:id]).user.id
       flash[:alert] = "You need to be the author of the story to delete it!"
       redirect_to :back
