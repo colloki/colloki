@@ -22,7 +22,7 @@ class StoriesController < ApplicationController
     end
 
     if @story.source
-      if @story.topic_id != -1
+      if @story.topic_id != -1 and @topic
         @more_stories_from_source = Story.find :all,
           :conditions => "source = '#{@story.source}' 
                           AND id != #{@story.id} 

@@ -1,3 +1,4 @@
+
 require "colloki_mining_store.rb"
 require "facebook_autoposter.rb"
 require "open-uri"
@@ -20,7 +21,7 @@ require "open-uri"
   "swvanews.com"                        => "Southwest Virginia Blogs"
 ]
 
-desc "Automatically post stories to Colloki from the cached rss stories"
+desc "Post stories to VTS from the cached rss stories"
 task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
   begin
     args.with_defaults(:start_date => nil, :end_date => nil)
