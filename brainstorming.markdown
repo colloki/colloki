@@ -54,12 +54,12 @@
     * Popular Local Tweets
     * Most Replied Tweets
 
-* *Read* - Tweet, Tweet, Retweet: Conversational Aspects of Retweeting on Twitter: http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5428313
+* *Read?*
+    * Tweet, Tweet, Retweet: Conversational Aspects of Retweeting on Twitter - [http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5428313](http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=5428313)
 
-* *Read* - 
-Microblogging during two natural hazards events: what twitter may contribute to situational awareness - http://dl.acm.org/citation.cfm?id=1753486
-
-* *Read* - Using twitter to recommend real-time topical news - http://dl.acm.org/citation.cfm?id=1639794&dl=ACM&coll=DL&CFID=90954367&CFTOKEN=97361999
+    * Microblogging during two natural hazards events: what twitter may contribute to situational awareness - [http://dl.acm.org/citation.cfm?id=1753486](http://dl.acm.org/citation.cfm?id=1753486)
+    
+    * Using twitter to recommend real-time topical news - [http://dl.acm.org/citation.cfm?id=1639794&dl=ACM&coll=DL&CFID=90954367&CFTOKEN=97361999](http://dl.acm.org/citation.cfm?id=1639794&dl=ACM&coll=DL&CFID=90954367&CFTOKEN=97361999)
 
 ## Facebook
 

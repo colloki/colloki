@@ -130,9 +130,9 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
             new_story.save
 
             # Post story to Facebook page
-            if facebook and new_story
-              facebook.post(new_story)
-            end
+            # if facebook and new_story
+            #   facebook.post(new_story)
+            # end
 
             puts "Successfully saved story: " + story["link"]
           end
