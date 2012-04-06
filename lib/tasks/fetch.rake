@@ -18,7 +18,8 @@ require "open-uri"
   "www.southwesttimes.com"              => "The Southwest Times",
   "www.lwvmcva.org"                     => "League of Women Voters in Montgomery County",
   "www.blacksburg.va.us"                => "Town of Blacksburg",
-  "swvanews.com"                        => "Southwest Virginia Blogs"
+  "swvanews.com"                        => "Southwest Virginia Blogs",
+  "www.progressandmain.com"             => "Progress and Main"
 ]
 
 desc "Post stories to VTS from the cached rss stories"

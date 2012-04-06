@@ -6,7 +6,7 @@
     * Use comment RSS Feeds   
 
 * *TODO* - Build special tools for the inaccessible but **important** local sources of news      
-    * Since they are fewer in number, find a way to make them more prominent -- Separate High Level View?   
+    * Since they are fewer in number, find a way to make them more prominent -- Separate High Level View?
 
 ## Analytics
 
