@@ -3,6 +3,7 @@ require "colloki_mining_store.rb"
 require "facebook_autoposter.rb"
 require "open-uri"
 
+# todo: get rid of this dependancy from here.
 @@source_names = Hash[
   "www.collegiatetimes.com"             => "Collegiate Times",
   "blogs.roanoke.com"                   => "The Burgs Blog",
@@ -19,7 +20,8 @@ require "open-uri"
   "www.lwvmcva.org"                     => "League of Women Voters in Montgomery County",
   "www.blacksburg.va.us"                => "Town of Blacksburg",
   "swvanews.com"                        => "Southwest Virginia Blogs",
-  "www.progressandmain.com"             => "Progress and Main"
+  "www.progressandmain.com"             => "Progress and Main",
+  "www.montva.com"                      => "Montgomery County VA"
 ]
 
 desc "Post stories to VTS from the cached rss stories"
