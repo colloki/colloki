@@ -24,7 +24,9 @@ require "open-uri"
   "www.montva.com"                      => "Montgomery County VA",
   "www.blueridgemuse.com"               => "Blue Ridge Muse",
   "blacksburgdailyphoto.blogspot.com"   => "Blacksburg Daily Photo",
-  "blacksburgmayor.wordpress.com"       => "Blacksburg Mayor's Blog"
+  "blacksburgmayor.wordpress.com"       => "Blacksburg Mayor's Blog",
+  "newrivervoice"                       => "New River Voice",
+  "ourvallery.org"                      => "Our Valley"
 ]
 
 desc "Post stories to VTS from the cached rss stories"
