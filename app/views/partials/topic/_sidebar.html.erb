@@ -1,4 +1,5 @@
-<!-- Colloki Sign Up Note-->
+
+<!-- Sign Up Note-->
 <% if !logged_in? %>
   <h4>What is VTS?</h4>
   <%= signin_description %>
@@ -23,7 +24,7 @@
     <h4>
       [ <%= topic.title %> ]
     </h4>
-    <%= render :partial => "partials/topic/keywords",
+    <%= render :partial => "partials/topic/cloud",
           :locals => {
             :topic => topic
           }

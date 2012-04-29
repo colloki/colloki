@@ -1,19 +1,19 @@
 <div class="span4 sidebar" style="width: 285px">
 
-  <!-- Colloki Sign Up Note -->
+  <!-- Sign Up Note -->
   <% if !logged_in? %>
     <h4>What is VTS?</h4>
     <%= signin_description %>
     <hr>
   <% end %>
 
-  <!-- Topic keywords -->
+  <!-- Topic Keyword Cloud -->
   <% if topic and topic.topic_keywords %>
     <div class="topic-keywords">
       <h4>
         <%= link_to "[ " + topic.title + " ]", topic_path(topic) %>
       </h4>
-      <%= render :partial => "partials/topic/keywords",
+      <%= render :partial => "partials/topic/cloud",
         :locals => {:topic => topic}
       %>
     </div>
@@ -46,7 +46,7 @@
     <hr>
   <% end %>
 
-  <!-- Other user posted discussions -->
+  <!-- Other User Posted Discussions -->
   <% if user_posted_stories and user_posted_stories.count != 0 %>
     <h4>More posts by <%= story.user.login %></h4>
     <% for a_story in user_posted_stories %>
@@ -64,7 +64,7 @@
     <hr>
   <% end %>
 
-  <!-- Related tags -->
+  <!-- Related Tags -->
   <% if story.tag_list.count != 0 %>
     <h4>Related tags</h4>
     <% if topic %>

@@ -1,3 +1,5 @@
+
+<!-- Story Header -->
 <%= render :partial => "partials/story/header",
   :locals => {:story => @story}
 %>
@@ -5,7 +7,7 @@
 <div class="row">
   <div class="span8 story">
 
-    <!-- Story meta -->
+    <!-- Story Meta -->
     <div class="row">
       <div class="span6" style="width: 325px">
         <div class="row" style="margin-left: 0px;">
@@ -15,7 +17,7 @@
         </div>
       </div>
 
-      <!-- Buttons -->
+      <!-- Story Buttons -->
       <div class="span2 pull-right" style="width: 250px; margin-top: 3px">
         <div class="row pull-right">
           <div style="display: inline-table; margin-bottom: -4px; margin-right: 5px">
@@ -43,19 +45,23 @@
       </div>
     <% end %>
 
+    <!-- Story Body -->
     <%= render :partial => "partials/story/body", :locals => {
       :story => @story
     } %>
     
+    <!-- Story Likers -->
     <%= render :partial => "partials/story/likers",
       :locals => {:story => @story, :users => @likers}
     %>
 
+    <!-- Story Comments -->
     <%= render :partial => "partials/story/comments",
       :locals => {:story => @story }
     %>
   </div>
 
+  <!-- Story Sidebar -->
   <%= render :partial => "partials/story/sidebar", :locals => {
       :story                    => @story,
       :more_stories             => (defined? @more_stories) ? @more_stories : nil,
@@ -67,6 +73,7 @@
   %>
 </div>
 
+<!-- Story Footer -->
 <%= render :partial => "partials/story/footer", 
   :locals => {
     :story    => @story,
@@ -74,6 +81,7 @@
   }
 %>
 
+<!-- Story Voice Reader JS -->
 <script type="text/javascript">
   <%= render :partial => "partials/vts_reader_js" %>
 </script>

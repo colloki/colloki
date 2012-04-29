@@ -1,0 +1,21 @@
+
+<div id='topic1'>
+
+</div>
+
+<%= javascript_include_tag "libs/d3.v2.min.js" %>
+<%= javascript_include_tag "libs/d3.layout.cloud.js" %>
+<%= javascript_include_tag "libs/topic-cloud.js" %>
+
+<script type="text/javascript">
+  var words = [];
+  <% topic.topic_keywords.each do |keyword| %>
+    words.push({
+      text: "<%= keyword.name %>",
+      size: parseFloat(<%= keyword.distribution %>)
+    });
+  <% end %>
+  $(document).ready(function() {
+    var w1 = new TopicCloud(words, 1);  
+  });
+</script>
