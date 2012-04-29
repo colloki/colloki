@@ -4,8 +4,8 @@ var TopicCloud = function(words, which, options) {
   this.which = which;
   
   this.options = {
-    minWordSize: 7,
-    maxWordSize: 16,
+    minWordSize: 8,
+    maxWordSize: 18,
     width: 250,
     height: 150,
     font: "Baskerville"
