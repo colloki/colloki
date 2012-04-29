@@ -23,8 +23,8 @@ require "open-uri"
   "www.progressandmain.com"             => "Progress and Main",
   "www.montva.com"                      => "Montgomery County VA",
   "www.blueridgemuse.com"               => "Blue Ridge Muse",
-  "http://blacksburgdailyphoto.blogspot.com" => "Blacksburg Daily Photo",
-  "http://blacksburgmayor.wordpress.com" => "Blacksburg Mayor's Blog"
+  "blacksburgdailyphoto.blogspot.com"   => "Blacksburg Daily Photo",
+  "blacksburgmayor.wordpress.com"       => "Blacksburg Mayor's Blog"
 ]
 
 desc "Post stories to VTS from the cached rss stories"
