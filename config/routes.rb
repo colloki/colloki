@@ -40,6 +40,7 @@ Colloki::Application.routes.draw do
   match 'latest', :to => 'topics#latest'
   match 'popular', :to => 'topics#popular'
   match 'active', :to => 'topics#active'
+  match 'facebook', :to => 'topics#facebook'
 
   match 'search', :to => 'topics#search', :as => '/search'
   match 'archive', :to => 'topics#archive'

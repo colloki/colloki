@@ -1,5 +1,5 @@
 <div class="story-item-meta">
-  <% if story.kind != Story::Rss %>
+  <% if story.kind == Story::Post %>
     Posted by <%= story_item_icon(story) %> 
     <%= link_to story.user.login, 
       { :controller => "users", :action => "show", :id => story.user.id } 

@@ -1,9 +1,9 @@
 
-require "colloki_mining_store.rb"
+require "mining_store.rb"
 require "facebook_autoposter.rb"
 require "open-uri"
 
-# todo: get rid of this dependancy from here.
+# todo: get rid of this dependancy
 @@source_names = Hash[
   "www.collegiatetimes.com"             => "Collegiate Times",
   "blogs.roanoke.com"                   => "The Burgs Blog",
@@ -29,7 +29,9 @@ require "open-uri"
   "ourvallery.org"                      => "Our Valley"
 ]
 
+# Gets the blog stories from a "VTSTopicModeling" installation
 desc "Post stories to VTS from the cached rss stories"
+
 task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
   begin
     args.with_defaults(:start_date => nil, :end_date => nil)
@@ -51,7 +53,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
       puts "Fetching articles for " + day.to_s + "..."
 
       begin
-        mining_store = CollokiMiningStore.new(day)
+        mining_store = MiningStore.new(day)
         facebook     = FacebookAutoposter.new
       rescue
         puts "Error fetching data for the day"
@@ -85,7 +87,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
         topics.push(new_topic)
       end
 
-      # Post the stories to Colloki
+      # Post the stories
       mining_store.stories.each do |story|
         begin
           topic_index = mining_store.get_topic_index_for_story(story)
@@ -96,7 +98,8 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
           end
 
           # check if the story already exists
-          new_story = Story.find(:first, :conditions => {:source_url => story["link"]})
+          new_story = 
+            Story.find(:first, :conditions => {:source_url => story["link"]})
 
           if new_story
             if topic and new_story.topic != topic
@@ -108,15 +111,20 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
             new_story = Story.new
             new_story.title = story["title"]
             new_story.description = story["text"]
+
+            # Story topic
             if topic
               new_story.topic = topic
             else
               new_story.topic_id = -1
             end
+
+            # Story Image
             if story["image-url"] && story["image-url"] != ""
               # TODO: Only save image here if it was properly fetched
               new_story.image = open(URI::escape(story["image-url"]))
             end
+
             new_story.views = 0
             new_story.kind = Story::Rss
 

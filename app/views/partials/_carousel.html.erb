@@ -3,13 +3,15 @@
     <div class="carousel-inner">
       <% first = true %>
       <% for story in stories %>
-        <% if story.image.exists? %>
+        <% if story.image.exists? or story.image_url != "" %>
           <div class="item <% if first %>active<% first = false %><% end %>">
             <%= story_item_thumbnail(story, "original") %>
             <div class="carousel-caption">
               <h4>
                 <%= render :partial => "partials/story_item_title",
-                  :locals => {:story => story}
+                  :locals => {
+                    :story => story
+                  }
                 %> · 
                 <span class='story-published-at'>
                   <% if story.published_at %>

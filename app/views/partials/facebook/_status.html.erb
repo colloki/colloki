@@ -1,0 +1,22 @@
+
+<div class="span3" style='width: 400px; border: 1px solid #eee; margin: 10px; padding: 10px'>
+  <div style='padding-right: 5px; padding-left: 10px; text-align:center'>
+    <% if story.image_url and story.image_url != "" %>
+      <%= link_to image_tag(story.image_url, :style => "max-height: 150px;"), story.source_url %>
+    <% end %>
+  </div>
+  <blockquote style='font-size: 15px; color: #888; font-family: Georgia; line-height: 20px'>
+    <% if story.title != "" %>
+      "<%= story.title %>"
+    <% end %>
+    <br><br>
+    <small>
+      by <%= story.source %> 
+      <a href='<%= story.source_url %>'>
+        <%= time_ago_in_words story.published_at %> ago
+      </a> •
+      <%= story.fb_likes_count %> likes •
+      <%= story.fb_comments_count %> comments
+    </small>
+  </blockquote>
+</div>

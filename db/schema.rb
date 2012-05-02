@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120130185603) do
+ActiveRecord::Schema.define(:version => 20120501231223) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(:version => 20120130185603) do
     t.string   "source"
     t.string   "source_url"
     t.datetime "published_at"
+    t.integer  "fb_type"
+    t.integer  "fb_likes_count"
+    t.integer  "fb_comments_count"
+    t.string   "image_url"
+    t.string   "fb_id"
   end
 
   create_table "taggings", :force => true do |t|

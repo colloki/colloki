@@ -1,0 +1,42 @@
+
+<%= render :partial => "partials/page_header", 
+  :locals => {:title => "Local Discussions on Facebook"} %>
+
+<ul class="nav nav-tabs">
+  <% if request.url.include? "sort_by=likes" %>
+    <li>
+      <%= link_to "Recent", facebook_path(:sort_by => "recent") %>
+    </li>
+    <li class="active">
+      <%= link_to "Most Liked", "#" %>
+    </li>
+    <li>
+      <%= link_to "Most Commented", facebook_path(:sort_by => "comments") %>
+    </li>
+  <% elsif request.url.include? "sort_by=comments" %>
+    <li>
+      <%= link_to "Recent", facebook_path(:sort_by => "recent") %>
+    </li>
+    <li>
+      <%= link_to "Most Liked", facebook_path(:sort_by => "likes") %>
+    </li>
+    <li class="active">
+      <%= link_to "Most Commented", "#" %>
+    </li>
+  <% else %>
+    <li class="active">
+      <%= link_to "Recent", "#" %>
+    </li>
+    <li>
+      <%= link_to "Most Liked", facebook_path(:sort_by => "likes") %>
+    </li>
+    <li>
+      <%= link_to "Most Commented", facebook_path(:sort_by => "comments") %>
+    </li>
+  <% end %>
+</ul>
+
+<%= render :partial => "partials/facebook/body", :locals => {
+  :photos   => @photos,
+  :stories  => @stories
+} %>

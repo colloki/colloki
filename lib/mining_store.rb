@@ -1,8 +1,11 @@
+
 require "net/http"
 require "csv"
 require "cgi"
 
-class CollokiMiningStore
+# Gets the data from the Topic Modeling Data Source
+# The corresponding code is "VTSTopicModeling" (not opensource yet)
+class MiningStore
 
   CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
 
@@ -14,9 +17,9 @@ class CollokiMiningStore
 
   def initialize(date)
     @formatted_date = format_date(date)
-    @topics = get_topics
-    @distribution = get_story_topic_distribution
-    @stories = get_stories
+    @topics         = get_topics
+    @distribution   = get_story_topic_distribution
+    @stories        = get_stories
   end
 
   def topics

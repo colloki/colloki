@@ -13,7 +13,7 @@ module StoriesHelper
   end
 
   def sidebar_story_image(story)
-    if image_exists? story.image_file_name
+    if image_exists? story
       return link_to image_tag(story.image.url(:thumb), :class=>'sidebar-story-thumb'), story
     else
       return ""
@@ -23,25 +23,25 @@ module StoriesHelper
   def sidebar_story(story)
     html = "<div class='sidebar-story row'>"
 
-    if image_exists? story.image_file_name
+    if image_exists? story
       html += "<div class='span1' style='width: 100px;'>"
     else
       html += "<div class='span'>"
     end
 
-    if story.kind == Story::Rss
-      html += link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url
-    else
+    if story.kind == Story::Post
       html += link_to gravatar_image_tag(story.user.email,
                 :gravatar => { :size => 20 }, :class => "favicon"),
                 story.user,
                 :title => story.user.login
+    else
+      html += link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url
     end
 
     html += sidebar_story_image(story)
     html += "</div>"
 
-    if image_exists? story.image_file_name
+    if image_exists? story
       html += "<div class='span2 sidebar-story-content'>"
     else
       html += "<div class='span3 sidebar-story-content'>"

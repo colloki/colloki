@@ -1,26 +1,26 @@
 class Story < ActiveRecord::Base
   # Constant Definitions
-  Link  = 0
-  Post  = 1
-  Rss   = 2
+  Link     = 0
+  Post     = 1
+  Rss      = 2
+  Facebook = 3
+  Twitter  = 4
 
-  # Scoring criteria:
-  #
-  # User Post: 30
-  # Comment: 20
-  # Share on Twitter, Facebook, Google+, Email: 10
-  # Like:    5
-  # Visit:   1
-  #
-  ScorePost       = 10
-  ScoreComment    = 10
-  ScoreShare      = 10
-  ScoreVote       = 5
-  ScoreVisit      = 1
+  # Facebook Post Types
+  FacebookTypeStatus = 0
+  FacebookTypeLink   = 1
+  FacebookTypePhoto  = 2
 
-  validates_presence_of   :title
-  validates_presence_of   :description
-  validates_presence_of   :kind
+  # Scoring criteria for user contribution in a story
+  ScorePost     = 10
+  ScoreComment  = 10
+  ScoreShare    = 10
+  ScoreVote     = 5
+  ScoreVisit    = 1
+
+  # validates_presence_of   :title
+  # validates_presence_of   :description
+  # validates_presence_of   :kind
   validates_uniqueness_of :source_url,  :if => :is_rss?
   validates_presence_of   :url,         :if => :is_link?
   validates_format_of     :url,
@@ -33,9 +33,11 @@ class Story < ActiveRecord::Base
   has_many :activity_items, :dependent => :destroy
   has_many :votes,          :dependent => :destroy
 
-  has_attached_file :image, :styles => { 
+  has_attached_file :image, 
+  :styles => { 
     :thumb => "200x150>", 
-    :medium => "250x250>" }
+    :medium => "250x250>" 
+  }
 
   acts_as_taggable
 
@@ -50,6 +52,10 @@ class Story < ActiveRecord::Base
     kind == Story::Rss
   end
 
+  def is_facebook?
+    kind == Story::Facebook
+  end
+
   # increase popularity of story
   def increase_popularity(score)
     self.popularity = self.popularity + score
@@ -61,29 +67,54 @@ class Story < ActiveRecord::Base
   end
 
   def self.popular(page)
-    page(page).order("popularity DESC, published_at DESC")
+    where("kind != ?", Story::Facebook)
+    .page(page)
+    .order("popularity DESC, published_at DESC")
   end
 
   def self.popular_with_photos
     find :all,
-         :conditions => ["image_file_size != '' and image_file_name != 'stringio.txt'"],
+         :conditions => ["image_file_size != '' 
+          and image_file_name != 'stringio.txt'
+          and kind != ?", Story::Facebook],
          :order => "popularity DESC",
          :limit => 20
   end
 
   def self.latest(page, should_paginate=true)
     if should_paginate
-      page(page).order("published_at DESC")
+      where("kind != ?", Story::Facebook)
+      .page(page)
+      .order("published_at DESC")
     else
-      find :all, :order => "published_at DESC", :limit => 20
+      find :all, 
+           :conditions => ["kind != ?", Story::Facebook], 
+           :order => "published_at DESC", 
+           :limit => 20
     end
   end
 
   def self.latest_with_photos
     find :all,
-         :conditions => ["image_file_size != '' and image_file_name != 'stringio.txt'"],
+         :conditions => ["image_file_size != '' 
+          and image_file_name != 'stringio.txt'
+          and kind != ?", Story::Facebook],
          :order => "published_at DESC", 
          :limit => 20
+  end
+
+  def self.fb_stories(page, sort)
+    if (sort and sort == "likes")
+      order = "fb_likes_count DESC"
+    elsif (sort and sort == "comments")
+      order = "fb_comments_count DESC"
+    else
+      order = "published_at DESC"
+    end
+
+    where(["kind = ?", Story::Facebook])
+    .page(page)
+    .order(order)
   end
 
   def self.active

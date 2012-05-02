@@ -1,5 +1,5 @@
 <div class="story-content">
-  <% if image_exists? story.image_file_name %>
+  <% if image_exists? story %>
     <div class="story-image">
       <%= image_tag(story.image.url) %>
     </div>

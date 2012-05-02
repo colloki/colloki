@@ -25,6 +25,14 @@ class TopicsController < ApplicationController
     end
   end
 
+  def facebook
+    @page_title           = "Local Discussions on Facebook"
+    @stories              = Story.fb_stories(params[:page], params[:sort_by])
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def active
     @page_title = "Active Discussions"
     @stories    = Story.active
