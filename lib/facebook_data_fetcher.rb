@@ -10,7 +10,7 @@ class FacebookDataFetcher
   @@source  = CONFIG['fb_datasource']
 
   def initialize
-    @stories = get_stories(format_date(Time.now.in_time_zone('EST').to_date))
+    @stories = get_stories(format_date(Time.now.to_date))
   end
 
   def stories
