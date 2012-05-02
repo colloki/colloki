@@ -105,7 +105,7 @@
       !request.fullpath.include? 'auth' and @today_topics) %>
        
        <div class="row">
-        <div class="span4">
+        <div class="span5">
           <ul class="nav nav-pills">
             
             <!-- Latest -->
@@ -131,39 +131,40 @@
             <% end %>
               <%= link_to ("<i class='" + icon + "'></i> User Contributions").html_safe, popular_url %>
             </li>
+
+            <!-- Facebook Discussions -->
+            <% if request.filtered_parameters["controller"] === "topics" and
+              request.filtered_parameters["action"] === "facebook" %>
+              <li class="active">
+              <% icon = "icon-comment icon-white" %>
+            <% else %>
+              <li>
+              <% icon = "icon-comment" %>
+            <% end %>
+              <%= link_to ("<i class='" + icon + "'></i> Facebook").html_safe, facebook_url %>
+            </li>
+
           </ul>
         </div>
 
         <div class="pull-right">
-          <div class="row">
+          <div class="span6 pull-right" style='width: 520px; padding-top: 10px'>
+
             <!-- Time Period Selection for Topics -->
-            <div class="span1" style="width: 150px; margin-right: 0">
-              <ul class="nav nav-pills" style="display: inline">
-                <li class="dropdown">
-                  <a class="dropdown-toggle active"
-                     data-toggle="dropdown"
-                     href="#">
-                     <i class="icon-list"></i>
-                     <span class="topic_when">Today</span>
-                     <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">This Week</a></li>
-                    <li><a href="#">This Month</a></li>
-                  </ul>
-                </li>
-              </ul>
+            <div class="row" style='padding-left: 10px'>
+              <i class="icon-list"></i>
+              <span class="topic_when">Today's Topics</span>
             </div>
 
             <!-- Topics for the chosen time period -->
-            <div class="span6" style="width: 400px; margin-left: 0">
+            <div class="row">
               <%= render :partial => "partials/topics_navigation",
-                    :locals => {
-                      :topics         => @today_topics,
-                      :story          => @story,
-                      :selected_topic => (defined? @topic) ? @topic : nil
-                    }
-                %>
+                  :locals => {
+                    :topics         => @today_topics,
+                    :story          => @story,
+                    :selected_topic => (defined? @topic) ? @topic : nil
+                  }
+              %>
             </div>
           </div>
         </div>
