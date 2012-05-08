@@ -25,6 +25,12 @@ $(document).ready(function(e) {
     slicePoint      : 800,
     userCollapseText: 'Read Less'
   });
+
+  $(".fb-expandable").expander({
+    expandText      : 'more',
+    slicePoint      : 200,
+    userCollapseText: 'less'
+  });
 });
 
 function get_gravatar_url(email, size) {

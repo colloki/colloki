@@ -1,15 +1,25 @@
 
-<div class="span3" style='width: 400px; border: 1px solid #eee; margin: 10px; padding: 10px'>
-  <div style='padding-right: 5px; padding-left: 10px; text-align:center'>
+<div class='span3 fb-item fb-status'>
+  <div class='fb-image'>
     <% if story.image_url and story.image_url != "" %>
-      <%= link_to image_tag(story.image_url, :style => "max-height: 150px;"), story.source_url %>
+      <%= link_to image_tag(story.image_url, 
+          :style => "max-height: 150px;"), 
+          story.source_url %>
     <% end %>
   </div>
-  <blockquote style='font-size: 15px; color: #888; font-family: Georgia; line-height: 20px'>
+  <blockquote>
     <% if story.title != "" %>
-      "<%= story.title %>"
+      <span class="fb-expandable">
+        "<%= story.title %>"
+      </span>
+      <br><br>
     <% end %>
-    <br><br>
+    <% if story.description and story.description != "" %>
+      <span class="fb-expandable">
+        <%= story.description %>
+      </span>
+      <br><br>
+    <% end %>
     <small>
       by <%= story.source %> 
       <a href='<%= story.source_url %>'>

@@ -1,7 +1,15 @@
 
 <div class='row'>
   <% stories.each do |story| %>
-    <%= render :partial => "partials/facebook/status", 
-      :locals => { :story => story } %>
+    <% if story.fb_type == Story::FacebookTypeStatus %>
+      <%= render :partial => "partials/facebook/status", 
+        :locals => { :story => story } %>
+    <% elsif story.fb_type == Story::FacebookTypeLink %>
+      <%= render :partial => "partials/facebook/link", 
+        :locals => { :story => story } %>
+    <% else %>
+      <%= render :partial => "partials/facebook/photo", 
+        :locals => { :story => story } %>
+    <% end %>
   <% end %>
 </div>

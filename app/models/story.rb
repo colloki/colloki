@@ -105,7 +105,7 @@ class Story < ActiveRecord::Base
 
   def self.fb_stories(page, sort)
     if (sort and sort == "likes")
-      order = "fb_likes_count DESC"
+      order     = "fb_likes_count DESC"
     elsif (sort and sort == "comments")
       order = "fb_comments_count DESC"
     else

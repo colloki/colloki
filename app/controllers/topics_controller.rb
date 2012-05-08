@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+
   # a.k.a user contributions
   def popular
     @page_title          = "User Contributions"

@@ -31,6 +31,7 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
           new_story.source_url        = story["link"]
           new_story.published_at      = story["published_at"]
           new_story.fb_id             = story["fb_id"]
+          new_story.fb_link           = story["fb_link"]
           new_story.fb_likes_count    = story["fb_likes_count"]
           new_story.fb_comments_count = story["fb_comments_count"]
           new_story.image_url         = story["image_url"]
