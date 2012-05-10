@@ -1,21 +1,21 @@
+
 <ul class="nav nav-pills">
-  <% topics.each do |topic| %>
-    <% if topic and topic.stories.count != 0 %>
-      <% if ((defined? story) and story and story.topic_id == topic.id) ||
-        ((defined? selected_topic) and selected_topic and selected_topic.id == topic.id) %>
-        <li class="active">
-      <% else %>
-        <li>
-      <% end %>
-      <% keyword_content = render :partial => 'partials/topic/text_keywords', 
-        :locals => {:topic => topic} %>
-      <%= link_to "[ " << topic.title << " ]",
-        topical_path(topic), 
-        :class          => "has_popover",
-        "data-content"  => keyword_content,
-        "data-delay"    => "500",
-        :title          => "[ " + topic.title + " ]" %>
-      </li>
-    <% end %>
+  <% topics.each_with_index do |topic, i| %>
+    <% 
+      if defined? selected_topic and selected_topic.id == topic.id
+        selected = true
+      else
+        selected = false
+      end
+    %>
+    <%= render :partial => "partials/topic/cloud",
+        :locals => {
+          :id       => i,
+          :selected => selected,
+          :topic    => topic,
+          :width    => 160,
+          :height   => 100
+        }
+    %>
   <% end %>
 </ul>

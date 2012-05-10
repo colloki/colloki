@@ -145,10 +145,6 @@ h3.title {
 .big-modal {
   width: 60%;
   left: 40%;
-  .story-content {
-    /*max-height: 200px;
-    overflow: scroll;*/
-  }
 
   .span8, .comment-body {
     width: 95%;
@@ -157,4 +153,22 @@ h3.title {
   .span6 {
     width: 90%;
   }
+}
+
+/** Topic Cloud Navigation **/
+
+.topic-cloud {
+  display: inline-block; 
+  margin: 0 5px; 
+  border: 1px solid #eee;
+}
+
+.topic-cloud.selected {
+  background-color: #f2f5f7;
+  border: 1px solid #ddd;
+}
+
+.topic-cloud:hover {
+  background-color: #f2f5f7;
+  text-decoration: none;
 }

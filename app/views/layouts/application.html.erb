@@ -105,7 +105,7 @@
       !request.fullpath.include? 'auth' and @today_topics) %>
        
        <div class="row">
-        <div class="span5">
+        <div class="span5" style='width: 350px'>
           <ul class="nav nav-pills">
             
             <!-- Latest -->
@@ -146,15 +146,16 @@
 
           </ul>
         </div>
-
-        <div class="pull-right">
-          <div class="span6 pull-right" style='width: 520px; padding-top: 10px'>
+      </div>
+      <div class='row'>
+        <!-- <div class="pull-right"> -->
+          <div class="span12" style='margin-left: 100px; padding-top: 10px'>
 
             <!-- Time Period Selection for Topics -->
-            <div class="row" style='padding-left: 10px'>
+            <!-- <div class="row" style='padding-left: 10px'>
               <i class="icon-list"></i>
               <span class="topic_when">Today's Topics</span>
-            </div>
+            </div> -->
 
             <!-- Topics for the chosen time period -->
             <div class="row">
@@ -166,7 +167,7 @@
                   }
               %>
             </div>
-          </div>
+          <!-- </div> -->
         </div>
       </div>
     <% end %>

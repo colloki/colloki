@@ -1,21 +1,33 @@
 
-<div id='topic1'>
-
-</div>
+<a href='<%= topic_url(topic) %>' 
+  id='topic<%= id %>' 
+  class='topic-cloud <% if defined? selected and selected %> selected<% end %>'>
+</a>
 
 <%= javascript_include_tag "libs/d3.v2.min.js" %>
 <%= javascript_include_tag "libs/d3.layout.cloud.js" %>
 <%= javascript_include_tag "libs/topic-cloud.js" %>
 
 <script type="text/javascript">
-  var words = [];
+  var words<%=id%> = [];
+
   <% topic.topic_keywords.each do |keyword| %>
-    words.push({
+    words<%=id%>.push({
       text: "<%= keyword.name %>",
       size: parseFloat(<%= keyword.distribution %>)
     });
   <% end %>
+
   $(document).ready(function() {
-    var w1 = new TopicCloud(words, 1);  
+    <% if defined? width and defined? height %>
+      new TopicCloud(words<%=id%>, <%= id %>, {
+        width: <%= width %>,
+        height: <%= height %>
+      });
+    <% else %>
+      new TopicCloud(words<%=id%>, <%= id %>);
+    <% end %>
   });
+
 </script>
+

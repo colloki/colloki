@@ -1,3 +1,4 @@
+
 <div class="span4 sidebar" style="width: 285px">
 
   <!-- Sign Up Note -->
@@ -14,7 +15,10 @@
         <%= link_to "[ " + topic.title + " ]", topic_path(topic) %>
       </h4>
       <%= render :partial => "partials/topic/cloud",
-        :locals => {:topic => topic}
+        :locals => {
+          :topic => topic,
+          :id    => 10
+        }
       %>
     </div>
     <hr>

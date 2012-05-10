@@ -25,6 +25,13 @@ TopicCloud.prototype.draw = function() {
   var words = self.words;
   var fill  = d3.scale.category20b();
 
+  var sumOfSizes = 0;
+  var len = words.length;
+
+  for (var i = 0; i < len; i ++) {
+    sumOfSizes += words[i].size;
+  }
+
   var fontSize = d3.scale.log()
     .range([self.options.minWordSize, self.options.maxWordSize]);
 
@@ -41,7 +48,7 @@ TopicCloud.prototype.draw = function() {
     .words(words)
     .start();
 
-   function run(words) {
+  function run(words) {
     d3.select("#topic"+self.which).append("svg")
       .attr("width", self.options.width - 20)
       .attr("height", self.options.height)
@@ -52,9 +59,9 @@ TopicCloud.prototype.draw = function() {
     .enter().append("text")
       .style("font-family", self.options.font)
       .style("font-size", function(d) { return d.size + "px"; })
+      .style('opacity', function(d) { return d.size/sumOfSizes + 0.7; })
       .attr("text-anchor", "middle")
       .attr("transform", function(d) {
-        console.log(d);
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
       })
       .text(function(d) { return d.text; });
