@@ -2,7 +2,7 @@
 <ul class="nav nav-pills">
   <% topics.each_with_index do |topic, i| %>
     <% 
-      if defined? selected_topic and selected_topic.id == topic.id
+      if defined? selected_topic and selected_topic and selected_topic.id == topic.id
         selected = true
       else
         selected = false
