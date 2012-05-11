@@ -49,7 +49,7 @@ TopicCloud.prototype.draw = function() {
     .start();
 
   function run(words) {
-    d3.select("#topic"+self.which).append("svg")
+    d3.select("#topic" + self.which).append("svg")
       .attr("width", self.options.width - 20)
       .attr("height", self.options.height)
     .append("g")
@@ -58,8 +58,19 @@ TopicCloud.prototype.draw = function() {
       .data(words)
     .enter().append("text")
       .style("font-family", self.options.font)
-      .style("font-size", function(d) { return d.size + "px"; })
-      .style('opacity', function(d) { return d.size/sumOfSizes + 0.7; })
+      .style("font-size", function(d) { 
+        return d.size + "px"; 
+      })
+      .style('opacity', function(d) { 
+        var opacity = d.size / sumOfSizes;
+
+        if (opacity < 0.1) {
+          return 0;
+        } else {
+          return opacity + 0.8;
+        }
+
+      })
       .attr("text-anchor", "middle")
       .attr("transform", function(d) {
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
