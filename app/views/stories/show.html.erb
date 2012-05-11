@@ -20,13 +20,8 @@
       <!-- Story Buttons -->
       <div class="span2 pull-right" style="width: 250px; margin-top: 3px">
         <div class="row pull-right">
-          <div style="display: inline-table; margin-bottom: -4px; margin-right: 5px">
-            <%= render :partial => "partials/speak_btn", 
-              :locals => {:story => @story} 
-            %>
-          </div>
           <div style="display: inline-table; margin-bottom: -4px;">
-            <%= render :partial => "partials/like_btn/html", 
+            <%= render :partial => "partials/button/like/html", 
               :locals => {:story => @story} 
             %>
           </div>

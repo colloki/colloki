@@ -1,4 +1,5 @@
 <!-- Share button -->
+
 <div class="btn-group btn-small" style="margin-bottom: -6px;">
   <a class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown" href="#">
     Share
@@ -33,11 +34,11 @@
 
 <!-- Facebook, G+ -->
 <div style="display: inline-block; margin-bottom: -20px">
-  <%= render :partial => "partials/google_plusone_button" %>
-  <%= render :partial => "partials/facebook_like_button" %>
+  <%= render :partial => "partials/share/google_plusone_button" %>
+  <%= render :partial => "partials/share/facebook_like_button" %>
 </div>
 
-<%= render :partial => "partials/email_modal",
+<%= render :partial => "partials/modal/email",
       :locals => {
         :id    => "email-modal-" + story.id.to_s,
         :story => story

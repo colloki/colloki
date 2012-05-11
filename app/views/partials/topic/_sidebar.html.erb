@@ -10,7 +10,7 @@
 <% if active_topics and active_topics.count > 0 %>
   <div class='topics-active'>
     <h4>Active Topics</h4>
-    <%= render :partial => "partials/topics_navigation",
+    <%= render :partial => "partials/topic/navigation",
       :locals => {
         :topics => @active_topics
       }
@@ -37,7 +37,7 @@
 <!-- Popular tags -->
 <% if tags and tags.count != 0 %>
   <!-- <h4>Popular Topics</h4> -->
-  <%= render :partial => "partials/tag_cloud", :locals => {:tags => tags, :topic => nil} %>
+  <%= render :partial => "partials/tag/cloud", :locals => {:tags => tags, :topic => nil} %>
   <!-- <hr> -->
 <% end %>
 
@@ -47,6 +47,3 @@
   <%= render :partial => "partials/new_users", :locals => {:users => new_users} %>
   <hr>
 <% end %>
-
-<!-- Local Tweets Widget -->
-<%= render :partial => "partials/local_tweets" %>

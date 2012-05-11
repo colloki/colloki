@@ -8,7 +8,7 @@
             <%= story_item_thumbnail(story, "original") %>
             <div class="carousel-caption">
               <h4>
-                <%= render :partial => "partials/story_item_title",
+                <%= render :partial => "partials/story_item/title",
                   :locals => {
                     :story => story
                   }
@@ -21,8 +21,8 @@
                   <% end %> ago
                 </span>
                  · 
-                <%= render :partial => "partials/comment_btn/html", :locals => {:story => story} %>
-                <%= render :partial => "partials/like_btn/html", :locals => {:story => story} %>
+                <%= render :partial => "partials/button/comment/html", :locals => {:story => story} %>
+                <%= render :partial => "partials/button/like/html", :locals => {:story => story} %>
               </h4>
               <p>
                 <%= story_item_content(story, 200, 140) %>

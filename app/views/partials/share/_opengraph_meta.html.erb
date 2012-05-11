@@ -1,6 +1,8 @@
+
 <meta property="og:title" content="<%= story.title %>" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="<%= request.url %>"/>
+
 <% if image_exists? story %>
   <% image_url = root_url[0..-2] + story.image.url(:original) %>
   <meta property="og:image" content="<%= image_url %>" />
@@ -11,5 +13,5 @@
   <link rel="image_src" href="" />
   <meta itemprop="image" content="">
 <% end %>
-<meta property="og:description" content="<%= strip_tags(story.description) %>" />
 
+<meta property="og:description" content="<%= strip_tags(story.description) %>" />

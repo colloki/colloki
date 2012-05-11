@@ -6,7 +6,7 @@
 
   <% if request.filtered_parameters["controller"] === "stories" and
         request.filtered_parameters["action"]     === "show" %>
-    <%= render :partial => "partials/story_open_graph_meta", :locals => {
+    <%= render :partial => "partials/share/opengraph_meta", :locals => {
       :story => @story
     } %>
   <% end %>
@@ -26,8 +26,8 @@
 
   <%= include_javascripts :common %>
 
-  <%= render :partial => 'partials/uservoice' %>
-  <%= render :partial => 'partials/google_analytics' %>
+  <%= render :partial => 'partials/external/uservoice' %>
+  <%= render :partial => 'partials/external/analytics' %>
 
   <script type="text/javascript">
     var APP_ROOT_PATH = "<%= root_url %>";
@@ -197,8 +197,8 @@
     <%= render :partial => 'partials/footer' %>
 
     <!-- Modal for share button -->
-    <%= render :partial => "partials/share_modal" %>
-    
+    <%= render :partial => "partials/modal/share" %>
+
   </div>
 </body>
 </html>

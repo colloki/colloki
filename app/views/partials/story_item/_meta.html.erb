@@ -21,10 +21,9 @@
   <% end %> ago
 
   <div style="margin-top: 5px;">
-    <%= render :partial => "partials/comment_btn/html", :locals => {:story => story} %>
-    <%= render :partial => "partials/like_btn/html", :locals => {:story => story} %>
-    <%= render :partial => "partials/speak_btn", :locals => {:story => story} %>
-    <%= render :partial => "partials/delete_btn", 
+    <%= render :partial => "partials/button/comment/html", :locals => {:story => story} %>
+    <%= render :partial => "partials/button/like/html", :locals => {:story => story} %>
+    <%= render :partial => "partials/button/delete", 
       :locals => {
         :story => story,
         :current_user => current_user
