@@ -63,13 +63,7 @@ TopicCloud.prototype.draw = function() {
       })
       .style('opacity', function(d) { 
         var opacity = d.size / sumOfSizes;
-
-        if (opacity < 0.05) {
-          return 0;
-        } else {
-          return opacity + 0.8;
-        }
-
+        return opacity + 0.8;
       })
       .attr("text-anchor", "middle")
       .attr("transform", function(d) {
