@@ -8,13 +8,11 @@
         selected = false
       end
     %>
-    <%= render :partial => "partials/topic/cloud",
+    <%= render :partial => "partials/topic/navigation_link",
         :locals => {
           :id       => i,
           :selected => selected,
-          :topic    => topic,
-          :width    => 160,
-          :height   => 100
+          :topic    => topic
         }
     %>
   <% end %>

@@ -61,10 +61,10 @@ TopicCloud.prototype.draw = function() {
       .style("font-size", function(d) { 
         return d.size + "px"; 
       })
-      .style('opacity', function(d) { 
-        var opacity = d.size / sumOfSizes;
-        return opacity + 0.8;
-      })
+      // .style('opacity', function(d) { 
+      //   var opacity = d.size / sumOfSizes;
+      //   return opacity + 0.8;
+      // })
       .attr("text-anchor", "middle")
       .attr("transform", function(d) {
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
