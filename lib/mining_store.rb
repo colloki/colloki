@@ -42,7 +42,7 @@ class MiningStore
 
     def format_date(date)
       day = date.strftime("%d")
-      month = Date::MONTHNAMES[Integer(date.strftime("%m"))].to(2)
+      month = Date::MONTHNAMES[date.strftime("%m").to_i()].to(2)
       year = date.strftime("%y")
       return day + month + year
     end
@@ -112,11 +112,11 @@ class MiningStore
     def get_story_topic_distribution
       path = @@source + @formatted_date + "/" + @@document_topic_distribution_path
       csv = Net::HTTP.get_response(URI.parse(path)).body
-      
+
       # Assign a topic for each story
       # Story id is the key and key value is the topic index
       distribution = Hash.new
-      
+
       is_first_row = true
       CSV.parse(csv) do |row|
         # Skip first row which is the header

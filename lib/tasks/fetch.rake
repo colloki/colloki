@@ -65,7 +65,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
       # Get rid of past topics created during the day.
       # This is highly transient right now...
       Topic.delete_all(["day = ?", day.to_time.utc])
-      
+
       # Save the topics
       mining_store.topics.each do |topic|
         new_topic = Topic.new
@@ -98,7 +98,7 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
           end
 
           # check if the story already exists
-          new_story = 
+          new_story =
             Story.find(:first, :conditions => {:source_url => story["link"]})
 
           if new_story
