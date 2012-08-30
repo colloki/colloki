@@ -21,6 +21,7 @@ class TopicsController < ApplicationController
     @new_users           = User.newly_activated
     @activity_items      = ActivityItem.recent
     @tags                = Story.tag_counts_on(:tags)
+    @is_frontpage        = true
     respond_to do |format|
       format.html
     end
@@ -38,7 +39,7 @@ class TopicsController < ApplicationController
     @page_title = "Active Discussions"
     @stories    = Story.active
     @stories_with_photos = @stories.find_all{|story|
-      story.image_file_size != '' and 
+      story.image_file_size != '' and
       story.image_file_name !='stringio.txt'}
     @active_topics = []
     @stories.each do |story|

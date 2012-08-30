@@ -1,8 +1,15 @@
 
 <!-- Sign Up Note-->
 <% if !logged_in? %>
-  <h4>What is VTS?</h4>
-  <%= signin_description %>
+
+  <%if @is_frontpage%>
+    <h4>What is VTS?</h4>
+    <%= render :partial => "partials/description/vts" %>
+  <%end%>
+
+  <%= render :partial => "partials/description/signin", :locals => {
+    :url => login_url
+  } %>
   <hr>
 <% end %>
 
@@ -42,7 +49,7 @@
 <% end %>
 
 <!-- New users -->
-<% if new_users and new_users.count != 0 %>
+<% if @is_frontpage and new_users and new_users.count != 0 %>
   <h4>Who joined recently</h4>
   <%= render :partial => "partials/new_users", :locals => {:users => new_users} %>
   <hr>

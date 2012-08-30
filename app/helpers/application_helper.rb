@@ -19,14 +19,6 @@ module ApplicationHelper
     "http://www.google.com/s2/favicons?domain_url=" << url
   end
 
-  def signin_description
-    ("Virtual Town Square is a place to learn and discuss local issues with 
-    other Blacksburg and Montgomery County residents.<br><br>" +
-    " Sign in to participate in discussions. You'll be able to post your own stories,
-     comment and like stories.<br><br>" +
-    link_to('Sign In', login_url, :class => 'btn btn-primary')).html_safe
-  end
-
   def errors_for(object, message=nil)
     html = ""
     unless !(defined? object.errors) or object.errors.blank?
@@ -65,8 +57,8 @@ module ApplicationHelper
     html.html_safe
   end
 
-  # Checks for the filename "stringio.txt" in addition to an empty string 
-  # to determine if a story image exists. This can be used across views 
+  # Checks for the filename "stringio.txt" in addition to an empty string
+  # to determine if a story image exists. This can be used across views
   # until we filter out invalid images at the time of saving.
   def image_exists?(story)
     if (story.image_file_name and

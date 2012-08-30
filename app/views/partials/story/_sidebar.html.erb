@@ -3,8 +3,9 @@
 
   <!-- Sign Up Note -->
   <% if !logged_in? %>
-    <h4>What is VTS?</h4>
-    <%= signin_description %>
+    <%= render :partial => "partials/description/signin", :locals => {
+      :url => login_url
+    } %>
     <hr>
   <% end %>
 
@@ -72,7 +73,7 @@
   <% if story.tag_list.count != 0 %>
     <h4>Related tags</h4>
     <% if topic %>
-      <%= render :partial => "partials/tag_list", 
+      <%= render :partial => "partials/tag_list",
         :locals => { :list => story.tag_list, :topic => topic.id } %>
     <% end %>
     <hr>
