@@ -143,10 +143,13 @@ h3.title {
 }
 
 .big-modal {
-  width: 60%;
   left: 40%;
+  top: 35%;
+  max-height: 95%;
+  width: 60%;
 
-  .span8, .comment-body {
+  .span8,
+  .comment-body {
     width: 95%;
   }
 
@@ -158,17 +161,15 @@ h3.title {
 /** Topic Cloud Navigation **/
 
 .topic-cloud {
-  display: inline-block; 
-  margin: 0 5px; 
   border: 1px solid #eee;
-}
-
-.topic-cloud.selected {
-  background-color: #f2f5f7;
-  border: 1px solid #ddd;
-}
-
-.topic-cloud:hover {
-  background-color: #f2f5f7;
-  text-decoration: none;
+  display: inline-block;
+  margin: 0 5px;
+  &.selected {
+    background-color: #f2f5f7;
+    border: 1px solid #ddd;
+  }
+  &:hover {
+    background-color: #f2f5f7;
+    text-decoration: none;
+  }
 }
