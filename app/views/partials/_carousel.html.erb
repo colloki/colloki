@@ -7,12 +7,12 @@
           <div class="item <% if first %>active<% first = false %><% end %>">
             <%= story_item_thumbnail(story, "original") %>
             <div class="carousel-caption">
-              <h4>
+              <h5>
                 <%= render :partial => "partials/story_item/title",
                   :locals => {
                     :story => story
                   }
-                %> · 
+                %> ·
                 <span class='story-published-at'>
                   <% if story.published_at %>
                     <%= time_ago_in_words story.published_at %>
@@ -20,10 +20,10 @@
                     <%= time_ago_in_words story.created_at %>
                   <% end %> ago
                 </span>
-                 · 
+                 ·
                 <%= render :partial => "partials/button/comment/html", :locals => {:story => story} %>
                 <%= render :partial => "partials/button/like/html", :locals => {:story => story} %>
-              </h4>
+              </h5>
               <p>
                 <%= story_item_content(story, 200, 140) %>
               </p>

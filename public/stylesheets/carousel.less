@@ -1,6 +1,7 @@
 // Carousel CSS
 
 #stories-carousel {
+  color: #eee !important;
   min-width: 100%;
   .item {
     height: 300px;
@@ -14,18 +15,18 @@
         text-align: left;
         display: inline;
         font-weight: normal;
-      }
 
-      a.story-item-title {
-        color: #fff !important;
-        font-weight: bold;
+        &.story-item-title {
+          color: #fff !important;
+          font-weight: bold;
+        }
       }
     }
-    
+
     .story-published-at {
-      font-style: italic;
       font-weight: normal;
       font-size: 12px;
+      font-style: italic;
     }
   }
 }

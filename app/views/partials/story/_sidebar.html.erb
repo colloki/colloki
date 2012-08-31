@@ -1,81 +1,77 @@
+<!-- Sign Up Note -->
+<% if !logged_in? %>
+  <%= render :partial => "partials/description/signin", :locals => {
+    :url => login_url
+  } %>
+  <hr>
+<% end %>
 
-<div class="span4 sidebar" style="width: 285px">
+<!-- Topic Keyword Cloud -->
+<% if topic and topic.topic_keywords %>
+  <!-- <div class="topic-keywords">
+    <h5>
+      <%= link_to "[ " + topic.title + " ]", topic_path(topic) %>
+    </h5>
+    <%= render :partial => "partials/topic/cloud",
+      :locals => {
+        :topic => topic,
+        :id    => 10
+      }
+    %>
+  </div>
+  <hr> -->
+<% end %>
 
-  <!-- Sign Up Note -->
-  <% if !logged_in? %>
-    <%= render :partial => "partials/description/signin", :locals => {
-      :url => login_url
-    } %>
-    <hr>
+<!-- Related stories belonging to same topic -->
+<% if more_stories && more_stories.count != 0 %>
+  <h5>
+    More in <strong>
+      <% if story.topic %>
+        [ <%= story.topic.title %> ]
+      <% else %>
+        Uncategorized
+      <% end %>
+    </strong>
+  </h5>
+  <% for a_story in more_stories %>
+    <%= sidebar_story(a_story) %>
   <% end %>
+  <hr>
+<% end %>
 
-  <!-- Topic Keyword Cloud -->
-  <% if topic and topic.topic_keywords %>
-    <!-- <div class="topic-keywords">
-      <h4>
-        <%= link_to "[ " + topic.title + " ]", topic_path(topic) %>
-      </h4>
-      <%= render :partial => "partials/topic/cloud",
-        :locals => {
-          :topic => topic,
-          :id    => 10
-        }
-      %>
-    </div>
-    <hr> -->
+<!-- Stories from same source -->
+<% if more_stories_from_source and more_stories_from_source.count != 0 %>
+  <h5>More from <%= story.source %></h5>
+  <% for a_story in more_stories_from_source %>
+    <%= sidebar_story(a_story) %>
   <% end %>
+  <hr>
+<% end %>
 
-  <!-- Related stories belonging to same topic -->
-  <% if more_stories && more_stories.count != 0 %>
-    <h4>
-      More in <strong>
-        <% if story.topic %>
-          [ <%= story.topic.title %> ]
-        <% else %>
-          Uncategorized
-        <% end %>
-      </strong>
-    </h4>
-    <% for a_story in more_stories %>
-      <%= sidebar_story(a_story) %>
-    <% end %>
-    <hr>
+<!-- Other User Posted Discussions -->
+<% if user_posted_stories and user_posted_stories.count != 0 %>
+  <h5>More posts by <%= story.user.login %></h5>
+  <% for a_story in user_posted_stories %>
+    <%= sidebar_story(a_story) %>
   <% end %>
+  <hr>
+<% end %>
 
-  <!-- Stories from same source -->
-  <% if more_stories_from_source and more_stories_from_source.count != 0 %>
-    <h4>More from <%= story.source %></h4>
-    <% for a_story in more_stories_from_source %>
-      <%= sidebar_story(a_story) %>
-    <% end %>
-    <hr>
+<!-- All User Discussions -->
+<% if all_posted_stories and all_posted_stories.count != 0 %>
+  <h5>Recent user posts</h5>
+  <% for a_story in all_posted_stories %>
+    <%= sidebar_story(a_story) %>
   <% end %>
+  <hr>
+<% end %>
 
-  <!-- Other User Posted Discussions -->
-  <% if user_posted_stories and user_posted_stories.count != 0 %>
-    <h4>More posts by <%= story.user.login %></h4>
-    <% for a_story in user_posted_stories %>
-      <%= sidebar_story(a_story) %>
-    <% end %>
-    <hr>
+<!-- Related Tags -->
+<% if story.tag_list.count != 0 %>
+  <h5>Related tags</h5>
+  <% if topic %>
+    <%= render :partial => "partials/tag_list",
+      :locals => { :list => story.tag_list, :topic => topic.id } %>
   <% end %>
-
-  <!-- All User Discussions -->
-  <% if all_posted_stories and all_posted_stories.count != 0 %>
-    <h4>Recent user posts</h4>
-    <% for a_story in all_posted_stories %>
-      <%= sidebar_story(a_story) %>
-    <% end %>
-    <hr>
-  <% end %>
-
-  <!-- Related Tags -->
-  <% if story.tag_list.count != 0 %>
-    <h4>Related tags</h4>
-    <% if topic %>
-      <%= render :partial => "partials/tag_list",
-        :locals => { :list => story.tag_list, :topic => topic.id } %>
-    <% end %>
-    <hr>
-  <% end %>
-</div>
+  <hr>
+<% end %>

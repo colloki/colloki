@@ -1,15 +1,17 @@
-<h2>
+<h3>
   Sign In
-</h2>
+</h3>
 <hr>
-<div class="row">
-  <div class="span6 pull-left" style="margin-top: 10px; width: 600px">
-    <div class="row" style="text-align: center; margin-bottom: 20px">
-      <h2>
+<div class="row-fluid">
+  <div class="span8 pull-left" style="margin-top: 10px;">
+
+    <div class="row-fluid" style="text-align: center; margin-bottom: 20px">
+      <h3>
         Stay Informed. Debate. Decide.
-      </h2>
+      </h3>
     </div>
-    <div class='row' style='margin: auto;'>
+
+    <div class="row-fluid" style='margin: auto;'>
       <div class='slideshow'>
         <% @stories.each do |story| %>
           <%= link_to image_tag(story.image.url), story_url(story),
@@ -21,74 +23,69 @@
       </div>
     </div>
   </div>
-  <div class="span4 pull-right">
+
+  <div class="span3 pull-right" style="min-width: 350px">
     <%= render :partial => "partials/form/signin" %>
     <%= render :partial => "partials/form/signup_short" %>
-    <div class="row" style='background-color:whiteSmoke; border-top: 1px solid #ddd; padding: 10px 0; margin-left: 0;'>
-      <div class="span1" style="width: 10px;margin-top: -3px">
-        <h3>or</h3>
+
+    <div class="row-fluid">
+      <div class="row-fluid">
+        <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
       </div>
-      <div class="span3" style="width: 220px">
-        <%= link_to image_tag("sign-in-with-twitter.png",
-          :alt => "Sign in with Twitter"), "auth/twitter" %>
-          <br>
+      <div class="row-fluid">
         <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
       </div>
     </div>
   </div>
 </div>
 <hr>
-<div class="row">
+
+<div class="row-fluid">
   <div class="span4">
-    <div class="row">
-      <div class="span4">
-        <h3>What's happening in your town?</h3>
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="span4">
-        We find relevant local news and discussions happening across the web,
-        so you don't have to. Easily catch up on local news and discussions daily.
-      </div>
+    <div class="row-fluid">
+      <h4>What's happening in your town?</h4>
+    </div>
+    <div class="row-fluid">
+      We find relevant local news and discussions happening across the web,
+      so you don't have to. Easily catch up on local news and discussions daily.
     </div>
   </div>
   <div class="span4">
-    <div class="row">
-      <div class="span4">
-        <h3>Have your voice heard</h3>
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="span4">
-        Post new articles, comment and like articles. Share articles across your social networks on Twitter, Facebook or elsewhere.
-      </div>
+    <div class="row-fluid">
+      <h4>Have your voice heard</h4>
+    </div>
+    <div class="row-fluid">
+      Post new articles, comment and like articles. Share articles across your social networks on Twitter, Facebook or elsewhere.
     </div>
   </div>
   <div class="span4">
-    <div class="row">
-      <div class="span4">
-        <h3>Who joined recently</h3>
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="span4">
-        <% if @new_users and @new_users.count != 0 %>
-          <%= render :partial => "partials/new_users",
-            :locals => {:users => @new_users} %>
-        <% end %>
-      </div>
+    <div class="row-fluid">
+      <h4>Who joined recently</h4>
+    </div>
+    <div class="row-fluid">
+      <% if @new_users and @new_users.count != 0 %>
+        <%= render :partial => "partials/new_users",
+          :locals => {:users => @new_users} %>
+      <% end %>
     </div>
   </div>
 </div>
-<div class="row" style="margin-top: 20px">
+<div class="row-fluid" style="margin-top: 20px">
   <div class="span4">
-    <h3>Are you a local publisher?</h3><br>
-    <%= render :partial => "partials/about/local_publisher" %>
+    <div class="row-fluid">
+      <h4>Are you a local publisher?</h4>
+    </div>
+    <div class="row-fluid">
+      <%= render :partial => "partials/about/local_publisher" %>
+    </div>
   </div>
   <div class="span4">
-    <h3>Find us on Facebook</h3>
-    <br>
-    <%= render :partial => "partials/share/facebook_like_button" %>
+    <div class="row-fluid">
+      <h4>Like us on Facebook</h4>
+    </div>
+    <div class="row-fluid">
+      <%= render :partial => "partials/share/facebook_like_button" %>
+    </div>
   </div>
 </div>
 

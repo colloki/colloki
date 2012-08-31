@@ -1,5 +1,5 @@
-<%= render :partial => "partials/page_header", 
-  :locals => {:title => "User Contributions"} %>
+<%= render :partial => "partials/page_header",
+  :locals => {:title => "User Shared"} %>
 
 <%= render :partial => "partials/topic/body", :locals => {
   :stories_with_photos   => @stories_with_photos,
@@ -9,7 +9,7 @@
   :new_users             => @new_users
 } %>
 
-<%= render :partial => "partials/topic/footer", 
+<%= render :partial => "partials/topic/footer",
   :locals => {
     :stories              => @stories,
     :stories_with_photos  => @stories_with_photos

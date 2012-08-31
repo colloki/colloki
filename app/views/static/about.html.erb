@@ -1,28 +1,30 @@
-<%= render :partial => "partials/page_header", 
-  :locals => {:title => "About"} %>
-<div class="row">
-  <div class="span7">
+<%= render :partial => "partials/page_header", :locals => {:title => "About"} %>
+<div class="row-fluid">
+  <p>
+    Virtual Town Square is a place to keep up and discuss local issues in <strong>Blacksburg and neighbors</strong>.
+  </p>
+  <br><br>
+</div>
+<div class="row-fluid">
+  <div class="span5">
     <p>
-      Virtual Town Square is a place to keep up and discuss local issues with other <strong>Blacksburg and Montgomery County</strong> residents.
-    </p>
-    <br>
-    <p>
-      <h3>What's happening in your town?</h3>
+      <h4>What's happening in your town?</h4>
       We find local news and discussions happening across the web everyday, so you don't have to. Easily keep up with important local news and developments daily.
     </p>
     <br>
     <p>
-      <h3>Have your voice heard</h3>
+      <h4>Are you a local blogger or publisher?</h4>
+      <%= render :partial => "partials/about/local_publisher" %>
+    </p>
+  </div>
+  <div class="span5">
+    <p>
+      <h4>Have your voice heard</h4>
       Post new articles, comment and like articles. Share articles across your social networks on Twitter, Facebook or elsewhere.
     </p>
     <br>
     <p>
-      <h3>Are you a local blogger or publisher?</h3>
-      <%= render :partial => "partials/about/local_publisher" %>
-    </p>
-    <br>
-    <p>
-      <h3>Research</h3>
+      <h4>Research</h4>
       This project is being actively developed as part of research at <a href="http://vt.edu">Virginia Tech</a>. Learn more about it on the <%= link_to "About Research", research_url %> page.<br><br>
 
       It is opensource and available on <a href='http://github.com/colloki/colloki'>Github</a>.

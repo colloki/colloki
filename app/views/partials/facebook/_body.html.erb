@@ -1,10 +1,9 @@
 
 <div class="row">
   <div class="span14">
-    <%= render :partial => "partials/facebook/stories", 
-               :locals => { 
-                :stories => stories 
-               } 
+    <%= render :partial => "partials/facebook/stories", :locals => {
+      :stories => stories
+    }
     %>
     <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
   </div>

@@ -18,15 +18,16 @@
       </div>
 
       <!-- Story Buttons -->
-      <div class="span2 pull-right" style="width: 250px; margin-top: 3px">
+      <div class="span2 pull-right" style="width: 250px;">
         <div class="row pull-right">
-          <div style="display: inline-table; margin-bottom: -4px;">
-            <%= render :partial => "partials/button/like/html", 
-              :locals => {:story => @story} 
+          <div style="float: left; margin-top: 2px">
+            <%= render :partial => "partials/button/like/html",
+              :locals => {:story => @story}
             %>
           </div>
+
           <%= render :partial => "partials/story/share_buttons",
-            :locals => { :story => @story } 
+            :locals => { :story => @story }
           %>
         </div>
       </div>
@@ -34,7 +35,7 @@
 
     <% if @story.kind != Story::Rss and logged_in? and @story.user_id == current_user.id %>
       <div class="row pull-right">
-        <%= render :partial => "partials/story/edit_btn", 
+        <%= render :partial => "partials/story/edit_btn",
           :locals => {:story => @story}
         %>
       </div>
@@ -44,7 +45,7 @@
     <%= render :partial => "partials/story/body", :locals => {
       :story => @story
     } %>
-    
+
     <!-- Story Likers -->
     <%= render :partial => "partials/story/likers",
       :locals => {:story => @story, :users => @likers}
@@ -57,19 +58,21 @@
   </div>
 
   <!-- Story Sidebar -->
-  <%= render :partial => "partials/story/sidebar", :locals => {
-      :story                    => @story,
-      :more_stories             => (defined? @more_stories) ? @more_stories : nil,
-      :more_stories_from_source => @more_stories_from_source,
-      :user_posted_stories      => (defined? @user_posted_stories) ? @user_posted_stories : nil,
-      :all_posted_stories       => (defined? @all_posted_stories) ? @all_posted_stories : nil,
-      :topic                    => (defined? @topic) ? @topic : nil
-    }
-  %>
+  <div class="sidebar span4">
+    <%= render :partial => "partials/story/sidebar", :locals => {
+        :story                    => @story,
+        :more_stories             => (defined? @more_stories) ? @more_stories : nil,
+        :more_stories_from_source => @more_stories_from_source,
+        :user_posted_stories      => (defined? @user_posted_stories) ? @user_posted_stories : nil,
+        :all_posted_stories       => (defined? @all_posted_stories) ? @all_posted_stories : nil,
+        :topic                    => (defined? @topic) ? @topic : nil
+      }
+    %>
+  </div>
 </div>
 
 <!-- Story Footer -->
-<%= render :partial => "partials/story/footer", 
+<%= render :partial => "partials/story/footer",
   :locals => {
     :story    => @story,
     :user_id  => @user_id

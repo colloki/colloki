@@ -1,8 +1,7 @@
 class TopicsController < ApplicationController
 
-  # a.k.a user contributions
   def popular
-    @page_title          = "User Contributions"
+    @page_title          = "User Shared"
     @stories             = Story.popular(params[:page])
     @stories_with_photos = Story.popular_with_photos
     @new_users           = User.newly_activated

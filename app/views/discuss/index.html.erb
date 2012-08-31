@@ -8,7 +8,7 @@
     <% if logged_in? %>
       <%= render :partial => "partials/post_input", :locals => {:topic => nil} %>
     <% else %>
-      <%= link_to "Sign Up", signup_url, :class => "btn btn-primary" %> 
+      <%= link_to "Sign Up", signup_url, :class => "btn btn-primary" %>
       &nbsp;&nbsp;&nbsp;Sign Up to participate in discussions now!
     <% end %>
       <hr>
@@ -37,8 +37,8 @@
           <div class="comment-entries"></div>
             <div class="input">
             <% if logged_in? %>
-              <textarea class="span9 comment-body" 
-                        placeholder="Post a reply..." 
+              <textarea class="span9 comment-body"
+                        placeholder="Post a reply..."
                         rows="3"></textarea>
               <div class="clearfix">
                 <div class="input">

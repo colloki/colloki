@@ -1,23 +1,23 @@
 <%= form_tag create_session_path, :class => "form-inline form-horizontal well" do %>
-  <div class="row" style="padding-left: 40px;">
-    <div class="row">
-      <%= text_field_tag "login", "", 
-        :placeholder  => "Username or email", 
+  <div class="row-fluid" style="padding-left: 40px;">
+    <div class="row-fluid">
+      <%= text_field_tag "login", "",
+        :placeholder  => "Username or email",
         :class        => "span2",
         :style        => "width: 250px; margin-bottom: 5px" %>
-      <%= password_field_tag 'password', "", 
-        :placeholder  => "Password", 
+      <%= password_field_tag 'password', "",
+        :placeholder  => "Password",
         :class        => "span2",
         :style        => "width: 185px" %>
       <button type="submit" class="btn btn-primary">
         Sign In
       </button>
     </div>
-    <div class="row" style="padding-top: 5px; font-size: 11px !important;">
+    <div class="row-fluid" style="padding-top: 5px; font-size: 11px !important;">
         <label style="font-size: 11px !important">
           <%= check_box_tag "remember_me", "", "", :style => "margin-top: -2px" %>
           Remember me
-        </label> · 
+        </label> ·
         <%= link_to "Forgot password?", forgot_password_url %>
     </div>
   </div>

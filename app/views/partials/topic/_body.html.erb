@@ -1,8 +1,7 @@
-
-<div class="row">
+<div class="row-fluid">
   <div class="span9">
     <% if stories_with_photos %>
-      <%= render :partial => "partials/carousel", 
+      <%= render :partial => "partials/carousel",
         :locals => { :stories => stories_with_photos } %>
     <% end %>
     <% if activity_items and activity_items.count != 0 %>
@@ -22,28 +21,28 @@
         <div class="tab-content">
           <div class="tab-pane active" id="topic-stories">
             <p>
-              <%= render :partial => "partials/story_items", 
+              <%= render :partial => "partials/story_items",
                 :locals => { :stories => stories } %>
               <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
             </p>
           </div>
           <div class="tab-pane" id="topic-activity">
             <p>
-              <%= render :partial => "partials/activity", 
+              <%= render :partial => "partials/activity",
                 :locals => { :activity_items => activity_items } %>
             </p>
           </div>
         </div>
       </div>
     <% else %>
-      <%= render :partial => "partials/story_items", 
+      <%= render :partial => "partials/story_items",
           :locals => { :stories => stories } %>
       <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
     <% end %>
   </div>
-  <div class="span3 sidebar" style="width: 205px">
-    <%= render :partial => "partials/topic/sidebar", 
-        :locals => { 
+  <div class="span3 sidebar">
+    <%= render :partial => "partials/topic/sidebar",
+        :locals => {
           :stories          => stories,
           :tags             => tags,
           :topic            => (defined? topic) ? topic : nil,
