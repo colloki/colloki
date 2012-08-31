@@ -1,7 +1,7 @@
 <div class="big-modal modal hide" id="story-modal-<%= story.id.to_s %>">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3><%= story.title %></h3>
+    <h4><%= story.title %></h4>
   </div>
   <div class="modal-body">
     <p>
@@ -15,6 +15,6 @@
     <%= render :partial => "partials/story/comments",
       :locals => {:story => story}
     %>
-    <a href="#" data-dismiss="modal" class="btn">Close</a>
+    <a href="#" data-dismiss="modal" class="btn btn-small">Close</a>
   </div>
 </div>

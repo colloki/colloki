@@ -2,14 +2,13 @@
   <h4 class="comment-count"></h4>
   <div class="comment-entries"></div>
   <h4>Post a comment</h4>
-  <br>
   <% if logged_in? %>
     <%= text_area "comment",
       "body",
       :class => "input-xxlarge comment-body",
       :rows => "6" %>
     <br>
-    <%= submit_tag "Post Comment", :class => "btn add-comment btn-primary" %>
+    <%= submit_tag "Post Comment", :class => "btn btn-small add-comment btn-primary" %>
   <% else %>
     You need to be signed in to comment.<br><br>
     <%= link_to "Sign In", login_url, :class => "btn-primary btn" %>
