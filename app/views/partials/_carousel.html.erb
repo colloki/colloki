@@ -6,7 +6,7 @@
         <% if story.image.exists? or story.image_url != "" %>
           <div class="item <% if first %>active<% first = false %><% end %>">
             <%= story_item_thumbnail(story, "original") %>
-            <div class="carousel-caption">
+            <div class="carousel-caption hidden-phone">
               <h5>
                 <%= render :partial => "partials/story_item/title",
                   :locals => {
