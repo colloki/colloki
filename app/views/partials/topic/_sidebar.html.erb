@@ -3,7 +3,7 @@
 <% if !logged_in? %>
 
   <%if @is_frontpage%>
-    <h5>What is VTS?</h5>
+    <h4>What is VTS?</h4>
     <%= render :partial => "partials/description/vts" %>
   <%end%>
 
@@ -16,7 +16,7 @@
 <!-- Active Topics -->
 <% if active_topics and active_topics.count > 0 %>
   <div class='topics-active'>
-    <h5>Active Topics</h5>
+    <h4>Active Topics</h4>
     <%= render :partial => "partials/topic/navigation",
       :locals => {
         :topics => @active_topics
@@ -28,9 +28,9 @@
 <!-- Topic keywords -->
 <% if topic and topic.topic_keywords %>
   <div class="topic-keywords">
-    <h5>
+    <h4>
       [ <%= topic.title %> ]
-    </h5>
+    </h4>
     <%= render :partial => "partials/topic/cloud",
       :locals => {
         :id    => 10,
@@ -43,14 +43,14 @@
 
 <!-- Popular tags -->
 <% if tags and tags.count != 0 %>
-  <!-- <h5>Popular Topics</h5> -->
+  <!-- <h4>Popular Topics</h4> -->
   <%= render :partial => "partials/tag/cloud", :locals => {:tags => tags, :topic => nil} %>
   <!-- <hr> -->
 <% end %>
 
 <!-- New users -->
 <% if @is_frontpage and new_users and new_users.count != 0 %>
-  <h5>Who joined recently</h5>
+  <h4>Who joined recently</h4>
   <%= render :partial => "partials/new_users", :locals => {:users => new_users} %>
   <hr>
 <% end %>

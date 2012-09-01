@@ -42,9 +42,9 @@ module StoriesHelper
     html += "</div>"
 
     if image_exists? story
-      html += "<div class='span8 sidebar-story-content'>"
+      html += "<div class='span7 sidebar-story-content'>"
     else
-      html += "<div class='span9 sidebar-story-content'>"
+      html += "<div class='span8 sidebar-story-content'>"
     end
 
     html += link_to story.title, story

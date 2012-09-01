@@ -8,7 +8,7 @@
 
 <!-- Related stories belonging to same topic -->
 <% if more_stories && more_stories.count != 0 %>
-  <h5>
+  <h4>
     More in <strong>
       <% if story.topic %>
         [ <%= story.topic.title %> ]
@@ -16,7 +16,7 @@
         Uncategorized
       <% end %>
     </strong>
-  </h5>
+  </h4>
   <% for a_story in more_stories %>
     <%= sidebar_story(a_story) %>
   <% end %>
@@ -25,7 +25,7 @@
 
 <!-- Stories from same source -->
 <% if more_stories_from_source and more_stories_from_source.count != 0 %>
-  <h5>More from <%= story.source %></h5>
+  <h4>More from <%= story.source %></h4>
   <% for a_story in more_stories_from_source %>
     <%= sidebar_story(a_story) %>
   <% end %>
@@ -34,7 +34,7 @@
 
 <!-- Other User Posted Discussions -->
 <% if user_posted_stories and user_posted_stories.count != 0 %>
-  <h5>More posts by <%= story.user.login %></h5>
+  <h4>More posts by <%= story.user.login %></h4>
   <% for a_story in user_posted_stories %>
     <%= sidebar_story(a_story) %>
   <% end %>
@@ -43,7 +43,7 @@
 
 <!-- All User Discussions -->
 <% if all_posted_stories and all_posted_stories.count != 0 %>
-  <h5>Recent user posts</h5>
+  <h4>Recent user posts</h4>
   <% for a_story in all_posted_stories %>
     <%= sidebar_story(a_story) %>
   <% end %>
@@ -52,7 +52,7 @@
 
 <!-- Related Tags -->
 <% if story.tag_list.count != 0 %>
-  <h5>Related tags</h5>
+  <h4>Related tags</h4>
   <% if topic %>
     <%= render :partial => "partials/tag_list",
       :locals => { :list => story.tag_list, :topic => topic.id } %>
