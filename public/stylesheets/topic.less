@@ -1,16 +1,27 @@
-// Topic Pages CSS
+// Topic Page CSS
 
-// Meta fields for story items on topic pages
+.topic-body {
+  min-width: 800px;
+}
+
 .story-item {
+  background-color: #fefefe;
+  border: 1px solid #eee;
   float: left;
+  margin: 10px 0;
+  min-height: 200px;
+  min-width: 150px;
   overflow: hidden;
-  margin-left: 10px !important;
+  padding: 10px;
 
   .story-item-meta {
     color: #888;
     font-size: 12px;
     font-weight: 300;
     line-height: 16px;
+    .favicon {
+      margin-top: -1px;
+    }
   }
 }
 
@@ -27,9 +38,9 @@
   }
 
   blockquote {
-    font-size: 15px;
     color: #888;
     font-family: Georgia;
+    font-size: 15px;
     line-height: 20px;
   }
 }
@@ -47,5 +58,11 @@
 
   .activity-at {
     color: #888;
+  }
+}
+
+@media (max-width: 767px) {
+  .topic-body {
+    min-width: 100%;
   }
 }

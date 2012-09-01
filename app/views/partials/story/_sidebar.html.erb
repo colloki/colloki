@@ -6,22 +6,6 @@
   <hr>
 <% end %>
 
-<!-- Topic Keyword Cloud -->
-<% if topic and topic.topic_keywords %>
-  <!-- <div class="topic-keywords">
-    <h5>
-      <%= link_to "[ " + topic.title + " ]", topic_path(topic) %>
-    </h5>
-    <%= render :partial => "partials/topic/cloud",
-      :locals => {
-        :topic => topic,
-        :id    => 10
-      }
-    %>
-  </div>
-  <hr> -->
-<% end %>
-
 <!-- Related stories belonging to same topic -->
 <% if more_stories && more_stories.count != 0 %>
   <h5>

@@ -21,12 +21,12 @@ module StoriesHelper
   end
 
   def sidebar_story(story)
-    html = "<div class='sidebar-story row'>"
+    html = "<div class='sidebar-story row-fluid'>"
 
     if image_exists? story
       html += "<div class='span1' style='width: 100px;'>"
     else
-      html += "<div class='span'>"
+      html += "<div class='span1' style='width: 20px'>"
     end
 
     if story.kind == Story::Post
@@ -42,9 +42,9 @@ module StoriesHelper
     html += "</div>"
 
     if image_exists? story
-      html += "<div class='span2 sidebar-story-content'>"
+      html += "<div class='span8 sidebar-story-content'>"
     else
-      html += "<div class='span3 sidebar-story-content'>"
+      html += "<div class='span9 sidebar-story-content'>"
     end
 
     html += link_to story.title, story

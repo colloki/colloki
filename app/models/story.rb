@@ -33,16 +33,16 @@ class Story < ActiveRecord::Base
   has_many :activity_items, :dependent => :destroy
   has_many :votes,          :dependent => :destroy
 
-  has_attached_file :image, 
-  :styles => { 
-    :thumb => "200x150>", 
-    :medium => "250x250>" 
+  has_attached_file :image,
+  :styles => {
+    :thumb => "200x150>",
+    :medium => "250x250>"
   }
 
   acts_as_taggable
 
   # pagination
-  self.per_page = 9
+  self.per_page = 12
 
   def is_link?
     kind == Story::Link
@@ -74,7 +74,7 @@ class Story < ActiveRecord::Base
 
   def self.popular_with_photos
     find :all,
-         :conditions => ["image_file_size != '' 
+         :conditions => ["image_file_size != ''
           and image_file_name != 'stringio.txt'
           and kind != ?", Story::Facebook],
          :order => "popularity DESC",
@@ -87,19 +87,19 @@ class Story < ActiveRecord::Base
       .page(page)
       .order("published_at DESC")
     else
-      find :all, 
-           :conditions => ["kind != ?", Story::Facebook], 
-           :order => "published_at DESC", 
+      find :all,
+           :conditions => ["kind != ?", Story::Facebook],
+           :order => "published_at DESC",
            :limit => 20
     end
   end
 
   def self.latest_with_photos
     find :all,
-         :conditions => ["image_file_size != '' 
+         :conditions => ["image_file_size != ''
           and image_file_name != 'stringio.txt'
           and kind != ?", Story::Facebook],
-         :order => "published_at DESC", 
+         :order => "published_at DESC",
          :limit => 20
   end
 
@@ -120,14 +120,14 @@ class Story < ActiveRecord::Base
   def self.active
     # get the recent activities
     activities = ActivityItem.find :all,
-                                   :conditions => ["kind = ? or kind = ?", 
-                                     ActivityItem::CommentType, 
+                                   :conditions => ["kind = ? or kind = ?",
+                                     ActivityItem::CommentType,
                                      ActivityItem::CreatePostType],
                                    :order => "updated_at DESC"
     stories = []
     story_activities = Hash.new
     for activity in activities
-      if activity.kind == ActivityItem::CommentType or 
+      if activity.kind == ActivityItem::CommentType or
           activity.kind == ActivityItem::CreatePostType
         if !story_activities.has_key?(activity.story_id)
           story_activities[activity.story_id] = [activity]

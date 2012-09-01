@@ -3,8 +3,7 @@ require "net/http"
 require "csv"
 require "cgi"
 
-# Gets the data from the Topic Modeling Data Source
-# The corresponding code is "VTSTopicModeling" (not opensource yet)
+# Gets the data from the Topic Modeling Data Source.
 class MiningStore
 
   CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]

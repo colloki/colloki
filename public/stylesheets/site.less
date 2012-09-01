@@ -13,6 +13,7 @@
 body {
   padding-top: 50px;
   h4 {
+    font-size: 16px;
     margin-bottom : 10px;
   }
 }
@@ -32,7 +33,6 @@ h5 {
 // Favicons of sites
 .favicon {
   float: left;
-  margin-top: -1px;
   margin-right: 2px;
   opacity: 0.5;
 
@@ -50,13 +50,6 @@ h5 {
     height: 12px;
     width: 12px;
   }
-}
-
-// OR separator between different service logins and site's login system
-#OR {
-  font-size: 20px;
-  font-style: italic;
-  text-align: center;
 }
 
 // Facebook Sign In button
@@ -162,5 +155,16 @@ h3.title {
   &:hover {
     background-color: #f2f5f7;
     text-decoration: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    margin: 10px;
+    margin-top: 0;
+  }
+
+  body {
+    padding-top: 10px;
   }
 }

@@ -1,5 +1,5 @@
 <% if is_admin? %>
-  <%= link_to "<i class='icon-trash icon-white'></i>".html_safe,
+  <%= link_to "Delete".html_safe,
     story_path(story),
     :method => :delete,
     :class  => "btn btn-danger btn-mini has_tooltip",

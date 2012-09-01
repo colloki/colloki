@@ -1,9 +1,9 @@
 <div class="span3 story-item">
   <%= story_item_thumbnail(story, "small") %>
-  <h5>
+  <h4>
     <%= render :partial => "partials/story_item/title",
       :locals => {:story => story} %>
-  </h5>
+  </h4>
   <p>
     <%= story_item_content(story, 20, 140) %>
   </p>

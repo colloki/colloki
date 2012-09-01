@@ -1,5 +1,5 @@
 <div class="row-fluid">
-  <div class="span9">
+  <div class="span9 topic-body">
     <% if stories_with_photos %>
       <%= render :partial => "partials/carousel",
         :locals => { :stories => stories_with_photos } %>
@@ -40,7 +40,8 @@
       <%= will_paginate stories, :renderer => PaginationListLinkRenderer %>
     <% end %>
   </div>
-  <div class="span3 sidebar">
+
+  <div class="span3 sidebar hidden-phone">
     <%= render :partial => "partials/topic/sidebar",
         :locals => {
           :stories          => stories,
