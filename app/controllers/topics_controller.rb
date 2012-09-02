@@ -1,27 +1,27 @@
 class TopicsController < ApplicationController
 
   def popular
-    @page_title          = "User Shared"
-    @stories             = Story.popular(params[:page])
-    @new_users           = User.newly_activated
+    @page_title = "User Shared"
+    @stories = Story.popular(params[:page])
+    @new_users = User.newly_activated
     respond_to do |format|
       format.html
     end
   end
 
   def latest
-    @page_title          = "Latest"
-    @stories             = Story.latest(params[:page])
-    @new_users           = User.newly_activated
-    @is_frontpage        = true
+    @page_title = "Latest"
+    @stories = Story.latest(params[:page])
+    @new_users = User.newly_activated
+    @is_frontpage = true
     respond_to do |format|
       format.html
     end
   end
 
   def facebook
-    @page_title           = "Local Discussions on Facebook"
-    @stories              = Story.fb_stories(params[:page], params[:sort_by])
+    @page_title = "Local Discussions on Facebook"
+    @stories = Story.fb_stories(params[:page], params[:sort_by])
     respond_to do |format|
       format.html
     end
@@ -29,7 +29,7 @@ class TopicsController < ApplicationController
 
   def active
     @page_title = "Active Discussions"
-    @stories    = Story.active
+    @stories = Story.active
     @stories_with_photos = @stories.find_all{|story|
       story.image_file_size != '' and
       story.image_file_name !='stringio.txt'}
@@ -49,14 +49,18 @@ class TopicsController < ApplicationController
   end
 
   def search
-    @query          = params[:query]
-    @page_title     = "Search results for '#{params[:query]}'"
-    @stories        = Story.search(params[:query], params[:page])
-    @new_users      = User.newly_activated
-    @activity_items = ActivityItem.recent
-    @tags           = Story.tag_counts_on(:tags)
+    @query = params[:query]
+    @page_title = "Search results for '#{params[:query]}'"
+    if (params[:topic])
+      @stories = Story.search(params[:query], params[:page], params[:topic])
+    else
+      @stories = Story.search(params[:query], params[:page])
+    end
+    @new_users = User.newly_activated
+
     respond_to do |format|
       format.html
+      format.json { render :json => @stories, :include => [:votes, :comments, :user], :methods => :user}
     end
   end
 

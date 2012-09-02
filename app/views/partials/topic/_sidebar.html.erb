@@ -1,7 +1,21 @@
+<!-- Topic keywords -->
+<% if topic and topic.topic_keywords %>
+  <div class="topic-keywords">
+    <h4>
+      [ <%= topic.title %> ]
+    </h4>
+    <%= render :partial => "partials/topic/cloud", :locals => { :id => 10, :topic => topic } %>
+  </div>
+  <hr>
+<% end %>
+
+<!-- Filter by source -->
+<% if @is_frontpage %>
+  <%= render :partial => "partials/topic/filter/source" %>
+<% end %>
 
 <!-- Sign Up Note-->
 <% if !logged_in? %>
-
   <%if @is_frontpage%>
     <h4>What is VTS?</h4>
     <%= render :partial => "partials/description/vts" %>
@@ -11,41 +25,6 @@
     :url => login_url
   } %>
   <hr>
-<% end %>
-
-<!-- Active Topics -->
-<% if active_topics and active_topics.count > 0 %>
-  <div class='topics-active'>
-    <h4>Active Topics</h4>
-    <%= render :partial => "partials/topic/navigation",
-      :locals => {
-        :topics => @active_topics
-      }
-    %>
-  </div>
-<% end %>
-
-<!-- Topic keywords -->
-<% if topic and topic.topic_keywords %>
-  <div class="topic-keywords">
-    <h4>
-      [ <%= topic.title %> ]
-    </h4>
-    <%= render :partial => "partials/topic/cloud",
-      :locals => {
-        :id    => 10,
-        :topic => topic
-      }
-    %>
-  </div>
-  <hr>
-<% end %>
-
-<!-- Popular tags -->
-<% if tags and tags.count != 0 %>
-  <!-- <h4>Popular Topics</h4> -->
-  <%= render :partial => "partials/tag/cloud", :locals => {:tags => tags, :topic => nil} %>
-  <!-- <hr> -->
 <% end %>
 
 <!-- New users -->

@@ -26,7 +26,7 @@ require "open-uri"
   "blacksburgdailyphoto.blogspot.com"   => "Blacksburg Daily Photo",
   "blacksburgmayor.wordpress.com"       => "Blacksburg Mayor's Blog",
   "newrivervoice"                       => "New River Voice",
-  "ourvallery.org"                      => "Our Valley"
+  "ourvalley.org"                       => "Our Valley"
 ]
 
 # Gets the blog stories from a "VTSTopicModeling" installation
