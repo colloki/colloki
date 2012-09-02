@@ -1,17 +1,13 @@
-<%= render :partial => "partials/topic/header", 
-  :locals => {:topic => @topic}
-%>
-
 <%= render :partial => "partials/topic/body", :locals => {
-  :stories_with_photos   => @stories_with_photos,
-  :stories               => @stories,
-  :activity_items        => @activity_items,
-  :tags                  => @tags,
-  :new_users             => @new_users,
-  :topic                 => @topic
+  :stories_with_photos => @stories_with_photos,
+  :stories => @stories,
+  :activity_items => @activity_items,
+  :tags => @tags,
+  :new_users => @new_users,
+  :topic => @topic
 } %>
 
-<%= render :partial => "partials/topic/footer", 
+<%= render :partial => "partials/topic/footer",
   :locals => {
     :stories              => @stories,
     :stories_with_photos  => @stories_with_photos

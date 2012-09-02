@@ -1,7 +1,8 @@
 <% Time::DATE_FORMATS[:day_month_and_year] = "%d %B %Y" %>
+
 <ul class="breadcrumb">
   <% if story.topic %>
-    <% 
+    <%
       story_date = story.topic.day.to_date
       today_date = DateTime.now.to_date
     %>
@@ -16,16 +17,16 @@
       <span class="divider">/</span>
     </li>
     <li>
-      [ <%= link_to story.topic.title, 
-          topic_url(story.topic), 
+      [ <%= link_to story.topic.title,
+          topic_url(story.topic),
           :class => "has_tooltip",
-          :title => "View topic [ " + story.topic.title + " ]" %> 
+          :title => "View topic [ " + story.topic.title + " ]" %>
       ]
       <span class="divider">/</span>
     </li>
     <li>
       <% if story.source == nil %>
-        <%= 
+        <%=
         # todo: set source_name to a more generic value (domain of link)
         source_name = source_url
         link_to story.source_url,
@@ -34,7 +35,7 @@
           :title => "View all from " + source_name
         %>
       <% else %>
-        <%= 
+        <%=
         link_to story.source,
           search_url + "?query=" + story.source,
           :class => "has_tooltip",

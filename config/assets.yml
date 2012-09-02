@@ -14,6 +14,7 @@ javascripts:
     - public/javascripts/libs/backbone_rails_sync.js
     - public/javascripts/libs/*.js
     - public/javascripts/app/**/*.js
+    - public/javascripts/app/**/*.ejs
     - public/javascripts/application.js
     - public/javascripts/jquery_ujs.js
     - app/views/**/*.jst

@@ -57,20 +57,6 @@ module ApplicationHelper
     html.html_safe
   end
 
-  # Checks for the filename "stringio.txt" in addition to an empty string
-  # to determine if a story image exists. This can be used across views
-  # until we filter out invalid images at the time of saving.
-  def image_exists?(story)
-    if (story.image_file_name and
-        story.image_file_name != "" and
-        story.image_file_name != "stringio.txt") or
-    story.image_url and story.image_url != ''
-      return true
-    else
-      return false
-    end
-  end
-
   def is_admin?
     return current_user ? (current_user.login == "ankit") : false
   end

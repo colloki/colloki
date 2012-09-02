@@ -3,10 +3,7 @@ class TopicsController < ApplicationController
   def popular
     @page_title          = "User Shared"
     @stories             = Story.popular(params[:page])
-    @stories_with_photos = Story.popular_with_photos
     @new_users           = User.newly_activated
-    @activity_items      = ActivityItem.recent
-    @tags                = Story.tag_counts_on(:tags)
     respond_to do |format|
       format.html
     end
@@ -15,11 +12,7 @@ class TopicsController < ApplicationController
   def latest
     @page_title          = "Latest"
     @stories             = Story.latest(params[:page])
-    # todo               : eliminate this duplicate, unhealthy request
-    @stories_with_photos = Story.latest_with_photos
     @new_users           = User.newly_activated
-    @activity_items      = ActivityItem.recent
-    @tags                = Story.tag_counts_on(:tags)
     @is_frontpage        = true
     respond_to do |format|
       format.html
@@ -80,9 +73,6 @@ class TopicsController < ApplicationController
   def show
     @topic               = Topic.find(params[:id])
     @stories             = Story.find_for_topic(@topic.id, params[:sort], params[:page])
-    @stories_with_photos = Story.find_with_photos_for_topic(@topic.id, params[:sort])
-    @tags                = @topic.stories.tag_counts
-    @activity_items      = ActivityItem.find_for_topic(@topic.id)
     @top_users           = User.top_in_topic(@topic.id)
     @page_title          = @topic.title
 

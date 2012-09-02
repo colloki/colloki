@@ -13,7 +13,7 @@ module StoriesHelper
   end
 
   def sidebar_story_image(story)
-    if image_exists? story
+    if story.image_exists?
       return link_to image_tag(story.image.url(:thumb), :class=>'sidebar-story-thumb'), story
     else
       return ""
@@ -23,7 +23,7 @@ module StoriesHelper
   def sidebar_story(story)
     html = "<div class='sidebar-story row-fluid'>"
 
-    if image_exists? story
+    if story.image_exists?
       html += "<div class='span1' style='width: 100px;'>"
     else
       html += "<div class='span1' style='width: 20px'>"
@@ -41,7 +41,7 @@ module StoriesHelper
     html += sidebar_story_image(story)
     html += "</div>"
 
-    if image_exists? story
+    if story.image_exists?
       html += "<div class='span7 sidebar-story-content'>"
     else
       html += "<div class='span8 sidebar-story-content'>"

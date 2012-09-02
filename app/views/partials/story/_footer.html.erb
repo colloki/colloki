@@ -1,7 +1,6 @@
 <script>
   $(document).ready(function(e) {
-    <%= render :partial => "partials/button/comment/js", 
-      :locals => {:story => story, :user_id => user_id} %>
+    <%= render :partial => "partials/button/comment/js", :locals => {:story => story, :user_id => user_id} %>
     <%= render :partial => "partials/button/like/js", :locals => {:story => story} %>
   });
 </script>

@@ -1,18 +1,18 @@
 <div class="story-item-meta">
   <% if story.kind == Story::Post %>
-    Posted by <%= story_item_icon(story) %> 
-    <%= link_to story.user.login, 
-      { :controller => "users", :action => "show", :id => story.user.id } 
+    Posted by <%= story_item_icon(story) %>
+    <%= link_to story.user.login,
+      { :controller => "users", :action => "show", :id => story.user.id }
     %>
 
   <% else %>
     <%= story_item_icon(story) %>
-    <%= link_to story.source, story.source_url, 
-      :title            => "View original article", 
+    <%= link_to story.source, story.source_url,
+      :title            => "View original article",
       :class            => "has_tooltip",
       'data-placement'  => "bottom",
       'data-delay'      => "300" %>
-  <% end %> · 
+  <% end %> ·
 
   <% if story.published_at %>
     <%= time_ago_in_words story.published_at %>
@@ -23,11 +23,5 @@
   <div style="margin-top: 5px;">
     <%= render :partial => "partials/button/comment/html", :locals => {:story => story} %>
     <%= render :partial => "partials/button/like/html", :locals => {:story => story} %>
-    <%= render :partial => "partials/button/delete", 
-      :locals => {
-        :story => story,
-        :current_user => current_user
-      } 
-    %>
   </div>
 </div>

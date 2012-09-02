@@ -44,6 +44,38 @@ class Story < ActiveRecord::Base
   # pagination
   self.per_page = 12
 
+  # Checks for the filename "stringio.txt" in addition to an empty string
+  # to determine if a story image exists. This can be used across views
+  # until we filter out invalid images at the time of saving.
+  def image_exists?
+    if (image_file_name and
+        image_file_name != "" and
+        image_file_name != "stringio.txt") or
+        image_url and image_url != ''
+      return true
+    else
+      return false
+    end
+  end
+
+  def image_src(size="thumb")
+    if image_exists?
+      if image_url
+        return image_url
+      else
+        if size == "medium"
+          return image.url(:medium)
+        elsif size == "original"
+          return image.url(:original)
+        else
+          return image.url(:thumb)
+        end
+      end
+    else
+      return ""
+    end
+  end
+
   def is_link?
     kind == Story::Link
   end
@@ -66,41 +98,59 @@ class Story < ActiveRecord::Base
     self.popularity = self.popularity - score
   end
 
+  def self.add_metadata(stories)
+    for story in stories
+      story['image_src'] = story.image_src
+      if story.user
+        story['user_email_hash'] = Digest::MD5.hexdigest(story.user.email)
+      end
+    end
+
+    return stories
+  end
+
   def self.popular(page)
-    where("kind != ?", Story::Facebook)
+    stories = where("kind != ?", Story::Facebook)
     .page(page)
     .order("popularity DESC, published_at DESC")
+    self.add_metadata(stories)
   end
 
   def self.popular_with_photos
-    find :all,
+    stories = find :all,
          :conditions => ["image_file_size != ''
           and image_file_name != 'stringio.txt'
           and kind != ?", Story::Facebook],
          :order => "popularity DESC",
          :limit => 20
+
+    self.add_metadata(stories)
   end
 
   def self.latest(page, should_paginate=true)
     if should_paginate
-      where("kind != ?", Story::Facebook)
+      stories = where("kind != ?", Story::Facebook)
       .page(page)
       .order("published_at DESC")
     else
-      find :all,
-           :conditions => ["kind != ?", Story::Facebook],
-           :order => "published_at DESC",
-           :limit => 20
+      stories = find :all,
+        :conditions => ["kind != ?", Story::Facebook],
+        :order => "published_at DESC",
+        :limit => 20
     end
+
+    self.add_metadata(stories)
   end
 
   def self.latest_with_photos
-    find :all,
+    stories = find :all,
          :conditions => ["image_file_size != ''
           and image_file_name != 'stringio.txt'
           and kind != ?", Story::Facebook],
          :order => "published_at DESC",
          :limit => 20
+
+    self.add_metadata(stories)
   end
 
   def self.fb_stories(page, sort)
@@ -141,13 +191,14 @@ class Story < ActiveRecord::Base
   end
 
   def self.search(query, page)
-    paginate(:page => page,
+    stories = paginate(:page => page,
       :conditions => [ "title like ? OR description like ? OR source like ? OR source_url like ?",
         "%#{query}%",
         "%#{query}%",
         "%#{query}%",
         "%#{query}"],
       :order => "published_at DESC")
+    self.add_metadata(stories)
   end
 
   def self.find_for_topic(topic_id, sort_by, page)
@@ -157,26 +208,29 @@ class Story < ActiveRecord::Base
       order = "created_at DESC"
     end
 
-    paginate(:page => page,
+    stories = paginate(:page => page,
       :conditions => {:topic_id => topic_id},
       :order => order)
+    self.add_metadata(stories)
   end
 
   def self.find_with_photos_for_topic(topic_id, sort_by)
     if sort_by == 'newest'
-        order = "created_at DESC"
+      order = "created_at DESC"
     elsif sort_by == 'votes'
       order = "created_at DESC"
     else
       order = "popularity DESC, created_at DESC"
     end
-    find :all,
-         :order => order,
-         :conditions => ["topic_id = ? and
-           image_file_size != '' and
-           image_file_name != 'stringio.txt' and
-           kind = ?", topic_id, Story::Rss],
-         :limit => 20
+
+    stories = find :all,
+      :order => order,
+      :conditions => ["topic_id = ? and
+        image_file_size != '' and
+        image_file_name != 'stringio.txt' and
+        kind = ?", topic_id, Story::Rss],
+      :limit => 20
+    self.add_metadata(stories)
   end
 
   def self.find_by_user(user_id, limit=10)

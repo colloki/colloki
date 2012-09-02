@@ -74,7 +74,7 @@
     <!-- Liked stories -->
     <div class="tab-pane" id="likes">
       <% if @liked_stories.count != 0 %>
-        <%= render :partial => "partials/story_items", 
+        <%= render :partial => "partials/story_items",
           :locals => { :stories => @liked_stories } %>
       <% else %>
         <h5>No stories liked yet</h5>
@@ -91,9 +91,7 @@
             </p>
             <small>
               <%= time_ago_in_words(comment.created_at) %> ago in response to
-              <%= link_to comment.story.title,  :controller => "stories", 
-                                                :action => "show", 
-                                                :id => comment.story.id %>
+              <%= link_to comment.story.title, :controller => "stories", :action => "show", :id => comment.story.id %>
             </small>
           </blockquote>
         <% end %>
@@ -107,5 +105,6 @@
   <h2>Oops! User Not Found</h2>
 <% end %>
 
-<%= render :partial => "partials/topic/footer", 
-  :locals => {:stories => @stories} %>
+<% for story in @stories %>
+  <%= render :partial => "partials/button/comment/modal", :locals => {:story => story} %>
+<% end %>

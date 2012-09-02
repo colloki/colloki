@@ -57,12 +57,12 @@
   <!-- Story Sidebar -->
   <div class="sidebar story-sidebar span6 hidden-phone">
     <%= render :partial => "partials/story/sidebar", :locals => {
-        :story                    => @story,
-        :more_stories             => (defined? @more_stories) ? @more_stories : nil,
+        :story => @story,
+        :more_stories => (defined? @more_stories) ? @more_stories : nil,
         :more_stories_from_source => @more_stories_from_source,
-        :user_posted_stories      => (defined? @user_posted_stories) ? @user_posted_stories : nil,
-        :all_posted_stories       => (defined? @all_posted_stories) ? @all_posted_stories : nil,
-        :topic                    => (defined? @topic) ? @topic : nil
+        :user_posted_stories => (defined? @user_posted_stories) ? @user_posted_stories : nil,
+        :all_posted_stories => (defined? @all_posted_stories) ? @all_posted_stories : nil,
+        :topic => (defined? @topic) ? @topic : nil
       }
     %>
   </div>
@@ -71,8 +71,8 @@
 <!-- Story Footer -->
 <%= render :partial => "partials/story/footer",
   :locals => {
-    :story    => @story,
-    :user_id  => @user_id
+    :story => @story,
+    :user_id => @user_id
   }
 %>
 

@@ -2,7 +2,7 @@
 module TopicsHelper
 
   def story_item_thumbnail(story, size="thumb")
-    if image_exists? story
+    if story.image_exists?
       if story.image_url
         img_url = story.image_url
       else
@@ -37,7 +37,7 @@ module TopicsHelper
   end
 
   def story_item_content(story, length_with_image=-1, length_without_image=-1)
-    if image_exists? story
+    if story.image_exists?
       if length_with_image != -1
         return truncate(strip_tags(story.description),
                 :length => length_with_image,

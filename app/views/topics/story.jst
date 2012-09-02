@@ -1,0 +1,38 @@
+<div class="story-item">
+  <% if (image_src) { %>
+    <a href="/stories/<%=id%>"><img src="<%= image_src %>"></a>
+  <% } %>
+
+  <h4>
+    <a class="story-item-title" href="/stories/<%=id%>"><%= title %></a>
+  </h4>
+
+  <p><%= description %></p>
+
+  <div class="story-item-meta">
+    <div class="favicon">
+      <a href="<%= icon_url %>"><img src="<%= icon_src %>" /></a>
+    </div>
+    <% if (kind == 1) { %>
+      <a href="<%= icon_url %>"><%= user.login %></a>
+    <% } else { %>
+      <a title="View original article" class="has_tooltip" data-placement="bottom" data-delay="300" href="<%= icon_url %>"><%= source %></a>
+    <% } %>
+
+    · <%= pretty_timestamp %>
+
+    <div class="story-item-buttons">
+      <a class="comment-count has_tooltip btn btn-mini" data-toggle="modal"
+        title="<%= comments.count %> comments" href="#story-modal-<%=id%>">
+        <i class="icon-comment"></i> <%= comments.count %>
+      </a>
+
+      <a class="story-like<%= id %> like-btn btn btn-mini btn-success has_tooltip">
+        <i class='icon-star-empty icon-white'></i>
+        <span class="like-count"></span>
+      </a>
+    </div>
+
+  </div>
+
+</div>
