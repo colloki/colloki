@@ -39,6 +39,7 @@ class TopicsController < ApplicationController
         @active_topics.push(story.topic)
       end
     end
+
     @stories        = @stories.paginate(:page => params[:page], :per_page => 9)
     @new_users      = User.newly_activated
     @activity_items = ActivityItem.recent

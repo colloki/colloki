@@ -1,0 +1,20 @@
+<div class="sidebar-story row-fluid">
+  <div class="span1">
+    <% if story.kind == Story::Post %>
+      <%= link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 20 }, :class => "favicon"), story.user, :title => story.user.login %>
+    <%else%>
+      <%= link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url %>
+    <%end%>
+  </div>
+
+  <div class='span6 sidebar-story-content'>
+    <%= link_to story.title, story %>
+  </div>
+
+  <div class="span2" style="margin-left: 0">
+    <% if story.image_exists? %>
+      <%= link_to image_tag(story.image.url(:thumb), :class=>'sidebar-story-thumb'), story %>
+    <%end%>
+  </div>
+
+  </div>
