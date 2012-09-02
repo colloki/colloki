@@ -42,9 +42,11 @@ $(function() {
     filterBySource: function(event) {
       var query = $(event.target).data("value");
       $.getJSON("/search.json?query=" + query, $.proxy(function(data) {
-        console.log(data);
+
+        // TODO: Get rid of this ugliness.
         this.collection.reset();
         this.$stories.html("");
+
         var len = data.length;
         for (var i = 0; i < len; i++) {
           data[i].current_user = this.options.current_user;
@@ -52,6 +54,8 @@ $(function() {
           this.collection.add(c);
           this.append(c);
         }
+
+        this.$stories.masonry('reload');
       }, this));
     }
   });
