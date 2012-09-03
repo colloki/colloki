@@ -52,11 +52,7 @@ class TopicsController < ApplicationController
   def search
     @query = params[:query]
     @page_title = "Search results for '#{params[:query]}'"
-    if (params[:topic])
-      @stories = Story.search(params[:query], params[:page], params[:topic])
-    else
-      @stories = Story.search(params[:query], params[:page])
-    end
+    @stories = Story.search(params)
     @new_users = User.newly_activated
 
     respond_to do |format|

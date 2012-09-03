@@ -1,37 +1,40 @@
 class Story < ActiveRecord::Base
   # Constant Definitions
-  Link     = 0
-  Post     = 1
-  Rss      = 2
+  Link = 0
+  Post = 1
+  Rss = 2
   Facebook = 3
-  Twitter  = 4
+  Twitter = 4
 
   # Facebook Post Types
   FacebookTypeStatus = 0
-  FacebookTypeLink   = 1
-  FacebookTypePhoto  = 2
+  FacebookTypeLink = 1
+  FacebookTypePhoto = 2
 
   # Scoring criteria for user contribution in a story
-  ScorePost     = 10
-  ScoreComment  = 10
-  ScoreShare    = 10
-  ScoreVote     = 5
-  ScoreVisit    = 1
+  ScorePost = 10
+  ScoreComment = 10
+  ScoreShare = 10
+  ScoreVote = 5
+  ScoreVisit = 1
 
-  # validates_presence_of   :title
-  # validates_presence_of   :description
-  # validates_presence_of   :kind
-  validates_uniqueness_of :source_url,  :if => :is_rss?
-  validates_presence_of   :url,         :if => :is_link?
-  validates_format_of     :url,
-                          :with => /(^$)|(^(http|https):*)/ix,
-                          :message => "can only be a valid URL."
+  # Date Ranges
+  DateRangeAll = 1
+  DateRangeToday = 2
+  DateRangeYesterday = 3
+  DateRangeWeek = 4
+  DateRangeMonth = 5
+
+  validates_uniqueness_of :source_url, :if => :is_rss?
+  validates_presence_of :url, :if => :is_link?
+  validates_format_of :url, :with => /(^$)|(^(http|https):*)/ix, :message => "can only be a valid URL."
+
   belongs_to :user
   belongs_to :topic
 
-  has_many :comments,       :dependent => :destroy
+  has_many :comments, :dependent => :destroy
   has_many :activity_items, :dependent => :destroy
-  has_many :votes,          :dependent => :destroy
+  has_many :votes, :dependent => :destroy
 
   has_attached_file :image,
   :styles => {
@@ -118,11 +121,11 @@ class Story < ActiveRecord::Base
 
   def self.popular_with_photos
     stories = find :all,
-         :conditions => ["image_file_size != ''
-          and image_file_name != 'stringio.txt'
-          and kind != ?", Story::Facebook],
-         :order => "popularity DESC",
-         :limit => 20
+      :conditions => ["image_file_size != ''
+        and image_file_name != 'stringio.txt'
+        and kind != ?", Story::Facebook],
+      :order => "popularity DESC",
+      :limit => 20
 
     self.add_metadata(stories)
   end
@@ -144,11 +147,11 @@ class Story < ActiveRecord::Base
 
   def self.latest_with_photos
     stories = find :all,
-         :conditions => ["image_file_size != ''
-          and image_file_name != 'stringio.txt'
-          and kind != ?", Story::Facebook],
-         :order => "published_at DESC",
-         :limit => 20
+      :conditions => ["image_file_size != ''
+        and image_file_name != 'stringio.txt'
+        and kind != ?", Story::Facebook],
+      :order => "published_at DESC",
+      :limit => 20
 
     self.add_metadata(stories)
   end
@@ -190,14 +193,41 @@ class Story < ActiveRecord::Base
     return stories
   end
 
-  def self.search(query, page)
-    stories = paginate(:page => page,
-      :conditions => [ "title like ? OR description like ? OR source like ? OR source_url like ?",
+  def self.search(params)
+    query = params[:query]
+    if (query)
+      conditions = [ "(title like ? OR description like ? OR source like ? OR source_url like ?)",
         "%#{query}%",
         "%#{query}%",
         "%#{query}%",
-        "%#{query}"],
+        "%#{query}"]
+    else
+      conditions = []
+    end
+
+    if params[:range]
+      if params[:range].to_i == Story::DateRangeToday
+        start_date = Date.today
+      elsif params[:range].to_i == Story::DateRangeYesterday
+        start_date = Date.yesterday
+      elsif params[:range].to_i == Story::DateRangeWeek
+        start_date = 1.week.ago
+      elsif params[:range].to_i == Story::DateRangeMonth
+        start_date = 1.month.ago
+      end
+      end_date = Date.today
+
+      if start_date and end_date
+        conditions.at(0) << " AND published_at >= ? AND published_at <= ?"
+        conditions.push(start_date)
+        conditions.push(end_date)
+      end
+    end
+
+    stories = paginate(:page => params[:page],
+      :conditions => conditions,
       :order => "published_at DESC")
+
     self.add_metadata(stories)
   end
 

@@ -11,6 +11,18 @@
 
 <!-- Filter by source -->
 <% if @is_frontpage %>
+  <h4>Date</h4>
+  <div class="btn-toolbar">
+    <div class="btn-group">
+    <a class="btn btn-small active date-range" data-value="1">All</a>
+    <a class="btn btn-small date-range" data-value="2">Today</a>
+    <a class="btn btn-small date-range" data-value="3">Yesterday</a>
+    <a class="btn btn-small date-range" data-value="4">Last 7 days</a>
+    <a class="btn btn-small date-range" data-value="5">This Month</a>
+    </div>
+  </div>
+
+  <hr>
   <%= render :partial => "partials/topic/filter/source" %>
   <hr>
 <% end %>
