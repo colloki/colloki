@@ -72,10 +72,10 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.xml
   def show
-    @topic               = Topic.find(params[:id])
-    @stories             = Story.find_for_topic(@topic.id, params[:sort], params[:page])
-    @top_users           = User.top_in_topic(@topic.id)
-    @page_title          = @topic.title
+    @topic = Topic.find(params[:id])
+    @stories = Story.find_for_topic(@topic.id, params[:sort], params[:page])
+    @top_users = User.top_in_topic(@topic.id)
+    @page_title = @topic.title
 
     respond_to do |format|
       format.html

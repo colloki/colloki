@@ -15,6 +15,11 @@ $(function() {
       this.page = 1;
       this.paginationBufferPx = 50;
       this.isLoading = false;
+      if (this.options.data[0].topic_id != undefined) {
+        this.topic = this.options.data[0].topic_id;
+      } else {
+        this.topic = -1;
+      }
 
       // TODO: for some reason, collection.reset doesn't work here.
       var len = this.options.data.length;
@@ -89,7 +94,7 @@ $(function() {
 
     load: function(callback) {
       this.isLoading = true;
-      var request = "/search.json?query=" + this.query + "&range=" + this.dateRange + "&page=" + this.page;
+      var request = "/search.json?query=" + this.query + "&range=" + this.dateRange + "&page=" + this.page + "&topic=" + this.topic;
       $.getJSON(request, callback);
     },
 

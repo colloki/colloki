@@ -224,7 +224,13 @@ class Story < ActiveRecord::Base
       end
     end
 
-    stories = paginate(:page => params[:page],
+    if params[:topic] and params[:topic] != -1
+      conditions.at(0) << " AND topic_id = ?"
+      conditions.push(params[:topic])
+    end
+
+    stories = paginate(
+      :page => params[:page],
       :conditions => conditions,
       :order => "published_at DESC")
 
@@ -235,7 +241,7 @@ class Story < ActiveRecord::Base
     if sort_by == 'popular'
       order = "popularity DESC, created_at DESC"
     else
-      order = "created_at DESC"
+      order = "published_at DESC"
     end
 
     stories = paginate(:page => page,
