@@ -1,4 +1,4 @@
-<div class="story-item">
+<div class="story-item <% if (kind == 3) { %>facebook-story-item<% } %>">
   <% if (image_src) { %>
     <a href="/stories/<%=id%>"><img src="<%= image_src %>"></a>
   <% } %>
@@ -20,6 +20,12 @@
     <% } %>
 
     · <%= pretty_timestamp %>
+
+    <% if (kind == 3) { %>
+    <br>
+    <%= fb_likes_count %> Likes
+    · <%= fb_comments_count %> Comments
+    <% } %>
 
     <div class="story-item-buttons">
       <a class="comment-count has_tooltip btn btn-mini" data-toggle="modal"

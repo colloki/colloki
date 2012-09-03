@@ -60,13 +60,18 @@ $(function() {
         for (var i = 0; i < len; i++) {
           data[i].current_user = this.options.current_user;
           var c = new Story(data[i]);
-          this.collection.add(c);
-          this.append(c);
+
+          if (!this.collection.get(c.id)) {
+            console.log(c);
+            this.collection.add(c);
+            this.append(c);
+          }
         }
 
         this.$stories.imagesLoaded($.proxy(function() {
           this.$stories.masonry('reload');
         }, this));
+
         this.isLoading = false;
       }, this));
     },

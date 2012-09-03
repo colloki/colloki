@@ -17,9 +17,11 @@ $(function() {
         story.icon_url = story.source_url;
       }
 
-      story.description = story.description.replace(/(<([^>]+)>)/ig,"");
-      story.description = jQuery.trim(story.description).substring(0, 100)
-                          .split(" ").slice(0, -1).join(" ") + "...";
+      if (story.description) {
+        story.description = story.description.replace(/(<([^>]+)>)/ig,"");
+        story.description = jQuery.trim(story.description).substring(0, 100)
+                              .split(" ").slice(0, -1).join(" ") + "...";
+      }
 
       if (story.published_at) {
         story.pretty_timestamp = moment(story.published_at).fromNow();

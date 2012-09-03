@@ -6,11 +6,11 @@ require 'json'
 # Fetches facebook stories from a "rss_cacher" installation
 class FacebookDataFetcher
 
-  CONFIG    = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
-  @@source  = CONFIG['fb_datasource']
+  CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
+  @@source = CONFIG['fb_datasource']
 
-  def initialize
-    @stories = get_stories(format_date(Time.now.to_date))
+  def initialize(date)
+    @stories = get_stories(format_date(date))
   end
 
   def stories
@@ -26,7 +26,7 @@ class FacebookDataFetcher
     path = @@source + "cache/" + date + ".json"
     puts "Fetching Facebook stories for " + date + "..."
     content = open(path).read
-    json    = JSON.parse(content)
+    json = JSON.parse(content)
     json.each do |item|
       @stories.push item["story"]
     end
