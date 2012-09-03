@@ -224,7 +224,7 @@ class Story < ActiveRecord::Base
       end
     end
 
-    if params[:topic] and params[:topic] != -1
+    if params[:topic] and params[:topic].to_i != -2
       conditions.at(0) << " AND topic_id = ?"
       conditions.push(params[:topic])
     end
@@ -239,7 +239,7 @@ class Story < ActiveRecord::Base
 
   def self.find_for_topic(topic_id, sort_by, page)
     if sort_by == 'popular'
-      order = "popularity DESC, created_at DESC"
+      order = "popularity DESC, published_at DESC"
     else
       order = "published_at DESC"
     end

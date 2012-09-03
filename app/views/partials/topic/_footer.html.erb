@@ -3,7 +3,8 @@
   $(document).ready(function(e) {
     <%= render :partial => "partials/topic/js", :locals => {
       :stories => stories,
-      :current_user => current_user
+      :current_user => current_user,
+      :topic => (defined? topic) ? topic : nil
     } %>
   });
 </script>

@@ -15,10 +15,11 @@ $(function() {
       this.page = 1;
       this.paginationBufferPx = 50;
       this.isLoading = false;
-      if (this.options.data[0].topic_id != undefined) {
-        this.topic = this.options.data[0].topic_id;
+
+      if (this.options.topic) {
+        this.topic = this.options.topic.id;
       } else {
-        this.topic = -1;
+        this.topic = -2;
       }
 
       // TODO: for some reason, collection.reset doesn't work here.
