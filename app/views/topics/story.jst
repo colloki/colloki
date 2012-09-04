@@ -1,13 +1,16 @@
 <div class="story-item <% if (kind == 3) { %>facebook-story-item<% } %>">
   <% if (image_src) { %>
-    <a href="/stories/<%=id%>"><img src="<%= image_src %>"></a>
+    <a href="/stories/<%= id %>"><img src="<%= image_src %>"></a>
   <% } %>
 
-  <h4>
-    <a class="story-item-title" href="/stories/<%=id%>"><%= title %></a>
-  </h4>
-
-  <p><%= description %></p>
+  <% if (kind != 3) { %>
+    <h4>
+      <a class="story-item-title" href="/stories/<%=id%>"><%= title %></a>
+    </h4>
+    <p><%= description %></p>
+  <% } else { %>
+    <blockquote style="margin-top: 10px; padding-left: 5px;"><span class="expandable"><%= title %></span><span class="expandable"><%= description %></span></blockquote>
+  <% } %>
 
   <div class="story-item-meta">
     <div class="favicon">

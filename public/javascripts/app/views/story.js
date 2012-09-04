@@ -1,5 +1,7 @@
 $(function() {
   window.StoryView = Backbone.View.extend({
+    textLength: 200,
+
     events: {
     },
 
@@ -17,10 +19,14 @@ $(function() {
         story.icon_url = story.source_url;
       }
 
+      if (story.title) {
+        story.title = story.title.replace(/(<([^>]+)>)/ig,"");
+        story.title = jQuery.trim(story.title).substring(0, this.textLength) + "...";
+      }
+
       if (story.description) {
         story.description = story.description.replace(/(<([^>]+)>)/ig,"");
-        story.description = jQuery.trim(story.description).substring(0, 100)
-                              .split(" ").slice(0, -1).join(" ") + "...";
+        story.description = jQuery.trim(story.description).substring(0, this.textLength) + "...";
       }
 
       if (story.published_at) {
