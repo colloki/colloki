@@ -6,7 +6,7 @@ $(function() {
     },
 
     initialize: function() {
-      _.bindAll(this, "render");
+      _.bindAll(this, "render", "transformData", "formatText");
     },
 
     transformData: function(story) {
@@ -20,13 +20,11 @@ $(function() {
       }
 
       if (story.title) {
-        story.title = story.title.replace(/(<([^>]+)>)/ig,"");
-        story.title = jQuery.trim(story.title).substring(0, this.textLength) + "...";
+        story.title = this.formatText(story.title);
       }
 
       if (story.description) {
-        story.description = story.description.replace(/(<([^>]+)>)/ig,"");
-        story.description = jQuery.trim(story.description).substring(0, this.textLength) + "...";
+        story.description = this.formatText(story.description);
       }
 
       if (story.published_at) {
@@ -36,6 +34,14 @@ $(function() {
       }
 
       return story;
+    },
+
+    formatText: function(text) {
+      text = $.trim(text.replace(/(<([^>]+)>)/ig,""));
+      if (text.length > this.textLength) {
+        text = text.substring(0, this.textLength) + "...";
+      }
+      return text;
     },
 
     render: function() {
