@@ -113,33 +113,25 @@ class Story < ActiveRecord::Base
   end
 
   def self.popular(page)
-    stories = where("kind != ?", Story::Facebook)
-    .page(page)
-    .order("popularity DESC, published_at DESC")
+    stories = page(page).order("popularity DESC, published_at DESC")
     self.add_metadata(stories)
   end
 
   def self.popular_with_photos
     stories = find :all,
       :conditions => ["image_file_size != ''
-        and image_file_name != 'stringio.txt'
-        and kind != ?", Story::Facebook],
+        and image_file_name != 'stringio.txt'",
       :order => "popularity DESC",
-      :limit => 20
+      :limit => 20]
 
     self.add_metadata(stories)
   end
 
   def self.latest(page, should_paginate=true)
     if should_paginate
-      stories = where("kind != ?", Story::Facebook)
-      .page(page)
-      .order("published_at DESC")
+      stories = page(page).order("published_at DESC")
     else
-      stories = find :all,
-        :conditions => ["kind != ?", Story::Facebook],
-        :order => "published_at DESC",
-        :limit => 20
+      stories = find :all, :order => "published_at DESC", :limit => 20
     end
 
     self.add_metadata(stories)
@@ -148,17 +140,16 @@ class Story < ActiveRecord::Base
   def self.latest_with_photos
     stories = find :all,
       :conditions => ["image_file_size != ''
-        and image_file_name != 'stringio.txt'
-        and kind != ?", Story::Facebook],
+        and image_file_name != 'stringio.txt'",
       :order => "published_at DESC",
-      :limit => 20
+      :limit => 20]
 
     self.add_metadata(stories)
   end
 
   def self.fb_stories(page, sort)
     if (sort and sort == "likes")
-      order     = "fb_likes_count DESC"
+      order = "fb_likes_count DESC"
     elsif (sort and sort == "comments")
       order = "fb_comments_count DESC"
     else
