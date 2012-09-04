@@ -1,4 +1,7 @@
 <ul class="nav nav-pills">
+  <li class="active">
+    <a href="#" class="topic-link" data-id="-2">[ Everything ]</a>
+  </li>
   <% topics.each_with_index do |topic, i| %>
     <%
       if defined? selected_topic and selected_topic and selected_topic.id == topic.id
@@ -8,11 +11,11 @@
       end
     %>
     <%= render :partial => "partials/topic/navigation_link",
-        :locals => {
-          :id       => i,
-          :selected => selected,
-          :topic    => topic
-        }
+      :locals => {
+        :id => i,
+        :selected => selected,
+        :topic => topic
+      }
     %>
   <% end %>
 </ul>

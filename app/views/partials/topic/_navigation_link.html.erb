@@ -9,8 +9,9 @@
       :locals => {:topic => topic} %>
   <%= link_to "[ " << topic.title << " ]",
     topical_path(topic),
-    :class          => "has-popover",
-    "data-content"  => keyword_content,
-    :title          => "[ " + topic.title + " ]" %>
+    :class => "has-popover topic-link",
+    "data-id" => topic.id,
+    "data-content" => keyword_content,
+    :title => "[ " + topic.title + " ]" %>
   </li>
 <% end %>

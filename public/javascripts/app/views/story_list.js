@@ -2,7 +2,8 @@ $(function() {
   window.StoryListView = Backbone.View.extend({
     events: {
       "click .source": "filterBySource",
-      "click .date-range": "filterByDateRange"
+      "click .date-range": "filterByDateRange",
+      "click .topic-link": "filterByTopic"
     },
 
     initialize: function() {
@@ -113,6 +114,15 @@ $(function() {
       var $el = $(event.target);
       $el.addClass("active").siblings().removeClass("active");
       this.dateRange = $el.data("value");
+      this.reset();
+    },
+
+    filterByTopic: function(event) {
+      event.preventDefault();
+      var $el = $(event.target);
+      var $li = $el.parent("li");
+      $li.addClass("active").siblings().removeClass("active");
+      this.topic = $el.data("id");
       this.reset();
     },
 

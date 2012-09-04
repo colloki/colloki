@@ -135,23 +135,10 @@
               <%= link_to ("<i class='" + icon + "'></i> User Shared").html_safe, popular_url %>
             </li>
 
-            <!-- Facebook -->
-            <% if request.filtered_parameters["controller"] === "topics" and
-              request.filtered_parameters["action"] === "facebook" %>
-              <li class="active">
-              <% icon = "icon-comment icon-white" %>
-            <% else %>
-              <li>
-              <% icon = "icon-comment" %>
-            <% end %>
-              <%= link_to ("<i class='" + icon + "'></i> Facebook").html_safe, facebook_url %>
-            </li>
-
           </ul>
         </div>
 
-        <div class="pull-right span5">
-          <!-- Topics for the chosen time period. -->
+        <!-- <div class="pull-right span5">
           <div class="row-fluid">
             <%= render :partial => "partials/topic/navigation",
                 :locals => {
@@ -161,7 +148,7 @@
                 }
             %>
           </div>
-      </div>
+      </div> -->
       </div>
     <% end %>
 

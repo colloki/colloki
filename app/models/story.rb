@@ -22,8 +22,7 @@ class Story < ActiveRecord::Base
   DateRangeAll = 1
   DateRangeToday = 2
   DateRangeYesterday = 3
-  DateRangeWeek = 4
-  DateRangeMonth = 5
+  DateRangeLastWeek = 4
 
   validates_uniqueness_of :source_url, :if => :is_rss?
   validates_presence_of :url, :if => :is_link?
@@ -199,14 +198,14 @@ class Story < ActiveRecord::Base
     if params[:range]
       if params[:range].to_i == Story::DateRangeToday
         start_date = Date.today
+        end_date = Date.tomorrow
       elsif params[:range].to_i == Story::DateRangeYesterday
         start_date = Date.yesterday
-      elsif params[:range].to_i == Story::DateRangeWeek
+        end_date = Date.today
+      elsif params[:range].to_i == Story::DateRangeLastWeek
         start_date = 1.week.ago
-      elsif params[:range].to_i == Story::DateRangeMonth
-        start_date = 1.month.ago
+        end_date = Date.today
       end
-      end_date = Date.today
 
       if start_date and end_date
         conditions.at(0) << " AND published_at >= ? AND published_at <= ?"
