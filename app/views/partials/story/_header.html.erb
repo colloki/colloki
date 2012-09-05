@@ -19,7 +19,7 @@
     <li>
       [ <%= link_to story.topic.title,
           topic_url(story.topic),
-          :class => "has_tooltip",
+          :class => "has-tooltip",
           :title => "View topic [ " + story.topic.title + " ]" %>
       ]
       <span class="divider">/</span>
@@ -31,14 +31,14 @@
         source_name = source_url
         link_to story.source_url,
           search_url + "?query=" + source_name,
-          :class => "has_tooltip",
+          :class => "has-tooltip",
           :title => "View all from " + source_name
         %>
       <% else %>
         <%=
         link_to story.source,
           search_url + "?query=" + story.source,
-          :class => "has_tooltip",
+          :class => "has-tooltip",
           :title => "View all from " + story.source
         %>
       <% end %>

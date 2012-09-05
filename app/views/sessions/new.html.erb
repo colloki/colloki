@@ -16,7 +16,7 @@
         <% @stories.each do |story| %>
           <%= link_to image_tag(story.image.url), story_url(story),
               :title => story.title,
-              :class => 'has_tooltip',
+              :class => 'has-tooltip',
               'data-placement' => 'top'
           %>
         <% end %>

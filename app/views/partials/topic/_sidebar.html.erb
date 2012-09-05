@@ -1,41 +1,75 @@
 <!-- Topic keywords -->
 <% if topic and topic.topic_keywords %>
-  <div class="topic-keywords">
+  <div class="filter">
     <h4>
       [ <%= topic.title %> ]
     </h4>
     <%= render :partial => "partials/topic/cloud", :locals => { :id => 10, :topic => topic } %>
   </div>
-  <hr>
 <% end %>
+
+<!-- Search -->
+<form class="search" action="/search">
+  <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
+</form>
+
+<div class="filter">
+  <ul class="nav nav-stacked nav-pills">
+    <!-- News -->
+    <li class="active">
+      <a title="Posts on local blogs" data-placement="right" class="has-tooltip kind" href="#" data-value="2"><i class='icon-globe icon-white'></i> Blogs</a>
+    </li>
+    <!-- Chatter -->
+    <li>
+      <a title="Discussions on Facebook" data-placement="right" class="has-tooltip kind" href="#" data-value="3"><i class='icon-comment'></i> Chatter</a>
+    </li>
+    <!-- User Shared -->
+    <li>
+      <a title="Posts by VTS users" data-placement="right" class="has-tooltip kind" href="#" data-value="1"><i class='icon-pencil'></i> User Shared</a>
+    </li>
+    <% if current_user %>
+      <!-- Liked -->
+      <li>
+        <a title="Stories you liked" data-placement="right" class="has-tooltip liked_by" href="#" data-value="<%= current_user.id %>"><i class='icon-star'></i> Likes</a>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <!-- Filter by source -->
 <% if @is_frontpage %>
-  <h4>Current Topics</h4>
-  <div class="row-fluid" style="margin-left: -10px">
-    <%= render :partial => "partials/topic/navigation",
-      :locals => {
-        :topics => @today_topics,
-        :story => @story,
-        :selected_topic => (defined? @topic) ? @topic : nil
-      }
-    %>
-  </div>
-
-  <h4>Date</h4>
-  <div class="btn-toolbar">
-    <div class="btn-group">
-    <a class="btn btn-small active date-range" data-value="1">All</a>
-    <a class="btn btn-small date-range" data-value="2">Today</a>
-    <a class="btn btn-small date-range" data-value="3">Yesterday</a>
-    <a class="btn btn-small date-range" data-value="4">This Week</a>
+  <div class="filter">
+    <h4>In the News</h4>
+    <div class="row-fluid" style="margin-left: -10px">
+      <%= render :partial => "partials/topic/navigation",
+        :locals => {
+          :topics => @today_topics,
+          :story => @story,
+          :selected_topic => (defined? @topic) ? @topic : nil
+        }
+      %>
     </div>
   </div>
 
-  <hr>
-  <%= render :partial => "partials/topic/filter/source" %>
-  <hr>
+
+  <div class="filter">
+    <h4>Date</h4>
+    <div class="btn-toolbar">
+      <div class="btn-group">
+      <a class="btn btn-small active date-range" data-value="1">All</a>
+      <a class="btn btn-small date-range" data-value="2">Today</a>
+      <a class="btn btn-small date-range" data-value="3">Yesterday</a>
+      <a class="btn btn-small date-range" data-value="4">This Week</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter">
+    <%= render :partial => "partials/topic/filter/source" %>
+  </div>
 <% end %>
+
+<hr>
 
 <!-- Sign Up Note-->
 <% if !logged_in? %>
@@ -54,5 +88,6 @@
 <% if @is_frontpage and new_users and new_users.count != 0 %>
   <h4>Who joined recently</h4>
   <%= render :partial => "partials/new_users", :locals => {:users => new_users} %>
-  <hr>
 <% end %>
+
+<%= render :partial => 'partials/footer' %>

@@ -185,45 +185,62 @@ class Story < ActiveRecord::Base
 
   def self.search(params)
     query = params[:query]
-    if (query)
-      conditions = [ "(title like ? OR description like ? OR source like ? OR source_url like ?)",
-        "%#{query}%",
-        "%#{query}%",
-        "%#{query}%",
-        "%#{query}"]
+
+    if params[:liked_by] and params[:liked_by].to_i != -1
+      likes = Vote.paginate(
+        :page => params[:page],
+        :order => "created_at DESC",
+        :conditions => {:user_id => params[:liked_by]})
+      stories = []
+
+      for like in likes
+        stories.push(like.story)
+      end
     else
-      conditions = []
-    end
-
-    if params[:range]
-      if params[:range].to_i == Story::DateRangeToday
-        start_date = Date.today
-        end_date = Date.tomorrow
-      elsif params[:range].to_i == Story::DateRangeYesterday
-        start_date = Date.yesterday
-        end_date = Date.today
-      elsif params[:range].to_i == Story::DateRangeLastWeek
-        start_date = 1.week.ago
-        end_date = Date.today
+      if (query)
+        conditions = [ "(title like ? OR description like ? OR source like ? OR source_url like ?)",
+          "%#{query}%",
+          "%#{query}%",
+          "%#{query}%",
+          "%#{query}"]
+      else
+        conditions = []
       end
 
-      if start_date and end_date
-        conditions.at(0) << " AND published_at >= ? AND published_at <= ?"
-        conditions.push(start_date)
-        conditions.push(end_date)
+      if params[:range]
+        if params[:range].to_i == Story::DateRangeToday
+          start_date = Date.today
+          end_date = Date.tomorrow
+        elsif params[:range].to_i == Story::DateRangeYesterday
+          start_date = Date.yesterday
+          end_date = Date.today
+        elsif params[:range].to_i == Story::DateRangeLastWeek
+          start_date = 1.week.ago
+          end_date = Date.today
+        end
+
+        if start_date and end_date
+          conditions.at(0) << " AND published_at >= ? AND published_at <= ?"
+          conditions.push(start_date)
+          conditions.push(end_date)
+        end
       end
+
+      if params[:topic] and params[:topic].to_i != -2
+        conditions.at(0) << " AND topic_id = ?"
+        conditions.push(params[:topic])
+      end
+
+      if params[:kind]
+        conditions.at(0) << " AND kind = ?"
+        conditions.push(params[:kind])
+      end
+
+      stories = paginate(
+        :page => params[:page],
+        :conditions => conditions,
+        :order => "published_at DESC")
     end
-
-    if params[:topic] and params[:topic].to_i != -2
-      conditions.at(0) << " AND topic_id = ?"
-      conditions.push(params[:topic])
-    end
-
-    stories = paginate(
-      :page => params[:page],
-      :conditions => conditions,
-      :order => "published_at DESC")
-
     self.add_metadata(stories)
   end
 
@@ -268,9 +285,9 @@ class Story < ActiveRecord::Base
 
   def self.find_liked_by_user(user_id, limit=10)
     likes = Vote.find :all,
-                      :order => "created_at DESC",
-                      :conditions => {:user_id => user_id},
-                      :limit => limit
+      :order => "created_at DESC",
+      :conditions => {:user_id => user_id},
+      :limit => limit
     stories = []
     for like in likes
       stories.push(like.story)

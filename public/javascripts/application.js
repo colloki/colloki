@@ -18,7 +18,7 @@ $(document).ready(function(e) {
   });
 
   // Tooltips
-  $(".has_tooltip").tooltip();
+  $(".has-tooltip").tooltip();
 
   // Expandable
   $(".expandable").expander({

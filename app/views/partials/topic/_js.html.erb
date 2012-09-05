@@ -1,7 +1,6 @@
 $(document).ready(function(e) {
   var storyList = new window.StoryListView({
     el: $(".topic-body"),
-    data: <%= stories.to_json(:include => [:votes, :comments, :user], :methods => :user).html_safe %>,
     topic: <%= topic.to_json.html_safe %>,
     current_user: <%= current_user.to_json.html_safe %>
   });

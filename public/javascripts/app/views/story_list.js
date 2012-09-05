@@ -1,9 +1,14 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
+    emptyMessage: "Oops! We didn't find anything...Change filters or refresh!",
+
     events: {
       "click .source": "filterBySource",
       "click .date-range": "filterByDateRange",
-      "click .topic-link": "filterByTopic"
+      "click .topic": "filterByTopic",
+      "click .kind": "filterByKind",
+      "keypress .search": "filterByQuery",
+      "click .liked_by": "filterByLikedBy"
     },
 
     initialize: function() {
@@ -14,22 +19,15 @@ $(function() {
       this.dateRange = 1;
       this.query = "";
       this.page = 1;
+      this.kind = 2;
       this.paginationBufferPx = 50;
       this.isLoading = false;
+      this.likedBy = -1;
 
       if (this.options.topic) {
         this.topic = this.options.topic.id;
       } else {
         this.topic = -2;
-      }
-
-      // TODO: for some reason, collection.reset doesn't work here.
-      var len = this.options.data.length;
-      for (var i = 0; i < len; i++) {
-        this.options.data[i].current_user = this.options.current_user;
-        var c = new Story(this.options.data[i]);
-        this.collection.add(c);
-        this.append(c);
       }
 
       this.$stories.imagesLoaded($.proxy(function() {
@@ -39,6 +37,7 @@ $(function() {
       }, this));
 
       $(window).scroll(this.onScroll);
+      this.reset();
     },
 
     render: function() {
@@ -85,28 +84,37 @@ $(function() {
         this.$stories.html("");
 
         var len = data.length;
-        for (var i = 0; i < len; i++) {
-          data[i].current_user = this.options.current_user;
-          var c = new Story(data[i]);
-          this.collection.add(c);
-          this.append(c);
+        if (len != 0) {
+          for (var i = 0; i < len; i++) {
+            data[i].current_user = this.options.current_user;
+            var c = new Story(data[i]);
+            this.collection.add(c);
+            this.append(c);
+          }
+
+          this.$stories.imagesLoaded($.proxy(function() {
+            this.$stories.masonry('reload');
+          }, this));
+        } else {
+          this.$stories.html($("<h4>", {
+            "class": "topic-empty-message",
+            html: this.emptyMessage
+          }));
         }
 
-        this.$stories.imagesLoaded($.proxy(function() {
-          this.$stories.masonry('reload');
-        }, this));
         this.isLoading = false;
       }, this));
     },
 
     load: function(callback) {
       this.isLoading = true;
-      var request = "/search.json?query=" + this.query + "&range=" + this.dateRange + "&page=" + this.page + "&topic=" + this.topic;
+      var request = "/search.json?query=" + this.query + "&range=" + this.dateRange + "&page=" + this.page + "&topic=" + this.topic + "&kind=" + this.kind + "&liked_by=" + this.likedBy;
       $.getJSON(request, callback);
     },
 
     filterBySource: function(event) {
       this.query = $(event.target).data("value");
+      this.likedBy = -1;
       this.reset();
     },
 
@@ -114,6 +122,7 @@ $(function() {
       var $el = $(event.target);
       $el.addClass("active").siblings().removeClass("active");
       this.dateRange = $el.data("value");
+      this.likedBy = -1;
       this.reset();
     },
 
@@ -123,6 +132,44 @@ $(function() {
       var $li = $el.parent("li");
       $li.addClass("active").siblings().removeClass("active");
       this.topic = $el.data("id");
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByKind: function(event) {
+      event.preventDefault();
+      var $el = $(event.target);
+      var $li = $el.parent("li");
+      $li.addClass("active")
+        .find("i").addClass("icon-white")
+        .end()
+        .siblings().removeClass("active")
+        .find("i").removeClass("icon-white");
+      this.kind = $el.data("value");
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByQuery: function(event) {
+      if (event.charCode != 13) {return;}
+      event.preventDefault();
+      var $el = $(event.target);
+      this.query = $el.val();
+      $el.val("");
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByLikedBy: function(event) {
+      event.preventDefault();
+      var $el = $(event.target);
+      var $li = $el.parent("li");
+      $li.addClass("active")
+        .find("i").addClass("icon-white")
+        .end()
+        .siblings().removeClass("active")
+        .find("i").removeClass("icon-white");
+      this.likedBy = $el.data("value");
       this.reset();
     },
 
