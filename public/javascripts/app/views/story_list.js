@@ -23,6 +23,8 @@ $(function() {
       this.paginationBufferPx = 50;
       this.isLoading = false;
       this.likedBy = -1;
+      this.$sourceFilter = $(".filter-source", this.$el);
+      this.$topicFilter = $(".filter-topic", this.$el);
 
       if (this.options.topic) {
         this.topic = this.options.topic.id;
@@ -145,6 +147,13 @@ $(function() {
         .siblings().removeClass("active")
         .find("i").removeClass("icon-white");
       this.kind = $el.data("value");
+      if (this.kind != "2") {
+        this.$topicFilter.hide();
+        this.$sourceFilter.hide();
+      } else {
+        this.$topicFilter.show();
+        this.$sourceFilter.show();
+      }
       this.likedBy = -1;
       this.reset();
     },

@@ -27,7 +27,7 @@ require "open-uri"
   "blacksburgmayor.wordpress.com"       => "Blacksburg Mayor's Blog",
   "newrivervoice"                       => "New River Voice",
   "ourvalley.org"                       => "Our Valley",
-  "blog.pcva.us"                        => "Pulaski County"
+  "blog.pcva.us"                        => "Pulaski County",
   "eastmontva.wordpress.com"            => "EastMont VA"
 ]
 

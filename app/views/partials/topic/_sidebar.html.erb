@@ -13,7 +13,7 @@
   <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
 </form>
 
-<div class="filter">
+<div class="filter filter-kind">
   <ul class="nav nav-stacked nav-pills">
     <!-- News -->
     <li class="active">
@@ -38,7 +38,7 @@
 
 <!-- Filter by source -->
 <% if @is_frontpage %>
-  <div class="filter">
+  <div class="filter filter-topic">
     <h4>In the News</h4>
     <div class="row-fluid" style="margin-left: -10px">
       <%= render :partial => "partials/topic/navigation",
@@ -64,7 +64,7 @@
     </div>
   </div>
 
-  <div class="filter">
+  <div class="filter filter-source">
     <%= render :partial => "partials/topic/filter/source" %>
   </div>
 <% end %>
