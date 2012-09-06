@@ -1,6 +1,11 @@
 <div class="story-item">
   <% if (image_src) { %>
-    <a href="/stories/<%= id %>"><img src="<%= image_src %>"></a>
+    <% if (kind != 3) { %>
+      <a href="/stories/<%= id %>">
+    <% } else { %>
+      <a href="<%= icon_url %>">
+    <% } %>
+    <img src="<%= image_src %>"></a>
   <% } %>
 
   <% if (kind != 3) { %>
