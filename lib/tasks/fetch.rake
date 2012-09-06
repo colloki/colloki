@@ -26,7 +26,9 @@ require "open-uri"
   "blacksburgdailyphoto.blogspot.com"   => "Blacksburg Daily Photo",
   "blacksburgmayor.wordpress.com"       => "Blacksburg Mayor's Blog",
   "newrivervoice"                       => "New River Voice",
-  "ourvalley.org"                       => "Our Valley"
+  "ourvalley.org"                       => "Our Valley",
+  "blog.pcva.us"                        => "Pulaski County"
+  "eastmontva.wordpress.com"            => "EastMont VA"
 ]
 
 # Gets the blog stories from a "VTSTopicModeling" installation
