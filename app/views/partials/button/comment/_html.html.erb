@@ -1,7 +1,4 @@
-<%=
-  link_to ("<i class='icon-comment'></i> " << story.comments.count.to_s).html_safe,
-  '#story-modal-' + story.id.to_s,
-  :class => 'comment-count has-tooltip btn btn-mini',
-  'data-toggle' => 'modal',
-  :title => story.comments.count.to_s + ' comments'
-%>
+<a href="#story-modal-<%= story.id %>" class="comment-count has-tooltip btn btn-mini" data-toggle="modal" title="<%= story.comments.count %> comments">
+  <i class="icon-comment"></i>
+  <span class="comment-count-value"><%= story.comments.count %></span>
+</a>

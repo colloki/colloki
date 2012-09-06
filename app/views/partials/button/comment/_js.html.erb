@@ -6,7 +6,3 @@ $(document).ready(function(e) {
     user_id: <%= current_user ? current_user.id : -1 %>
   });
 });
-
-$("#story-modal-<%= story.id.to_s %>").on('shown', function () {
-  $(this).find('.comment-body').focus();
-});

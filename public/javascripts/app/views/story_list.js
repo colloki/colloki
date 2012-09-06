@@ -41,7 +41,10 @@ $(function() {
     },
 
     render: function() {
-      //
+      this.$stories.imagesLoaded($.proxy(function() {
+        this.$stories.masonry('reload');
+      }, this));
+      $(".has-tooltip").tooltip();
     },
 
     append: function(story) {
@@ -62,16 +65,12 @@ $(function() {
           var c = new Story(data[i]);
 
           if (!this.collection.get(c.id)) {
-            console.log(c);
             this.collection.add(c);
             this.append(c);
           }
         }
 
-        this.$stories.imagesLoaded($.proxy(function() {
-          this.$stories.masonry('reload');
-        }, this));
-
+        this.render();
         this.isLoading = false;
       }, this));
     },
