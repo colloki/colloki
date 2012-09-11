@@ -1,6 +1,7 @@
 
 require "facebook_data_fetcher.rb"
 require "open-uri"
+require "uri"
 
 desc "Post stories to VTS from the cached facebook stories"
 
@@ -37,7 +38,36 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
           if new_story
             puts "Story already exists: " + story["link"]
           else
-            puts "Saving new story: " + story["link"]
+            search_text = ""
+
+            if story["title"]
+              search_text = search_text + story["title"]
+            end
+
+            if story["description"]
+              search_text = search_text + story["description"]
+            end
+
+            if search_text != ""
+              urls = URI.extract(search_text, ["http", "https"])
+              for url in urls
+                puts "SHORT URL: " + url
+                begin
+                  # TODO: VERY VERY CRUDE and BAD way to check
+                  # for validity of URL. Will fix.
+                  open URI(url)
+                  redirect = RedirectFollower.new(url).resolve
+                  expanded_url = redirect.url.split("?")[0]
+                  if expanded_url
+                    existing_story = Story.find_by_url(expanded_url)
+                  end
+                rescue => e
+                  puts e.message
+                end
+              end
+            else
+              puts "No Link Found"
+            end
 
             new_story = Story.new
             new_story.title = story["title"]
@@ -59,6 +89,10 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
               new_story.fb_type = Story::FacebookTypeLink
             else
               new_story.fb_type = Story::FacebookTypePhoto
+            end
+
+            if existing_story
+              new_story.related_story_id = existing_story.id
             end
 
             new_story.save

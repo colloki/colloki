@@ -24,14 +24,14 @@ class StoriesController < ApplicationController
     if @story.source
       if @story.topic_id != -1 and @topic
         @more_stories_from_source = Story.find :all,
-          :conditions => "source = '#{@story.source}' 
-                          AND id != #{@story.id} 
+          :conditions => "source = '#{@story.source}'
+                          AND id != #{@story.id}
                           AND topic_id != #{@topic.id}",
           :order => "published_at DESC",
           :limit => 5
       else
         @more_stories_from_source = Story.find :all,
-          :conditions => "source = '#{@story.source}' 
+          :conditions => "source = '#{@story.source}'
                           AND id != #{@story.id}",
           :order => "published_at DESC",
           :limit => 5
@@ -73,6 +73,8 @@ class StoriesController < ApplicationController
     else
       @user_id = -1
     end
+
+    @facebook_posts = @story.facebook_posts
 
     respond_to do |format|
       format.html # show.html.erb
@@ -223,8 +225,8 @@ class StoriesController < ApplicationController
 
   def send_email
     UserMailer.share_story(
-      params[:from], 
-      params[:to], 
+      params[:from],
+      params[:to],
       params[:message][0],
       params[:story]).deliver
     flash[:notice] = "Email was successfully sent!"

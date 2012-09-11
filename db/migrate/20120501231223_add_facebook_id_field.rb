@@ -4,6 +4,6 @@ class AddFacebookIdField < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :stories, :fb_id
+    remove_column :stories, :fb_id
   end
 end

@@ -8,11 +8,4 @@
     <%= sanitize(story.description) %>
   </div>
 </div>
-
-<% if story.kind == Story::Rss %>
-  <hr>
-  <div class="story-footer">
-    Original article: <%= link_to story.source_url, story.source_url %>
-  </div>
-<% end %>
 <hr>

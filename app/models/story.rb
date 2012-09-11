@@ -100,6 +100,10 @@ class Story < ActiveRecord::Base
     self.popularity = self.popularity - score
   end
 
+  def facebook_posts
+    Story.find(:all, :conditions=>{:related_story_id=>self.id})
+  end
+
   def self.add_metadata(stories)
     for story in stories
       story['image_src'] = story.image_src
@@ -293,5 +297,9 @@ class Story < ActiveRecord::Base
       stories.push(like.story)
     end
     stories
+  end
+
+  def self.find_by_url(url)
+    find :first, :conditions=>{:source_url => url}
   end
 end

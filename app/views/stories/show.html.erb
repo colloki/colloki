@@ -43,6 +43,12 @@
       :story => @story
     } %>
 
+    <!-- Related Facebook Posts -->
+    <%= render :partial => "partials/story/facebook_posts", :locals => {
+      :posts => @facebook_posts
+    }
+    %>
+
     <!-- Story Likers -->
     <%= render :partial => "partials/story/likers",
       :locals => {:story => @story, :users => @likers}
@@ -52,6 +58,13 @@
     <%= render :partial => "partials/story/comments",
       :locals => {:story => @story }
     %>
+
+    <% if @story.kind == Story::Rss %>
+      <hr>
+      <div class="story-footer">
+        Original article: <%= link_to @story.source_url, @story.source_url %>
+      </div>
+    <% end %>
   </div>
 
   <!-- Story Sidebar -->
@@ -66,17 +79,12 @@
       }
     %>
   </div>
+
 </div>
 
 <!-- Story Footer -->
-<%= render :partial => "partials/story/footer",
-  :locals => {
+<%= render :partial => "partials/story/footer", :locals => {
     :story => @story,
     :user_id => @user_id
   }
 %>
-
-<!-- Story Voice Reader JS -->
-<script type="text/javascript">
-  <%= render :partial => "partials/vts_reader_js" %>
-</script>
