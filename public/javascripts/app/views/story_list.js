@@ -1,14 +1,18 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
     emptyMessage: "Oops! We didn't find anything...Change filters or refresh!",
-
+    eventsHTML: '<h3>Events</h3><iframe class="events-calendar"' +
+    'src="http://elmcity.cloudapp.net/services/NewRiverValleyVA/html?&eventsonly=yes&tags=yes&count=200"></iframe>' +
+    '<div class="events-footer">This is the embedded calendar from the ' +
+    '<a href="http://elmcity.cloudapp.net/">elmcity project</a>.</div>',
     events: {
       "click .source": "filterBySource",
       "click .date-range": "filterByDateRange",
       "click .topic": "filterByTopic",
       "click .kind": "filterByKind",
       "keypress .search": "filterByQuery",
-      "click .liked_by": "filterByLikedBy"
+      "click .liked": "filterByLikedBy",
+      "click .events": "showEvents"
     },
 
     initialize: function() {
@@ -25,6 +29,8 @@ $(function() {
       this.likedBy = -1;
       this.$sourceFilter = $(".filter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
+      this.$dateFilter = $(".filter-date", this.$el);
+      this.loadOnScroll = true;
 
       if (this.options.topic) {
         this.topic = this.options.topic.id;
@@ -120,6 +126,7 @@ $(function() {
     },
 
     filterByDateRange: function(event) {
+      this.loadOnScroll = true;
       var $el = $(event.target);
       $el.addClass("active").siblings().removeClass("active");
       this.dateRange = $el.data("value");
@@ -128,6 +135,7 @@ $(function() {
     },
 
     filterByTopic: function(event) {
+      this.loadOnScroll = true;
       event.preventDefault();
       var $el = $(event.target);
       var $li = $el.parent("li");
@@ -138,6 +146,7 @@ $(function() {
     },
 
     filterByKind: function(event) {
+      this.loadOnScroll = true;
       event.preventDefault();
       var $el = $(event.target);
       var $li = $el.parent("li");
@@ -159,6 +168,7 @@ $(function() {
     },
 
     filterByQuery: function(event) {
+      this.loadOnScroll = true;
       if (event.charCode != 13) {return;}
       event.preventDefault();
       var $el = $(event.target);
@@ -170,6 +180,7 @@ $(function() {
 
     filterByLikedBy: function(event) {
       event.preventDefault();
+      this.loadOnScroll = true;
       var $el = $(event.target);
       var $li = $el.parent("li");
       $li.addClass("active")
@@ -181,7 +192,24 @@ $(function() {
       this.reset();
     },
 
+    showEvents: function(event) {
+      event.preventDefault();
+      var $el = $(event.target);
+      var $li = $el.parent("li");
+      $li.addClass("active")
+        .find("i").addClass("icon-white")
+        .end()
+        .siblings().removeClass("active")
+        .find("i").removeClass("icon-white");
+        this.$stories.html(this.eventsHTML);
+      this.loadOnScroll = false;
+      this.$topicFilter.hide();
+      this.$sourceFilter.hide();
+      this.$dateFilter.hide();
+    },
+
     onScroll: function() {
+      if (!this.loadOnScroll) {return;}
       if (this.isLoading) {return;}
       var $window = $(window);
       var pixelsFromWindowBottomToBottom = 0 + $(document).height() - $window.scrollTop() - $(window).height();
