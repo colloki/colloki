@@ -33,9 +33,11 @@
     · <%= pretty_timestamp %>
 
     <% if (kind == 3) { %>
-    <br>
-    <%= fb_likes_count %> Likes
-    · <%= fb_comments_count %> Comments
+      <br>
+      <%= fb_likes_count %> Likes
+      · <%= fb_comments_count %> Comments
+    <% } else if (kind == 4) { %>
+      · <%= twitter_retweet_count ? twitter_retweet_count : 0 %> retweets
     <% } %>
 
     <div class="story-item-buttons">
