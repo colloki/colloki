@@ -97,13 +97,13 @@ class User < ActiveRecord::Base
 
   def remember_me_until(time)
     self.remember_token_expires_at = time
-    self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
+    self.remember_token = encrypt("#{email}--#{remember_token_expires_at}")
     save(false)
   end
 
   def forget_me
     self.remember_token_expires_at = nil
-    self.remember_token            = nil
+    self.remember_token = nil
     save(false)
   end
 
@@ -141,7 +141,6 @@ class User < ActiveRecord::Base
   def unvote(vote)
     story = vote.story
     vote.delete
-    story.update_popularity
     story.save
   end
 

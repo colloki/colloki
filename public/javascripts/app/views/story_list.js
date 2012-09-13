@@ -24,6 +24,7 @@ $(function() {
       this.query = "";
       this.page = 1;
       this.kind = 2;
+      this.sort = 1;
       this.paginationBufferPx = 50;
       this.isLoading = false;
       this.likedBy = -1;
@@ -115,7 +116,7 @@ $(function() {
 
     load: function(callback) {
       this.isLoading = true;
-      var request = "/search.json?query=" + this.query + "&range=" + this.dateRange + "&page=" + this.page + "&topic=" + this.topic + "&kind=" + this.kind + "&liked_by=" + this.likedBy;
+      var request = "/search.json?query=" + this.query + "&range=" + this.dateRange + "&page=" + this.page + "&topic=" + this.topic + "&kind=" + this.kind + "&liked_by=" + this.likedBy + "&sort=" + this.sort;
       $.getJSON(request, callback);
     },
 

@@ -11,12 +11,19 @@ class Story < ActiveRecord::Base
   FacebookTypeLink = 1
   FacebookTypePhoto = 2
 
-  # Scoring criteria for user contribution in a story
+  # Scoring criteria
   ScorePost = 10
   ScoreComment = 10
   ScoreShare = 10
   ScoreVote = 5
   ScoreVisit = 1
+
+  ScoreFacebookComment = 2
+  ScoreFacebookLike = 1
+
+  # Sorting criteria
+  SortExternalPopularity = 1
+  SortDate = 2
 
   # Date Ranges
   DateRangeAll = 1
@@ -90,12 +97,10 @@ class Story < ActiveRecord::Base
     kind == Story::Facebook
   end
 
-  # increase popularity of story
   def increase_popularity(score)
     self.popularity = self.popularity + score
   end
 
-  # decrease popularity of story
   def decrease_popularity(score)
     self.popularity = self.popularity - score
   end
@@ -240,10 +245,16 @@ class Story < ActiveRecord::Base
         conditions.push(params[:kind])
       end
 
+      if params[:sort] and params[:sort].to_i == Story::SortExternalPopularity
+        order = "external_popularity DESC, published_at DESC"
+      else
+        order = "published_at DESC"
+      end
+
       stories = paginate(
         :page => params[:page],
         :conditions => conditions,
-        :order => "published_at DESC")
+        :order => order)
     end
     self.add_metadata(stories)
   end
