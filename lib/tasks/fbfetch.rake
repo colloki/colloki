@@ -97,7 +97,7 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
               if (!existing_story.external_popularity)
                 existing_story.external_popularity = 0
               end
-              existing_story.external_popularity += (
+              existing_story.external_popularity += 1 + (
                 Story::ScoreFacebookLike * new_story.fb_likes_count +
                 (Story::ScoreFacebookComment * new_story.fb_comments_count))
               existing_story.save

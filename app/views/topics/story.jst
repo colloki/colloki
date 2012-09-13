@@ -8,13 +8,15 @@
     <img src="<%= image_src %>"></a>
   <% } %>
 
-  <% if (kind != 3) { %>
+  <% if (kind == 3) { %>
+    <blockquote style="margin-top: 10px; padding-left: 5px;"><span class="expandable"><%= title %></span><span class="expandable"><%= description %></span></blockquote>
+  <% } else if (kind == 4) { %>
+    <blockquote style="margin-top: 10px; padding-left: 5px; font-size: 18px; color: #333; line-height: 25px; font-family: Georgia"><span class="expandable"><%= title %></span></blockquote>
+  <% } else { %>
     <h4>
       <a class="story-item-title" href="/stories/<%=id%>"><%= title %></a>
     </h4>
     <p><%= description %></p>
-  <% } else { %>
-    <blockquote style="margin-top: 10px; padding-left: 5px;"><span class="expandable"><%= title %></span><span class="expandable"><%= description %></span></blockquote>
   <% } %>
 
   <div class="story-item-meta">

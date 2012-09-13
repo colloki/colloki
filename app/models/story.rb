@@ -242,8 +242,18 @@ class Story < ActiveRecord::Base
       end
 
       if params[:kind]
-        conditions.at(0) << " AND kind = ?"
-        conditions.push(params[:kind])
+        kinds = params[:kind].split(",")
+        conditions.at(0) << " AND ("
+
+        kinds.each_with_index{|kind, index|
+          conditions.at(0) << "kind = ?"
+          if (index < kinds.count - 1)
+            conditions.at(0) << " OR "
+          end
+          conditions.push(kind)
+        }
+
+        conditions.at(0) << ")"
       end
 
       if params[:sort] and params[:sort].to_i == Story::SortExternalPopularity

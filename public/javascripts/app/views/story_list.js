@@ -23,7 +23,7 @@ $(function() {
       this.dateRange = 1;
       this.query = "";
       this.page = 1;
-      this.kind = 2;
+      this.kind = "2";
       this.sort = 1;
       this.paginationBufferPx = 50;
       this.isLoading = false;
