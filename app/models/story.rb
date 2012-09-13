@@ -20,6 +20,7 @@ class Story < ActiveRecord::Base
 
   ScoreFacebookComment = 2
   ScoreFacebookLike = 1
+  ScoreTwitterRetweet = 1
 
   # Sorting criteria
   SortExternalPopularity = 1

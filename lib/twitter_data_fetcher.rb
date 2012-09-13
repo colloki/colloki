@@ -2,11 +2,11 @@ require 'open-uri'
 require 'uri'
 require 'json'
 
-# Fetches facebook stories from a "rss_cacher" installation
-class FacebookDataFetcher
-
+# Fetches tweets from a "rss_cacher" installation
+# TODO: Combine this with FacebookDataFetcher. They are almost the same.
+class TwitterDataFetcher
   CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
-  @@source = CONFIG['fb_datasource']
+  @@source = CONFIG['twitter_datasource']
 
   def initialize(date)
     @stories = get_stories(format_date(date))
@@ -21,9 +21,10 @@ class FacebookDataFetcher
   end
 
   def get_stories(date)
+    puts date
     @stories = []
     path = @@source + "cache/" + date + ".json"
-    puts "Fetching Facebook stories for " + date + "..."
+    puts "Fetching Twitter stories for " + date + "..."
     content = open(path).read
     json = JSON.parse(content)
     json.each do |item|

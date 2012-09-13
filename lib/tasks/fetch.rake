@@ -1,4 +1,3 @@
-
 require "mining_store.rb"
 require "facebook_autoposter.rb"
 require "open-uri"

@@ -1,12 +1,10 @@
-require "facebook_data_fetcher.rb"
+require "twitter_data_fetcher.rb"
 require "open-uri"
 require "uri"
 
-desc "Post stories to VTS from the cached facebook stories"
-
-# Post the facebook stories from a
-# "rss_cacher" (not opensource yet) installation
-task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
+desc "Post stories to VTS from the cached twitter updates. BOOM."
+# TODO: Combine parts of this with fbfetch.rake
+task :twfetch, [:start_date, :end_date] => [:environment] do |t, args|
   begin
     args.with_defaults(:start_date => nil, :end_date => nil)
 
@@ -23,7 +21,7 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
     end
 
     start_date.upto(end_date) do |day|
-      fetcher = FacebookDataFetcher.new(day)
+      fetcher = TwitterDataFetcher.new(day)
 
       # Post stories
       fetcher.stories.each do |story|
@@ -31,11 +29,11 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
 
           # check if the story already exists
           new_story = Story.find(:first, :conditions => {
-            :fb_id => story["fb_id"]
+            :twitter_id => story["twitter_id"]
           })
 
           if new_story
-            puts "Story already exists: " + story["link"]
+            puts "Story already exists: " + story["id"].to_s
           else
             search_text = ""
 
@@ -47,6 +45,7 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
               search_text = search_text + story["description"]
             end
 
+            #TODO: Move this into a separate class
             if search_text != ""
               urls = URI.extract(search_text, ["http", "https"])
               for url in urls
@@ -69,42 +68,29 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
             end
 
             new_story = Story.new
-            new_story.title = story["title"]
+            new_story.title = story["text"]
             new_story.views = 0
-            new_story.kind = Story::Facebook
+            new_story.kind = Story::Twitter
             new_story.source = story["author"]
-            new_story.source_url = story["link"]
+            new_story.source_url = "http://twitter.com/" + story["author"] + "/status/" + story["id"]
             new_story.published_at = story["published_at"]
-            new_story.fb_id = story["fb_id"]
-            new_story.fb_link = story["fb_link"]
-            new_story.fb_likes_count = story["fb_likes_count"]
-            new_story.fb_comments_count = story["fb_comments_count"]
-            new_story.image_url = story["image_url"]
-            new_story.description = story["text"]
-
-            if story["fb_type"] == "status"
-              new_story.fb_type = Story::FacebookTypeStatus
-            elsif story["fb_type"] == "link"
-              new_story.fb_type = Story::FacebookTypeLink
-            else
-              new_story.fb_type = Story::FacebookTypePhoto
-            end
+            new_story.twitter_id = story["twitter_id"]
+            new_story.twitter_retweet_count = story["retweet_count"]
 
             if existing_story
               new_story.related_story_id = existing_story.id
+
               # Increase the external popularity of the existing story.
               puts "Increasing popularity of post: " + existing_story.title
               if (!existing_story.external_popularity)
                 existing_story.external_popularity = 0
               end
-              existing_story.external_popularity += (
-                Story::ScoreFacebookLike * new_story.fb_likes_count +
-                (Story::ScoreFacebookComment * new_story.fb_comments_count))
+              existing_story.external_popularity += Story::ScoreTwitterRetweet * new_story.twitter_retweet_count
               existing_story.save
             end
 
             new_story.save
-            puts "Successfully saved story: " + story["link"]
+            puts "Successfully saved story: " + story["title"]
           end
 
         rescue Exception => e
