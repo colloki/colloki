@@ -35,16 +35,7 @@ task :twfetch, [:start_date, :end_date] => [:environment] do |t, args|
           if new_story
             puts "Story already exists: " + story["id"].to_s
           else
-            search_text = ""
-
-            if story["title"]
-              search_text = search_text + story["title"]
-            end
-
-            if story["description"]
-              search_text = search_text + story["description"]
-            end
-
+            search_text = story["text"]
             #TODO: Move this into a separate class
             if search_text != ""
               urls = URI.extract(search_text, ["http", "https"])
@@ -85,12 +76,15 @@ task :twfetch, [:start_date, :end_date] => [:environment] do |t, args|
               if (!existing_story.external_popularity)
                 existing_story.external_popularity = 0
               end
-              existing_story.external_popularity += 1 + (Story::ScoreTwitterRetweet * new_story.twitter_retweet_count)
+              existing_story.external_popularity += 1
+              if new_story.twitter_retweet_count
+                existing_story.external_popularity += (Story::ScoreTwitterRetweet * new_story.twitter_retweet_count)
+              end
               existing_story.save
             end
 
             new_story.save
-            puts "Successfully saved story: " + story["title"]
+            puts "Successfully saved story: " + story["id"].to_s
           end
 
         rescue Exception => e
