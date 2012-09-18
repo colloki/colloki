@@ -1,4 +1,9 @@
 <div class="story-item">
+  <% if (kind === 4) { %>
+    <img src="http://api.twitter.com/1/users/profile_image/<%=source%>.png" style="height: 35px; width: 35px; border-radius: 5px"/>
+    <a class="has-tooltip" data-placement="bottom" data-delay="300" href="https://twitter.com/<%=source%>" style="font-weight: bold; color: #333; font-size: 14px">@<%= source %></a>
+  <% } %>
+
   <% if (image_src) { %>
     <% if (kind != 3) { %>
       <a href="/stories/<%= id %>">
@@ -9,9 +14,9 @@
   <% } %>
 
   <% if (kind == 3) { %>
-    <blockquote style="margin-top: 10px; padding-left: 5px;"><span class="expandable"><%= title %></span><span class="expandable"><%= description %></span></blockquote>
+    <blockquote style="margin-top: 10px; padding-left: 0px; font-size: 16px; font-family: Georgia; border: none;"><span class="expandable"><%= title %></span><span class="short-expandable"><%= description %></span></blockquote>
   <% } else if (kind == 4) { %>
-    <blockquote style="margin-top: 10px; padding-left: 5px; font-size: 18px; color: #333; line-height: 25px; font-family: Georgia"><span class="expandable"><%= title %></span></blockquote>
+    <blockquote style="margin-top: 10px; padding-left: 0px; font-size: 16px; color: #333; line-height: 20px; font-family: Georgia; border: none;"><span class="short-expandable"><%= title %></span></blockquote>
   <% } else { %>
     <h4>
       <a class="story-item-title" href="/stories/<%=id%>"><%= title %></a>
@@ -20,36 +25,40 @@
   <% } %>
 
   <div class="story-item-meta">
-    <div class="favicon">
-      <a href="<%= icon_url %>"><img src="<%= icon_src %>" /></a>
-    </div>
-
-    <% if (kind == 1) { %>
-      <a href="<%= icon_url %>"><%= user.login %></a>
-    <% } else { %>
-      <a title="View original article" class="has-tooltip" data-placement="bottom" data-delay="300" href="<%= icon_url %>"><%= source %></a>
+    <% if (kind != 4 && kind != 3) { %>
+      <div class="favicon">
+        <a href="<%= icon_url %>"><img src="<%= icon_src %>" /></a>
+      </div>
     <% } %>
 
-    · <%= pretty_timestamp %>
+    <% if (kind == 1) { %>
+      <a href="<%= icon_url %>"><%= user.login %></a> ·
+    <% } else if (kind != 4) { %>
+      <a title="View original article" class="has-tooltip" data-placement="bottom" data-delay="300" href="<%= icon_url %>"><%= source %></a> ·
+    <% } %>
+
+    <a href="<%= icon_url %>" style="color:#888">
+      <%= pretty_timestamp %>
+    </a> 
 
     <% if (kind == 3) { %>
       <br>
       <%= fb_likes_count %> Likes
       · <%= fb_comments_count %> Comments
-    <% } else if (kind == 4) { %>
-      · <%= twitter_retweet_count ? twitter_retweet_count : 0 %> retweets
     <% } %>
 
-    <div class="story-item-buttons">
-      <a href="#story-modal-<%= id %>" class="comment-count has-tooltip btn btn-mini" data-toggle="modal" title="<%= comments.length %> comments">
-        <i class="icon-comment"></i>
-        <span class="comment-count-value"><%= comments.length %></span>
-      </a>
+    <% if (kind != 4 && kind !=3) { %>
+      <div class="story-item-buttons">
+        <a href="#story-modal-<%= id %>" class="comment-count has-tooltip btn btn-mini" data-toggle="modal" title="<%= comments.length %> comments">
+          <i class="icon-comment"></i>
+          <span class="comment-count-value"><%= comments.length %></span>
+        </a>
 
-      <a class="story-like<%= id %> like-btn btn btn-mini btn-success has-tooltip">
-        <i class='icon-star-empty icon-white'></i>
-        <span class="like-count"></span>
-      </a>
-    </div>
+        <a class="story-like<%= id %> like-btn btn btn-mini btn-success has-tooltip">
+          <i class='icon-star-empty icon-white'></i>
+          <span class="like-count"></span>
+        </a>
+      </div>
+    <% } %>
   </div>
 </div>

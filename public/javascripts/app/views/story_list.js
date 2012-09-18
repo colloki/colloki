@@ -82,7 +82,6 @@ $(function() {
       });
 
       this.$stories.append(view.render().el);
-      this.render();
     },
 
     nextPage: function() {
@@ -131,6 +130,7 @@ $(function() {
         }
 
         this.isLoading = false;
+        this.render();
       }, this));
     },
 

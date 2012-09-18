@@ -27,9 +27,9 @@ $(document).ready(function(e) {
     userCollapseText: 'Read Less'
   });
 
-  $(".fb-expandable").expander({
+  $(".short-expandable").expander({
     expandText      : 'more',
-    slicePoint      : 200,
+    slicePoint      : 150,
     userCollapseText: 'less'
   });
 });

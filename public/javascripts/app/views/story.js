@@ -29,7 +29,7 @@ $(function() {
 
       // If it is a tweet, linkify @author and #hashtags
       if (story.kind === 4) {
-        story.title = this.linkifyTweet(story.title);
+        story.title = this.formatTweet(story.title);
       }
 
       if (story.published_at) {
@@ -46,7 +46,6 @@ $(function() {
       if (text.length > this.textLength) {
         text = text.substring(0, this.textLength) + "...";
       }
-
       return this.replaceURLWithHTMLLinks(text);
     },
 
@@ -56,7 +55,7 @@ $(function() {
       return text.replace(exp,"<a href='$1'>$1</a>");
     },
 
-    linkifyTweet: function(tweet) {
+    formatTweet: function(tweet) {
       tweet = tweet.replace(/(^|\s)@(\w+)/g, '$1@<a href="http://www.twitter.com/$2">$2</a>');
       return tweet.replace(/(^|\s)#(\w+)/g, '$1#<a href="http://search.twitter.com/search?q=%23$2">$2</a>');
     },
