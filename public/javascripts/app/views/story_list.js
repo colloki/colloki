@@ -36,7 +36,7 @@ $(function() {
       this.delegateEvents();
       this.collection = new Stories();
       this.$stories = $(".topic-stories", this.$el);
-      this.dateRange = 1;
+      this.dateRange = 4;
       this.query = "";
       this.page = 1;
       this.kind = "2";
@@ -170,7 +170,7 @@ $(function() {
       this.loadOnScroll = true;
 
       var $el = $(event.target);
-      this.selectButton($el);
+      this.selectNavPill($el);
       this.sort = $el.data("value");
       this.reset();
     },
@@ -265,6 +265,12 @@ $(function() {
 
       this.likedBy = $el.data("value");
       this.reset();
+
+      this.$topicFilter.hide();
+      this.$sourceFilter.hide();
+      this.$dateFilter.hide();
+      this.$queryFilter.hide();
+      this.$sort.hide();
     },
 
     showEvents: function(event) {

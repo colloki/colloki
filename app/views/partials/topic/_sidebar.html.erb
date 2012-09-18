@@ -61,14 +61,14 @@
   <!-- Sort by Popularity or Date -->
   <div class="filter filter-sort">
     <h4>Sort By</h4>
-    <div class="row-fluid">
-      <div class="btn-toolbar">
-        <div class="btn-group">
-          <a class="btn btn-small active sort" data-value="1">Popularity</a>
-          <a class="btn btn-small sort" data-value="2">Date</a>
-        </div>
-      </div>
-    </div>
+    <ul class="nav nav-stacked nav-pills">
+      <li class="active">
+        <a class="sort" data-value="1">Popularity</a>
+      </li>
+      <li>
+        <a class="sort" data-value="2">Date</a>
+      </li>
+    </ul>
   </div>
 
   <!-- Filter by date -->
@@ -76,10 +76,9 @@
     <h4>Date</h4>
     <div class="btn-toolbar">
       <div class="btn-group">
-        <a class="btn btn-small active date-range" data-value="1">All</a>
+        <a class="btn btn-small active date-range" data-value="4">This Week</a>
         <a class="btn btn-small date-range" data-value="2">Today</a>
-        <a class="btn btn-small date-range" data-value="3">Yesterday</a>
-        <a class="btn btn-small date-range" data-value="4">This Week</a>
+        <a class="btn btn-small date-range" data-value="1">All</a>
       </div>
     </div>
   </div>
