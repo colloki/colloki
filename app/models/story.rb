@@ -226,7 +226,7 @@ class Story < ActiveRecord::Base
           end_date = Date.today
         elsif params[:range].to_i == Story::DateRangeLastWeek
           start_date = 1.week.ago
-          end_date = Date.today
+          end_date = Date.tomorrow
         end
 
         if start_date and end_date
