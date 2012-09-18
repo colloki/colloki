@@ -27,6 +27,11 @@ $(function() {
         story.description = this.formatText(story.description);
       }
 
+      // If it is a tweet, linkify @author and #hashtags
+      if (story.kind === 4) {
+        story.title = this.linkifyTweet(story.title);
+      }
+
       if (story.published_at) {
         story.pretty_timestamp = moment(story.published_at).fromNow();
       } else {
@@ -49,6 +54,11 @@ $(function() {
     replaceURLWithHTMLLinks: function(text) {
       var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
       return text.replace(exp,"<a href='$1'>$1</a>");
+    },
+
+    linkifyTweet: function(tweet) {
+      tweet = tweet.replace(/(^|\s)@(\w+)/g, '$1@<a href="http://www.twitter.com/$2">$2</a>');
+      return tweet.replace(/(^|\s)#(\w+)/g, '$1#<a href="http://search.twitter.com/search?q=%23$2">$2</a>');
     },
 
     render: function() {
