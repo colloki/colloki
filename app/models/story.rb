@@ -106,8 +106,8 @@ class Story < ActiveRecord::Base
     self.popularity = self.popularity - score
   end
 
-  def facebook_posts
-    Story.find(:all, :conditions=>{:related_story_id=>self.id})
+  def related_posts
+    Story.find(:all, :conditions=>{:related_story_id => self.id})
   end
 
   def self.add_metadata(stories)

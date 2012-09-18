@@ -43,9 +43,9 @@
       :story => @story
     } %>
 
-    <!-- Related Facebook Posts -->
-    <%= render :partial => "partials/story/facebook_posts", :locals => {
-      :posts => @facebook_posts
+    <!-- Related Facebook and Twitter posts -->
+    <%= render :partial => "partials/story/related_posts", :locals => {
+      :posts => @related_posts
     }
     %>
 

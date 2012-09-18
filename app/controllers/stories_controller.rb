@@ -74,7 +74,7 @@ class StoriesController < ApplicationController
       @user_id = -1
     end
 
-    @facebook_posts = @story.facebook_posts
+    @related_posts = @story.related_posts
 
     respond_to do |format|
       format.html # show.html.erb
