@@ -99,13 +99,6 @@
   <%= render :partial => "partials/description/signin", :locals => {
     :url => login_url
   } %>
-  <hr>
-<% end %>
-
-<!-- New users -->
-<% if @is_frontpage and new_users and new_users.count != 0 %>
-  <h4>Who joined recently</h4>
-  <%= render :partial => "partials/new_users", :locals => {:users => new_users} %>
 <% end %>
 
 <%= render :partial => 'partials/footer' %>
