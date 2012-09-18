@@ -1,18 +1,38 @@
 <h4>Sources</h4>
 
-<div class="row-fluid"><input name="source" class="source" type="radio" checked data-value=""/> All</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Blacksburg Electronic Village"/> Blacksburg Electronic Village</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Blue Ridge Muse"/> Blue Ridge Muse</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Collegiate Times"/> Collegiate Times</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Depotdazed"/> Depotdazed</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Montgomery County VA"/> Montgomery County VA</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="NRV News"/> NRV News</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="New River Voice"/> New River Voice</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Our Valley"/> Our Valley</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Progress and Main" /> Progress and Main</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Southwest Virginia Blog"/> Southwest Virginia Blogs</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="SWVA Today"/> SWVA Today</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Town of Blacksburg"/> Town of Blacksburg</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="The Burgs Blog"/> The Burgs Blog</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="The Southwest Times"/> The Southwest Times</div>
-<div class="row-fluid"><input name="source" class="source" type="radio" data-value="Virginia Tech"/> Virginia Tech</div>
+<!-- TODO: Dynamically load this list -->
+
+<% sources = [
+    "Blacksburg Electronic Village",
+    "Blue Ridge Muse",
+    "Collegiate Times",
+    "Depotdazed",
+    "Montgomery County VA",
+    "NRV News",
+    "New River Voice",
+    "Our Valley",
+    "New River Voice",
+    "Progress and Main",
+    "Southwest Virginia Blogs",
+    "SWVA Today",
+    "Town of Blacksburg",
+    "The Burgs Blog",
+    "The Southwest Times",
+    "Virginia Tech"
+]
+%>
+
+<div class="controls">
+    <!-- TODO: Make these checkboxes instead of radio buttons -->
+    <label class="radio">
+        <input name="source" class="source" type="radio" checked data-value="" /> 
+        All
+    </label>
+
+    <% for source in sources %>
+        <label class="radio">
+            <input name="source" class="source" type="radio" data-value="<%= source %>" /> 
+            <%= source %>
+        </label>
+    <% end %>
+</div>
