@@ -12,11 +12,26 @@ $(function() {
       "click .kind": "filterByKind",
       "keypress .search": "filterByQuery",
       "click .liked": "filterByLikedBy",
+      "click .sort": "sortBy",
       "click .events": "showEvents"
     },
 
     initialize: function() {
-      _.bindAll(this, "render", "append", "filterBySource", "filterByDateRange", "onScroll");
+      _.bindAll(this, 
+        "render", 
+        "append", 
+        "showEvents",
+        "selectButton",
+        "selectNavPill",
+        "onScroll",
+        "sortBy",
+        "filterBySource", 
+        "filterByDateRange", 
+        "filterByTopic",
+        "filterByKind",
+        "filterByQuery",
+        "filterByLikedBy");
+
       this.delegateEvents();
       this.collection = new Stories();
       this.$stories = $(".topic-stories", this.$el);
@@ -28,9 +43,12 @@ $(function() {
       this.paginationBufferPx = 50;
       this.isLoading = false;
       this.likedBy = -1;
+
       this.$sourceFilter = $(".filter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
       this.$dateFilter = $(".filter-date", this.$el);
+      this.$sort = $(".filter-sort", this.$el);
+
       this.loadOnScroll = true;
 
       if (this.options.topic) {
@@ -120,93 +138,17 @@ $(function() {
       $.getJSON(request, callback);
     },
 
-    filterBySource: function(event) {
-      this.query = $(event.target).data("value");
-      this.likedBy = -1;
-      this.reset();
-    },
-
-    filterByDateRange: function(event) {
-      this.loadOnScroll = true;
-      var $el = $(event.target);
+    selectButton: function($el) {
       $el.addClass("active").siblings().removeClass("active");
-      this.dateRange = $el.data("value");
-      this.likedBy = -1;
-      this.reset();
     },
 
-    filterByTopic: function(event) {
-      this.loadOnScroll = true;
-      event.preventDefault();
-      var $el = $(event.target);
-      var $li = $el.parent("li");
-      $li.addClass("active").siblings().removeClass("active");
-      this.topic = $el.data("id");
-      this.likedBy = -1;
-      this.reset();
-    },
-
-    filterByKind: function(event) {
-      this.loadOnScroll = true;
-      event.preventDefault();
-      var $el = $(event.target);
+    selectNavPill: function($el) {
       var $li = $el.parent("li");
       $li.addClass("active")
         .find("i").addClass("icon-white")
         .end()
         .siblings().removeClass("active")
         .find("i").removeClass("icon-white");
-      this.kind = $el.data("value");
-      if (this.kind != "2") {
-        this.$topicFilter.hide();
-        this.$sourceFilter.hide();
-      } else {
-        this.$topicFilter.show();
-        this.$sourceFilter.show();
-      }
-      this.likedBy = -1;
-      this.reset();
-    },
-
-    filterByQuery: function(event) {
-      this.loadOnScroll = true;
-      if (event.charCode != 13) {return;}
-      event.preventDefault();
-      var $el = $(event.target);
-      this.query = $el.val();
-      $el.val("");
-      this.likedBy = -1;
-      this.reset();
-    },
-
-    filterByLikedBy: function(event) {
-      event.preventDefault();
-      this.loadOnScroll = true;
-      var $el = $(event.target);
-      var $li = $el.parent("li");
-      $li.addClass("active")
-        .find("i").addClass("icon-white")
-        .end()
-        .siblings().removeClass("active")
-        .find("i").removeClass("icon-white");
-      this.likedBy = $el.data("value");
-      this.reset();
-    },
-
-    showEvents: function(event) {
-      event.preventDefault();
-      var $el = $(event.target);
-      var $li = $el.parent("li");
-      $li.addClass("active")
-        .find("i").addClass("icon-white")
-        .end()
-        .siblings().removeClass("active")
-        .find("i").removeClass("icon-white");
-        this.$stories.html(this.eventsHTML);
-      this.loadOnScroll = false;
-      this.$topicFilter.hide();
-      this.$sourceFilter.hide();
-      this.$dateFilter.hide();
     },
 
     onScroll: function() {
@@ -217,6 +159,113 @@ $(function() {
       if (pixelsFromWindowBottomToBottom - this.paginationBufferPx < 0) {
         this.nextPage();
       }
+    },
+
+    /** Filters **/
+
+    sortBy: function(event) {
+      event.preventDefault();
+      this.loadOnScroll = true;
+
+      var $el = $(event.target);
+      this.selectButton($el);
+      this.sort = $el.data("value");
+      this.reset();
+    },
+
+    filterBySource: function(event) {
+      this.query = $(event.target).data("value");
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByDateRange: function(event) {
+      event.preventDefault();
+      this.loadOnScroll = true;
+
+      var $el = $(event.target);
+      this.selectButton($el);
+      this.dateRange = $el.data("value");
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByTopic: function(event) {
+      event.preventDefault();
+      this.loadOnScroll = true;
+
+      var $el = $(event.target);
+      this.selectNavPill($el);
+
+      this.topic = $el.data("id");
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByKind: function(event) {
+      event.preventDefault();
+      this.loadOnScroll = true;
+
+      var $el = $(event.target);
+      this.selectNavPill($el);
+      
+      this.kind = $el.data("value");
+
+      if (this.kind != "2") {
+        this.$topicFilter.hide();
+        this.$sourceFilter.hide();
+      } else {
+        this.$topicFilter.show();
+        this.$sourceFilter.show();
+      }
+
+      this.$dateFilter.show();
+      this.$sort.show();
+
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByQuery: function(event) {
+      if (event.charCode != 13) {
+        return;
+      }
+
+      event.preventDefault();
+      this.loadOnScroll = true;
+
+      var $el = $(event.target);
+      this.query = $el.val();
+      $el.val("");
+
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    filterByLikedBy: function(event) {
+      event.preventDefault();
+      this.loadOnScroll = true;
+
+      var $el = $(event.target);
+      this.selectNavPill($el);
+
+      this.likedBy = $el.data("value");
+      this.reset();
+    },
+
+    showEvents: function(event) {
+      event.preventDefault();
+      this.loadOnScroll = false;
+      
+      var $el = $(event.target);
+      this.selectNavPill($el);
+
+      this.$stories.html(this.eventsHTML);
+        
+      this.$topicFilter.hide();
+      this.$sourceFilter.hide();
+      this.$dateFilter.hide();
+      this.$sort.hide();
     }
   });
 });
