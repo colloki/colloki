@@ -1,18 +1,4 @@
-<!-- Topic keywords -->
-<% if topic and topic.topic_keywords %>
-  <div class="filter">
-    <h4>
-      [ <%= topic.title %> ]
-    </h4>
-    <%= render :partial => "partials/topic/cloud", :locals => { :id => 10, :topic => topic } %>
-  </div>
-<% end %>
-
-<!-- Search -->
-<div class="filter-search filter">
-  <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
-</div>
-
+<!-- Filter by Kind -->
 <div class="filter filter-kind">
   <ul class="nav nav-stacked nav-pills">
     <!-- News -->
@@ -38,6 +24,21 @@
       </li>
     <% end %>
   </ul>
+</div>
+
+<!-- Topic keywords -->
+<% if topic and topic.topic_keywords %>
+  <div class="filter">
+    <h4>
+      [ <%= topic.title %> ]
+    </h4>
+    <%= render :partial => "partials/topic/cloud", :locals => { :id => 10, :topic => topic } %>
+  </div>
+<% end %>
+
+<!-- Search -->
+<div class="filter-search filter">
+  <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
 </div>
 
 <!-- Filter by source -->

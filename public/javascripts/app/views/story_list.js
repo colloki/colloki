@@ -10,7 +10,7 @@ $(function() {
       "click .date-range": "filterByDateRange",
       "click .topic": "filterByTopic",
       "click .kind": "filterByKind",
-      "keypress .search": "filterByQuery",
+      "keyup .search-query": "filterByQuery",
       "click .liked": "filterByLikedBy",
       "click .sort": "sortBy",
       "click .events": "showEvents"
@@ -24,6 +24,7 @@ $(function() {
         "selectButton",
         "selectNavPill",
         "onScroll",
+        "resetQuery",
         "sortBy",
         "filterBySource", 
         "filterByDateRange", 
@@ -47,6 +48,7 @@ $(function() {
       this.$sourceFilter = $(".filter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
       this.$dateFilter = $(".filter-date", this.$el);
+      this.$queryFilter = $(".filter-search", this.$el);
       this.$sort = $(".filter-sort", this.$el);
 
       this.loadOnScroll = true;
@@ -220,26 +222,38 @@ $(function() {
       }
 
       this.$dateFilter.show();
+      this.$queryFilter.show();
       this.$sort.show();
 
       this.likedBy = -1;
+      this.resetQuery();
       this.reset();
     },
 
+    resetQuery: function() {
+      this.query = "";
+      $(".search-query", this.$el).val("");
+    },
+
     filterByQuery: function(event) {
-      if (event.charCode != 13) {
-        return;
+      if (event.keyCode === 27) {
+        event.preventDefault();
+        var $el = $(event.target);
+        if ($el.val() === "") {
+          return;
+        }
+        this.resetQuery();
+        this.reset();
+      } else if (event.keyCode === 13) {
+        event.preventDefault();
+        this.loadOnScroll = true;
+
+        var $el = $(event.target);
+        this.query = $el.val();
+
+        this.likedBy = -1;
+        this.reset();
       }
-
-      event.preventDefault();
-      this.loadOnScroll = true;
-
-      var $el = $(event.target);
-      this.query = $el.val();
-      $el.val("");
-
-      this.likedBy = -1;
-      this.reset();
     },
 
     filterByLikedBy: function(event) {
@@ -265,6 +279,7 @@ $(function() {
       this.$topicFilter.hide();
       this.$sourceFilter.hide();
       this.$dateFilter.hide();
+      this.$queryFilter.hide();
       this.$sort.hide();
     }
   });
