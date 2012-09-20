@@ -136,6 +136,14 @@ class Story < ActiveRecord::Base
     self.add_metadata(stories)
   end
 
+  def self.latest_for_rss
+    # Don't include Twitter and Facebook in the RSS feed.
+    find :all, 
+      :conditions => ["kind != ? and kind != ?", Story::Facebook, Story::Twitter],
+      :order => "published_at DESC", 
+      :limit => 20
+  end
+
   def self.latest(page, should_paginate=true)
     if should_paginate
       stories = page(page).order("published_at DESC")
