@@ -3,24 +3,11 @@
 </h3>
 <hr>
 <div class="row-fluid">
-  <div class="span7 pull-left" style="margin-top: 10px;">
-
-    <div class="row-fluid" style="text-align: center; margin-bottom: 20px">
+  <div class="span7 pull-left" style="margin-top: 50px;">
+    <div class="row-fluid" style="text-align: center;">
       <h3>
         Stay Informed. Debate. Decide.
       </h3>
-    </div>
-
-    <div class="row-fluid" style='margin: auto;'>
-      <div class='slideshow'>
-        <% @stories.each do |story| %>
-          <%= link_to image_tag(story.image.url), story_url(story),
-              :title => story.title,
-              :class => 'has-tooltip',
-              'data-placement' => 'top'
-          %>
-        <% end %>
-      </div>
     </div>
   </div>
 
@@ -88,17 +75,3 @@
     </div>
   </div>
 </div>
-
-<%= javascript_include_tag "libs/jquery.cycle.js" %>
-<%= javascript_include_tag "libs/shuffle.js" %>
-
-<script type="text/javascript">
- $(document).ready(function() {
-  // getting links to work in slideshow
-  $('.slideshow a').shuffle();
-  $('.slideshow').cycle({
-    fx: 'fade',
-    timeout: 5000
-  });
-});
-</script>
