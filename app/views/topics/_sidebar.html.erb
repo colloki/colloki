@@ -1,12 +1,10 @@
-
-
 <!-- Topic keywords -->
 <% if topic and topic.topic_keywords %>
   <div class="filter">
     <h4>
       [ <%= topic.title %> ]
     </h4>
-    <%= render :partial => "partials/topic/cloud", :locals => { :id => 10, :topic => topic } %>
+    <%= render :partial => "topics/cloud", :locals => { :id => 10, :topic => topic } %>
   </div>
 <% end %>
 
@@ -43,7 +41,7 @@
   <div class="filter filter-topic">
     <h4>In the News</h4>
     <div class="row-fluid" style="margin-left: -10px">
-      <%= render :partial => "partials/topic/navigation",
+      <%= render :partial => "topics/navigation",
         :locals => {
           :topics => @today_topics,
           :story => @story,
@@ -85,7 +83,7 @@
 
   <!-- Filter by source -->
   <div class="filter filter-source">
-    <%= render :partial => "partials/topic/filter/source" %>
+    <%= render :partial => "topics/source_filter" %>
   </div>
 <% end %>
 

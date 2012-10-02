@@ -3,7 +3,7 @@
   </div>
 
   <div class="span2 sidebar hidden-phone" style="margin-left: 0px; min-width: 300px; margin-top: 10px;">
-    <%= render :partial => "partials/topic/sidebar",
+    <%= render :partial => "topics/sidebar",
       :locals => {
         :stories => stories,
         :tags => tags,
@@ -14,3 +14,10 @@
     %>
   </div>
 </div>
+
+<%= render :partial => "topics/footer",
+  :locals => {
+    :stories => @stories,
+    :topic => (defined? topic) ? topic : nil
+  } 
+%>

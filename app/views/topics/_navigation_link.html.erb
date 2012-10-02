@@ -5,7 +5,7 @@
   <% else %>
     <li>
   <% end %>
-  <% keyword_content = render :partial => 'partials/topic/text_keywords',
+  <% keyword_content = render :partial => 'topics/text_keywords',
       :locals => {:topic => topic} %>
   <%= link_to "[ " << topic.title << " ]",
     topical_path(topic),

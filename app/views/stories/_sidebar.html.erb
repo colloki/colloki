@@ -18,7 +18,7 @@
     </strong>
   </h4>
   <% for a_story in more_stories %>
-    <%= render :partial=>"partials/story/sidebar_story", :locals => {:story => a_story} %>
+    <%= render :partial=>"stories/sidebar_story", :locals => {:story => a_story} %>
   <% end %>
   <hr>
 <% end %>
@@ -27,7 +27,7 @@
 <% if more_stories_from_source and more_stories_from_source.count != 0 %>
   <h4>More from <%= story.source %></h4>
   <% for a_story in more_stories_from_source %>
-    <%= render :partial=>"partials/story/sidebar_story", :locals => {:story => a_story} %>
+    <%= render :partial=>"stories/sidebar_story", :locals => {:story => a_story} %>
   <% end %>
   <hr>
 <% end %>

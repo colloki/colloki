@@ -1,7 +1,0 @@
-$(document).ready(function(e) {
-  var storyList = new window.StoryListView({
-    el: $(".topic-body"),
-    topic: <%= topic.to_json.html_safe %>,
-    current_user: <%= current_user.to_json.html_safe %>
-  });
-});

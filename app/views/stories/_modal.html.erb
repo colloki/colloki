@@ -3,13 +3,13 @@
     <div class="row">
       <div class="span6" style="width: 325px">
         <div class="row" style="margin-left: 0px;">
-          <%= render :partial => "partials/story/meta",
+          <%= render :partial => "stories/meta",
             :locals => {:story => story}
           %>
         </div>
       </div>
     </div>
-    <%= render :partial => "partials/story/body", :locals => {
+    <%= render :partial => "stories/body", :locals => {
       :story => story
     } %>
   </div>

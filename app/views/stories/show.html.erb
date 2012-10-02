@@ -1,6 +1,6 @@
 
 <!-- Story Header -->
-<%= render :partial => "partials/story/header",
+<%= render :partial => "stories/header",
   :locals => {:story => @story}
 %>
 
@@ -10,7 +10,7 @@
     <!-- Story Meta -->
     <div class="row-fluid hidden-phone">
       <div class="span6 story-meta">
-        <%= render :partial => "partials/story/meta",
+        <%= render :partial => "stories/meta",
           :locals => {:story => @story}
         %>
       </div>
@@ -26,7 +26,7 @@
           </a>
         </div>
 
-        <%= render :partial => "partials/story/share_buttons",
+        <%= render :partial => "stories/share",
           :locals => { :story => @story }
         %>
       </div>
@@ -35,30 +35,30 @@
 
     <% if @story.kind != Story::Rss and logged_in? and @story.user_id == current_user.id %>
       <div class="row pull-right">
-        <%= render :partial => "partials/story/edit_btn",
+        <%= render :partial => "stories/edit_btn",
           :locals => {:story => @story}
         %>
       </div>
     <% end %>
 
     <!-- Story Body -->
-    <%= render :partial => "partials/story/body", :locals => {
+    <%= render :partial => "stories/body", :locals => {
       :story => @story
     } %>
 
     <!-- Related Facebook and Twitter posts -->
-    <%= render :partial => "partials/story/related_posts", :locals => {
+    <%= render :partial => "stories/related_posts", :locals => {
       :posts => @related_posts
     }
     %>
 
     <!-- Story Likers -->
-    <%= render :partial => "partials/story/likers",
+    <%= render :partial => "stories/likers",
       :locals => {:story => @story, :users => @likers}
     %>
 
     <!-- Story Comments -->
-    <%= render :partial => "partials/story/comments",
+    <%= render :partial => "stories/comments",
       :locals => {:story => @story }
     %>
 
@@ -72,7 +72,7 @@
 
   <!-- Story Sidebar -->
   <div class="sidebar story-sidebar span4 hidden-phone">
-    <%= render :partial => "partials/story/sidebar", :locals => {
+    <%= render :partial => "stories/sidebar", :locals => {
         :story => @story,
         :more_stories => (defined? @more_stories) ? @more_stories : nil,
         :more_stories_from_source => @more_stories_from_source,
@@ -86,7 +86,7 @@
 </div>
 
 <!-- Story Footer -->
-<%= render :partial => "partials/story/footer", :locals => {
+<%= render :partial => "stories/footer", :locals => {
     :story => @story,
     :current_user => current_user
   }
