@@ -3,10 +3,7 @@
   <div class="comment-entries"></div>
   <h4>Post a comment</h4>
   <% if logged_in? %>
-    <%= text_area "comment",
-      "body",
-      :class => "span12 comment-body",
-      :rows => "6" %>
+    <%= text_area "comment", "body", :class => "span12 comment-body", :rows => "6" %>
     <br>
     <%= submit_tag "Post Comment", :class => "btn btn-small btn-primary add-comment" %>
   <% else %>

@@ -1,0 +1,7 @@
+$(document).ready(function(e) {
+  this.likeView = new LikeView({
+    el: $(".like-btn", $(".story")),
+    story: <%= story.to_json(:include => :votes).html_safe %>,
+    current_user: <%= current_user.to_json.html_safe %>
+  });
+});
