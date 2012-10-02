@@ -1,5 +1,5 @@
 $(function() {
   window.Like = Backbone.Model.extend({
-    urlRoot: APP_ROOT_PATH + 'likes'
+    urlRoot: APP_ROOT_PATH + 'votes'
   });
 });

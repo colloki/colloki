@@ -12,6 +12,8 @@ javascripts:
     - public/javascripts/libs/underscore.js
     - public/javascripts/libs/backbone.js
     - public/javascripts/libs/backbone_rails_sync.js
+    - public/javascripts/libs/d3.v2.min.js
+    - public/javascripts/libs/d3.layout.cloud.js
     - public/javascripts/libs/*.js
     - public/javascripts/app/**/*.js
     - public/javascripts/app/**/*.ejs

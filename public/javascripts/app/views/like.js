@@ -88,21 +88,19 @@ $(function() {
 
     add: function() {
       this.model = new Like();
-
-      var self = this;
-
       this.model.save({
-        story_id: this.story.id}, {
-        success: function(model, response) {
-          if (!this.$liker || this.$liker.length === 0) {
-            self.$likers.append(JST.story_liker({
-              count: self.count,
-              user: self.user,
-              gravatar_url: get_gravatar_url(self.user.email, 24),
-              exists: self.$likers.find("h4").length == 1
+        story_id: this.story.id
+      }, {
+        success: _.bind(function(model, response) {
+          if (!this.$liker || !this.$liker.length == 0) {
+            this.$likers.append(JST.story_liker({
+              count: this.count,
+              user: this.user,
+              gravatar_url: get_gravatar_url(this.user.email, 24),
+              exists: this.$likers.find("h4").length == 1
             }));
           }
-        }
+        }, this)
       });
 
       this.count++;
@@ -111,11 +109,11 @@ $(function() {
     },
 
     remove: function() {
-      var self = this;
-
-      this.model.destroy({success: function(model, response) {
-        this.$liker.remove();
-      }});
+      this.model.destroy({
+        success: _.bind(function(model, response) {
+          this.$liker.remove();
+        }, this)
+      });
 
       this.count--;
       this.state = 0;
