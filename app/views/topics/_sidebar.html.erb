@@ -9,6 +9,11 @@
 <% end %>
 
 <% if @is_frontpage %>
+  <!-- Search -->
+  <div class="filter-search filter">
+    <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
+  </div>
+  
   <!-- Filter by Kind -->
   <div class="filter filter-kind">
     <ul class="nav nav-stacked nav-pills">
@@ -37,6 +42,19 @@
     </ul>
   </div>
 
+  <!-- Sort by Popularity or Date -->
+  <div class="filter filter-sort">
+    <h4>Sort By</h4>
+    <ul class="nav nav-stacked nav-pills">
+      <li class="active">
+        <a class="sort" data-value="1">Popularity</a>
+      </li>
+      <li>
+        <a class="sort" data-value="2">Date</a>
+      </li>
+    </ul>
+  </div>
+
   <!-- Sort by Topic -->
   <div class="filter filter-topic">
     <h4>In the News</h4>
@@ -49,24 +67,6 @@
         }
       %>
     </div>
-  </div>
-
-  <!-- Search -->
-  <div class="filter-search filter">
-    <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
-  </div>
-
-  <!-- Sort by Popularity or Date -->
-  <div class="filter filter-sort">
-    <h4>Sort By</h4>
-    <ul class="nav nav-stacked nav-pills">
-      <li class="active">
-        <a class="sort" data-value="1">Popularity</a>
-      </li>
-      <li>
-        <a class="sort" data-value="2">Date</a>
-      </li>
-    </ul>
   </div>
 
   <!-- Filter by date -->
@@ -86,8 +86,6 @@
     <%= render :partial => "topics/source_filter" %>
   </div>
 <% end %>
-
-<hr>
 
 <!-- Sign Up Note-->
 <% if !logged_in? %>
