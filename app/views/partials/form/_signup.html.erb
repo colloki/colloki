@@ -1,5 +1,5 @@
 <%= form_for :user, :url => users_path, :html => { :class => "form-horizontal" } do |f| %>
-  <%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
+  <%= errors_for(@user, "Oh, looks like a few things went wrong").html_safe %>
 
   <div class="control-group">
     <label class="control-label">
@@ -21,7 +21,7 @@
   </div>
 
   <div class="control-group">
-    <label for="password">
+    <label class="control-label" for="password">
       Password <span class="important">*</span>
     </label>
     <div class="controls">
@@ -32,18 +32,20 @@
 
   <div class="form-actions">
     <button type="submit" class="btn btn-primary">
-      Create my account
+      Create my account!
     </button>
   </div>
 
   <div class='control-group'>
-    <h2>Or, you can also...</h2>
     <div class='controls'>
-      <br>
-      <%= link_to image_tag("sign-in-with-twitter.png", 
-        :alt => "Sign in with Twitter"), "auth/twitter" %>
-
-      <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
+      <div class="row-fluid">
+        <div class="span2 pull-left" style="width: 155px">
+          <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
+        </div>
+        <div class="span1 pull-left" style="width: 160px">
+          <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

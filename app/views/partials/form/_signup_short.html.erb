@@ -1,26 +1,24 @@
-<div style='font-size: 18px'>
-  <strong>New here?</strong> Sign Up!
-</div>
-<br>
-<%= form_for :user, :url => users_path, :html => { :class => "form-horizontal well" } do |f| %>
+<%= form_for :user, :url => users_path, :html => { :class => "well" } do |f| %>
+  <div style="margin-bottom: 20px; font-size: 16px">
+    <strong>New to VTS?</strong> Sign Up!
+  </div>
+  
   <%= errors_for(@user, "Oops - a few things went wrong").html_safe %>
 
-  <div class="control-group" style="margin: 5px 0">
+  <div class="controls">
     <%= f.text_field :login, :placeholder => "Username", :style => "width: 250px" %>
   </div>
-
-  <div class="control-group" style="margin: 5px 0">
+  <div class="controls">
     <%= f.text_field :email, :placeholder => "Email", :style => "width: 250px" %>
   </div>
-
-  <div class="control-group" style="margin: 5px 0">
+  <div class="controls">
     <%= f.password_field :password, :placeholder => "Password", :style => "width: 250px" %>
   </div>
-  <div class="control-group" style="margin-bottom: 0px; margin-top: 10px;">
-    <div class="row-fluid pull-right">
-      <button type="submit" class="btn btn-success">
-        Sign Up
-      </button>
-    </div>
+
+  <div class="controls">
+    <button type="submit" class="btn btn-success">
+      Sign Up
+    </button>
   </div>
+
 <% end %>

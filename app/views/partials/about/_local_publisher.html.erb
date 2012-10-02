@@ -4,44 +4,43 @@ Our goal is to make local information more accessible to everyone.
 
 <br><br>
 
-<a href="#local-publisher-modal" class='btn btn-small btn-primary' data-toggle="modal">
-  Suggest your blog or site
+<a href="#local-publisher-modal" class='btn btn-primary' data-toggle="modal">
+  Suggest a Blog
 </a>
 
 <div class="modal hide" id="local-publisher-modal">
   <div class="modal-header">
     <a data-dismiss="modal" class="close">&times;</a>
-    <h3>Suggest your blog or site</h3>
+    <h3>Suggest a Blog</h3>
   </div>
-  <%= form_tag :controller => :notifier, :action => :send_blog_suggestion do %>
+  <%= form_tag :controller => :notifier, :action => :send_blog_suggestion, :class=>'form-horizontal' do %>
     <div class="modal-body">
       <p>
-
         <div class="control-group">
           <label>
             Link <span class="important">*</span>
           </label>
           <div class="controls">
-            <%= text_field :blog, :url, :class => "span5" %>
+            <%= text_field :blog, :url, :class => "span10" %>
           </div>
         </div>
 
         <div class="control-group">
           <label>
             Your email <span class="important">*</span>
-            <span class="help-block">So that we can get back to you!</span>
+            <span class="help-inline">So that we can get back to you!</span>
           </label>
           <div class="controls">
-            <%= text_field :blog, :email, :class => "span5" %>
+            <%= text_field :blog, :email, :class => "span10" %>
           </div>
         </div>
 
         <div class="control-group">
           <label>
-            Description <span class="help-block">optional</span>
+            Description
           </label>
           <div class="controls">
-            <%= text_area :blog, :description, :class => "span5", :rows => 5 %>
+            <%= text_area :blog, :description, :class => "span10", :rows => 7 %>
           </div>
         </div>
 
