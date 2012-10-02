@@ -44,6 +44,7 @@ $(function() {
       this.paginationBufferPx = 50;
       this.isLoading = false;
       this.likedBy = -1;
+      this.postedBy = -1;
 
       this.$sourceFilter = $(".filter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
@@ -105,6 +106,7 @@ $(function() {
 
     reset: function() {
       this.page = 1;
+
       this.load($.proxy(function(data) {
         // TODO: Get rid of this ugliness.
         this.collection.reset();
@@ -136,7 +138,14 @@ $(function() {
 
     load: function(callback) {
       this.isLoading = true;
-      var request = "/search.json?query=" + this.query + "&range=" + this.dateRange + "&page=" + this.page + "&topic=" + this.topic + "&kind=" + this.kind + "&liked_by=" + this.likedBy + "&sort=" + this.sort;
+      var request = "/search.json?query=" + this.query +
+        "&range=" + this.dateRange +
+        "&page=" + this.page +
+        "&topic=" + this.topic +
+        "&kind=" + this.kind +
+        "&liked_by=" + this.likedBy +
+        "&posted_by=" + this.postedBy +
+        "&sort=" + this.sort;
       $.getJSON(request, callback);
     },
 

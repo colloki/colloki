@@ -1,0 +1,30 @@
+<script>
+  $(document).ready(function(e) {
+    var userPosts = new window.StoryListView({
+      el: $("#posts"),
+      current_user: <%= current_user.to_json.html_safe %>
+    });
+
+    <% if user %>
+      userPosts.postedBy = <%= user.id %>;
+      userPosts.reset();
+    <% end %>
+
+    var likedPosts = new window.StoryListView({
+      el: $("#likes"),
+      current_user: <%= current_user.to_json.html_safe %>
+    });
+
+    <% if user %>
+      likedPosts.likedBy = <%= user.id %>;
+      likedPosts.reset();
+    <% end %>
+
+    $(".posts-tab-link").click(function(e) {
+      userPosts.render();
+    });
+    $(".likes-tab-link").click(function(e) {
+      likedPosts.render();
+    });
+  });
+</script>

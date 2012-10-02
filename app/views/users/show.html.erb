@@ -40,7 +40,7 @@
   <!-- Navigation -->
   <ul class="nav nav-tabs">
     <li class="active">
-      <a href="#posts" data-toggle="tab">
+      <a href="#posts" class="posts-tab-link" data-toggle="tab">
         <i class="icon-pencil"></i> Posts
       </a>
     </li>
@@ -50,7 +50,7 @@
       </a>
     </li>
     <li>
-      <a href="#likes" data-toggle="tab">
+      <a href="#likes" class="likes-tab-link" data-toggle="tab">
         <i class="icon-star"></i> Liked Stories
       </a>
     </li>
@@ -59,26 +59,12 @@
 
     <!-- User's posts -->
     <div class="tab-pane active" id="posts">
-      <%= render :partial => "partials/story_items", :locals => { :stories => @stories } %>
-      <% if @stories.count == 0 %>
-        <h5>No posts yet</h5>
-      <% end %>
-      <% if @tags.count != 0 %>
-        <h4>
-          <%= @user.login %>'s tag cloud
-        </h4>
-        <%= render :partial => "partials/tag_cloud", :locals => { :tags => @tags, :topic => false } %>
-      <% end %>
+      <div class="topic-stories"></div>
     </div>
 
     <!-- Liked stories -->
     <div class="tab-pane" id="likes">
-      <% if @liked_stories.count != 0 %>
-        <%= render :partial => "partials/story_items",
-          :locals => { :stories => @liked_stories } %>
-      <% else %>
-        <h5>No stories liked yet</h5>
-      <% end %>
+      <div class="topic-stories"></div>
     </div>
 
     <!-- Comments -->
@@ -105,6 +91,7 @@
   <h2>Oops! User Not Found</h2>
 <% end %>
 
-<% for story in @stories %>
-  <%= render :partial => "partials/button/comment/modal", :locals => {:story => story} %>
-<% end %>
+<%= render :partial => "users/footer", :locals => {
+  :current_user => @current_user,
+  :user => @user
+} %>

@@ -208,12 +208,21 @@ class Story < ActiveRecord::Base
       likes = Vote.paginate(
         :page => params[:page],
         :order => "created_at DESC",
-        :conditions => {:user_id => params[:liked_by]})
-      stories = []
+        :conditions => {:user_id => params[:liked_by]
+      });
 
+      stories = []
       for like in likes
         stories.push(like.story)
       end
+
+    elsif params[:posted_by] and params[:posted_by].to_i != -1
+      stories = Story.paginate(
+        :page => params[:page],
+        :order => "created_at DESC",
+        :conditions => {:user_id => params[:posted_by]
+      });
+
     else
       if (query)
         conditions = [ "(title like ? OR description like ? OR source like ? OR source_url like ?)",
