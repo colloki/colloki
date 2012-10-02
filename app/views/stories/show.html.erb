@@ -17,10 +17,13 @@
 
       <!-- Story Buttons -->
       <div class="pull-right">
+
         <div style="float: left; margin-top: 2px">
-          <%= render :partial => "partials/button/like/html",
-            :locals => {:story => @story}
-          %>
+          <!-- Like button -->
+          <a class="story-like<%= @story.id %> like-btn btn btn-mini btn-success has-tooltip">
+            <i class='icon-star-empty icon-white'></i>
+            <span class="like-count"></span>
+          </a>
         </div>
 
         <%= render :partial => "partials/story/share_buttons",

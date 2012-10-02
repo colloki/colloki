@@ -2,9 +2,6 @@ $(function() {
   window.StoryView = Backbone.View.extend({
     textLength: 200,
 
-    events: {
-    },
-
     initialize: function() {
       _.bindAll(this, "render", "transformData", "formatText");
     },

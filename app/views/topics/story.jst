@@ -49,11 +49,13 @@
 
     <% if (kind != 4 && kind !=3) { %>
       <div class="story-item-buttons">
-        <a href="#story-modal-<%= id %>" class="comment-count has-tooltip btn btn-mini" data-toggle="modal" title="<%= comments.length %> comments">
+        <!-- Comments -->
+        <a href="/stories/<%=id%>#comments" class="comment-count has-tooltip btn btn-mini" title="<%= comments.length %> comments">
           <i class="icon-comment"></i>
           <span class="comment-count-value"><%= comments.length %></span>
         </a>
 
+        <!-- Like -->
         <a class="story-like<%= id %> like-btn btn btn-mini btn-success has-tooltip">
           <i class='icon-star-empty icon-white'></i>
           <span class="like-count"></span>

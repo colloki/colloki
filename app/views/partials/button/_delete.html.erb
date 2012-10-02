@@ -1,8 +1,0 @@
-<% if is_admin? %>
-  <%= link_to "Delete".html_safe,
-    story_path(story),
-    :method => :delete,
-    :class  => "btn btn-danger btn-mini has-tooltip",
-    :title  => "Delete this story"
-  %>
-<% end %>
