@@ -1,5 +1,5 @@
-<div class="comment row">
-  <div class="span1">
+<div class="comment row-fluid">
+  <div class="span1" style="width: 40px">
     <a href="/users/<%=model.user.id%>" title="<%= model.user.login %>" >
       <img alt="Gravatar" src="<%= gravatar_url %>" />
     </a>
@@ -10,8 +10,8 @@
     <div class="comment-meta">
       <%= pretty_timestamp %> &nbsp;&nbsp;
       <% if (user_id == model.user.id) { %>
-        <a class="btn btn-small btn-danger delete-comment" style="cursor: pointer" >
-          delete
+        <a href="#" class="btn btn-mini btn-danger delete-comment">
+          Delete
         </a>
       <% } %>
     </div>
