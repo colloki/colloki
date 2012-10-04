@@ -36,7 +36,7 @@
 <% if user_posted_stories and user_posted_stories.count != 0 %>
   <h4>More posts by <%= story.user.login %></h4>
   <% for a_story in user_posted_stories %>
-    <%= sidebar_story(a_story) %>
+    <%= render :partial=>"stories/sidebar_story", :locals => {:story => a_story} %>
   <% end %>
   <hr>
 <% end %>
@@ -45,7 +45,7 @@
 <% if all_posted_stories and all_posted_stories.count != 0 %>
   <h4>Recent user posts</h4>
   <% for a_story in all_posted_stories %>
-    <%= sidebar_story(a_story) %>
+    <%= render :partial=>"stories/sidebar_story", :locals => {:story => a_story} %>
   <% end %>
   <hr>
 <% end %>
