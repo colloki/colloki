@@ -1,16 +1,7 @@
 class TopicsController < ApplicationController
 
-  def popular
-    @page_title = "User Shared"
-    @new_users = User.newly_activated
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def latest
     @page_title = "Latest"
-    @new_users = User.newly_activated
     @is_frontpage = true
     respond_to do |format|
       format.html
@@ -21,32 +12,10 @@ class TopicsController < ApplicationController
     @query = params[:query]
     @page_title = "Search results for '#{params[:query]}'"
     @stories = Story.search(params)
-    @new_users = User.newly_activated
 
     respond_to do |format|
       format.html
       format.json { render :json => @stories, :include => [:votes, :comments, :user], :methods => :user}
-    end
-  end
-
-  def archive
-    @page_title = "Archive"
-    @all_topics = Topic.all_sorted_by_day
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  # GET /topics/1
-  # GET /topics/1.xml
-  def show
-    @topic = Topic.find(params[:id])
-    @stories = Story.find_for_topic(@topic.id, params[:sort], params[:page])
-    @top_users = User.top_in_topic(@topic.id)
-    @page_title = @topic.title
-
-    respond_to do |format|
-      format.html
     end
   end
 

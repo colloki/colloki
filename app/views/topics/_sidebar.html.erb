@@ -13,7 +13,7 @@
   <div class="filter-search filter">
     <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
   </div>
-  
+
   <!-- Filter by Kind -->
   <div class="filter filter-kind">
     <ul class="nav nav-stacked nav-pills">
@@ -85,18 +85,6 @@
   <div class="filter filter-source">
     <%= render :partial => "topics/source_filter" %>
   </div>
-<% end %>
-
-<!-- Sign Up Note-->
-<% if !logged_in? %>
-  <%if @is_frontpage%>
-    <h4>What is VTS?</h4>
-    <%= render :partial => "partials/description/vts" %>
-  <%end%>
-
-  <%= render :partial => "partials/description/signin", :locals => {
-    :url => login_url
-  } %>
 <% end %>
 
 <%= render :partial => 'partials/footer' %>
