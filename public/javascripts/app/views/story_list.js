@@ -1,10 +1,12 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
-    emptyMessage: "Oops! We didn't find anything...Change filters or refresh!",
+    emptyMessage: "We didn't find anything. Please change filters or refresh.",
+
     eventsHTML: '<h3>Events</h3><iframe class="events-calendar"' +
     'src="http://elmcity.cloudapp.net/services/NewRiverValleyVA/html?&eventsonly=yes&tags=yes&count=200"></iframe>' +
     '<div class="events-footer">This is the embedded calendar from the ' +
     '<a href="http://elmcity.cloudapp.net/">elmcity project</a>.</div>',
+
     events: {
       "click .source": "filterBySource",
       "click .date-range": "filterByDateRange",
@@ -17,17 +19,17 @@ $(function() {
     },
 
     initialize: function() {
-      _.bindAll(this, 
-        "render", 
-        "append", 
+      _.bindAll(this,
+        "render",
+        "append",
         "showEvents",
         "selectButton",
         "selectNavPill",
         "onScroll",
         "resetQuery",
         "sortBy",
-        "filterBySource", 
-        "filterByDateRange", 
+        "filterBySource",
+        "filterByDateRange",
         "filterByTopic",
         "filterByKind",
         "filterByQuery",
@@ -39,7 +41,7 @@ $(function() {
       this.dateRange = 4;
       this.query = "";
       this.page = 1;
-      this.kind = "2";
+      this.kind = 2;
       this.sort = 1;
       this.paginationBufferPx = 50;
       this.isLoading = false;
@@ -60,20 +62,25 @@ $(function() {
         this.topic = -2;
       }
 
-      this.$stories.imagesLoaded($.proxy(function() {
-        this.$stories.masonry({
-          itemSelector: ".story-item"
-        });
-      }, this));
+      // if (this.kind != 2) {
+        this.$stories.imagesLoaded($.proxy(function() {
+          this.$stories.masonry({
+            itemSelector: ".story-item"
+          });
+        }, this));
+      // }
 
       $(window).scroll(this.onScroll);
       this.reset();
     },
 
     render: function() {
-      this.$stories.imagesLoaded($.proxy(function() {
-        this.$stories.masonry('reload');
-      }, this));
+      if (this.kind != 2) {
+        this.$stories.imagesLoaded($.proxy(function() {
+          this.$stories.masonry('reload');
+        }, this));
+      }
+
       $(".has-tooltip").tooltip();
     },
 
@@ -87,6 +94,7 @@ $(function() {
 
     nextPage: function() {
       this.page++;
+
       this.load($.proxy(function(data) {
         var len = data.length;
         for (var i = 0; i < len; i++) {
@@ -121,9 +129,7 @@ $(function() {
             this.append(c);
           }
 
-          this.$stories.imagesLoaded($.proxy(function() {
-            this.$stories.masonry('reload');
-          }, this));
+          this.render();
         } else {
           this.$stories.html($("<h4>", {
             "class": "topic-empty-message",
@@ -219,7 +225,7 @@ $(function() {
 
       var $el = $(event.target);
       this.selectNavPill($el);
-      
+
       this.kind = $el.data("value");
 
       if (this.kind != "2") {
@@ -285,12 +291,12 @@ $(function() {
     showEvents: function(event) {
       event.preventDefault();
       this.loadOnScroll = false;
-      
+
       var $el = $(event.target);
       this.selectNavPill($el);
 
       this.$stories.html(this.eventsHTML);
-        
+
       this.$topicFilter.hide();
       this.$sourceFilter.hide();
       this.$dateFilter.hide();

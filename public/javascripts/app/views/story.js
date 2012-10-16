@@ -1,6 +1,7 @@
 $(function() {
   window.StoryView = Backbone.View.extend({
-    textLength: 200,
+    textLength: 100,
+    textLengthWithoutImage: 200,
 
     initialize: function() {
       _.bindAll(this, "render", "transformData", "formatText");
@@ -16,12 +17,12 @@ $(function() {
         story.icon_url = story.source_url;
       }
 
-      if (story.title) {
-        story.title = this.formatText(story.title);
-      }
+      // if (story.title) {
+      //   story.title = this.formatText(story);
+      // }
 
       if (story.description) {
-        story.description = this.formatText(story.description);
+        story.description = this.formatText(story);
       }
 
       // If it is a tweet, linkify @author and #hashtags
@@ -38,11 +39,20 @@ $(function() {
       return story;
     },
 
-    formatText: function(text) {
-      text = $.trim(text.replace(/(<([^>]+)>)/ig,""));
-      if (text.length > this.textLength) {
-        text = text.substring(0, this.textLength) + "...";
+    formatText: function(story) {
+      var text = $.trim(story.description.replace(/(<([^>]+)>)/ig,""));
+
+      var length;
+      if (story.image_src) {
+        length = this.textLength;
+      } else {
+        length = this.textLengthWithoutImage;
       }
+
+      if (text.length > length) {
+        text = text.substring(0, length) + "...";
+      }
+
       return this.replaceURLWithHTMLLinks(text);
     },
 
