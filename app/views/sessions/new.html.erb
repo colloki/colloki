@@ -2,7 +2,7 @@
   <div style="width: 960px; margin: 0 auto; margin-top: 50px;">
     <div class="row-fluid">
       <div class="span6" style="margin-left: 10%; margin-top: 120px">
-        <h2>Find out what's happening in your local community</h2>
+        <h2>Find out what's happening in New River Valley</h2>
       </div>
       <div class="span5 pull-right" style="max-width: 350px">
         <%= render :partial => "partials/form/signin" %>
@@ -24,26 +24,43 @@
     <div class="row-fluid">
       <div class="span4">
         <div class="row-fluid">
-          <h4>What's happening in your town?</h4>
+          <h3>Local Issues</h3>
         </div>
         <div class="row-fluid">
-          We find relevant local news and discussions happening across the web,
-          so you don't have to. Easily catch up on local news and discussions daily.
-        </div>
-      </div>
-
-      <div class="span4">
-        <div class="row-fluid">
-          <h4>Have your voice heard</h4>
-        </div>
-        <div class="row-fluid">
-          Post new articles, comment and like articles. Share articles across your social networks on Twitter, Facebook or elsewhere.
+          <p class="lead">
+            We collect <em>Local News, Blogs, Twitter and Facebook Discussions</em> happening in New River Valley, so that you can come here keep up with important local issues and developments.
+          </p>
         </div>
       </div>
 
       <div class="span4">
         <div class="row-fluid">
-          <h4>Who joined recently</h4>
+          <h3>Participate</h3>
+        </div>
+        <div class="row-fluid">
+         <p class="lead">
+          Post articles, comment and like news stories. Share news on your social networks on Twitter, Facebook or elsewhere.
+        </p>
+        </div>
+      </div>
+
+      <div class="span4">
+        <div class="row-fluid">
+          <h3>Local Blogger or Publisher?</h3>
+        </div>
+        <div class="row-fluid">
+          <p class="lead">
+            <%= render :partial => "partials/about/local_publisher" %>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row-fluid" style="margin-top: 20px">
+      <!-- <div class="span4"> -->
+        <div class="row-fluid">
+          <h3>New Members</h3>
         </div>
         <div class="row-fluid">
           <% if @new_users and @new_users.count != 0 %>
@@ -51,26 +68,15 @@
               :locals => {:users => @new_users} %>
           <% end %>
         </div>
-      </div>
-    </div>
-
-    <div class="row-fluid" style="margin-top: 20px">
-      <div class="span4">
+      <!-- </div> -->
+      <!-- <div class="span4">
         <div class="row-fluid">
-          <h4>Are you a local publisher?</h4>
-        </div>
-        <div class="row-fluid">
-          <%= render :partial => "partials/about/local_publisher" %>
-        </div>
-      </div>
-      <div class="span4">
-        <div class="row-fluid">
-          <h4>Like us on Facebook</h4>
+          <h3>Like us on Facebook</h3>
         </div>
         <div class="row-fluid">
           <%= render :partial => "partials/share/facebook_like_button" %>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

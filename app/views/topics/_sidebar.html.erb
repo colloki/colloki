@@ -10,55 +10,14 @@
 
 <% if @is_frontpage %>
   <!-- Search -->
-  <div class="filter-search filter">
+  <div class="filter-search well">
     <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1" />
   </div>
 
-  <!-- Filter by Kind -->
-  <div class="filter filter-kind">
-    <ul class="nav nav-stacked nav-pills">
-      <!-- News -->
-      <li class="active">
-        <a title="Posts on local blogs" data-placement="left" class="has-tooltip kind" href="#" data-value="2"><i class='icon-globe icon-white'></i> Blogs</a>
-      </li>
-      <!-- Chatter -->
-      <li>
-        <a title="What are people talking about" data-placement="left" class="has-tooltip kind" href="#" data-value="3,4"><i class='icon-comment'></i> Chatter</a>
-      </li>
-      <!-- Events -->
-      <li>
-        <a title="What's happening around town" data-placement="left" class="has-tooltip events" href="#"><i class='icon-calendar'></i> Events</a>
-      </li>
-      <!-- User Shared -->
-      <li>
-        <a title="Posts by VTS users" data-placement="left" class="has-tooltip kind" href="#" data-value="1"><i class='icon-pencil'></i> User Shared</a>
-      </li>
-      <% if current_user %>
-        <!-- Liked -->
-        <li>
-          <a title="Stories you liked" data-placement="left" class="has-tooltip liked" href="#" data-value="<%= current_user.id %>"><i class='icon-star'></i> Likes</a>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <!-- Sort by Popularity or Date -->
-  <div class="filter filter-sort">
-    <h4>Sort By</h4>
-    <ul class="nav nav-stacked nav-pills">
-      <li class="active">
-        <a class="sort" data-value="1">Popularity</a>
-      </li>
-      <li>
-        <a class="sort" data-value="2">Date</a>
-      </li>
-    </ul>
-  </div>
-
   <!-- Sort by Topic -->
-  <div class="filter filter-topic">
-    <h4>In the News</h4>
-    <div class="row-fluid" style="margin-left: -10px">
+  <div class="well filter-topic">
+    <h4>This Week's Topics</h4>
+    <div class="row-fluid">
       <%= render :partial => "topics/navigation",
         :locals => {
           :topics => @today_topics,
@@ -70,19 +29,21 @@
   </div>
 
   <!-- Filter by date -->
-  <div class="filter filter-date">
+  <div class="well filter-date">
     <h4>Date</h4>
-    <div class="btn-toolbar">
-      <div class="btn-group">
-        <a class="btn btn-small active date-range" data-value="4">This Week</a>
-        <a class="btn btn-small date-range" data-value="2">Today</a>
-        <a class="btn btn-small date-range" data-value="1">All</a>
-      </div>
-    </div>
+    <ul class="nav nav-stacked nav-pills">
+      <li class="active">
+        <a class="date-range" data-value="4">This Week</a>
+      </li>
+      <li>
+        <a class="date-range" data-value="1">All</a>
+      </li>
+    </ul>
   </div>
 
   <!-- Filter by source -->
-  <div class="filter filter-source">
+  <div class="well filter-source">
+    <h4>Sources</h4>
     <%= render :partial => "topics/source_filter" %>
   </div>
 <% end %>

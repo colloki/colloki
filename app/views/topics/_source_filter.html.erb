@@ -1,4 +1,4 @@
-<h4>Sources</h4>
+
 <!-- TODO: Dynamically load this list -->
 <% sources = [
     "Blacksburg Electronic Village",
@@ -23,13 +23,13 @@
 <div class="controls">
     <!-- TODO: Make these checkboxes instead of radio buttons -->
     <label class="radio">
-        <input name="source" class="source" type="radio" checked data-value="" /> 
+        <input name="source" class="source" type="radio" checked data-value="" />
         All
     </label>
 
     <% for source in sources %>
         <label class="radio">
-            <input name="source" class="source" type="radio" data-value="<%= source %>" /> 
+            <input name="source" class="source" type="radio" data-value="<%= source %>" />
             <%= source %>
         </label>
     <% end %>

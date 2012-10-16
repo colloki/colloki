@@ -131,8 +131,9 @@ $(function() {
 
           this.render();
         } else {
-          this.$stories.html($("<h4>", {
-            "class": "topic-empty-message",
+          this.$stories.html($("<p>", {
+            "class": "lead",
+            "style": "color: #111; padding-top: 20px; padding-left: 10px",
             html: this.emptyMessage
           }));
         }
@@ -201,7 +202,7 @@ $(function() {
       this.loadOnScroll = true;
 
       var $el = $(event.target);
-      this.selectButton($el);
+      this.selectNavPill($el);
       this.dateRange = $el.data("value");
       this.likedBy = -1;
       this.reset();
