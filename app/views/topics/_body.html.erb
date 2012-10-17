@@ -1,39 +1,29 @@
-<% if !logged_in? %>
-  <div class="well">
-    <h3>Virtual Town Square</h3>
-    <p class="lead">
-      <%= render :partial => "partials/description/vts" %>
-      Sign in to post, comment and like stories.
-      <br><br>
-      <%= link_to('Sign In', login_url, :class => 'btn btn-primary') %>
-      <%= link_to('Learn More', about_url, :class => 'btn btn-info') %>
-    </p>
-  </div>
-<% end %>
-
 <div class="row-fluid topic-body" style="min-height: 500px">
-  <div class="span9">
-    <div class="row-fluid">
+  <div class="span12">
+    <div class="row-fluid" style="margin-top: 5px;">
       <%= render :partial => "topics/type" %>
-      <%= render :partial => "topics/sort" %>
     </div>
-
-    <div class="row-fluid" style="margin-left: -10px">
-      <div class="topic-stories">
+    <div class="row-fluid">
+      <div class="span3 sidebar hidden-phone">
+        <%= render :partial => "topics/sidebar",
+          :locals => {
+            :stories => stories,
+            :tags => tags,
+            :topic => (defined? topic) ? topic : nil,
+            :new_users => new_users,
+            :active_topics => (defined? active_topics) ? active_topics : nil
+          }
+        %>
+      </div>
+      <div class="span9">
+        <div class="row-fluid lead topic-header">
+          This Week's News
+        </div>
+        <div class="row-fluid">
+          <div class="topic-stories"></div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="span3 sidebar hidden-phone" style="margin-top: 5px">
-    <%= render :partial => "topics/sidebar",
-      :locals => {
-        :stories => stories,
-        :tags => tags,
-        :topic => (defined? topic) ? topic : nil,
-        :new_users => new_users,
-        :active_topics => (defined? active_topics) ? active_topics : nil
-      }
-    %>
   </div>
 </div>
 

@@ -24,9 +24,11 @@ $(function() {
         "append",
         "showEvents",
         "selectButton",
+        "selectNavTab",
         "selectNavPill",
         "onScroll",
         "resetQuery",
+        "resetHeader",
         "sortBy",
         "filterBySource",
         "filterByDateRange",
@@ -53,6 +55,7 @@ $(function() {
       this.$dateFilter = $(".filter-date", this.$el);
       this.$queryFilter = $(".filter-search", this.$el);
       this.$sort = $(".filter-sort", this.$el);
+      this.$header = $(".topic-header", this.$el);
 
       this.loadOnScroll = true;
 
@@ -112,6 +115,23 @@ $(function() {
       }, this));
     },
 
+    resetHeader: function() {
+      var text;
+
+      if (this.kind == 2) {
+        if (this.dateRange == 4) {
+          text = "This Week's News";
+        } else {
+          text = "All News";
+        }
+      } else if (this.kind == 3) {
+        text = "Chatter - Conversations on Twitter and Facebook";
+      } else if (this.kind == 2) {
+        text = "Shared by Virtual Town Square Users";
+      }
+      this.$header.text(text);
+    },
+
     reset: function() {
       this.page = 1;
 
@@ -140,6 +160,7 @@ $(function() {
 
         this.isLoading = false;
         this.render();
+        this.resetHeader();
       }, this));
     },
 
@@ -158,6 +179,12 @@ $(function() {
 
     selectButton: function($el) {
       $el.addClass("active").siblings().removeClass("active");
+    },
+
+    selectNavTab: function($el) {
+      var $li = $el.parent("li");
+      $li.addClass("active")
+        .siblings().removeClass("active");
     },
 
     selectNavPill: function($el) {
@@ -225,7 +252,7 @@ $(function() {
       this.loadOnScroll = true;
 
       var $el = $(event.target);
-      this.selectNavPill($el);
+      this.selectNavTab($el);
 
       this.kind = $el.data("value");
 
