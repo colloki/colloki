@@ -2,10 +2,7 @@ $(function() {
   window.StoryListView = Backbone.View.extend({
     emptyMessage: "We didn't find anything. Please change filters or refresh.",
 
-    eventsHTML: '<h3>Events</h3><iframe class="events-calendar"' +
-    'src="http://elmcity.cloudapp.net/services/NewRiverValleyVA/html?&eventsonly=yes&tags=yes&count=200"></iframe>' +
-    '<div class="events-footer">This is the embedded calendar from the ' +
-    '<a href="http://elmcity.cloudapp.net/">elmcity project</a>.</div>',
+    eventsHTML: '<iframe class="events-calendar" width="480" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
     events: {
       "click .source": "filterBySource",
@@ -118,18 +115,32 @@ $(function() {
     resetHeader: function() {
       var text;
 
-      if (this.kind == 2) {
+      if (this.query != "") {
+        if (this.dateRange == 4) {
+          text = "This Week's ";
+        } else {
+          text = "All ";
+        }
+        text += "Search results for " + this.query;
+      } else if (this.likedBy != -1) {
+        text = "Liked by you";
+      } else if (this.kind == 2) {
         if (this.dateRange == 4) {
           text = "This Week's News";
         } else {
           text = "All News";
         }
-      } else if (this.kind == 3) {
-        text = "Chatter - Conversations on Twitter and Facebook";
-      } else if (this.kind == 2) {
-        text = "Shared by Virtual Town Square Users";
+
+        if (this.topic != -2) {
+          text += " - " + $(".topic[data-id="+this.topic+"]").text();
+        }
+      } else if (this.kind == "3,4") {
+        text = "Conversations on Twitter and Facebook";
+      } else if (this.kind == 1) {
+        text = "Shared by VTS Users";
       }
-      this.$header.text(text);
+
+      this.$header.html(text);
     },
 
     reset: function() {
@@ -323,6 +334,7 @@ $(function() {
       var $el = $(event.target);
       this.selectNavPill($el);
 
+      this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
       this.$stories.html(this.eventsHTML);
 
       this.$topicFilter.hide();
