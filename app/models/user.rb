@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token = nil
-    save(false)
+    save
   end
 
   # Returns true if the user has just been activated.

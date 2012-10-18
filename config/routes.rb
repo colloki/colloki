@@ -1,4 +1,10 @@
 Colloki::Application.routes.draw do
+  
+
+  devise_for :admins
+
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   resources :provider_authentications
 
   resources :topics do

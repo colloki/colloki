@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails'
 gem 'sqlite3'
 gem 'will_paginate', '~> 3.0.0'
 gem 'dynamic_form'
@@ -21,3 +21,9 @@ gem 'mail'
 
 gem 'jquery-rails', '>= 1.0.12'
 gem "koala"
+
+gem 'rails_admin'
+gem 'prototype-rails'
+
+gem "devise"
+gem "rails-backbone"
