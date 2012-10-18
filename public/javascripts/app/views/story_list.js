@@ -261,6 +261,7 @@ $(function() {
     },
 
     filterBySource: function(event) {
+      event.preventDefault();
       this.source = $(event.target).data("value");
       var $el = $(event.target);
       this.selectNavPill($el);
