@@ -1,8 +1,8 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
-    emptyMessage: "We didn't find anything. Please change filters or refresh.",
+    emptyMessage: "We didn't find anything. Please go back.",
 
-    eventsHTML: '<iframe class="events-calendar" width="480" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
+    eventsHTML: '<iframe class="events-calendar" width="880" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
     events: {
       "click .source": "filterBySource",
@@ -26,6 +26,7 @@ $(function() {
         "onScroll",
         "resetQuery",
         "resetHeader",
+        "resetTopic",
         "sortBy",
         "filterBySource",
         "filterByDateRange",
@@ -46,6 +47,7 @@ $(function() {
       this.isLoading = false;
       this.likedBy = -1;
       this.postedBy = -1;
+      this.source = -1;
 
       this.$sourceFilter = $(".filter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
@@ -62,13 +64,11 @@ $(function() {
         this.topic = -2;
       }
 
-      // if (this.kind != 2) {
-        this.$stories.imagesLoaded($.proxy(function() {
-          this.$stories.masonry({
-            itemSelector: ".story-item"
-          });
-        }, this));
-      // }
+      this.$stories.imagesLoaded($.proxy(function() {
+        this.$stories.masonry({
+          itemSelector: ".story-item"
+        });
+      }, this));
 
       $(window).scroll(this.onScroll);
       this.reset();
@@ -115,14 +115,7 @@ $(function() {
     resetHeader: function() {
       var text;
 
-      if (this.query != "") {
-        if (this.dateRange == 4) {
-          text = "This Week's ";
-        } else {
-          text = "All ";
-        }
-        text += "Search results for " + this.query;
-      } else if (this.likedBy != -1) {
+      if (this.likedBy != -1) {
         text = "Liked by you";
       } else if (this.kind == 2) {
         if (this.dateRange == 4) {
@@ -133,6 +126,12 @@ $(function() {
 
         if (this.topic != -2) {
           text += " - " + $(".topic[data-id="+this.topic+"]").text();
+        } else if (this.source != -1) {
+          text += " - <em>" + this.source + "</em>";
+        } else if (this.query != "") {
+          text += " - Search results for '" + this.query + "'";
+        } else {
+          text += " - [ Everything ]";
         }
       } else if (this.kind == "3,4") {
         text = "Conversations on Twitter and Facebook";
@@ -184,7 +183,8 @@ $(function() {
         "&kind=" + this.kind +
         "&liked_by=" + this.likedBy +
         "&posted_by=" + this.postedBy +
-        "&sort=" + this.sort;
+        "&sort=" + this.sort +
+        "&source=" + this.source;
       $.getJSON(request, callback);
     },
 
@@ -193,7 +193,8 @@ $(function() {
     },
 
     selectNavTab: function($el) {
-      var $li = $el.parent("li");
+      var $li = $el.parents("li");
+
       $li.addClass("active")
         .siblings().removeClass("active");
     },
@@ -229,12 +230,6 @@ $(function() {
       this.reset();
     },
 
-    filterBySource: function(event) {
-      this.query = $(event.target).data("value");
-      this.likedBy = -1;
-      this.reset();
-    },
-
     filterByDateRange: function(event) {
       event.preventDefault();
       this.loadOnScroll = true;
@@ -254,8 +249,30 @@ $(function() {
       this.selectNavPill($el);
 
       this.topic = $el.data("id");
+      this.resetSource();
+      this.resetQuery();
       this.likedBy = -1;
       this.reset();
+    },
+
+    resetTopic: function() {
+      this.topic = -2;
+      this.selectNavPill($(".topic[data-id=-2]"));
+    },
+
+    filterBySource: function(event) {
+      this.source = $(event.target).data("value");
+      var $el = $(event.target);
+      this.selectNavPill($el);
+      this.resetTopic();
+      this.resetQuery();
+      this.likedBy = -1;
+      this.reset();
+    },
+
+    resetSource: function() {
+      this.source = -1;
+      this.selectNavPill($(".source[data-value=-1]"));
     },
 
     filterByKind: function(event) {
@@ -268,6 +285,9 @@ $(function() {
       this.kind = $el.data("value");
 
       if (this.kind != "2") {
+        this.resetTopic();
+        this.resetSource();
+        this.resetQuery();
         this.$topicFilter.hide();
         this.$sourceFilter.hide();
       } else {
@@ -290,22 +310,19 @@ $(function() {
     },
 
     filterByQuery: function(event) {
-      if (event.keyCode === 27) {
+      var $el = $(event.target);
+
+      if (event.keyCode === 27 || $el.val() === "") {
         event.preventDefault();
-        var $el = $(event.target);
-        if ($el.val() === "") {
-          return;
-        }
         this.resetQuery();
         this.reset();
       } else if (event.keyCode === 13) {
         event.preventDefault();
         this.loadOnScroll = true;
-
-        var $el = $(event.target);
         this.query = $el.val();
-
         this.likedBy = -1;
+        this.resetTopic();
+        this.resetSource();
         this.reset();
       }
     },
@@ -332,7 +349,7 @@ $(function() {
       this.loadOnScroll = false;
 
       var $el = $(event.target);
-      this.selectNavPill($el);
+      this.selectNavTab($el);
 
       this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
       this.$stories.html(this.eventsHTML);

@@ -138,9 +138,9 @@ class Story < ActiveRecord::Base
 
   def self.latest_for_rss
     # Don't include Twitter and Facebook in the RSS feed.
-    find :all, 
+    find :all,
       :conditions => ["kind != ? and kind != ?", Story::Facebook, Story::Twitter],
-      :order => "published_at DESC", 
+      :order => "published_at DESC",
       :limit => 20
   end
 
@@ -202,8 +202,6 @@ class Story < ActiveRecord::Base
   end
 
   def self.search(params)
-    query = params[:query]
-
     if params[:liked_by] and params[:liked_by].to_i != -1
       likes = Vote.paginate(
         :page => params[:page],
@@ -224,12 +222,18 @@ class Story < ActiveRecord::Base
       });
 
     else
-      if (query)
+      query = params[:query]
+
+      if query and query != ""
         conditions = [ "(title like ? OR description like ? OR source like ? OR source_url like ?)",
           "%#{query}%",
           "%#{query}%",
           "%#{query}%",
           "%#{query}"]
+      elsif params[:source] and params[:source].to_i != -1
+        conditions = ["(source like ?)", "#{params[:source]}"]
+      elsif params[:topic] and params[:topic].to_i != -2
+        conditions = ["(topic_id = ?)", params[:topic]]
       else
         conditions = []
       end
@@ -247,20 +251,25 @@ class Story < ActiveRecord::Base
         end
 
         if start_date and end_date
-          conditions.at(0) << " AND published_at >= ? AND published_at <= ?"
+          condition = "published_at >= ? AND published_at <= ?"
+          if conditions.at(0)
+            conditions.at(0) << " AND " << condition
+          else
+            conditions.push(condition)
+          end
           conditions.push(start_date)
           conditions.push(end_date)
         end
       end
 
-      if params[:topic] and params[:topic].to_i != -2
-        conditions.at(0) << " AND topic_id = ?"
-        conditions.push(params[:topic])
-      end
-
       if params[:kind]
         kinds = params[:kind].split(",")
-        conditions.at(0) << " AND ("
+
+        if conditions.at(0)
+          conditions.at(0) << " AND ("
+        else
+          conditions.push("(")
+        end
 
         kinds.each_with_index{|kind, index|
           conditions.at(0) << "kind = ?"
