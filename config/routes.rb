@@ -1,8 +1,12 @@
 Colloki::Application.routes.draw do
-  
 
-  devise_for :admins
-
+  #rails_admin
+  devise_for :admins, :skip => [:sessions]
+  as :admin do
+    get 'admins/sign_in' => 'devise/sessions#new', :as => :new_admin_session
+    post 'session/admin' => 'devise/sessions#create', :as => :admin_session
+    delete 'admins/sign_out' => 'devise/sessions#destroy', :as => :destroy_admin_session
+  end
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   resources :provider_authentications
