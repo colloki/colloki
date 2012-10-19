@@ -1,5 +1,7 @@
 $(function() {
   window.CommentView = Backbone.View.extend({
+    template: JST['app/templates/stories/comment'],
+
     events: {
       "click .delete-comment": "clear"
     },
@@ -10,9 +12,9 @@ $(function() {
 
     render: function() {
       var pretty_timestamp = moment(this.model.attributes.created_at).fromNow();
-      
+
       this.$el.html(
-        JST["stories/comment"]({
+        this.template({
           model: this.model.toJSON(),
           gravatar_url: get_gravatar_url(this.model.attributes.user.email, 24),
           pretty_timestamp: pretty_timestamp,

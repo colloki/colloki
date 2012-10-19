@@ -1,5 +1,7 @@
 $(function() {
   window.StoryView = Backbone.View.extend({
+    template: JST['app/templates/topics/story'],
+
     textLength: 100,
     textLengthWithoutImage: 200,
 
@@ -69,9 +71,7 @@ $(function() {
 
     render: function() {
       var story = this.transformData(this.model.toJSON());
-      this.$el.html(
-        JST['topics/story'](story)
-      );
+      this.$el.html(this.template(story));
 
       this.likeView = new LikeView({
         el: $(".like-btn", this.$el),

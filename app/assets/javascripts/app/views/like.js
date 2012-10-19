@@ -1,5 +1,6 @@
 $(function() {
   window.LikeView = Backbone.View.extend({
+    template: JST['app/templates/stories/story_liker'],
 
     events: {
       "click": "like"
@@ -93,7 +94,7 @@ $(function() {
       }, {
         success: _.bind(function(model, response) {
           if (!this.$liker || !this.$liker.length == 0) {
-            this.$likers.append(JST.story_liker({
+            this.$likers.append(this.template({
               count: this.count,
               user: this.user,
               gravatar_url: get_gravatar_url(this.user.email, 24),

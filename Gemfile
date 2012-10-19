@@ -16,14 +16,24 @@ gem 'nokogiri' # http://nokogiri.org/
 gem 'paperclip', "~> 2.4"
 gem 'capistrano'
 gem 'whenever' # https://github.com/javan/whenever
-gem 'jammit'
 gem 'mail'
 
-gem 'jquery-rails', '>= 1.0.12'
-gem "koala"
+gem 'koala'
 
+# rails_admin
 gem 'rails_admin'
 gem 'prototype-rails'
+gem 'devise'
 
-gem "devise"
-gem "rails-backbone"
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'therubyracer'
+  gem 'less-rails'
+  gem 'less-rails-bootstrap'
+end
+
+gem 'jquery-rails'
+gem 'rails-backbone'
+gem 'ejs'

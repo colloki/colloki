@@ -3,15 +3,14 @@
 <head>
   <%= csrf_meta_tag %>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <link href="<%= feed_url %>" rel="alternate" title="RSS" type="application/rss+xml">
 
   <% if request.filtered_parameters["controller"] === "stories" and
-        request.filtered_parameters["action"]     === "show" %>
+        request.filtered_parameters["action"] === "show" %>
     <%= render :partial => "partials/share/opengraph_meta", :locals => {
       :story => @story
     } %>
   <% end %>
-
-  <link href="<%= feed_url %>" rel="alternate" title="RSS" type="application/rss+xml">
 
   <title>
     <% if @page_title.blank? %>
@@ -21,10 +20,8 @@
     <% end %>
   </title>
 
-  <%= stylesheet_link_tag "bootstrap/css/bootstrap.css" %>
-  <%= stylesheet_link_tag "site.less", :rel => "stylesheet/less" %>
-
-  <%= include_javascripts :common %>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
 
   <%= render :partial => 'partials/external/analytics' %>
 
@@ -39,9 +36,6 @@
         <div class="container-fluid">
           <a class="brand hidden-phone" href="<%=root_url%>" title="Virtual Town Square" tabIndex="1" style="color: #fefefe;">
             Virtual Town Square
-          </a>
-          <a class="brand hidden-desktop hidden-tablet" href="<%=root_url%>" title="Virtual Town Square" tabIndex="1">
-            VTS
           </a>
 
           <div class="nav-collapse">
