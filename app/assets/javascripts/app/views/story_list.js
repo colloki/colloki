@@ -64,6 +64,18 @@ $(function() {
         this.topic = -2;
       }
 
+      if (this.options.postedBy) {
+        this.postedBy = this.options.postedBy;
+      }
+
+      if (this.options.likedBy) {
+        this.likedBy = this.options.likedBy;
+      }
+
+      if (this.options.emptyMessage) {
+        this.emptyMessage = this.options.emptyMessage;
+      }
+
       this.$stories.imagesLoaded($.proxy(function() {
         this.$stories.masonry({
           itemSelector: ".story-item"
@@ -162,8 +174,7 @@ $(function() {
           this.render();
         } else {
           this.$stories.html($("<p>", {
-            "class": "lead",
-            "style": "color: #111; padding-top: 20px; padding-left: 10px",
+            "class": "lead empty-message",
             html: this.emptyMessage
           }));
         }

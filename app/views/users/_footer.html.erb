@@ -1,30 +1,27 @@
 <script>
+  <% if user %>
   $(document).ready(function(e) {
     var userPosts = new window.StoryListView({
-      el: $("#posts"),
-      current_user: <%= current_user.to_json.html_safe %>
+      el: $(".user-posts"),
+      current_user: <%= current_user.to_json.html_safe %>,
+      postedBy: <%= user.id %>,
+      emptyMessage: "No posts written yet."
     });
-
-    <% if user %>
-      userPosts.postedBy = <%= user.id %>;
-      userPosts.reset();
-    <% end %>
 
     var likedPosts = new window.StoryListView({
-      el: $("#likes"),
-      current_user: <%= current_user.to_json.html_safe %>
+      el: $(".user-likes"),
+      current_user: <%= current_user.to_json.html_safe %>,
+      likedBy: <%= user.id %>,
+      emptyMessage: "No stories liked yet."
     });
-
-    <% if user %>
-      likedPosts.likedBy = <%= user.id %>;
-      likedPosts.reset();
-    <% end %>
 
     $(".posts-tab-link").click(function(e) {
       userPosts.render();
     });
+
     $(".likes-tab-link").click(function(e) {
       likedPosts.render();
     });
   });
+  <% end %>
 </script>
