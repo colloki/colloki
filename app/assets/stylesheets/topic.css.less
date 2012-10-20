@@ -12,6 +12,44 @@
   // fixed height for RSS stories
   &.story-rss {
     height: 350px;
+
+    .story-rss-image {
+      padding-bottom: 10px;
+    }
+  }
+
+  &.story-twitter {
+    .twitter-user-avatar {
+      border-radius: 5px;
+      height: 35px;
+      width: 35px;
+    }
+
+    .twitter-username {
+      color: #333;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    blockquote {
+      margin-top: 10px;
+      padding-left: 0px;
+      font-size: 16px;
+      color: #333;
+      line-height: 20px;
+      font-family: Georgia;
+      border: none;
+    }
+  }
+
+  &.story-facebook {
+    blockquote {
+      margin-top: 10px;
+      padding-left: 0px;
+      font-size: 16px;
+      font-family: Georgia;
+      border: none;
+    }
   }
 
   .story-item-meta {
@@ -22,6 +60,8 @@
 
     .favicon {
       margin-top: -1px;
+      height: 16px;
+      width: 16px;
     }
 
     .story-item-buttons {

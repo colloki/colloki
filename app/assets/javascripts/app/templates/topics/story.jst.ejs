@@ -1,15 +1,23 @@
-<div class="story-item <% if (kind === 2) { %>story-rss<% } %>">
+<div class="story-item <% if (kind === 2) { %>story-rss<% } else if (kind === 3) { %>story-facebook<% } else if (kind === 4) { %>story-twitter<% } %>">
 
   <% if (kind === 4) { %>
-    <img src="http://api.twitter.com/1/users/profile_image/<%=source%>.png" style="height: 35px; width: 35px; border-radius: 5px"/>
-    <a class="has-tooltip" data-placement="bottom" data-delay="300" href="https://twitter.com/<%=source%>" style="font-weight: bold; color: #333; font-size: 14px">@<%= source %></a>
+    <img class="twitter-user-avatar" src="http://api.twitter.com/1/users/profile_image/<%=source%>.png">
+    <a class="has-tooltip twitter-username" data-placement="bottom" data-delay="300" href="https://twitter.com/<%=source%>">
+      @<%= source %>
+    </a>
   <% } %>
 
-  <% if (kind == 3) { %>
-    <blockquote style="margin-top: 10px; padding-left: 0px; font-size: 16px; font-family: Georgia; border: none;"><span class="expandable"><%= title %></span><span class="short-expandable"><%= description %></span></blockquote>
-  <% } else if (kind == 4) { %>
-    <blockquote style="margin-top: 10px; padding-left: 0px; font-size: 16px; color: #333; line-height: 20px; font-family: Georgia; border: none;"><span class="short-expandable"><%= title %></span></blockquote>
+  <% if (kind === 3) { %>
+    <blockquote>
+      <span class="expandable"><%= title %></span>
+      <span class="short-expandable"><%= description %></span>
+    </blockquote>
+  <% } else if (kind === 4) { %>
+    <blockquote>
+      <span class="short-expandable"><%= title %></span>
+    </blockquote>
   <% } else { %>
+
     <h4>
       <a class="story-item-title" href="/stories/<%=id%>"><%= title %></a>
     </h4>
@@ -20,7 +28,7 @@
       <% } else { %>
         <a href="<%= icon_url %>">
       <% } %>
-      <img src="<%= image_src %>" style="padding-bottom: 10px"></a>
+        <img class="story-rss-image" src="<%= image_src %>"></a>
     <% } %>
 
     <p><%= description %></p>
@@ -29,27 +37,33 @@
   <div class="story-item-meta">
     <% if (kind != 4 && kind != 3) { %>
       <div class="favicon">
-        <a href="<%= icon_url %>"><img src="<%= icon_src %>" /></a>
+        <a href="<%= icon_url %>">
+          <img src="<%= icon_src %>" />
+        </a>
       </div>
     <% } %>
 
     <% if (kind == 1) { %>
-      <a href="<%= icon_url %>"><%= user.login %></a> ·
+      <a href="<%= icon_url %>">
+        <%= user.login %>
+      </a> ·
     <% } else if (kind != 4) { %>
-      <a title="View original article" class="has-tooltip" data-placement="bottom" data-delay="300" href="<%= icon_url %>"><%= source %></a> ·
+      <a title="View original article" class="has-tooltip" data-placement="bottom" data-delay="300" href="<%= icon_url %>">
+        <%= source %>
+      </a> ·
     <% } %>
 
     <a href="<%= icon_url %>" style="color:#888">
       <%= pretty_timestamp %>
     </a>
 
-    <% if (kind == 3) { %>
+    <% if (kind === 3) { %>
       <br>
       <%= fb_likes_count %> Likes
       · <%= fb_comments_count %> Comments
     <% } %>
 
-    <% if (kind != 4 && kind !=3) { %>
+    <% if (kind != 4 && kind != 3) { %>
       <div class="story-item-buttons">
         <!-- Comments -->
         <a href="/stories/<%=id%>#comments" class="comment-count has-tooltip btn btn-mini" title="<%= comments.length %> comments">
