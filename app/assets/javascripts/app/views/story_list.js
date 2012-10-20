@@ -132,6 +132,8 @@ $(function() {
       } else if (this.kind == 2) {
         if (this.dateRange == 4) {
           text = "This Week's News";
+        } else if (this.dateRange == 2) {
+          text = "Today's News";
         } else {
           text = "All News";
         }
