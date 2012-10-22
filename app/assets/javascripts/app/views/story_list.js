@@ -1,6 +1,6 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
-    emptyMessage: "We didn't find anything. Please go back.",
+    emptyMessage: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
 
     eventsHTML: '<iframe class="events-calendar" width="880" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
