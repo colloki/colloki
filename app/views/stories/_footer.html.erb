@@ -1,16 +1,17 @@
-<script>
+<%= javascript_tag do %>
   $(document).ready(function(e) {
-    this.likeView = new LikeView({
+    var likeView = new LikeView({
       el: $(".like-btn", $(".story")),
-      story: <%= story.to_json(:include => :votes).html_safe %>,
-      current_user: <%= current_user.to_json.html_safe %>
+      story: gon.story,
+      votes: gon.votes,
+      current_user: gon.current_user
     });
 
     var comments = new window.CommentsListView({
       el: $("#comments<%= story.id %>"),
       data: <%= story.comments.to_json(:methods => :user).html_safe %>,
-      story_id: <%= story.id %>,
-      user_id: <%= current_user ? current_user.id : -1 %>
+      story_id: gon.story.id,
+      user_id: gon.current_user ? gon.current_user.id : -1
     });
   });
-</script>
+<% end %>

@@ -11,7 +11,7 @@ $(function() {
 
       this.story = this.options.story;
       this.user = this.options.current_user;
-      this.votes = this.story.votes;
+      this.votes = this.options.votes;
       this.count = this.votes.length;
 
       if (!this.user) {

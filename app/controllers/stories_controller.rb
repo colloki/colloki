@@ -76,6 +76,12 @@ class StoriesController < ApplicationController
 
     @related_posts = @story.related_posts
 
+    gon.story = @story
+    gon.votes = @story.votes
+    gon.comments = @story.comments
+    gon.app_url = root_url
+    gon.current_user = current_user
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @story }

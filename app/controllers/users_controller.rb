@@ -37,6 +37,8 @@ class UsersController < ApplicationController
       @stories        = Story.find_by_user(@user.id)
       @comments       = Comment.find_by_user(@user.id)
       @liked_stories  = Story.find_liked_by_user(@user.id)
+      gon.app_url = root_url
+      gon.current_user = current_user
     rescue
       @page_title = "User not found"
     end
@@ -90,20 +92,20 @@ class UsersController < ApplicationController
     end
     user = User.find(:first, :conditions => {:email => params[:email]})
     if !user
-      flash[:alert] = "That email is not registered on VTS. 
+      flash[:alert] = "That email is not registered on VTS.
         Please enter the email you used to register."
       redirect_to forgot_password_url
     else
       user.make_reset_code
       if user.save
         UserMailer.deliver_reset(user)
-        flash[:notice] = "Thank you, we have sent you an email with the reset password link. 
-          It should land in your inbox in a few moments. 
+        flash[:notice] = "Thank you, we have sent you an email with the reset password link.
+          It should land in your inbox in a few moments.
           If you don't see it in your inbox for a while, don't forget to check the spam folder."
         redirect_to login_url
       else
-        flash[:alert] = 
-          "We're sorry, an error occured while trying to generate the reset code. 
+        flash[:alert] =
+          "We're sorry, an error occured while trying to generate the reset code.
           Please try again later"
       end
     end
@@ -133,7 +135,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Your password was successfully changed.'
       redirect_to(login_url)
     else
-      flash[:alert] = "We couldn't save your new password. 
+      flash[:alert] = "We couldn't save your new password.
         Please try again. If the problem persists, please contact the administrator."
       redirect_to root_url
     end
@@ -161,7 +163,7 @@ class UsersController < ApplicationController
   end
 
   def activate
-    self.current_user = params[:activation_code].blank? ? false : 
+    self.current_user = params[:activation_code].blank? ? false :
       User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
       current_user.activate

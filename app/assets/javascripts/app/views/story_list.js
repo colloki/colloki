@@ -54,6 +54,8 @@ $(function() {
         "resetQuery",
 
         "showLikes",
+        "resetLikedBy",
+
         "showEvents");
 
       this.delegateEvents();
@@ -329,7 +331,7 @@ $(function() {
     showDateRange: function(dateRange, shouldRewriteURL) {
       this.dateRange = dateRange;
       this.loadOnScroll = true;
-      this.likedBy = -1;
+      this.resetLikedBy();
       this.reset(shouldRewriteURL);
     },
 
@@ -347,7 +349,7 @@ $(function() {
       this.loadOnScroll = true;
       this.resetSource();
       this.resetQuery();
-      this.likedBy = -1;
+      this.resetLikedBy();
       this.reset(shouldRewriteURL);
     },
 
@@ -368,7 +370,7 @@ $(function() {
       }
       this.resetTopic();
       this.resetQuery();
-      this.likedBy = -1;
+      this.resetLikedBy();
       this.reset(shouldRewriteURL);
     },
 
@@ -395,6 +397,7 @@ $(function() {
       } else if (this.type == this.types["likes"]) {
         this.showLikes(shouldRewriteURL);
       } else {
+        this.resetLikedBy();
         this.reset(shouldRewriteURL);
       }
     },
@@ -423,7 +426,7 @@ $(function() {
         this.sort = sort;
       }
       this.loadOnScroll = true;
-      this.likedBy = -1;
+      this.resetLikedBy();
       this.resetTopic();
       this.resetSource();
       this.reset(shouldRewriteURL);
@@ -431,8 +434,12 @@ $(function() {
 
     showLikes: function(shouldRewriteURL) {
       this.loadOnScroll = true;
-      this.likedBy = this.current_user.id;
+      this.likedBy = this.options.current_user.id;
       this.reset(shouldRewriteURL);
+    },
+
+    resetLikedBy: function() {
+      this.likedBy = -1;
     },
 
     showEvents: function(shouldRewriteURL) {

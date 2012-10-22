@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
 
   def index
-    gon.app_root = root_url
+    gon.app_url = root_url
     gon.current_user = current_user
     @stories = Story.search(params)
     respond_to do |format|

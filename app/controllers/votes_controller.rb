@@ -29,7 +29,6 @@ class VotesController < ApplicationController
       if current_user.voted_on?(vote.story)
         vote.story.decrease_popularity(Story::ScoreVote)
         vote.story.save
-        vote.activity_item.delete
         current_user.unvote(vote)
       else
         # todo: send error response

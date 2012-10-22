@@ -1,5 +1,6 @@
 class Story < ActiveRecord::Base
   # Constant Definitions
+  Link = 0
   Post = 1
   Rss = 2
   Facebook = 3

@@ -76,6 +76,7 @@ $(function() {
       this.likeView = new LikeView({
         el: $(".like-btn", this.$el),
         story: this.model.attributes,
+        votes: this.model.attributes.votes,
         current_user: this.model.attributes.current_user
       });
 
