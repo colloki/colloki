@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/Article" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+  <%= include_gon %>
   <%= csrf_meta_tag %>
+
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <link href="<%= feed_url %>" rel="alternate" title="RSS" type="application/rss+xml">
 
@@ -24,10 +26,6 @@
   <%= javascript_include_tag "application" %>
 
   <%= render :partial => 'partials/external/analytics' %>
-
-  <script type="text/javascript">
-    var APP_ROOT_PATH = "<%= root_url %>";
-  </script>
 </head>
 <body>
   <div class="container-fluid">

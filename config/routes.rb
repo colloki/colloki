@@ -17,7 +17,7 @@ Colloki::Application.routes.draw do
 
   resources :stories, :comments, :users, :session, :votes, :feeds, :discuss
 
-  root :to => 'topics#latest'
+  root :to => 'topics#index'
 
   match 'settings', :to => 'users#settings', :as => 'settings'
   match 'activate/:activation_code', :to => 'users#activate', :as => 'activate'
@@ -36,22 +36,22 @@ Colloki::Application.routes.draw do
   match 'reset_password/:reset_code', :to => 'users#reset_password', :as => 'reset_password'
   match 'update_password_on_reset', :to => 'users#update_password_on_reset', :as => 'update_password_on_reset'
 
-  match 'topics/:id/tag/:tag_list', :to => 'topics#tag', :as => 'tags'
   match 'tag/:tag_list', :to => 'topics#tag', :as => 'global_tags'
-
-  match 'topics/:id/:sort', :to => 'topics#show'
-  match 'topics/:id', :to => 'topics#show', :as => 'topical'
 
   match 'auth/:provider/callback', :to => 'provider_authentications#create'
   match 'auth/failure', :to => 'provider_authentications#failure'
 
-  match 'latest', :to => 'topics#latest'
-  match 'popular', :to => 'topics#popular'
-  match 'active', :to => 'topics#active'
-  match 'facebook', :to => 'topics#facebook'
+  # match 'topics/:id/:sort', :to => 'topics#show'
+  # match 'topics/:id', :to => 'topics#show', :as => 'topical'
 
-  match 'search', :to => 'topics#search', :as => '/search'
-  match 'archive', :to => 'topics#archive'
+  # match 'latest', :to => 'topics#latest'
+  # match 'popular', :to => 'topics#popular'
+  # match 'active', :to => 'topics#active'
+  # match 'facebook', :to => 'topics#facebook'
+
+  match 'search', :to => 'topics#index', :as => '/search'
+  # match 'topics/:id', :to => 'topics#search', :as => '/search'
+  # match 'archive', :to => 'topics#archive'
 
   match 'feed', :to => 'feeds#latest', :as => 'feed'
 

@@ -4,36 +4,57 @@ $(function() {
 
     eventsHTML: '<iframe class="events-calendar" width="880" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
+    types: {
+      "user": 1,
+      "rss": 2,
+      "chatter": "3,4",
+      "likes": 5,
+      "events": 6
+    },
+
     events: {
       "click .source": "filterBySource",
       "click .date-range": "filterByDateRange",
       "click .topic": "filterByTopic",
-      "click .kind": "filterByKind",
+      "click .type": "filterByType",
       "keyup .search-query": "filterByQuery",
-      "click .liked": "filterByLikedBy",
-      "click .sort": "sortBy",
-      "click .events": "showEvents"
+      "click .sort": "sortBy"
     },
 
     initialize: function() {
       _.bindAll(this,
         "render",
         "append",
-        "showEvents",
+
         "selectButton",
         "selectNavTab",
         "selectNavPill",
+
         "onScroll",
-        "resetQuery",
+
         "resetHeader",
-        "resetTopic",
+
         "sortBy",
+
         "filterBySource",
+        "showSource",
+
         "filterByDateRange",
+        "showDateRange",
+
         "filterByTopic",
-        "filterByKind",
+        "showTopic",
+        "resetTopic",
+
+        "filterByType",
+        "showType",
+
         "filterByQuery",
-        "filterByLikedBy");
+        "showQuery",
+        "resetQuery",
+
+        "showLikes",
+        "showEvents");
 
       this.delegateEvents();
       this.collection = new Stories();
@@ -41,13 +62,14 @@ $(function() {
       this.dateRange = 4;
       this.query = "";
       this.page = 1;
-      this.kind = 2;
+      this.type = this.types["rss"];
       this.sort = 1;
       this.paginationBufferPx = 50;
       this.isLoading = false;
       this.likedBy = -1;
       this.postedBy = -1;
       this.source = -1;
+      this.router = this.options.router;
 
       this.$sourceFilter = $(".filter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
@@ -59,7 +81,7 @@ $(function() {
       this.loadOnScroll = true;
 
       if (this.options.topic) {
-        this.topic = this.options.topic.id;
+        this.topic = this.options.topic;
       } else {
         this.topic = -2;
       }
@@ -76,6 +98,22 @@ $(function() {
         this.emptyMessage = this.options.emptyMessage;
       }
 
+      if (this.options.source) {
+        this.source = this.options.source;
+      }
+
+      if (this.options.query) {
+        this.query = this.options.query;
+      }
+
+      if (this.options.sort === "date") {
+        this.sort = 2;
+      }
+
+      if (this.options.type) {
+        this.type = this.options.type;
+      }
+
       this.$stories.imagesLoaded($.proxy(function() {
         this.$stories.masonry({
           itemSelector: ".story-item"
@@ -83,14 +121,56 @@ $(function() {
       }, this));
 
       $(window).scroll(this.onScroll);
-      this.reset();
+
+      if (this.type == this.types["events"]) {
+        this.events();
+        this.render();
+      } else {
+        this.reset();
+      }
     },
 
-    render: function() {
-      if (this.kind != 2) {
+    render: function(shouldRewriteURL) {
+      if (this.type != this.types["rss"]) {
         this.$stories.imagesLoaded($.proxy(function() {
           this.$stories.masonry('reload');
         }, this));
+      }
+
+      // show/hide the appropriate filters
+      if (this.type != this.types["rss"]) {
+        this.$topicFilter.hide();
+        this.$sourceFilter.hide();
+        this.$dateFilter.hide();
+        this.$sort.hide();
+
+        this.resetQuery();
+        this.resetTopic();
+        this.resetSource();
+
+        if (this.type == this.types["events"]) {
+          this.$queryFilter.hide();
+        } else {
+          this.$queryFilter.show();
+        }
+      } else {
+        this.$sort.show();
+        this.$queryFilter.show();
+        this.$dateFilter.show();
+        this.$topicFilter.show();
+        this.$sourceFilter.show();
+      }
+
+      // select the right filtering options
+      this.selectNavPill($(".source[data-value='" + this.source + "']"));
+      this.selectNavPill($(".topic[data-id=" + this.topic + "]"));
+      this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
+      this.selectNavPill($(".type[data-value='" + this.type + "']"));
+
+      this.resetHeader();
+
+      if (shouldRewriteURL) {
+        this.router.rewriteURL(this);
       }
 
       $(".has-tooltip").tooltip();
@@ -129,7 +209,7 @@ $(function() {
 
       if (this.likedBy != -1) {
         text = "Liked by you";
-      } else if (this.kind == 2) {
+      } else if (this.type == this.types["rss"]) {
         if (this.dateRange == 4) {
           text = "This Week's News";
         } else if (this.dateRange == 2) {
@@ -139,7 +219,7 @@ $(function() {
         }
 
         if (this.topic != -2) {
-          text += " - " + $(".topic[data-id="+this.topic+"]").text();
+          text += " - " + $(".topic[data-id="+ this.topic + "]").text();
         } else if (this.source != -1) {
           text += " - <em>" + this.source + "</em>";
         } else if (this.query != "") {
@@ -147,16 +227,16 @@ $(function() {
         } else {
           text += " - [ Everything ]";
         }
-      } else if (this.kind == "3,4") {
+      } else if (this.type == this.types["chatter"]) {
         text = "Conversations on Twitter and Facebook";
-      } else if (this.kind == 1) {
+      } else if (this.type == this.types["user"]) {
         text = "Shared by VTS Users";
       }
 
       this.$header.html(text);
     },
 
-    reset: function() {
+    reset: function(shouldRewriteURL) {
       this.page = 1;
 
       this.load($.proxy(function(data) {
@@ -172,8 +252,6 @@ $(function() {
             this.collection.add(c);
             this.append(c);
           }
-
-          this.render();
         } else {
           this.$stories.html($("<p>", {
             "class": "lead empty-message",
@@ -182,8 +260,7 @@ $(function() {
         }
 
         this.isLoading = false;
-        this.render();
-        this.resetHeader();
+        this.render(shouldRewriteURL);
       }, this));
     },
 
@@ -193,7 +270,7 @@ $(function() {
         "&range=" + this.dateRange +
         "&page=" + this.page +
         "&topic=" + this.topic +
-        "&kind=" + this.kind +
+        "&type=" + this.type +
         "&liked_by=" + this.likedBy +
         "&posted_by=" + this.postedBy +
         "&sort=" + this.sort +
@@ -231,7 +308,7 @@ $(function() {
       }
     },
 
-    /** Filters **/
+    /** Filters and Sorts **/
 
     sortBy: function(event) {
       event.preventDefault();
@@ -240,82 +317,86 @@ $(function() {
       var $el = $(event.target);
       this.selectNavPill($el);
       this.sort = $el.data("value");
-      this.reset();
+      this.reset(true);
     },
 
     filterByDateRange: function(event) {
       event.preventDefault();
-      this.loadOnScroll = true;
-
       var $el = $(event.target);
-      this.selectNavPill($el);
-      this.dateRange = $el.data("value");
+      this.showDateRange($el.data("value"), true);
+    },
+
+    showDateRange: function(dateRange, shouldRewriteURL) {
+      this.dateRange = dateRange;
+      this.loadOnScroll = true;
       this.likedBy = -1;
-      this.reset();
+      this.reset(shouldRewriteURL);
     },
 
     filterByTopic: function(event) {
       event.preventDefault();
-      this.loadOnScroll = true;
-
       var $el = $(event.target);
-      this.selectNavPill($el);
+      this.showTopic($el.data("id"), null, true);
+    },
 
-      this.topic = $el.data("id");
+    showTopic: function(topic, sort, shouldRewriteURL) {
+      this.topic = topic;
+      if (sort) {
+        this.sort = sort;
+      }
+      this.loadOnScroll = true;
       this.resetSource();
       this.resetQuery();
       this.likedBy = -1;
-      this.reset();
+      this.reset(shouldRewriteURL);
     },
 
     resetTopic: function() {
       this.topic = -2;
-      this.selectNavPill($(".topic[data-id=-2]"));
     },
 
     filterBySource: function(event) {
       event.preventDefault();
-      this.source = $(event.target).data("value");
       var $el = $(event.target);
-      this.selectNavPill($el);
+      this.showSource($(event.target).data("value"), null, true);
+    },
+
+    showSource: function(source, sort, shouldRewriteURL) {
+      this.source = source;
+      if (sort) {
+        this.sort = sort;
+      }
       this.resetTopic();
       this.resetQuery();
       this.likedBy = -1;
-      this.reset();
+      this.reset(shouldRewriteURL);
     },
 
     resetSource: function() {
       this.source = -1;
-      this.selectNavPill($(".source[data-value=-1]"));
     },
 
-    filterByKind: function(event) {
+    filterByType: function(event) {
       event.preventDefault();
-      this.loadOnScroll = true;
-
       var $el = $(event.target);
-      this.selectNavTab($el);
-
-      this.kind = $el.data("value");
-
-      if (this.kind != "2") {
-        this.resetTopic();
-        this.resetSource();
-        this.resetQuery();
-        this.$topicFilter.hide();
-        this.$sourceFilter.hide();
-      } else {
-        this.$topicFilter.show();
-        this.$sourceFilter.show();
+      if (!$el.hasClass("type")) {
+        $el = $el.parents(".type");
       }
 
-      this.$dateFilter.show();
-      this.$queryFilter.show();
-      this.$sort.show();
+      this.showType($el.data("value"), true);
+    },
 
-      this.likedBy = -1;
-      this.resetQuery();
-      this.reset();
+    showType: function(type, shouldRewriteURL) {
+      this.type = type;
+      this.loadOnScroll = true;
+
+      if(this.type == this.types["events"]) {
+        this.showEvents(shouldRewriteURL);
+      } else if (this.type == this.types["likes"]) {
+        this.showLikes(shouldRewriteURL);
+      } else {
+        this.reset(shouldRewriteURL);
+      }
     },
 
     resetQuery: function() {
@@ -332,47 +413,33 @@ $(function() {
         this.reset();
       } else if (event.keyCode === 13) {
         event.preventDefault();
-        this.loadOnScroll = true;
-        this.query = $el.val();
-        this.likedBy = -1;
-        this.resetTopic();
-        this.resetSource();
-        this.reset();
+        this.showQuery($el.val(), null, true);
       }
     },
 
-    filterByLikedBy: function(event) {
-      event.preventDefault();
+    showQuery: function(query, sort, shouldRewriteURL) {
+      this.query = query;
+      if (sort) {
+        this.sort = sort;
+      }
       this.loadOnScroll = true;
-
-      var $el = $(event.target);
-      this.selectNavPill($el);
-
-      this.likedBy = $el.data("value");
-      this.reset();
-
-      this.$topicFilter.hide();
-      this.$sourceFilter.hide();
-      this.$dateFilter.hide();
-      this.$queryFilter.hide();
-      this.$sort.hide();
+      this.likedBy = -1;
+      this.resetTopic();
+      this.resetSource();
+      this.reset(shouldRewriteURL);
     },
 
-    showEvents: function(event) {
-      event.preventDefault();
+    showLikes: function(shouldRewriteURL) {
+      this.loadOnScroll = true;
+      this.likedBy = this.current_user.id;
+      this.reset(shouldRewriteURL);
+    },
+
+    showEvents: function(shouldRewriteURL) {
       this.loadOnScroll = false;
-
-      var $el = $(event.target);
-      this.selectNavTab($el);
-
       this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
       this.$stories.html(this.eventsHTML);
-
-      this.$topicFilter.hide();
-      this.$sourceFilter.hide();
-      this.$dateFilter.hide();
-      this.$queryFilter.hide();
-      this.$sort.hide();
+      this.render(shouldRewriteURL);
     }
   });
 });

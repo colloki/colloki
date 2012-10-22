@@ -10,7 +10,7 @@
       :locals => {:topic => topic} %>
 
   <%= link_to "[ " << topic.title << " ]",
-    topical_path(topic),
+    "#",
     :class => "has-popover topic",
     "data-placement" => "right",
     "data-id" => topic.id,

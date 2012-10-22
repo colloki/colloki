@@ -37,3 +37,4 @@ end
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'ejs'
+gem 'gon'

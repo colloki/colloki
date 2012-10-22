@@ -1,18 +1,16 @@
 <div class="well">
-<% render :partial => "topics/type" %>
+  <% render :partial => "topics/type" %>
 
-<!-- Topic keywords -->
-<% if topic and topic.topic_keywords %>
-  <div class="filter">
-    <h4>
-      [ <%= topic.title %> ]
-    </h4>
-    <%= render :partial => "topics/cloud", :locals => { :id => 10, :topic => topic } %>
-  </div>
-  <hr>
-<% end %>
-
-<% if @is_frontpage %>
+  <!-- Topic keywords -->
+  <% if topic and topic.topic_keywords %>
+    <div class="filter">
+      <h4>
+        [ <%= topic.title %> ]
+      </h4>
+      <%= render :partial => "topics/cloud", :locals => { :id => 10, :topic => topic } %>
+    </div>
+    <hr>
+  <% end %>
 
   <!-- Search -->
   <div class="filter-search">
@@ -60,8 +58,6 @@
     <%= render :partial => "topics/source_filter" %>
     <hr>
   </div>
-<% end %>
 
-<%= render :partial => 'partials/footer' %>
-
+  <%= render :partial => 'partials/footer' %>
 </div>

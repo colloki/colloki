@@ -21,10 +21,7 @@
         <div class="span3 sidebar hidden-phone">
           <%= render :partial => "topics/sidebar",
             :locals => {
-              :stories => stories,
-              :tags => tags,
               :topic => (defined? topic) ? topic : nil,
-              :new_users => new_users,
               :active_topics => (defined? active_topics) ? active_topics : nil
             }
           %>

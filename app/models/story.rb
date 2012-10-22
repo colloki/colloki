@@ -1,6 +1,5 @@
 class Story < ActiveRecord::Base
   # Constant Definitions
-  Link = 0
   Post = 1
   Rss = 2
   Facebook = 3
@@ -262,8 +261,8 @@ class Story < ActiveRecord::Base
         end
       end
 
-      if params[:kind]
-        kinds = params[:kind].split(",")
+      if params[:type]
+        kinds = params[:type].split(",")
 
         if conditions.at(0)
           conditions.at(0) << " AND ("

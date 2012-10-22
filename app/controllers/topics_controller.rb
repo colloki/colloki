@@ -1,18 +1,9 @@
 class TopicsController < ApplicationController
 
-  def latest
-    @page_title = "Latest"
-    @is_frontpage = true
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def search
-    @query = params[:query]
-    @page_title = "Search results for '#{params[:query]}'"
+  def index
+    gon.app_root = root_url
+    gon.current_user = current_user
     @stories = Story.search(params)
-
     respond_to do |format|
       format.html
       format.json { render :json => @stories, :include => [:votes, :comments, :user], :methods => :user}
@@ -23,7 +14,7 @@ class TopicsController < ApplicationController
   # GET /topics/new.xml
   def new
     if logged_in?
-      @topic      = Topic.new
+      @topic = Topic.new
       @page_title = "Create a new topic"
       respond_to do |format|
         format.html # new.html.erb

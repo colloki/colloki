@@ -1,5 +1,5 @@
 $(function() {
   window.Story = Backbone.Model.extend({
-    urlRoot: APP_ROOT_PATH + 'stories'
+    urlRoot: gon.app_url + 'stories'
   });
 });

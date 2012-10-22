@@ -1,6 +1,6 @@
 $(function() {
   window.Comment = Backbone.Model.extend({
-    urlRoot: APP_ROOT_PATH + 'comments',
+    urlRoot: gon.app_url + 'comments',
 
     validate: function(attrs) {
       if (attrs.body === "") {
