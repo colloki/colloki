@@ -16,20 +16,20 @@ $(function() {
       "shared": "shared",
       "chatter": "chatter",
 
-      "news/search/:query": "search",
-      "search/:query": "search",
-      "news/search/:query/:sort": "search",
-      "search/:query/:sort": "search",
+      ":range/news/search/:query": "search",
+      ":range/search/:query": "search",
+      ":range/news/search/:query/:sort": "search",
+      ":range/search/:query/:sort": "search",
 
-      "news/topic/:topic": "topic",
-      "topic/:topic": "topic",
-      "news/topic/:topic/:sort": "topic",
-      "topic/:topic/:sort": "topic",
+      ":range/news/topic/:topic": "topic",
+      ":range/topic/:topic": "topic",
+      ":range/news/topic/:topic/:sort": "topic",
+      ":range/topic/:topic/:sort": "topic",
 
-      "news/source/:source": "source",
-      "source/:source": "source",
-      "news/source/:source/:sort": "source",
-      "source/:source/:sort": "source",
+      ":range/news/source/:source": "source",
+      ":range/source/:source": "source",
+      ":range/news/source/:source/:sort": "source",
+      ":range/source/:source/:sort": "source",
 
       ":route/:action": "dateRange"
     },
@@ -51,8 +51,9 @@ $(function() {
       }
     },
 
-    search: function(query, sort) {
+    search: function(dateRange, query, sort) {
       if (this.view) {
+        this.view.dateRange = dateRange;
         this.view.showQuery(query, sort);
       } else {
         this.view = new window.StoryListView({
@@ -60,14 +61,16 @@ $(function() {
           current_user: this.current_user,
           query: query,
           sort: sort,
+          dateRange: range,
           router: this
         });
       }
     },
 
-    topic: function(topic, sort) {
+    topic: function(dateRange, topic, sort) {
       if (this.view) {
         this.view.type = 2;
+        this.view.dateRange = dateRange;
         this.view.showTopic(topic, sort);
       } else {
         this.view = new window.StoryListView({
@@ -75,13 +78,15 @@ $(function() {
           current_user: this.current_user,
           topic: topic,
           sort: sort,
+          dateRange: dateRange,
           router: this
         });
       }
     },
 
-    source: function(source, sort) {
+    source: function(dateRange, source, sort) {
       if (this.view) {
+        this.view.dateRange = dateRange;
         this.view.showSource(source, sort);
       } else {
         this.view = new window.StoryListView({
@@ -89,6 +94,7 @@ $(function() {
           current_user: this.current_user,
           source: source,
           sort: sort,
+          dateRange: dateRange,
           router: this
         });
       }
@@ -154,16 +160,27 @@ $(function() {
 
     rewriteURL: function(view) {
       var route = "";
+
+      if (view.type == 1 || view.type == 2 || view.type == "3,4") {
+        if (view.dateRange == 2) {
+          route = "today"
+        } else if (view.dateRange == 1) {
+          route = "all";
+        } else {
+          route = "week";
+        }
+      }
+
       if (view.type == 1) {
-        route = "shared";
+        route += "/shared";
       } else if (view.type == "3,4") {
-        route = "chatter";
+        route += "/chatter";
       } else if (view.type == 5) {
-        route = "likes";
+        route += "/likes";
       } else if (view.type == 6) {
-        route = "events";
+        route += "/events";
       } else {
-        route = "news";
+        route += "/news";
       }
 
       if (view.query != "") {

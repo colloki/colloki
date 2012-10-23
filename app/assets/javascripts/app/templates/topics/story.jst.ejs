@@ -1,4 +1,4 @@
-<div class="story-item <% if (kind === 2) { %>story-rss<% } else if (kind === 3) { %>story-facebook<% } else if (kind === 4) { %>story-twitter<% } %>">
+<div class="story-item <% if (kind === 2 || kind === 1) { %>story-rss<% } else if (kind === 3) { %>story-facebook<% } else if (kind === 4) { %>story-twitter<% } %>">
 
   <% if (kind === 4) { %>
     <img class="twitter-user-avatar" src="http://api.twitter.com/1/users/profile_image/<%=source%>.png">

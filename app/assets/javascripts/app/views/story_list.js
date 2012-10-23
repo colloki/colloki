@@ -155,6 +155,12 @@ $(function() {
         } else {
           this.$queryFilter.show();
         }
+
+        if (this.type == this.types["chatter"] || this.type == this.types["user"]) {
+          this.$dateFilter.show();
+        } else {
+          this.$dateFilter.hide();
+        }
       } else {
         this.$sort.show();
         this.$queryFilter.show();
@@ -168,6 +174,7 @@ $(function() {
       this.selectNavPill($(".topic[data-id=" + this.topic + "]"));
       this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
+      this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
 
       this.resetHeader();
 

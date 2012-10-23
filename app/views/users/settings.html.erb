@@ -1,6 +1,6 @@
 <%= errors_for @user %>
 
-<%= render :partial => "partials/page_header", 
+<%= render :partial => "partials/page_header",
   :locals => {:title => "Settings"} %>
 
 <%= form_for(@user, :html => { :class => "form-horizontal" }) do |f| %>
@@ -20,20 +20,20 @@
       <%= f.label "Username", :class => "control-label" %>
       <div class="controls">
         <strong><%= @user.login %></strong>
-        <p class="help-block">You cannot change your username (yet!)</p>
+        <p class="help-block">You cannot change your username yet</p>
       </div>
     </div>
 
     <div class="control-group">
-      <%= f.label "Email" %>
+      <%= f.label "Email", :class => "control-label" %>
       <div class="controls">
         <%= @user.email %>
-        <p class="help-block">You cannot change your email (yet!)</p>
+        <p class="help-block">You cannot change your email yet</p>
       </div>
     </div>
 
     <div class="control-group">
-      <%= f.label "Name" %>
+      <%= f.label "Name", :class => "control-label" %>
       <div class="controls">
         <%= f.text_field :realname %>
         <p class="help-block">Your real name</p>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="control-group">
-      <%= f.label "Website" %>
+      <%= f.label "Website", :class => "control-label" %>
       <div class="controls">
         <%= f.text_field :website %>
         <p class="help-block">The URL to your website, in case you have one.</p>
@@ -49,7 +49,7 @@
     </div>
 
     <div class="control-group">
-      <%= f.label "Location" %>
+      <%= f.label "Location", :class => "control-label" %>
       <div class="controls">
         <%= f.text_field :location %>
         <p class="help-block">Where do you live?</p>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="control-group">
-      <%= f.label "About you" %>
+      <%= f.label "About you", :class => "control-label" %>
       <div class="controls">
         <%= f.text_field :bio, :class => "span7"%>
         <p class="help-block">A short, one line bio of you.</p>
@@ -71,7 +71,7 @@
     </div>
   <% end %>
   </div>
-  
+
   <div class="tab-pane" id="password">
     <h3>Password</h3>
     <div class="form-actions">
@@ -101,13 +101,12 @@
       </div>
     </div>
   </div>
-  
+
   <div class="tab-pane" id="accounts">
     <h3>Connected Accounts</h3>
-    <br>
     <form class="form-horizontal">
       <div class="control-group">
-        <label>Twitter</label>
+        <label class="control-label">Twitter</label>
         <div class="controls">
           <% if @is_twitter_connected %>
             <%= link_to "Remove", "auth/twitter", :class => "btn btn-danger" %>
@@ -117,7 +116,7 @@
         </div>
       </div>
       <div class="control-group">
-        <label>Facebook</label>
+        <label class="control-label">Facebook</label>
         <div class="controls">
           <% if @is_facebook_connected %>
             <%= link_to "Remove", "auth/facebook", :class => "btn btn-danger" %>
