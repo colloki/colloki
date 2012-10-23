@@ -8,13 +8,13 @@ $(function() {
     // todo: support date ranges
     routes: {
       "": "default",
-      "news": "default",
-      "news/:sort": "default",
+      ":range/news": "default",
+      ":range/news/:sort": "default",
 
       "events": "events",
       "likes": "likes",
-      "shared": "shared",
-      "chatter": "chatter",
+      ":range/shared": "shared",
+      ":range/chatter": "chatter",
 
       ":range/news/search/:query": "search",
       ":range/search/:query": "search",
@@ -34,18 +34,21 @@ $(function() {
       ":route/:action": "dateRange"
     },
 
-    default: function(sort) {
+    default: function(dateRange, sort) {
       if (this.view) {
+        this.view.dateRange = dateRange;
         this.view.topic = -2;
         if (sort) {
           this.view.sort = sort;
         }
+
         this.view.showType(2);
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
           current_user: this.current_user,
           sort: sort,
+          dateRange: dateRange,
           router: this
         });
       }
@@ -132,28 +135,32 @@ $(function() {
       }
     },
 
-    shared: function() {
+    shared: function(dateRange) {
       if (this.view) {
+        this.view.dateRange = dateRange;
         this.view.showType(1);
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
           current_user: this.current_user,
           router: this,
-          type: 1
+          type: 1,
+          dateRange: dateRange
         });
       }
     },
 
-    chatter: function() {
+    chatter: function(dateRange) {
       if (this.view) {
+        this.view.dateRange = dateRange;
         this.view.showType("3,4");
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
           current_user: this.current_user,
           router: this,
-          type: "3,4"
+          type: "3,4",
+          dateRange: dateRange
         });
       }
     },
