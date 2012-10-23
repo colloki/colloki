@@ -36,10 +36,14 @@ $(function() {
 
     default: function(dateRange, sort) {
       if (this.view) {
-        this.view.dateRange = dateRange;
-        this.view.topic = -2;
+        this.view.resetToDefault();
+
+        if (dateRange) {
+          this.view.dateRange = this.dateRangeInt(dateRange);
+        }
+
         if (sort) {
-          this.view.sort = sort;
+          this.view.sort = this.sortInt(sort);
         }
 
         this.view.showType(2);
@@ -47,8 +51,8 @@ $(function() {
         this.view = new window.StoryListView({
           el: this.$el,
           current_user: this.current_user,
-          sort: sort,
-          dateRange: dateRange,
+          sort: this.sortInt(sort),
+          dateRange: this.dateRangeInt(dateRange),
           router: this
         });
       }
@@ -56,15 +60,21 @@ $(function() {
 
     search: function(dateRange, query, sort) {
       if (this.view) {
-        this.view.dateRange = dateRange;
-        this.view.showQuery(query, sort);
+        this.view.resetToDefault();
+        this.view.dateRange = this.dateRangeInt(dateRange);
+
+        if (sort) {
+          this.view.sort = this.sortInt(sort);
+        }
+
+        this.view.showQuery(query);
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
           current_user: this.current_user,
           query: query,
-          sort: sort,
-          dateRange: range,
+          sort: this.sortInt(sort),
+          dateRange: this.dateRangeInt(dateRange),
           router: this
         });
       }
@@ -72,16 +82,22 @@ $(function() {
 
     topic: function(dateRange, topic, sort) {
       if (this.view) {
+        this.view.resetToDefault();
+        this.view.dateRange = this.dateRangeInt(dateRange);
         this.view.type = 2;
-        this.view.dateRange = dateRange;
-        this.view.showTopic(topic, sort);
+
+        if (sort) {
+          this.view.sort = this.sortInt(sort);
+        }
+
+        this.view.showTopic(topic);
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
           current_user: this.current_user,
           topic: topic,
-          sort: sort,
-          dateRange: dateRange,
+          sort: this.sortInt(sort),
+          dateRange: this.dateRangeInt(dateRange),
           router: this
         });
       }
@@ -89,15 +105,21 @@ $(function() {
 
     source: function(dateRange, source, sort) {
       if (this.view) {
-        this.view.dateRange = dateRange;
-        this.view.showSource(source, sort);
+        this.view.resetToDefault();
+        this.view.dateRange = this.dateRangeInt(dateRange);
+
+        if (sort) {
+          this.view.sort = this.sortInt(sort);
+        }
+
+        this.view.showSource(source);
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
           current_user: this.current_user,
           source: source,
-          sort: sort,
-          dateRange: dateRange,
+          sort: this.sortInt(sort),
+          dateRange: this.dateRangeInt(dateRange),
           router: this
         });
       }
@@ -137,7 +159,7 @@ $(function() {
 
     shared: function(dateRange) {
       if (this.view) {
-        this.view.dateRange = dateRange;
+        this.view.dateRange = this.dateRangeInt(dateRange);
         this.view.showType(1);
       } else {
         this.view = new window.StoryListView({
@@ -145,14 +167,14 @@ $(function() {
           current_user: this.current_user,
           router: this,
           type: 1,
-          dateRange: dateRange
+          dateRange: this.dateRangeInt(dateRange)
         });
       }
     },
 
     chatter: function(dateRange) {
       if (this.view) {
-        this.view.dateRange = dateRange;
+        this.view.dateRange = this.dateRangeInt(dateRange);
         this.view.showType("3,4");
       } else {
         this.view = new window.StoryListView({
@@ -160,7 +182,7 @@ $(function() {
           current_user: this.current_user,
           router: this,
           type: "3,4",
-          dateRange: dateRange
+          dateRange: this.dateRangeInt(dateRange)
         });
       }
     },
@@ -204,6 +226,24 @@ $(function() {
       }
 
       this.navigate(route);
+    },
+
+    dateRangeInt: function(dateRange) {
+      if (dateRange === "today") {
+        return 2;
+      } else if (dateRange === "all") {
+        return 1;
+      } else {
+        return 4;
+      }
+    },
+
+    sortInt: function(sort) {
+      if (sort === "date") {
+        return 2;
+      } else {
+        return 1;
+      }
     }
   });
 });

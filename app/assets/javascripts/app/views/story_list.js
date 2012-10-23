@@ -1,6 +1,7 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
-    emptyMessage: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
+    emptyMessageWithHistory: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
+    emptyMessageWithoutHistory: "We didn't find anything. Go <a href='/'>Home</a>.",
 
     eventsHTML: '<iframe class="events-calendar" width="880" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
@@ -61,17 +62,6 @@ $(function() {
       this.delegateEvents();
       this.collection = new Stories();
       this.$stories = $(".topic-stories", this.$el);
-      this.dateRange = 4;
-      this.query = "";
-      this.page = 1;
-      this.type = this.types["rss"];
-      this.sort = 1;
-      this.paginationBufferPx = 50;
-      this.isLoading = false;
-      this.likedBy = -1;
-      this.postedBy = -1;
-      this.source = -1;
-      this.router = this.options.router;
 
       this.$sourceFilter = $(".filter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
@@ -80,12 +70,14 @@ $(function() {
       this.$sort = $(".filter-sort", this.$el);
       this.$header = $(".topic-header", this.$el);
 
+      this.paginationBufferPx = 50;
+      this.isLoading = false;
+      this.router = this.options.router;
       this.loadOnScroll = true;
+      this.resetToDefault();
 
       if (this.options.topic) {
         this.topic = this.options.topic;
-      } else {
-        this.topic = -2;
       }
 
       if (this.options.postedBy) {
@@ -116,6 +108,10 @@ $(function() {
         this.type = this.options.type;
       }
 
+      if (this.options.dateRange) {
+        this.dateRange = this.options.dateRange;
+      }
+
       this.$stories.imagesLoaded($.proxy(function() {
         this.$stories.masonry({
           itemSelector: ".story-item"
@@ -125,7 +121,7 @@ $(function() {
       $(window).scroll(this.onScroll);
 
       if (this.type == this.types["events"]) {
-        this.events();
+        this.showType(this.type);
         this.render();
       } else {
         this.reset();
@@ -175,6 +171,7 @@ $(function() {
       this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
+      $(".search-query", this.$el).val(this.query);
 
       this.resetHeader();
 
@@ -262,10 +259,19 @@ $(function() {
             this.append(c);
           }
         } else {
-          this.$stories.html($("<p>", {
-            "class": "lead empty-message",
-            html: this.emptyMessage
-          }));
+          var $message = $("<p>", {
+            "class": "lead empty-message"
+          });
+
+          if (this.emptyMessage) {
+            $message.html(this.emptyMessage);
+          } else if (window.history.length > 0) {
+            $message.html(this.emptyMessageWithHistory);
+          } else {
+            $message.html(this.emptyMessageWithoutHistory);
+          }
+
+          this.$stories.html($message);
         }
 
         this.isLoading = false;
@@ -345,18 +351,15 @@ $(function() {
     filterByTopic: function(event) {
       event.preventDefault();
       var $el = $(event.target);
-      this.showTopic($el.data("id"), null, true);
-    },
-
-    showTopic: function(topic, sort, shouldRewriteURL) {
-      this.topic = topic;
-      if (sort) {
-        this.sort = sort;
-      }
-      this.loadOnScroll = true;
       this.resetSource();
       this.resetQuery();
       this.resetLikedBy();
+      this.showTopic($el.data("id"), true);
+    },
+
+    showTopic: function(topic, shouldRewriteURL) {
+      this.topic = topic;
+      this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
     },
 
@@ -367,17 +370,14 @@ $(function() {
     filterBySource: function(event) {
       event.preventDefault();
       var $el = $(event.target);
-      this.showSource($(event.target).data("value"), null, true);
-    },
-
-    showSource: function(source, sort, shouldRewriteURL) {
-      this.source = source;
-      if (sort) {
-        this.sort = sort;
-      }
       this.resetTopic();
       this.resetQuery();
       this.resetLikedBy();
+      this.showSource($(event.target).data("value"), true);
+    },
+
+    showSource: function(source, shouldRewriteURL) {
+      this.source = source;
       this.reset(shouldRewriteURL);
     },
 
@@ -420,22 +420,19 @@ $(function() {
       if (event.keyCode === 27 || $el.val() === "") {
         event.preventDefault();
         this.resetQuery();
-        this.reset();
+        this.reset(true);
       } else if (event.keyCode === 13) {
         event.preventDefault();
-        this.showQuery($el.val(), null, true);
+        this.resetLikedBy();
+        this.resetTopic();
+        this.resetSource();
+        this.showQuery($el.val(), true);
       }
     },
 
-    showQuery: function(query, sort, shouldRewriteURL) {
+    showQuery: function(query, shouldRewriteURL) {
       this.query = query;
-      if (sort) {
-        this.sort = sort;
-      }
       this.loadOnScroll = true;
-      this.resetLikedBy();
-      this.resetTopic();
-      this.resetSource();
       this.reset(shouldRewriteURL);
     },
 
@@ -454,6 +451,18 @@ $(function() {
       this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
       this.$stories.html(this.eventsHTML);
       this.render(shouldRewriteURL);
+    },
+
+    resetToDefault: function() {
+      this.dateRange = 4;
+      this.query = "";
+      this.page = 1;
+      this.type = this.types["rss"];
+      this.sort = 1;
+      this.likedBy = -1;
+      this.postedBy = -1;
+      this.topic = -2;
+      this.source = -1;
     }
   });
 });
