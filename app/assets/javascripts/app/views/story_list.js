@@ -1,7 +1,7 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
     emptyMessageWithHistory: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
-    emptyMessageWithoutHistory: "We didn't find anything. Go <a href='/'>Home</a>.",
+    emptyMessageWithoutHistory: "We didn't find anything. Go <a href='#' class='.home'>home</a>.",
 
     eventsHTML: '<iframe class="events-calendar" width="880" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
@@ -119,6 +119,10 @@ $(function() {
       }, this));
 
       $(window).scroll(this.onScroll);
+
+      $('.home', this.$el).click($.proxy(function(e) {
+        this.router.navigate("/", true);
+      }, this));
 
       if (this.type == this.types["events"]) {
         this.showType(this.type);
@@ -265,7 +269,7 @@ $(function() {
 
           if (this.emptyMessage) {
             $message.html(this.emptyMessage);
-          } else if (window.history.length > 0) {
+          } else if (window.history.length > 2) {
             $message.html(this.emptyMessageWithHistory);
           } else {
             $message.html(this.emptyMessageWithoutHistory);
