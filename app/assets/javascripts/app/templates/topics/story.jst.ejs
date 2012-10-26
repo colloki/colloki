@@ -8,6 +8,9 @@
   <% } %>
 
   <% if (kind === 3) { %>
+    <% if (image_url) { %>
+      <img class="story-rss-image" src="<%= image_url %>">
+    <% } %>
     <blockquote>
       <span class="expandable"><%= title %></span>
       <span class="short-expandable"><%= description %></span>
