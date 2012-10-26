@@ -27,6 +27,7 @@ Colloki::Application.routes.draw do
   match 'logout', :to => 'sessions#destroy', :as => 'logout'
   match 'session/create', :to => 'sessions#create', :as => 'create_session'
   match 'about', :to => 'static#about', :as => 'about'
+  match 'help', :to => 'static#help', :as => 'help'
   match 'research', :to => 'static#about_research', :as => 'research'
   match 'changelog', :to => 'static#changelog', :as => 'changelog'
   match 'specs', :to => 'static#specs', :as => 'specs'
@@ -40,20 +41,7 @@ Colloki::Application.routes.draw do
 
   match 'auth/:provider/callback', :to => 'provider_authentications#create'
   match 'auth/failure', :to => 'provider_authentications#failure'
-
-  # match 'topics/:id/:sort', :to => 'topics#show'
-  # match 'topics/:id', :to => 'topics#show', :as => 'topical'
-
-  # match 'latest', :to => 'topics#latest'
-  # match 'popular', :to => 'topics#popular'
-  # match 'active', :to => 'topics#active'
-  # match 'facebook', :to => 'topics#facebook'
-
   match 'search', :to => 'topics#index', :as => '/search'
-  # match 'topics/:id', :to => 'topics#search', :as => '/search'
-  # match 'archive', :to => 'topics#archive'
-
   match 'feed', :to => 'feeds#latest', :as => 'feed'
-
   match ':controller(/:action(/:id(/:id2)))'
 end
