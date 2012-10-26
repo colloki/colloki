@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018220846) do
+ActiveRecord::Schema.define(:version => 20121026192601) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20121018220846) do
     t.integer  "views"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",               :default => -1, :null => false
+    t.integer  "user_id"
     t.integer  "topic_id",              :default => -1, :null => false
     t.integer  "kind",                  :default => 0,  :null => false
     t.integer  "popularity",            :default => 0,  :null => false
