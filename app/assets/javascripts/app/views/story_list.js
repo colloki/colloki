@@ -359,6 +359,8 @@ $(function() {
       this.resetQuery();
       this.resetLikedBy();
       this.showTopic($el.data("id"), true);
+      // Hide the topic's popover so that the user can see the stories under it
+      $(".popover").remove();
     },
 
     showTopic: function(topic, shouldRewriteURL) {
