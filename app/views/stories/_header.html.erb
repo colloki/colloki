@@ -51,7 +51,7 @@
   </li>
   <% end %>
   <li class="active">
-    <%= story.title %>
+    <%= story.title.force_encoding("utf-8") %>
   </li>
 </ul>
 

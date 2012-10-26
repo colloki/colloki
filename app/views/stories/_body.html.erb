@@ -5,7 +5,7 @@
     </div>
   <% end %>
   <div class="expandable">
-    <%= sanitize(story.description) %>
+    <%= sanitize(story.description.force_encoding("utf-8")) %>
   </div>
 </div>
 <hr>

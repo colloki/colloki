@@ -9,16 +9,16 @@ class MiningStore
   CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
 
   # Class config variables
-  @@source                            = CONFIG['TM_url']
-  @@topics_path                       = CONFIG['TM_topics_path']
-  @@document_topic_distribution_path  = CONFIG['TM_document_topic_path']
-  @@stories_path                      = CONFIG['TM_stories_path']
+  @@source = CONFIG['TM_url']
+  @@topics_path = CONFIG['TM_topics_path']
+  @@document_topic_distribution_path = CONFIG['TM_document_topic_path']
+  @@stories_path = CONFIG['TM_stories_path']
 
   def initialize(date)
     @formatted_date = format_date(date)
-    @topics         = get_topics
-    @distribution   = get_story_topic_distribution
-    @stories        = get_stories
+    @topics = get_topics
+    @distribution = get_story_topic_distribution
+    @stories = get_stories
   end
 
   def topics

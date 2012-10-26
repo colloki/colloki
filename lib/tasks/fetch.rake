@@ -110,8 +110,8 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
           else
             puts "Saving new story: " + story["link"]
             new_story = Story.new
-            new_story.title = story["title"]
-            new_story.description = story["text"]
+            new_story.title = story["title"].force_encoding("utf-8")
+            new_story.description = story["text"].force_encoding("utf-8")
 
             # Story topic
             if topic
