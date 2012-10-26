@@ -184,6 +184,10 @@ $(function() {
       }
 
       $(".has-tooltip").tooltip();
+
+      if ($(document).height() == $(window).height()) {
+        this.nextPage();
+      }
     },
 
     append: function(story) {
@@ -321,7 +325,7 @@ $(function() {
       if (!this.loadOnScroll) {return;}
       if (this.isLoading) {return;}
       var $window = $(window);
-      var pixelsFromWindowBottomToBottom = 0 + $(document).height() - $window.scrollTop() - $(window).height();
+      var pixelsFromWindowBottomToBottom = $(document).height() - $window.scrollTop() - $(window).height();
       if (pixelsFromWindowBottomToBottom - this.paginationBufferPx < 0) {
         this.nextPage();
       }
@@ -404,6 +408,7 @@ $(function() {
     showType: function(type, shouldRewriteURL) {
       this.type = type;
       this.loadOnScroll = true;
+      this.$el.height(500);
 
       if(this.type == this.types["events"]) {
         this.showEvents(shouldRewriteURL);
