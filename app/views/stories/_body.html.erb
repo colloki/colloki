@@ -1,11 +1,14 @@
 <div class="story-content">
-  <% if story.image_exists? %>
-    <div class="story-image">
-      <%= image_tag(story.image.url) %>
-    </div>
-  <% end %>
   <div class="expandable">
-    <%= sanitize(story.description.force_encoding("utf-8")) %>
+    <% if story.image_exists? %>
+      <div class="story-image" style="display: inline-block">
+        <%= image_tag(story.image.url) %>
+      </div>
+    <% end %>
+    <div>
+      <%= sanitize(story.description.force_encoding("utf-8")) %>
+    </div>
   </div>
 </div>
+<div style="clear: both"></div>
 <hr>

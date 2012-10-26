@@ -1,5 +1,5 @@
 <% if story.kind == Story::Post %>
-  by <%= link_to story.user.login, story.user %> •
+  Written By <%= link_to story.user.login, story.user %> •
   <% if story.published_at %>
     <%= time_ago_in_words story.published_at %>
   <% else %>
@@ -10,7 +10,7 @@
   <% img = image_tag("http://www.google.com/s2/favicons?domain_url=" + story.source_url,
     :class => "favicon")
   %>
-  <%= link_to img, story.source_url %>
+  Collected from
   <%= link_to story.source, story.source_url,
     :class => "has-tooltip",
     'data-placement' => "bottom",
