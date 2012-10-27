@@ -3,15 +3,15 @@
   $(document).ready(function(e) {
     var userPosts = new window.StoryListView({
       el: $(".user-posts"),
-      current_user: <%= current_user.to_json.html_safe %>,
-      postedBy: <%= user.id %>,
+      current_user: gon.current_user,
+      postedBy: gon.user.id,
       emptyMessage: "No posts written yet."
     });
 
     var likedPosts = new window.StoryListView({
       el: $(".user-likes"),
-      current_user: <%= current_user.to_json.html_safe %>,
-      likedBy: <%= user.id %>,
+      current_user: gon.current_user,
+      likedBy: gon.user.id,
       emptyMessage: "No stories liked yet."
     });
 
@@ -21,6 +21,13 @@
 
     $(".likes-tab-link").click(function(e) {
       likedPosts.render();
+    });
+
+    var followUser = new window.FollowView({
+      el: $(".user-follow"),
+      user: gon.user,
+      current_user: gon.current_user,
+      following: gon.following
     });
   });
   <% end %>

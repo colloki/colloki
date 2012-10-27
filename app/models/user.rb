@@ -1,13 +1,12 @@
 require 'digest/sha1'
+
 class User < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
   validates_presence_of     :login, :email
   validates_presence_of     :password,                   :if => :password_required?
-  # validates_presence_of     :password_confirmation,      :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?
-  # validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
@@ -24,6 +23,7 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
   before_create :make_activation_code
+
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :realname, :website, :bio, :location, :twitter_id, :delicious_id, :friendfeed_id, :linkedin_url, :facebook_url
@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
   has_many :topics
   has_many :provider_authentications
   has_many :votes, :dependent => :destroy
+
+  # Follow and get followed
+  acts_as_followable
+  acts_as_follower
 
   # Activates the user in the database.
   def activate

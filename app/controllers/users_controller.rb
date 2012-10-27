@@ -31,14 +31,14 @@ class UsersController < ApplicationController
 
   def show
     begin
-      @user           = User.find(params[:id])
-      @page_title     = "Profile for " + @user.login
-      @tags           = @user.stories.tag_counts
-      @stories        = Story.find_by_user(@user.id)
-      @comments       = Comment.find_by_user(@user.id)
-      @liked_stories  = Story.find_liked_by_user(@user.id)
+      @user = User.find(params[:id])
+      @page_title = "Profile for " + @user.login
+      @likes_count = Story.count_likes_by_user(@user.id)
+
       gon.app_url = root_url
+      gon.user = @user
       gon.current_user = current_user
+      gon.following = (current_user) ? (current_user.following? @user) : false
     rescue
       @page_title = "User not found"
     end

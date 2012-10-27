@@ -329,22 +329,15 @@ class Story < ActiveRecord::Base
   end
 
   def self.find_by_user(user_id, limit=10)
-    find :all,
-         :order => "created_at DESC",
+    find :all, :order => "created_at DESC",
          :conditions => {:user_id => user_id},
          :limit => limit
   end
 
-  def self.find_liked_by_user(user_id, limit=10)
+  def self.count_likes_by_user(user_id)
     likes = Vote.find :all,
-      :order => "created_at DESC",
-      :conditions => {:user_id => user_id},
-      :limit => limit
-    stories = []
-    for like in likes
-      stories.push(like.story)
-    end
-    stories
+      :conditions => {:user_id => user_id}
+    return likes.count
   end
 
   def self.find_by_url(url)

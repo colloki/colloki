@@ -38,3 +38,5 @@ gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'ejs'
 gem 'gon'
+
+gem "acts_as_follower"

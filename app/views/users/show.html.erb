@@ -32,7 +32,10 @@
 
         <%= @user.stories.count %> Posts •
         <%= @user.comments.count %> Comments •
-        <%= @liked_stories.count %> Likes
+        <%= @likes_count %> Likes •
+        <%= @user.followers_count %> Followers
+
+        <button class="btn btn-success has-tooltip user-follow">Follow</button>
       </div>
     </div>
   </div>
@@ -69,8 +72,8 @@
 
     <!-- Comments -->
     <div id="user-comments" class="tab-pane user-comments">
-      <% if @comments.count != 0 %>
-        <% for comment in @comments %>
+      <% if @user.comments.count != 0 %>
+        <% for comment in @user.comments %>
           <blockquote>
             <p>
               <%= comment.body %>

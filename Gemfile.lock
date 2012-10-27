@@ -30,6 +30,7 @@ GEM
       multi_json (~> 1.0)
     acts-as-taggable-on (2.1.1)
       rails
+    acts_as_follower (0.1.1)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.1.0.1)
@@ -233,6 +234,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 2.1.0)
+  acts_as_follower
   capistrano
   coffee-rails
   devise
