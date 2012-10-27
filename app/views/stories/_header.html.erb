@@ -1,5 +1,3 @@
-<% Time::DATE_FORMATS[:day_month_and_year] = "%d %B %Y" %>
-
 <ul class="breadcrumb">
   <% if story.topic %>
     <%
@@ -7,18 +5,8 @@
       today_date = DateTime.now.to_date
     %>
     <li>
-      <% if (story_date == today_date) %>
-        Today
-      <% elsif (today_date - story_date == 1) %>
-        Yesterday
-      <% else %>
-        <%= story.topic.day.to_formatted_s(:day_month_and_year) %>
-      <% end %>
-      <span class="divider">/</span>
-    </li>
-    <li>
       [ <%= link_to story.topic.title,
-          topic_url(story.topic),
+          "/#week/news/topic/#{story.topic.id}",
           :class => "has-tooltip",
           :title => "View topic [ " + story.topic.title + " ]" %>
       ]
@@ -30,14 +18,14 @@
         # todo: set source_name to a more generic value (domain of link)
         source_name = source_url
         link_to story.source_url,
-          search_url + "?query=" + source_name,
+          "/#all/news/source/#{source_name}",
           :class => "has-tooltip",
           :title => "View all from " + source_name
         %>
       <% else %>
         <%=
         link_to story.source,
-          search_url + "?query=" + story.source,
+          "/#all/news/source/#{story.source}",
           :class => "has-tooltip",
           :title => "View all from " + story.source
         %>
