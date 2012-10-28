@@ -16,14 +16,19 @@
     <div class="span9 user-description">
       <h4>
         <a href="/users/<%=user.login%>">
-          <%= user.realname and user.realname != '' ? user.realname : user.login %>
+          <% if user.realname and user.realname != '' %>
+            <%= user.realname %>
+          <% else %>
+            <%= user.login %>
+           <% end %>
         </a>
       </h4>
       <p class="user-bio" >
         <%= user.bio %><br>
-        <%= link_to user.website, user.website %>
-        <% if user.location != '' %>
-          •
+        <% if user.website and user.website != '' %>
+          <%= link_to user.website, user.website %>
+        <% end %>
+        <% if user.location and user.location != '' %>
           <i class='icon-map-marker'></i> <%= user.location %>
         <% end %>
       </p>
