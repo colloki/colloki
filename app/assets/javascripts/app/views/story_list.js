@@ -150,13 +150,6 @@ $(function() {
         this.$dateFilter.hide();
         this.$sort.hide();
 
-        if (this.type != this.types["chatter"]) {
-          this.resetQuery();
-        }
-
-        this.resetTopic();
-        this.resetSource();
-
         if (this.type == this.types["events"]) {
           this.$queryFilter.hide();
         } else {
@@ -266,6 +259,15 @@ $(function() {
 
     reset: function(shouldRewriteURL) {
       this.page = 1;
+
+      if (this.type != this.types["rss"]) {
+        if (this.type != this.types["chatter"]) {
+          this.resetQuery();
+        }
+
+        this.resetTopic();
+        this.resetSource();
+      }
 
       this.load($.proxy(function(data) {
         // TODO: Get rid of this ugliness.
