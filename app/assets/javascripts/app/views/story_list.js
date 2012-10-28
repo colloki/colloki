@@ -149,7 +149,10 @@ $(function() {
         this.$dateFilter.hide();
         this.$sort.hide();
 
-        this.resetQuery();
+        if (this.type != this.types["chatter"]) {
+          this.resetQuery();
+        }
+
         this.resetTopic();
         this.resetSource();
 
@@ -249,7 +252,10 @@ $(function() {
           text += " - [ Everything ]";
         }
       } else if (this.type == this.types["chatter"]) {
-        text = "Conversations on Twitter and Facebook";
+        text = "Conversations on Twitter & Facebook";
+        if (this.query != "") {
+          text += "- Search results for '" + this.query + "'";
+        }
       } else if (this.type == this.types["user"]) {
         text = "Shared by VTS Users";
       }

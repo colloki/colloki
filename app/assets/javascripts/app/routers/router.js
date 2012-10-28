@@ -17,7 +17,9 @@ $(function() {
       "following": "following",
 
       ":range/shared": "shared",
+
       ":range/chatter": "chatter",
+      ":range/chatter/search/:query": "chatter",
 
       ":range/news/search/:query": "search",
       ":range/search/:query": "search",
@@ -195,9 +197,14 @@ $(function() {
       }
     },
 
-    chatter: function(dateRange) {
+    chatter: function(dateRange, query) {
       if (this.view) {
         this.view.dateRange = this.dateRangeInt(dateRange);
+
+        if (query) {
+          this.view.query = query;
+        }
+
         this.view.showType("3,4");
       } else {
         this.view = new window.StoryListView({
@@ -205,6 +212,7 @@ $(function() {
           router: this,
           user: this.user,
           viewer: this.viewer,
+          query: query,
           type: "3,4",
           dateRange: this.dateRangeInt(dateRange)
         });
