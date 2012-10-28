@@ -11,7 +11,8 @@ $(function() {
       "chatter": "3,4",
       "likes": 5,
       "events": 6,
-      "following": 7
+      "following": 7,
+      "by-user": 8
     },
 
     events: {

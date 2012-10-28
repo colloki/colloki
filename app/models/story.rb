@@ -8,6 +8,7 @@ class Story < ActiveRecord::Base
   Likes = 5
   Events = 6
   Following = 7
+  ByUser = 8
 
   # Facebook Post Types
   FacebookTypeStatus = 0
@@ -239,12 +240,19 @@ class Story < ActiveRecord::Base
         stories.push(like.story)
       end
 
-    # User Posts
+    # User Shared Posts
     elsif params[:type].to_i == Story::Post
       stories = Story.paginate(
         :page => params[:page],
         :order => "created_at DESC",
         :conditions => {:kind => Story::Post});
+
+    # Posts by a specific user
+    elsif params[:type].to_i == Story::ByUser
+      stories = Story.paginate(
+        :page => params[:page],
+        :order => "created_at DESC",
+        :conditions => {:user_id => params[:user_id]});
 
     else
       # Search
