@@ -225,7 +225,7 @@ $(function() {
       if (this.type == this.types["likes"]) {
         text = "Your Likes";
       } else if (this.type == this.types["following"]) {
-        text = "Following";
+        text = "People You're Following";
       } else if (this.type == this.types["rss"]) {
 
         if (this.dateRange == 4) {

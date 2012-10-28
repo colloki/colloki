@@ -38,9 +38,10 @@
 
           <div class="nav-collapse">
             <ul class="nav">
+              <% controller = request.filtered_parameters["controller"] %>
+              <% action = request.filtered_parameters["action"] %>
               <% if logged_in? %>
-                <% if request.filtered_parameters["controller"] === "users" and
-                  request.filtered_parameters["action"] === "show" %>
+                <% if controller === "users" and action === "show" %>
                   <li class="active">
                 <% else %>
                   <li>
@@ -63,14 +64,23 @@
                   </ul>
                 </li>
               <% else %>
-                <li><%= link_to "About", about_url %></li>
-                <li><%= link_to "Help", help_url %></li>
                 <li><%= link_to "Sign In", login_url %></li>
               <% end %>
+              <% if controller == "static" and action == "help" %>
+                <li class="active">
+              <% else %>
+                <li>
+              <% end %>
+              <%= link_to "Help", help_url %></li>
+              <% if controller == "static" and action == "about" %>
+                <li class="active">
+              <% else %>
+                <li>
+              <% end %>
+              <%= link_to "About", about_url %></li>
             </ul>
           </div>
 
-          <!-- Share Button -->
           <div class="pull-left hidden-phone" id="navbar-share">
             <a data-toggle="modal" href="#navbar-share-modal" class="btn btn-small btn-success">
               <i class="icon-pencil icon-white"></i>
