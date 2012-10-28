@@ -85,7 +85,7 @@
     <h3>Avatar</h3>
     <div class="control-group">
       <br>
-      <%= gravatar_image_tag(current_user.email) %>
+      <%= image_tag(current_user.get_image_url) %>
       <br><br>
       <span>
         We use your <a href="http://gravatar.com">Gravatar</a> to represent you on this site.

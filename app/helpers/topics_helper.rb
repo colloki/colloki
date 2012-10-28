@@ -23,14 +23,9 @@ module TopicsHelper
   def story_item_icon(story)
     html = "<div class=\"favicon\">"
     if story.kind == Story::Post
-      html << "#{link_to gravatar_image_tag(story.user.email,
-                  :gravatar => { :size => 26 }, :class => "user-avatar-icon"),
-                  story.user,
-                  :title => story.user.login}"
+      html << "#{link_to image_tag(story.user.get_image_url), story.user, :title => story.user.login}"
     else
-      html << "#{link_to image_tag(favicon_url(story.source_url),
-                  :class => "favicon-icon"),
-                  story.source_url}"
+      html << "#{link_to image_tag(favicon_url(story.source_url), :class => "favicon-icon"), story.source_url}"
     end
     html << "</div>"
     return html.html_safe

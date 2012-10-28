@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
     self.login = omniauth['info']['nickname'] if login.blank?
     self.website = omniauth['info']['website'] if website.blank?
     self.realname = omniauth['info']['name'] if realname.blank?
-    self.image_url = omniauth['info']['image'].sub("_normal", "")
+    self.image_url = omniauth['info']['image'].sub("_normal", "").sub("=square", "=large")
     provider_authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 
@@ -149,6 +149,14 @@ class User < ActiveRecord::Base
     story = vote.story
     vote.delete
     story.save
+  end
+
+  def get_image_url
+    if self.image_url
+      return self.image_url
+    else
+      return Gravatar.new(self.email).image_url
+    end
   end
 
   def self.top_in_topic(topic_id)

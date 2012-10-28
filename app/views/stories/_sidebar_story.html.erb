@@ -1,7 +1,7 @@
 <div class="sidebar-story row-fluid">
   <div class="span1">
     <% if story.kind == Story::Post %>
-      <%= link_to gravatar_image_tag(story.user.email, :gravatar => { :size => 20 }, :class => "favicon"), story.user, :title => story.user.login %>
+      <%= link_to image_tag(story.user.get_image_url), story.user, :title => story.user.login, :class => "favicon" %>
     <%else%>
       <%= link_to image_tag(favicon_url(story.source_url), :class => "favicon"), story.source_url %>
     <%end%>

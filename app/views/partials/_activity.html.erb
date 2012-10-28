@@ -1,7 +1,7 @@
 <% for activity in activity_items %>
   <div class='activity-item row'>
     <div class='span1' style='width: 30px;'>
-      <%= link_to gravatar_image_tag(activity.user.email, :gravatar => { :size => 28 }) %>
+      <%= link_to image_tag(activity.user.get_image_url) %>
     </div>
     <div class='span8' style='margin-left: 10px; margin-top: -2px;'>
       <%= link_to activity.user.login,      :controller => "users",

@@ -18,7 +18,7 @@ class ProviderAuthenticationsController < ApplicationController
     if authentication
       # Update the image URL if it is not already set
       if !authentication.user.image_url
-        authentication.user.image_url = omniauth['info']['image'].sub("_normal", "")
+        authentication.user.image_url = omniauth['info']['image'].sub("_normal", "").sub("=square", "=large")
         authentication.user.save
       end
 

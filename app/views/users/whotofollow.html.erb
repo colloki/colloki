@@ -6,7 +6,7 @@
 <% for user in @users %>
   <div class="row-fluid user-to-follow">
     <div class="span1 user-avatar">
-      <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 60 }),
+      <%= link_to image_tag(user.get_image_url),
         "/users/#{user.login}",
         :title => user.login,
         :class => 'has-tooltip',
