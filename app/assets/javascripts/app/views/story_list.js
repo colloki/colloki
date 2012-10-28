@@ -3,7 +3,7 @@ $(function() {
     emptyWithHistory: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
     emptyWithoutHistory: "We didn't find anything. Go <a href='#' class='.home'>home</a>.",
 
-    eventsHTML: '<iframe class="events-calendar" width="880" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
+    eventsHTML: '<iframe class="events-calendar" width="580" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
     types: {
       "user": {
@@ -31,8 +31,8 @@ $(function() {
 
       "following": {
         id: 7,
-        header: "People You're Following",
-        empty: "You're not following anyone yet. <a href='/whotofollow'>Follow some users</a>!"
+        header: "People You're Following <a class='who-to-follow' href='/whotofollow'>See who to follow</a>",
+        empty: "No activity from the people you're following... See suggestions on <a href='/whotofollow'>who to follow</a>"
       },
 
       "by-user": {
@@ -155,7 +155,6 @@ $(function() {
 
       if (this.type == this.types["events"].id) {
         this.showType(this.type);
-        this.render();
       } else {
         this.reset();
       }
@@ -511,6 +510,7 @@ $(function() {
       this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
       this.$stories.html(this.eventsHTML);
       this.render(shouldRewriteURL);
+      this.selectNavPill($(".type[data-value='" + this.type + "']"));
     },
 
     resetToDefault: function() {
