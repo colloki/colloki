@@ -1,8 +1,9 @@
 $(function() {
   window.AppRouter = Backbone.Router.extend({
     $el: $(".topic-body"),
-    current_user: gon.current_user,
     view: null,
+    user: gon.current_user,
+    viewer: gon.current_user,
 
     // todo: use regex
     // todo: support date ranges
@@ -13,6 +14,8 @@ $(function() {
 
       "events": "events",
       "likes": "likes",
+      "following": "following",
+
       ":range/shared": "shared",
       ":range/chatter": "chatter",
 
@@ -50,10 +53,11 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
+          router: this,
+          user: this.user,
+          viewer: this.viewer,
           sort: this.sortInt(sort),
-          dateRange: this.dateRangeInt(dateRange),
-          router: this
+          dateRange: this.dateRangeInt(dateRange)
         });
       }
     },
@@ -71,11 +75,12 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
+          router: this,
+          user: this.user,
+          viewer: this.viewer,
           query: query,
           sort: this.sortInt(sort),
-          dateRange: this.dateRangeInt(dateRange),
-          router: this
+          dateRange: this.dateRangeInt(dateRange)
         });
       }
     },
@@ -94,11 +99,12 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
+          router: this,
+          user: this.user,
+          viewer: this.viewer,
           topic: topic,
           sort: this.sortInt(sort),
-          dateRange: this.dateRangeInt(dateRange),
-          router: this
+          dateRange: this.dateRangeInt(dateRange)
         });
       }
     },
@@ -116,11 +122,12 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
+          router: this,
+          user: this.user,
+          viewer: this.viewer,
           source: source,
           sort: this.sortInt(sort),
-          dateRange: this.dateRangeInt(dateRange),
-          router: this
+          dateRange: this.dateRangeInt(dateRange)
         });
       }
     },
@@ -135,8 +142,9 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
           router: this,
+          user: this.user,
+          viewer: this.viewer,
           type: 6
         });
       }
@@ -149,10 +157,24 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
           router: this,
-          likedBy: this.current_user.id,
+          user: this.user,
+          viewer: this.viewer,
           type: 5
+        });
+      }
+    },
+
+    following: function() {
+      if (this.view) {
+        this.view.showType(7);
+      } else {
+        this.view = new window.StoryListView({
+          el: this.$el,
+          user: this.user,
+          viewer: this.viewer,
+          router: this,
+          type: 7
         });
       }
     },
@@ -164,8 +186,9 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
           router: this,
+          user: this.user,
+          viewer: this.viewer,
           type: 1,
           dateRange: this.dateRangeInt(dateRange)
         });
@@ -179,8 +202,9 @@ $(function() {
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
-          current_user: this.current_user,
           router: this,
+          user: this.user,
+          viewer: this.viewer,
           type: "3,4",
           dateRange: this.dateRangeInt(dateRange)
         });
@@ -208,6 +232,8 @@ $(function() {
         route += "/likes";
       } else if (view.type == 6) {
         route += "/events";
+      } else if (view.type == 7) {
+        route += "/following";
       } else {
         route += "/news";
       }

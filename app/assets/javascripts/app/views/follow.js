@@ -7,14 +7,14 @@ $(function() {
     initialize: function() {
       _.bindAll(this, 'update', 'follow', 'unfollow');
       this.user = this.options.user;
-      this.current_user = this.options.current_user;
+      this.viewer = this.options.viewer;
       this.following = this.options.following;
       this.model = new Follow();
       this.render();
     },
 
     render: function() {
-      if (!this.current_user) {
+      if (!this.viewer) {
         this.$el
           .addClass("disabled")
           .attr("title", "Sign in to follow this user");

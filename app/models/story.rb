@@ -5,6 +5,9 @@ class Story < ActiveRecord::Base
   Rss = 2
   Facebook = 3
   Twitter = 4
+  Likes = 5
+  Events = 6
+  Following = 7
 
   # Facebook Post Types
   FacebookTypeStatus = 0
@@ -202,42 +205,68 @@ class Story < ActiveRecord::Base
   end
 
   def self.search(params)
-    if params[:liked_by] and params[:liked_by].to_i != -1
+    # Following
+    if params[:type].to_i == Story::Following
+      user = User.find(params[:user_id])
+      following = user.all_following
+      user_ids = []
+
+      for user in following
+        user_ids.push(user.id)
+      end
+
       likes = Vote.paginate(
         :page => params[:page],
         :order => "created_at DESC",
-        :conditions => {:user_id => params[:liked_by]
-      });
+        :conditions => ["user_id IN (?)", user_ids]
+      )
 
       stories = []
       for like in likes
         stories.push(like.story)
       end
 
-    elsif params[:posted_by] and params[:posted_by].to_i != -1
+    # Likes
+    elsif params[:type].to_i == Story::Likes
+      likes = Vote.paginate(
+        :page => params[:page],
+        :order => "created_at DESC",
+        :conditions => {:user_id => params[:user_id]}
+      );
+
+      stories = []
+      for like in likes
+        stories.push(like.story)
+      end
+
+    # User Posts
+    elsif params[:type].to_i == Story::Post
       stories = Story.paginate(
         :page => params[:page],
         :order => "created_at DESC",
-        :conditions => {:user_id => params[:posted_by]
+        :conditions => {:user_id => params[:user_id]
       });
 
     else
+      # Search
       query = params[:query]
-
       if query and query != ""
         conditions = [ "(title like ? OR description like ? OR source like ? OR source_url like ?)",
           "%#{query}%",
           "%#{query}%",
           "%#{query}%",
           "%#{query}"]
+      # Source
       elsif params[:source] and params[:source].to_i != -1
         conditions = ["(source like ?)", "#{params[:source]}"]
+      # Topic
       elsif params[:topic] and params[:topic].to_i != -2
         conditions = ["(topic_id = ?)", params[:topic]]
       else
         conditions = []
       end
 
+      # Date Range
       if params[:range]
         if params[:range].to_i == Story::DateRangeToday
           start_date = Date.today
@@ -262,6 +291,7 @@ class Story < ActiveRecord::Base
         end
       end
 
+      # Type
       if params[:type]
         kinds = params[:type].split(",")
 
@@ -282,6 +312,7 @@ class Story < ActiveRecord::Base
         conditions.at(0) << ")"
       end
 
+      # Sorting
       if params[:sort] and params[:sort].to_i == Story::SortExternalPopularity
         order = "external_popularity DESC, published_at DESC"
       else

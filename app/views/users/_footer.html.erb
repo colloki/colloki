@@ -3,15 +3,17 @@
   $(document).ready(function(e) {
     var userPosts = new window.StoryListView({
       el: $(".user-posts"),
-      current_user: gon.current_user,
-      postedBy: gon.user.id,
+      type: 1,
+      user: gon.user,
+      viewer: gon.current_user,
       emptyMessage: "No posts written yet."
     });
 
     var likedPosts = new window.StoryListView({
       el: $(".user-likes"),
-      current_user: gon.current_user,
-      likedBy: gon.user.id,
+      type: 5,
+      user: gon.user,
+      viewer: gon.current_user,
       emptyMessage: "No stories liked yet."
     });
 
@@ -26,7 +28,7 @@
     var followUser = new window.FollowView({
       el: $(".user-follow"),
       user: gon.user,
-      current_user: gon.current_user,
+      viewer: gon.current_user,
       following: gon.following
     });
   });

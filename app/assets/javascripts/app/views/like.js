@@ -10,7 +10,7 @@ $(function() {
       _.bindAll(this, 'render', 'like', 'add', 'remove');
 
       this.story = this.options.story;
-      this.user = this.options.current_user;
+      this.user = this.options.viewer;
       this.votes = this.options.votes;
       this.count = this.votes.length;
 

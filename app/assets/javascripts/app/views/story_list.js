@@ -10,7 +10,8 @@ $(function() {
       "rss": 2,
       "chatter": "3,4",
       "likes": 5,
-      "events": 6
+      "events": 6,
+      "following": 7
     },
 
     events: {
@@ -55,8 +56,6 @@ $(function() {
         "resetQuery",
 
         "showLikes",
-        "resetLikedBy",
-
         "showEvents");
 
       this.delegateEvents();
@@ -80,12 +79,16 @@ $(function() {
         this.topic = this.options.topic;
       }
 
-      if (this.options.postedBy) {
-        this.postedBy = this.options.postedBy;
+      if (this.options.type) {
+        this.type = this.options.type;
       }
 
-      if (this.options.likedBy) {
-        this.likedBy = this.options.likedBy;
+      if (this.options.user) {
+        this.user = this.options.user;
+      }
+
+      if (this.options.viewer) {
+        this.viewer = this.options.viewer;
       }
 
       if (this.options.emptyMessage) {
@@ -185,7 +188,8 @@ $(function() {
 
       $(".has-tooltip").tooltip();
 
-      if ($(document).height() == $(window).height()) {
+      if ($(document).height() == $(window).height() &&
+        this.collection.length == 12) {
         this.nextPage();
       }
     },
@@ -204,7 +208,7 @@ $(function() {
       this.load($.proxy(function(data) {
         var len = data.length;
         for (var i = 0; i < len; i++) {
-          data[i].current_user = this.options.current_user;
+          data[i].viewer = this.viewer;
           var c = new Story(data[i]);
 
           if (!this.collection.get(c.id)) {
@@ -221,9 +225,12 @@ $(function() {
     resetHeader: function() {
       var text;
 
-      if (this.likedBy != -1) {
-        text = "Liked by you";
+      if (this.type == this.types["likes"]) {
+        text = "Your Likes";
+      } else if (this.type == this.types["following"]) {
+        text = "Following";
       } else if (this.type == this.types["rss"]) {
+
         if (this.dateRange == 4) {
           text = "This Week's News";
         } else if (this.dateRange == 2) {
@@ -261,7 +268,7 @@ $(function() {
         var len = data.length;
         if (len != 0) {
           for (var i = 0; i < len; i++) {
-            data[i].current_user = this.options.current_user;
+            data[i].viewer = this.viewer;
             var c = new Story(data[i]);
             this.collection.add(c);
             this.append(c);
@@ -294,8 +301,7 @@ $(function() {
         "&page=" + this.page +
         "&topic=" + this.topic +
         "&type=" + this.type +
-        "&liked_by=" + this.likedBy +
-        "&posted_by=" + this.postedBy +
+        "&user_id=" + this.user.id +
         "&sort=" + this.sort +
         "&source=" + this.source;
       $.getJSON(request, callback);
@@ -352,7 +358,6 @@ $(function() {
     showDateRange: function(dateRange, shouldRewriteURL) {
       this.dateRange = dateRange;
       this.loadOnScroll = true;
-      this.resetLikedBy();
       this.reset(shouldRewriteURL);
     },
 
@@ -361,7 +366,6 @@ $(function() {
       var $el = $(event.target);
       this.resetSource();
       this.resetQuery();
-      this.resetLikedBy();
       this.showTopic($el.data("id"), true);
       // Hide the topic's popover so that the user can see the stories under it
       $(".popover").remove();
@@ -382,7 +386,6 @@ $(function() {
       var $el = $(event.target);
       this.resetTopic();
       this.resetQuery();
-      this.resetLikedBy();
       this.showSource($(event.target).data("value"), true);
     },
 
@@ -414,8 +417,9 @@ $(function() {
         this.showEvents(shouldRewriteURL);
       } else if (this.type == this.types["likes"]) {
         this.showLikes(shouldRewriteURL);
+      } else if (this.type == this.types["followed_by"]) {
+
       } else {
-        this.resetLikedBy();
         this.reset(shouldRewriteURL);
       }
     },
@@ -434,7 +438,6 @@ $(function() {
         this.reset(true);
       } else if (event.keyCode === 13) {
         event.preventDefault();
-        this.resetLikedBy();
         this.resetTopic();
         this.resetSource();
         this.showQuery($el.val(), true);
@@ -449,12 +452,7 @@ $(function() {
 
     showLikes: function(shouldRewriteURL) {
       this.loadOnScroll = true;
-      this.likedBy = this.options.current_user.id;
       this.reset(shouldRewriteURL);
-    },
-
-    resetLikedBy: function() {
-      this.likedBy = -1;
     },
 
     showEvents: function(shouldRewriteURL) {
@@ -470,8 +468,6 @@ $(function() {
       this.page = 1;
       this.type = this.types["rss"];
       this.sort = 1;
-      this.likedBy = -1;
-      this.postedBy = -1;
       this.topic = -2;
       this.source = -1;
     }

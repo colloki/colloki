@@ -14,12 +14,15 @@
     </li>
     <!-- User Shared -->
     <li>
-      <a title="Posts by VTS users" data-placement="bottom" class="has-tooltip type" href="#" data-value="1"><i class='icon-pencil'></i> User Shared</a>
+      <a title="Stories posted by VTS users" data-placement="bottom" class="has-tooltip type" href="#" data-value="1"><i class='icon-pencil'></i> User Shared</a>
     </li>
     <% if current_user %>
-      <!-- Liked -->
+      <!-- Your Likes -->
       <li>
         <a title="Stories you liked" data-placement="bottom" class="has-tooltip type" href="#" data-value="5" data-user-id="<%= current_user.id %>"><i class='icon-star'></i> Likes</a>
+      </li>
+      <li>
+        <a title="Stories liked by people you are following" data-placement="bottom" class="has-tooltip type" href="#" data-value="7" data-user-id="<%= current_user.id %>"><i class='icon-user'></i> Following</a>
       </li>
     <% end %>
   </ul>

@@ -77,7 +77,7 @@ $(function() {
         el: $(".like-btn", this.$el),
         story: this.model.attributes,
         votes: this.model.attributes.votes,
-        current_user: this.model.attributes.current_user
+        viewer: this.model.attributes.viewer
       });
 
       return this;

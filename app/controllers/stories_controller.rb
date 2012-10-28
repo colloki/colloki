@@ -80,6 +80,7 @@ class StoriesController < ApplicationController
     gon.votes = @story.votes
     gon.comments = @story.comments
     gon.app_url = root_url
+    gon.user = current_user
     gon.current_user = current_user
 
     respond_to do |format|
