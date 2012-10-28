@@ -82,10 +82,18 @@ $(function() {
         "resetQuery",
 
         "showLikes",
-        "showEvents");
+        "showEvents",
+
+        "showLoading",
+        "hideLoading");
 
       this.delegateEvents();
       this.collection = new Stories();
+      this.$loading = $('<p>', {
+        "class": "lead loading",
+        html: "Loading..."
+      }).appendTo($('.topic-content', this.$el));
+
       this.$stories = $(".topic-stories", this.$el);
 
       this.$sourceFilter = $(".filter-source", this.$el);
@@ -293,8 +301,9 @@ $(function() {
 
       // update the header
       this.resetHeader();
-
+      this.showLoading();
       this.load($.proxy(function(data) {
+        this.hideLoading();
         // TODO: Get rid of this ugliness.
         this.collection.reset();
         this.$stories.html("");
@@ -521,6 +530,16 @@ $(function() {
       this.sort = 1;
       this.topic = -2;
       this.source = -1;
+    },
+
+    showLoading: function() {
+      this.$stories.hide();
+      this.$loading.show();
+    },
+
+    hideLoading: function() {
+      this.$stories.show();
+      this.$loading.hide();
     }
   });
 });
