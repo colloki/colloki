@@ -11,14 +11,9 @@
     <% if (image_url) { %>
       <img class="story-rss-image" src="<%= image_url %>">
     <% } %>
-    <blockquote>
-      <span class="expandable"><%= title %></span>
-      <span class="short-expandable"><%= description %></span>
-    </blockquote>
+    <blockquote><span class="expandable"><%= title %></span><span class="short-expandable"><%= description %></span></blockquote>
   <% } else if (kind === 4) { %>
-    <blockquote>
-      <span class="short-expandable"><%= title %></span>
-    </blockquote>
+    <blockquote><span class="short-expandable"><%= title %></span></blockquote>
   <% } else { %>
 
     <h4>
