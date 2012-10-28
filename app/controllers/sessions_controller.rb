@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     elsif request.referer != login_url
       @redir = request.referer
     end
-
     @new_users = User.newly_activated
   end
 

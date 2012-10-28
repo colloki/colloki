@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027184719) do
+ActiveRecord::Schema.define(:version => 20121028215454) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20121027184719) do
     t.string   "bio"
     t.string   "location"
     t.string   "reset_code",                :limit => 40
+    t.string   "image_url"
   end
 
   create_table "votes", :force => true do |t|

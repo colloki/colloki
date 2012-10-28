@@ -16,13 +16,19 @@ class ProviderAuthenticationsController < ApplicationController
 
     # If the authentication exists, log the user in
     if authentication
+      # Update the image URL if it is not already set
+      if !authentication.user.image_url
+        authentication.user.image_url = omniauth['info']['image'].sub("_normal", "")
+        authentication.user.save
+      end
+
       self.current_user = authentication.user
       redirect_to(root_url, :notice => "Welcome back #{self.current_user.login}!")
 
     # If the user is already logged in, create a new authentication for the user
     elsif self.current_user
       self.current_user.provider_authentications.create(
-        :provider => omniauth['provider'], 
+        :provider => omniauth['provider'],
         :uid => omniauth['uid'])
       redirect_to(root_url, :notice => "Welcome back #{self.current_user.login}!")
 
@@ -31,6 +37,7 @@ class ProviderAuthenticationsController < ApplicationController
       user.provider_authentications.create(
         :provider => omniauth['provider'],
         :uid => omniauth['uid'])
+
       self.current_user = user
       redirect_to(root_url, :notice => "Welcome back #{self.current_user.login}!")
 

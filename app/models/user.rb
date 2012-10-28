@@ -5,10 +5,10 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   validates_presence_of     :login, :email
-  validates_presence_of     :password,                   :if => :password_required?
+  validates_presence_of     :password, :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?
-  validates_length_of       :login,    :within => 3..40
-  validates_length_of       :email,    :within => 3..100
+  validates_length_of       :login, :within => 3..40
+  validates_length_of       :email, :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
 
   # Email validation
@@ -26,7 +26,9 @@ class User < ActiveRecord::Base
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :realname, :website, :bio, :location, :twitter_id, :delicious_id, :friendfeed_id, :linkedin_url, :facebook_url
+  attr_accessible :login, :email, :password, :password_confirmation,
+    :first_name, :last_name, :realname, :website,
+    :bio, :location, :twitter_id, :facebook_url, :image_url
 
   # Relationships to other models
   has_many :comments, :dependent => :destroy
@@ -125,6 +127,7 @@ class User < ActiveRecord::Base
     self.login = omniauth['info']['nickname'] if login.blank?
     self.website = omniauth['info']['website'] if website.blank?
     self.realname = omniauth['info']['name'] if realname.blank?
+    self.image_url = omniauth['info']['image'].sub("_normal", "")
     provider_authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 

@@ -3,7 +3,11 @@
   <div class="user-header well row">
     <% if @user.email and @user.email != '' %>
       <div class="span1 pull-left user-avatar">
-        <%= gravatar_image_tag(@user.email, :gravatar => { :size => 60 }) %>
+        <% if @user.image_url %>
+          <img src="<%= @user.image_url %>">
+        <% else %>
+          <%= gravatar_image_tag(@user.email, :gravatar => { :size => 60 }) %>
+        <% end %>
       </div>
     <% end %>
     <div class="span10 user-description">
