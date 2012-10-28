@@ -13,7 +13,7 @@ $(function() {
       // Icon src. If it is a user post, set icon to user's gravatar.
       if (story.kind === 1) {
         story.icon_src = "http://gravatar.com/avatar/" + story.user_email_hash + ".jpg?s=26";
-        story.icon_url = "/users/" + story.user.id;
+        story.icon_url = "/users/" + story.user.login;
       } else {
         story.icon_src = "http://www.google.com/s2/favicons?domain_url=" + story.url;
         story.icon_url = story.source_url;

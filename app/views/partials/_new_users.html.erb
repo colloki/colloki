@@ -1,7 +1,4 @@
 <% for user in users %>
   <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 35 }),
-  user,
-  :title => user.login,
-  :class => 'avatar has-tooltip',
-  'data-placement' => 'bottom' %>
+    "/users/#{user.login}", :title => user.login, :class => 'avatar has-tooltip', 'data-placement' => 'bottom' %>
 <% end %>

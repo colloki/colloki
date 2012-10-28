@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def show
     begin
-      @user = User.find(params[:id])
+      @user = User.find(:first, :conditions => {:login => params[:id]})
       @page_title = "Profile for " + @user.login
       @likes_count = Story.count_likes_by_user(@user.id)
 

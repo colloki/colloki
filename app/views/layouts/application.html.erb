@@ -45,7 +45,7 @@
                 <% else %>
                   <li>
                 <% end %>
-                  <%= link_to "Profile", current_user %>
+                  <%= link_to "Profile", "/users/#{current_user.login}" %>
                 </li>
                 <% if request.filtered_parameters["controller"] === "users" and
                   request.filtered_parameters["action"] === "settings" %>
