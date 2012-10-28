@@ -18,6 +18,8 @@ $(function() {
         this.$el
           .addClass("disabled")
           .attr("title", "Sign in to follow this user");
+      } else if (this.viewer.id == this.user.id) {
+        this.$el.hide();
       } else if (this.following) {
         this.$el.removeClass("btn-success")
           .addClass("btn-danger")
