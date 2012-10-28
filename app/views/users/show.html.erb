@@ -73,7 +73,7 @@
     <!-- Comments -->
     <div id="user-comments" class="tab-pane user-comments">
       <% if @user.comments.count != 0 %>
-        <% for comment in @user.comments %>
+        <% for comment in @user.comments.reverse %>
           <blockquote>
             <p>
               <%= comment.body %>
