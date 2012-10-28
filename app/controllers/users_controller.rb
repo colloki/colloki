@@ -171,4 +171,18 @@ class UsersController < ApplicationController
     end
     redirect_back_or_default(root_url)
   end
+
+  def whotofollow
+    @users = User.newly_activated
+    if current_user
+      @users.delete(current_user)
+    end
+    gon.app_url = root_url
+    gon.current_user = current_user
+    gon.users = @users
+    gon.following = []
+    for user in @users
+      gon.following.push((current_user) ? (current_user.following? user) : false)
+    end
+  end
 end

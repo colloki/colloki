@@ -1,18 +1,43 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
-    emptyMessageWithHistory: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
-    emptyMessageWithoutHistory: "We didn't find anything. Go <a href='#' class='.home'>home</a>.",
+    emptyWithHistory: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
+    emptyWithoutHistory: "We didn't find anything. Go <a href='#' class='.home'>home</a>.",
 
     eventsHTML: '<iframe class="events-calendar" width="880" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
     types: {
-      "user": 1,
-      "rss": 2,
-      "chatter": "3,4",
-      "likes": 5,
-      "events": 6,
-      "following": 7,
-      "by-user": 8
+      "user": {
+        id: 1,
+        header: "Shared by VTS Users"
+      },
+
+      "rss": {
+        id: 2
+      },
+
+      "chatter": {
+        id: "3,4",
+        header: "Conversations on Twitter & Facebook"
+      },
+
+      "likes": {
+        id: 5,
+        header: "Your Likes"
+      },
+
+      "events": {
+        id: 6
+      },
+
+      "following": {
+        id: 7,
+        header: "People You're Following",
+        empty: "You're not following anyone yet. <a href='/whotofollow'>Follow some users</a>!"
+      },
+
+      "by-user": {
+        id: 8
+      }
     },
 
     events: {
@@ -92,8 +117,8 @@ $(function() {
         this.viewer = this.options.viewer;
       }
 
-      if (this.options.emptyMessage) {
-        this.emptyMessage = this.options.emptyMessage;
+      if (this.options.empty) {
+        this.empty = this.options.empty;
       }
 
       if (this.options.source) {
@@ -128,7 +153,7 @@ $(function() {
         this.router.navigate("/", true);
       }, this));
 
-      if (this.type == this.types["events"]) {
+      if (this.type == this.types["events"].id) {
         this.showType(this.type);
         this.render();
       } else {
@@ -137,26 +162,26 @@ $(function() {
     },
 
     render: function(shouldRewriteURL) {
-      if (this.type != this.types["rss"]) {
+      if (this.type != this.types["rss"].id) {
         this.$stories.imagesLoaded($.proxy(function() {
           this.$stories.masonry('reload');
         }, this));
       }
 
       // show/hide the appropriate filters
-      if (this.type != this.types["rss"]) {
+      if (this.type != this.types["rss"].id) {
         this.$topicFilter.hide();
         this.$sourceFilter.hide();
         this.$dateFilter.hide();
         this.$sort.hide();
 
-        if (this.type == this.types["events"]) {
+        if (this.type == this.types["events"].id) {
           this.$queryFilter.hide();
         } else {
           this.$queryFilter.show();
         }
 
-        if (this.type == this.types["chatter"] || this.type == this.types["user"]) {
+        if (this.type == this.types["chatter"].id || this.type == this.types["user"].id) {
           this.$dateFilter.show();
         } else {
           this.$dateFilter.hide();
@@ -222,11 +247,11 @@ $(function() {
     resetHeader: function() {
       var text;
 
-      if (this.type == this.types["likes"]) {
-        text = "Your Likes";
-      } else if (this.type == this.types["following"]) {
-        text = "People You're Following";
-      } else if (this.type == this.types["rss"]) {
+      if (this.type == this.types["likes"].id) {
+        text = this.types["likes"].header;
+      } else if (this.type == this.types["following"].id) {
+        text = this.types["following"].header;
+      } else if (this.type == this.types["rss"].id) {
 
         if (this.dateRange == 4) {
           text = "This Week's News";
@@ -245,13 +270,13 @@ $(function() {
         } else {
           text += " - [ Everything ]";
         }
-      } else if (this.type == this.types["chatter"]) {
-        text = "Conversations on Twitter & Facebook";
+      } else if (this.type == this.types["chatter"].id) {
+        text = this.types["chatter"].header;
         if (this.query != "") {
           text += "- Search results for '" + this.query + "'";
         }
-      } else if (this.type == this.types["user"]) {
-        text = "Shared by VTS Users";
+      } else if (this.type == this.types["user"].id) {
+        text = this.types["user"].header;
       }
 
       this.$header.html(text);
@@ -260,8 +285,8 @@ $(function() {
     reset: function(shouldRewriteURL) {
       this.page = 1;
 
-      if (this.type != this.types["rss"]) {
-        if (this.type != this.types["chatter"]) {
+      if (this.type != this.types["rss"].id) {
+        if (this.type != this.types["chatter"].id) {
           this.resetQuery();
         }
 
@@ -287,12 +312,26 @@ $(function() {
             "class": "lead empty-message"
           });
 
-          if (this.emptyMessage) {
-            $message.html(this.emptyMessage);
-          } else if (window.history.length > 2) {
-            $message.html(this.emptyMessageWithHistory);
+          if (this.empty) {
+            $message.html(this.empty);
           } else {
-            $message.html(this.emptyMessageWithoutHistory);
+            // todo: this is really unoptimized...fix it.
+            var emptyForType;
+            _.each(this.types, _.bind(function(type) {
+              if (type.id == this.type) {
+                if (type.empty) {
+                  emptyForType = type.empty;
+                }
+              }
+            }, this));
+
+            if (emptyForType) {
+              $message.html(emptyForType);
+            } else if (window.history.length > 2) {
+              $message.html(this.emptyWithHistory);
+            } else {
+              $message.html(this.emptyWithoutHistory);
+            }
           }
 
           this.$stories.html($message);
@@ -426,12 +465,10 @@ $(function() {
       this.loadOnScroll = true;
       this.$el.height(500);
 
-      if(this.type == this.types["events"]) {
+      if(this.type == this.types["events"].id) {
         this.showEvents(shouldRewriteURL);
-      } else if (this.type == this.types["likes"]) {
+      } else if (this.type == this.types["likes"].id) {
         this.showLikes(shouldRewriteURL);
-      } else if (this.type == this.types["followed_by"]) {
-
       } else {
         this.reset(shouldRewriteURL);
       }
@@ -479,7 +516,7 @@ $(function() {
       this.dateRange = 4;
       this.query = "";
       this.page = 1;
-      this.type = this.types["rss"];
+      this.type = this.types["rss"].id;
       this.sort = 1;
       this.topic = -2;
       this.source = -1;

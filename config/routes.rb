@@ -37,7 +37,7 @@ Colloki::Application.routes.draw do
   match 'forgot_password', :to => 'users#forgot_password', :as => 'forgot_password'
   match 'reset_password/:reset_code', :to => 'users#reset_password', :as => 'reset_password'
   match 'update_password_on_reset', :to => 'users#update_password_on_reset', :as => 'update_password_on_reset'
-
+  match 'whotofollow', :to => 'users#whotofollow'
   match 'tag/:tag_list', :to => 'topics#tag', :as => 'global_tags'
 
   match 'auth/:provider/callback', :to => 'provider_authentications#create'

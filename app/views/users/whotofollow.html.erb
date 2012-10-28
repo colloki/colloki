@@ -1,0 +1,50 @@
+<h3>Who to follow</h2>
+<hr>
+<p class="lead">
+  Follow other VTS users to read the stories they like and see the comments and posts they write on Virtual Town Square...
+</p>
+<% for user in @users %>
+  <div class="row-fluid user-to-follow">
+    <div class="span1 user-avatar">
+      <%= link_to gravatar_image_tag(user.email, :gravatar => { :size => 60 }),
+        "/users/#{user.login}",
+        :title => user.login,
+        :class => 'has-tooltip',
+        'data-placement' => 'bottom'
+      %>
+    </div>
+    <div class="span9 user-description">
+      <h4>
+        <a href="/users/<%=user.login%>">
+          <%= user.realname and user.realname != '' ? user.realname : user.login %>
+        </a>
+      </h4>
+      <p class="user-bio" >
+        <%= user.bio %><br>
+        <%= link_to user.website, user.website %>
+        <% if user.location != '' %>
+          •
+          <i class='icon-map-marker'></i> <%= user.location %>
+        <% end %>
+      </p>
+    </div>
+    <div class="span1 pull-right">
+      <button id="user-follow-<%=user.id%>" class="btn btn-success has-tooltip user-follow-btn">Follow</button>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    var index = 0;
+    <% for user in @users %>
+      var followUser<%= user.id %> = new window.FollowView({
+        el: $("#user-follow-<%= user.id %>"),
+        viewer: gon.current_user,
+        user: gon.users[index],
+        following: gon.following[index]
+      });
+      index ++;
+    <% end %>
+  });
+<% end %>
