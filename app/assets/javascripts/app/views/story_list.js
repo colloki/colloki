@@ -194,16 +194,6 @@ $(function() {
         this.$sourceFilter.show();
       }
 
-      // select the right filtering options
-      this.selectNavPill($(".source[data-value='" + this.source + "']"));
-      this.selectNavPill($(".topic[data-id=" + this.topic + "]"));
-      this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
-      this.selectNavPill($(".type[data-value='" + this.type + "']"));
-      this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
-      $(".search-query", this.$el).val(this.query);
-
-      this.resetHeader();
-
       if (shouldRewriteURL) {
         this.router.rewriteURL(this);
       }
@@ -293,6 +283,17 @@ $(function() {
         this.resetTopic();
         this.resetSource();
       }
+
+      // select the right filtering options
+      this.selectNavPill($(".source[data-value='" + this.source + "']"));
+      this.selectNavPill($(".topic[data-id=" + this.topic + "]"));
+      this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
+      this.selectNavPill($(".type[data-value='" + this.type + "']"));
+      this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
+      $(".search-query", this.$el).val(this.query);
+
+      // update the header
+      this.resetHeader();
 
       this.load($.proxy(function(data) {
         // TODO: Get rid of this ugliness.
