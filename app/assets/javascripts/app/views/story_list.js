@@ -307,9 +307,13 @@ $(function() {
         "&page=" + this.page +
         "&topic=" + this.topic +
         "&type=" + this.type +
-        "&user_id=" + this.user.id +
         "&sort=" + this.sort +
         "&source=" + this.source;
+
+      if (this.user) {
+        request += "&user_id=" + this.user.id;
+      }
+
       $.getJSON(request, callback);
     },
 

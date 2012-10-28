@@ -244,8 +244,7 @@ class Story < ActiveRecord::Base
       stories = Story.paginate(
         :page => params[:page],
         :order => "created_at DESC",
-        :conditions => {:user_id => params[:user_id]
-      });
+        :conditions => {:kind => Story::Post});
 
     else
       # Search
