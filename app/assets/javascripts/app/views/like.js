@@ -97,7 +97,7 @@ $(function() {
             this.$likers.append(this.template({
               count: this.count,
               user: this.user,
-              gravatar_url: get_gravatar_url(this.user.email, 24),
+              image_url: get_user_image_url(this.user),
               exists: this.$likers.find("h4").length == 1
             }));
           }

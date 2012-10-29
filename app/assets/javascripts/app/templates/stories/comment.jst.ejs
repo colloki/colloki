@@ -1,10 +1,10 @@
 <div class="comment row-fluid">
   <div class="span1 comment-user-avatar">
     <a href="/users/<%=model.user.id%>" title="<%= model.user.login %>" >
-      <img alt="Gravatar" src="<%= gravatar_url %>" />
+      <img src="<%=image_url%>">
     </a>
   </div>
-  <div class="comment-body span11">
+  <div class="comment-body span10">
     <a href="/users/<%= model.user.id %>"><%= model.user.login %></a>
     <%= model.body %>
     <div class="comment-meta">

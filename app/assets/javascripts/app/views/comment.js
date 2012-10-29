@@ -16,7 +16,7 @@ $(function() {
       this.$el.html(
         this.template({
           model: this.model.toJSON(),
-          gravatar_url: get_gravatar_url(this.model.attributes.user.email, 24),
+          image_url: get_user_image_url(this.model.attributes.user),
           pretty_timestamp: pretty_timestamp,
           user_id: this.options.user_id
         })
