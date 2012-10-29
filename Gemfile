@@ -40,3 +40,4 @@ gem 'ejs'
 gem 'gon'
 
 gem "acts_as_follower"
+gem "honeypot-captcha"

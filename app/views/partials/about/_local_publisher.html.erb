@@ -11,7 +11,7 @@ Let us know! If you've an <a href="http://en.wikipedia.org/wiki/RSS">RSS</a> fee
     <a data-dismiss="modal" class="close">&times;</a>
     <h3>Suggest a Blog</h3>
   </div>
-  <%= form_tag :controller => :notifier, :action => :send_blog_suggestion, :class=>'form-horizontal' do %>
+  <%= form_tag({:controller => :notifier, :action => :send_blog_suggestion}, {:honeypot => true}) do %>
     <div class="modal-body">
       <p>
         <div class="control-group">
