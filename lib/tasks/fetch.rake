@@ -9,7 +9,7 @@ require "open-uri"
   "www.roanoke.com"                     => "The Roanoke Times",
   "www.vtnews.vt.edu"                   => "Virginia Tech News",
   "www.bev.net"                         => "Blacksburg Electronic Village",
-  "citizensfirstnrv.org"                => "Citizens First For Blacksburg",
+  "citizensfirstnrv.org"                => "Citizens First",
   "www.christiansburg.org"              => "Christiansburg Virginia",
   "downtownblacksburg.wordpress.com"    => "Downtown Blacksburg Blog",
   "www.myvaresources.com"               => "Depotdazed",
