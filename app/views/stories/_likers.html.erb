@@ -4,7 +4,7 @@
       Liked by
     </h4>
     <% for user in users %>
-      <%= link_to image_tag(user.get_image_url), user,
+      <%= link_to image_tag(user.get_image_url), "/users/#{user.login}",
         :id => "liker#{user.id}",
         :class => "story-liker has-tooltip",
         'data-placement' => "bottom",
