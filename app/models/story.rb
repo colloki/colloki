@@ -224,7 +224,9 @@ class Story < ActiveRecord::Base
 
       stories = []
       for like in likes
-        stories.push(like.story)
+        if !stories.index(like.story)
+          stories.push(like.story)
+        end
       end
 
     # Likes
