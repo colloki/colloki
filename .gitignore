@@ -66,3 +66,6 @@ patch.diff
 
 # rails 3.1
 .sass-cache/
+
+# rails 3.2
+/public/assets/

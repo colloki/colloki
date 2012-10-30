@@ -29,7 +29,7 @@ Colloki::Application.configure do
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -45,5 +45,8 @@ Colloki::Application.configure do
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners
-  config.active_support.deprecation = :notify
+  # config.active_support.deprecation = :notify
+  config.assets.initialize_on_precompile = false
+  config.assets.digest = true
+  config.assets.compile = false
 end

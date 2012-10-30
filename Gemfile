@@ -25,14 +25,14 @@ gem 'rails_admin'
 gem 'prototype-rails'
 gem 'devise'
 
-group :assets do
+# group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'therubyracer'
   gem 'less-rails'
   gem 'less-rails-bootstrap'
-end
+# end
 
 gem 'jquery-rails'
 gem 'rails-backbone'
@@ -41,3 +41,5 @@ gem 'gon'
 
 gem "acts_as_follower"
 gem "honeypot-captcha"
+
+gem 'yaml_db'
