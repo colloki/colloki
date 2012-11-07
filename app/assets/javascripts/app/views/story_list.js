@@ -490,15 +490,18 @@ $(function() {
 
     filterByQuery: function(event) {
       var $el = $(event.target);
-
       if (event.keyCode === 27 || $el.val() === "") {
         event.preventDefault();
         this.resetQuery();
+        // set back the date range to this week
+        this.dateRange = 4;
         this.reset(true);
       } else if (event.keyCode === 13) {
         event.preventDefault();
         this.resetTopic();
         this.resetSource();
+        // set date range to all
+        this.dateRange = 1;
         this.showQuery($el.val(), true);
       }
     },
