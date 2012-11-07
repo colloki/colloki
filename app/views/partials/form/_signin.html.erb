@@ -2,25 +2,33 @@
   <div class="controls">
     <%= text_field_tag "login", "",
       :placeholder => "Username or Email",
-      :class => "input-xlarge" 
+      :class => "span12"
     %>
 
     <%= password_field_tag 'password', "",
       :placeholder => "Password",
-      :class => "input-xlarge"
+      :class => "span12"
     %>
   </div>
 
   <div class="controls">
-    <label style="font-size: 12px" class="checkbox">
+    <label style="font-size: 12px; display: inline-block" class="checkbox">
       <%= check_box_tag "remember_me", "", "" %>
       Remember me · <%= link_to "Forgot password?", forgot_password_url %>
     </label>
+    <button type="submit" class="btn btn-primary pull-right">
+      Sign In
+    </button>
   </div>
 
-  <button type="submit" class="btn btn-primary">
-    Sign In
-  </button>
-
   <%= hidden_field_tag 'redir', @redir %>
+
+  <div class="row-fluid" style="margin-top: 20px">
+    <div class="span6">
+      <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
+    </div>
+    <div class="span6">
+      <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
+    </div>
+  </div>
 <% end %>

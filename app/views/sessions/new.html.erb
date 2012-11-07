@@ -7,15 +7,6 @@
       <div class="span5 pull-right" style="max-width: 350px">
         <%= render :partial => "partials/form/signin" %>
         <%= render :partial => "partials/form/signup_short" %>
-
-        <div class="row-fluid">
-          <div class="span5">
-            <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
-          </div>
-          <div class="span5">
-            <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
-          </div>
-        </div>
       </div>
     </div>
 
