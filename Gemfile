@@ -43,3 +43,4 @@ gem "acts_as_follower"
 gem "honeypot-captcha"
 
 gem 'yaml_db'
+gem 'mysql2'

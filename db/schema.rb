@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20121028215454) do
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
     t.integer  "story_id",                   :null => false
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "topic_id",   :default => -1, :null => false
     t.integer  "kind",       :default => 0,  :null => false
     t.integer  "comment_id", :default => -1
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(:version => 20121028215454) do
     t.text     "body"
     t.integer  "user_id",    :null => false
     t.integer  "story_id",   :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "follows", :force => true do |t|
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(:version => 20121028215454) do
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -89,8 +89,8 @@ ActiveRecord::Schema.define(:version => 20121028215454) do
     t.text     "description"
     t.string   "url"
     t.integer  "views"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "topic_id",              :default => -1, :null => false
     t.integer  "kind",                  :default => 0,  :null => false
@@ -134,16 +134,16 @@ ActiveRecord::Schema.define(:version => 20121028215454) do
   create_table "topic_keywords", :force => true do |t|
     t.string   "name"
     t.decimal  "distribution"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "topic_id",     :default => -1, :null => false
   end
 
   create_table "topics", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id",     :default => -1, :null => false
     t.string   "keywords"
     t.datetime "day"
@@ -171,8 +171,8 @@ ActiveRecord::Schema.define(:version => 20121028215454) do
   create_table "votes", :force => true do |t|
     t.integer  "story_id",   :null => false
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "votes", ["story_id"], :name => "index_votes_on_voteable_id_and_voteable_type"

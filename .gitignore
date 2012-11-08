@@ -43,6 +43,7 @@ capybara-*.html
 /server/log*
 /tmp/*
 /db/*.sqlite3
+/db/data.yml
 /public/system/*
 /coverage/
 /spec/tmp/*
