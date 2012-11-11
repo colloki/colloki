@@ -37,12 +37,13 @@
   </div>
 
   <div class='control-group'>
-    <div class='controls'>
+    <div class='controls' style='margin-top: -20px'>
       <div class="row-fluid">
-        <div class="span2 pull-left" style="width: 155px">
+        <h3>or Log In with </h3>
+        <div class="span2 pull-left" style="width: 155px; margin-left: 0">
           <%= link_to image_tag("sign-in-with-twitter.png", :alt => "Sign in with Twitter"), "auth/twitter" %>
         </div>
-        <div class="span1 pull-left" style="width: 160px">
+        <div class="span1 pull-left" style="width: 160px; margin-left: 0px">
           <%= link_to content_tag(:div, "", :id => 'facebook-btn'), "auth/facebook" %>
         </div>
       </div>

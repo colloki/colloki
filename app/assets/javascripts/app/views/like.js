@@ -55,7 +55,7 @@ $(function() {
       this.$count.html(this.count);
 
       if (this.state === -2) {
-        this.setTitle(this.count + " likes. Sign In to Like.");
+        this.setTitle(this.count + " likes. Log In to Like.");
         this.$el.addClass("disabled");
       }
 

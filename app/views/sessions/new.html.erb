@@ -1,61 +1,40 @@
 <div class="row-fluid">
-  <div style="width: 960px; margin: 0 auto; margin-top: 50px;">
+  <div class="span12">
     <div class="row-fluid">
-      <div class="span6" style="margin-left: 10%; margin-top: 120px">
-        <h2>Find out what's happening in New River Valley</h2>
-      </div>
-      <div class="span5 pull-right" style="max-width: 350px">
-        <%= render :partial => "partials/form/signin" %>
-        <%= render :partial => "partials/form/signup_short" %>
-      </div>
+      <h2>Keep up with local issues in the New River Valley</h2>
+      <hr>
     </div>
-
-    <hr>
-
     <div class="row-fluid">
-      <div class="span4">
+      <div class="span7">
         <div class="row-fluid">
           <h3>Local Issues</h3>
-        </div>
-        <div class="row-fluid">
           <p class="lead">
             We collect <em>Local News, Blogs, Twitter and Facebook Discussions</em> happening in New River Valley, so that you can come here keep up with important local issues and developments.
           </p>
         </div>
-      </div>
-
-      <div class="span4">
+        <hr>
         <div class="row-fluid">
           <h3>Participate</h3>
-        </div>
-        <div class="row-fluid">
-         <p class="lead">
-          Post articles, comment and like news stories. Share news on your social networks on Twitter, Facebook or elsewhere.
-        </p>
-        </div>
-      </div>
-
-      <div class="span4">
-        <div class="row-fluid">
-          <h3>Local Blogger or Publisher?</h3>
-        </div>
-        <div class="row-fluid">
-          <p class="lead">
-            <%= render :partial => "partials/about/local_publisher" %>
+           <p class="lead">
+            Post articles, comment and like news stories. Share news on your social networks on Twitter, Facebook or elsewhere.
           </p>
         </div>
+        <hr>
+        <div class="row-fluid" style="margin-bottom: 20px;">
+          <h3>New Members</h3>
+          <% if @new_users and @new_users.count != 0 %>
+            <%= render :partial => "partials/new_users", :locals => {:users => @new_users} %>
+          <% end %>
+        </div>
       </div>
-
+      <div class="span5 pull-right" style="max-width: 330px; margin-right: 50px;">
+        <%= render :partial => "partials/form/signin" %>
+        <%= render :partial => "partials/form/signup_short" %>
+      </div>
     </div>
+</div>
 
-    <div class="row-fluid" style="margin-top: 20px; margin-bottom: 20px">
-      <div class="row-fluid">
-        <h3>New Members</h3>
-      </div>
-      <div class="row-fluid">
-        <% if @new_users and @new_users.count != 0 %>
-          <%= render :partial => "partials/new_users", :locals => {:users => @new_users} %>
-        <% end %>
-      </div>
-  </div>
+<div class="row-fluid">
+  <hr>
+  <%= render :partial => "partials/footer" %>
 </div>
