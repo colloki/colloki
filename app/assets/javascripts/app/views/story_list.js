@@ -17,7 +17,7 @@ $(function() {
 
       "chatter": {
         id: "3,4",
-        header: "Conversations on Twitter & Facebook"
+        header: "Discussions on Twitter & Facebook"
       },
 
       "likes": {
@@ -197,8 +197,12 @@ $(function() {
         this.$sort.show();
         this.$queryFilter.show();
         this.$dateFilter.show();
-        this.$topicFilter.show();
         this.$sourceFilter.show();
+        if (this.dateRange != 1 && this.source == -1 && !this.query) {
+          this.$topicFilter.show();
+        } else {
+          this.$topicFilter.hide();
+        }
       }
 
       if (shouldRewriteURL) {
@@ -251,11 +255,11 @@ $(function() {
       } else if (this.type == this.types["rss"].id) {
 
         if (this.dateRange == 4) {
-          text = "This Week's News";
+          text = "This Week's Stories";
         } else if (this.dateRange == 2) {
-          text = "Today's News";
+          text = "Today's Stories";
         } else {
-          text = "All News";
+          text = "All Stories";
         }
 
         if (this.topic != -2) {
