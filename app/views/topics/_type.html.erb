@@ -4,18 +4,22 @@
     <li class="active">
       <a title="Local news and blogs" data-placement="bottom" class="has-tooltip type" href="#" data-value="2"><i class='icon-globe icon-white'></i> News</a>
     </li>
+
     <!-- Chatter -->
     <li>
-      <a title="Discussions on Twitter and Facebook" data-placement="bottom" class="has-tooltip type" href="#" data-value="3,4"><i class='icon-comment'></i> Chatter</a>
+      <a title="Discussions on Twitter and Facebook" data-placement="bottom" class="has-tooltip type" href="#" data-value="4"><i class='icon-comment'></i> Chatter</a>
     </li>
+
     <!-- Events -->
     <li>
       <a title="Events in the New River Valley" data-placement="bottom" class="has-tooltip type" href="#" data-value="6"><i class='icon-calendar'></i> Events</a>
     </li>
+
     <!-- User Shared -->
     <li>
       <a title="Stories posted by VTS users" data-placement="bottom" class="has-tooltip type" href="#" data-value="1"><i class='icon-pencil'></i> User Shared</a>
     </li>
+
     <% if current_user %>
       <li>
         <a title="Stories you liked" data-placement="bottom" class="has-tooltip type" href="#" data-value="5" data-user-id="<%= current_user.id %>"><i class='icon-star'></i> Likes</a>
@@ -31,6 +35,7 @@
         <a title="Log In to follow people" data-placement="bottom" class="has-tooltip"><i style="opacity: 0.5" class='icon-user'></i> Following</a>
       </li>
     <% end %>
+
     <div class="filter-search pull-right">
       <input type="text" class="search-query" name="query" placeholder="Search" tabIndex="1">
     </div>

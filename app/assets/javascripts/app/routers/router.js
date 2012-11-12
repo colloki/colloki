@@ -5,8 +5,6 @@ $(function() {
     user: gon.current_user,
     viewer: gon.current_user,
 
-    // todo: use regex
-    // todo: support date ranges
     routes: {
       "": "default",
       ":range/news": "default",
@@ -19,7 +17,8 @@ $(function() {
       ":range/shared": "shared",
 
       ":range/chatter": "chatter",
-      ":range/chatter/search/:query": "chatter",
+      ":range/chatter/:type": "chatter",
+      ":range/chatter/:type/search/:query": "chatter",
 
       ":range/news/search/:query": "search",
       ":range/search/:query": "search",
@@ -197,7 +196,7 @@ $(function() {
       }
     },
 
-    chatter: function(dateRange, query) {
+    chatter: function(dateRange, type, query) {
       if (this.view) {
         this.view.dateRange = this.dateRangeInt(dateRange);
 
@@ -205,7 +204,12 @@ $(function() {
           this.view.query = query;
         }
 
-        this.view.showType("3,4");
+        if (type == "facebook") {
+          this.view.showType(3);
+        } else {
+          this.view.showType(4);
+        }
+
       } else {
         this.view = new window.StoryListView({
           el: this.$el,
@@ -213,16 +217,17 @@ $(function() {
           user: this.user,
           viewer: this.viewer,
           query: query,
-          type: "3,4",
+          type: (type == "facebook") ? 3 : 4,
           dateRange: this.dateRangeInt(dateRange)
         });
       }
     },
 
+    // todo(ankit): store these type numbers at a common place. it is a mess
     rewriteURL: function(view) {
       var route = "";
 
-      if (view.type == 1 || view.type == 2 || view.type == "3,4") {
+      if (view.type == 1 || view.type == 2 || view.type == 3 || view.type == 4) {
         if (view.dateRange == 2) {
           route = "today"
         } else if (view.dateRange == 1) {
@@ -234,8 +239,10 @@ $(function() {
 
       if (view.type == 1) {
         route += "/shared";
-      } else if (view.type == "3,4") {
-        route += "/chatter";
+      } else if (view.type == 4) {
+        route += "/chatter/twitter";
+      } else if (view.type == 3) {
+        route += "/chatter/facebook";
       } else if (view.type == 5) {
         route += "/likes";
       } else if (view.type == 6) {
@@ -246,7 +253,7 @@ $(function() {
         route += "/news";
       }
 
-      if (view.query != "") {
+      if (view.query) {
         route += "/search/" + view.query;
       } else if (view.source != -1) {
         route += "/source/" + view.source;

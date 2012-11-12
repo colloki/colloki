@@ -15,9 +15,14 @@ $(function() {
         id: 2
       },
 
-      "chatter": {
-        id: "3,4",
-        header: "Discussions on Twitter & Facebook"
+      "facebook": {
+        id: 3,
+        header: "Discussions on Facebook"
+      },
+
+      "twitter": {
+        id: 4,
+        header: "Discussions on Twitter"
       },
 
       "likes": {
@@ -51,6 +56,7 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this,
+        "preRender",
         "render",
         "append",
 
@@ -96,7 +102,8 @@ $(function() {
 
       this.$stories = $(".topic-stories", this.$el);
 
-      this.$sourceFilter = $(".filter-source", this.$el);
+      this.$newsSourceFilter = $(".filter-news-source", this.$el);
+      this.$chatterSourceFilter = $(".filter-chatter-source", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
       this.$dateFilter = $(".filter-date", this.$el);
       this.$queryFilter = $(".filter-search", this.$el);
@@ -109,45 +116,11 @@ $(function() {
       this.loadOnScroll = true;
       this.resetToDefault();
 
-      if (this.options.topic) {
-        this.topic = this.options.topic;
-      }
-
-      if (this.options.type) {
-        this.type = this.options.type;
-      }
-
-      if (this.options.user) {
-        this.user = this.options.user;
-      }
-
-      if (this.options.viewer) {
-        this.viewer = this.options.viewer;
-      }
-
-      if (this.options.empty) {
-        this.empty = this.options.empty;
-      }
-
-      if (this.options.source) {
-        this.source = this.options.source;
-      }
-
-      if (this.options.query) {
-        this.query = this.options.query;
-      }
-
-      if (this.options.sort === "date") {
-        this.sort = 2;
-      }
-
-      if (this.options.type) {
-        this.type = this.options.type;
-      }
-
-      if (this.options.dateRange) {
-        this.dateRange = this.options.dateRange;
-      }
+      _.each(this.options, _.bind(function(value, key) {
+        if (value) {
+          this[key] = value;
+        }
+      }, this));
 
       this.$stories.imagesLoaded($.proxy(function() {
         this.$stories.masonry({
@@ -168,17 +141,28 @@ $(function() {
       }
     },
 
-    render: function(shouldRewriteURL) {
-      if (this.type != this.types["rss"].id) {
-        this.$stories.imagesLoaded($.proxy(function() {
-          this.$stories.masonry('reload');
-        }, this));
+    // this gets called when a new page is to be loaded
+    preRender: function() {
+      // show/hide the appropriate filters, based on the current view
+
+      // if it is the news section
+      if (this.type == this.types["rss"].id) {
+        this.$sort.show();
+        this.$queryFilter.show();
+        this.$dateFilter.show();
+        this.$newsSourceFilter.show();
+        this.$chatterSourceFilter.hide();
+
+        if (this.dateRange != 1 && this.source == -1 && !this.query) {
+          this.$topicFilter.show();
+        } else {
+          this.$topicFilter.hide();
+        }
       }
 
-      // show/hide the appropriate filters
-      if (this.type != this.types["rss"].id) {
+      else {
         this.$topicFilter.hide();
-        this.$sourceFilter.hide();
+        this.$newsSourceFilter.hide();
         this.$dateFilter.hide();
         this.$sort.hide();
 
@@ -188,35 +172,45 @@ $(function() {
           this.$queryFilter.show();
         }
 
-        if (this.type == this.types["chatter"].id || this.type == this.types["user"].id) {
+        if (this.type == this.types["twitter"].id ||
+          this.type == this.types["facebook"].id) {
           this.$dateFilter.show();
+          this.$chatterSourceFilter.show();
         } else {
           this.$dateFilter.hide();
-        }
-      } else {
-        this.$sort.show();
-        this.$queryFilter.show();
-        this.$dateFilter.show();
-        this.$sourceFilter.show();
-        if (this.dateRange != 1 && this.source == -1 && !this.query) {
-          this.$topicFilter.show();
-        } else {
-          this.$topicFilter.hide();
+          this.$chatterSourceFilter.hide();
         }
       }
+    },
 
-      if (shouldRewriteURL) {
-        this.router.rewriteURL(this);
+    // Render the page
+    render: function(shouldRewriteURL) {
+      console.log("render");
+      this.hideLoading();
+
+      if (this.type != this.types["rss"].id) {
+        this.$stories.imagesLoaded($.proxy(function() {
+          this.$stories.masonry('reload');
+        }, this));
       }
 
       $(".has-tooltip").tooltip();
 
-      if ($(document).height() == $(window).height() &&
-        this.collection.length == 12) {
-        this.nextPage();
+      // if we are already at the end of the page, load the next page...
+      setTimeout(_.bind(function() {
+        if ($(document).height() == $(window).height() &&
+          this.collection.length == 12) {
+          this.nextPage();
+        }
+      }, this), 100);
+
+
+      if (shouldRewriteURL) {
+        this.router.rewriteURL(this);
       }
     },
 
+    // Append a story
     append: function(story) {
       var view = new StoryView({
         model: story
@@ -225,9 +219,11 @@ $(function() {
       this.$stories.append(view.render().el);
     },
 
+    // Load the next page
     nextPage: function() {
       this.page++;
 
+      this.preRender();
       this.load($.proxy(function(data) {
         var len = data.length;
         for (var i = 0; i < len; i++) {
@@ -245,6 +241,8 @@ $(function() {
       }, this));
     },
 
+    // Reset the header of the page based on the current view
+    // and the filter selections
     resetHeader: function() {
       var text;
 
@@ -266,14 +264,19 @@ $(function() {
           text += " - " + $(".topic[data-id="+ this.topic + "]").text();
         } else if (this.source != -1) {
           text += " - <em>" + this.source + "</em>";
-        } else if (this.query != "") {
+        } else if (this.query) {
           text += " - Search results for '" + this.query + "'";
         } else {
           text += " - [ Everything ]";
         }
-      } else if (this.type == this.types["chatter"].id) {
-        text = this.types["chatter"].header;
-        if (this.query != "") {
+      } else if (this.type == this.types["twitter"].id) {
+        text = this.types["twitter"].header;
+        if (this.query) {
+          text += "- Search results for '" + this.query + "'";
+        }
+      } else if (this.type == this.types["facebook"].id) {
+        text = this.types["facebook"].header;
+        if (this.query) {
           text += "- Search results for '" + this.query + "'";
         }
       } else if (this.type == this.types["user"].id) {
@@ -283,11 +286,13 @@ $(function() {
       this.$header.html(text);
     },
 
+    // Reset the view
     reset: function(shouldRewriteURL) {
       this.page = 1;
 
       if (this.type != this.types["rss"].id) {
-        if (this.type != this.types["chatter"].id) {
+        if (this.type != this.types["twitter"].id &&
+          this.type != this.types["facebook"].id) {
           this.resetQuery();
         }
 
@@ -301,13 +306,18 @@ $(function() {
       this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
-      $(".search-query", this.$el).val(this.query);
 
-      // update the header
+
+      if (this.query) {
+        $(".search-query", this.$el).val(this.query);
+      }
+
+      // set up for loading
       this.resetHeader();
       this.showLoading();
+      this.preRender();
+
       this.load($.proxy(function(data) {
-        this.hideLoading();
         // TODO: Get rid of this ugliness.
         this.collection.reset();
         this.$stories.html("");
@@ -321,6 +331,7 @@ $(function() {
             this.append(c);
           }
         } else {
+
           var $message = $("<p>", {
             "class": "lead empty-message"
           });
@@ -355,8 +366,10 @@ $(function() {
       }, this));
     },
 
+    // Load the page
     load: function(callback) {
       this.isLoading = true;
+
       var request = "/search.json?query=" + this.query +
         "&range=" + this.dateRange +
         "&page=" + this.page +
@@ -369,13 +382,16 @@ $(function() {
         request += "&user_id=" + this.user.id;
       }
 
+      this.preRender();
       $.getJSON(request, callback);
     },
 
+    // Select a button
     selectButton: function($el) {
       $el.addClass("active").siblings().removeClass("active");
     },
 
+    // Select a nav tab
     selectNavTab: function($el) {
       var $li = $el.parents("li");
 
@@ -383,6 +399,7 @@ $(function() {
         .siblings().removeClass("active");
     },
 
+    // Select a nav pill
     selectNavPill: function($el) {
       var $li = $el.parent("li");
       $li.addClass("active")
@@ -392,9 +409,12 @@ $(function() {
         .find("i").removeClass("icon-white");
     },
 
+    // Load the next page when the user reaches end of page
+    // todo(ankit): Add a loading indicator...
     onScroll: function() {
       if (!this.loadOnScroll) {return;}
       if (this.isLoading) {return;}
+
       var $window = $(window);
       var pixelsFromWindowBottomToBottom = $(document).height() - $window.scrollTop() - $(window).height();
       if (pixelsFromWindowBottomToBottom - this.paginationBufferPx < 0) {
@@ -402,8 +422,7 @@ $(function() {
       }
     },
 
-    /** Filters and Sorts **/
-
+    // Change the sorting option between popularity and date
     sortBy: function(event) {
       event.preventDefault();
       this.loadOnScroll = true;
@@ -414,18 +433,21 @@ $(function() {
       this.reset(true);
     },
 
+    // Change the date range i.e. today, this week, all.
     filterByDateRange: function(event) {
       event.preventDefault();
       var $el = $(event.target);
       this.showDateRange($el.data("value"), true);
     },
 
+    // Show the date filter
     showDateRange: function(dateRange, shouldRewriteURL) {
       this.dateRange = dateRange;
       this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
     },
 
+    // Change the topic
     filterByTopic: function(event) {
       event.preventDefault();
       var $el = $(event.target);
@@ -436,16 +458,19 @@ $(function() {
       $(".popover").remove();
     },
 
+    // Show the stories belonging to the specified topic
     showTopic: function(topic, shouldRewriteURL) {
       this.topic = topic;
       this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
     },
 
+    // Resets the topic to "Everything"
     resetTopic: function() {
       this.topic = -2;
     },
 
+    // Filter by news source
     filterBySource: function(event) {
       event.preventDefault();
       var $el = $(event.target);
@@ -454,6 +479,7 @@ $(function() {
       this.showSource($(event.target).data("value"), true);
     },
 
+    // Show stories belonging to the specified news source
     showSource: function(source, shouldRewriteURL) {
       this.source = source;
       this.reset(shouldRewriteURL);
@@ -494,6 +520,7 @@ $(function() {
 
     filterByQuery: function(event) {
       var $el = $(event.target);
+
       if (event.keyCode === 27 || $el.val() === "") {
         event.preventDefault();
         this.resetQuery();
@@ -502,10 +529,8 @@ $(function() {
         this.reset(true);
       } else if (event.keyCode === 13) {
         event.preventDefault();
-        this.resetTopic();
-        this.resetSource();
-        // set date range to all
         this.dateRange = 1;
+        // set date range to all
         this.showQuery($el.val(), true);
       }
     },
@@ -525,6 +550,7 @@ $(function() {
       this.loadOnScroll = false;
       this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
       this.$stories.html(this.eventsHTML);
+      this.preRender();
       this.render(shouldRewriteURL);
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
     },
