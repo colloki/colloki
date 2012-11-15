@@ -7,40 +7,43 @@ gem 'dynamic_form'
 gem 'acts-as-taggable-on', '~>2.1.0' # https://github.com/mbleigh/acts-as-taggable-on
 gem 'gravatar-ultimate'
 
-# Omniauth
+# Authentication
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-openid'
+gem 'koala'
 
 gem 'nokogiri' # http://nokogiri.org/
 gem 'paperclip', "~> 2.4"
 gem 'capistrano'
-gem 'whenever' # https://github.com/javan/whenever
+gem 'whenever' # https://gravatar-ultimatehub.com/javan/whenever
 gem 'mail'
 
-gem 'koala'
-
-# rails_admin
+# Admin
 gem 'rails_admin'
 gem 'prototype-rails'
 gem 'devise'
 
-# group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'therubyracer'
-  gem 'less-rails'
-  gem 'less-rails-bootstrap'
-# end
+# Assets
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+gem 'therubyracer'
+gem 'less-rails'
+gem 'less-rails-bootstrap'
 
+# Backbone, JS Templating, gon
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'ejs'
 gem 'gon'
 
+# Following
 gem "acts_as_follower"
+
+# Spam
 gem "honeypot-captcha"
 
+# DB
 gem 'yaml_db'
 gem 'mysql2'

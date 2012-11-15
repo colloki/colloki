@@ -4,6 +4,7 @@ class TopicsController < ApplicationController
     gon.app_url = root_url
     gon.current_user = current_user
     @stories = Story.search(params)
+    @hashtags = Story.hashtags
     respond_to do |format|
       format.html
       format.json { render :json => @stories, :include => [:votes, :comments, :user], :methods => :user}

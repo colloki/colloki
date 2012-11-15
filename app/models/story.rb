@@ -72,6 +72,7 @@ class Story < ActiveRecord::Base
     end
   end
 
+  # Returns the image url for the story
   def image_src(size="thumb")
     if image_exists?
       if image_url
@@ -90,30 +91,37 @@ class Story < ActiveRecord::Base
     end
   end
 
+  # Returns true if the story is of link type
   def is_link?
     kind == Story::Link
   end
 
+  # Returns true if the story was fetched from an RSS feed
   def is_rss?
     kind == Story::Rss
   end
 
+  # Returns true if the story is fetched from Facebook
   def is_facebook?
     kind == Story::Facebook
   end
 
+  # Increase the popularity of the story by the specified score
   def increase_popularity(score)
     self.popularity = self.popularity + score
   end
 
+  # Decrease the popularity of the story by the specified score
   def decrease_popularity(score)
     self.popularity = self.popularity - score
   end
 
+  # Get all the related stories to the current story
   def related_posts
-    Story.find(:all, :conditions=>{:related_story_id => self.id})
+    Story.find(:all, :conditions => { :related_story_id => self.id })
   end
 
+  # Add image_src and user_email_hash fields to the stories' objects
   def self.add_metadata(stories)
     for story in stories
       story['image_src'] = story.image_src
@@ -125,86 +133,16 @@ class Story < ActiveRecord::Base
     return stories
   end
 
-  def self.popular(page)
-    stories = page(page).order("popularity DESC, published_at DESC")
-    self.add_metadata(stories)
-  end
-
-  def self.popular_with_photos
-    stories = find :all,
-      :conditions => ["image_file_size != ''
-        and image_file_name != 'stringio.txt'",
-      :order => "popularity DESC",
-      :limit => 20]
-
-    self.add_metadata(stories)
-  end
-
+  # Get the stories for the RSS feed (excluding Twitter and Facebook posts)
   def self.latest_for_rss
-    # Don't include Twitter and Facebook in the RSS feed.
     find :all,
       :conditions => ["kind != ? and kind != ?", Story::Facebook, Story::Twitter],
       :order => "published_at DESC",
       :limit => 20
   end
 
-  def self.latest(page, should_paginate=true)
-    if should_paginate
-      stories = page(page).order("published_at DESC")
-    else
-      stories = find :all, :order => "published_at DESC", :limit => 20
-    end
-
-    self.add_metadata(stories)
-  end
-
-  def self.latest_with_photos
-    stories = find :all,
-      :conditions => ["image_file_size != ''
-        and image_file_name != 'stringio.txt'",
-      :order => "published_at DESC",
-      :limit => 20]
-
-    self.add_metadata(stories)
-  end
-
-  def self.fb_stories(page, sort)
-    if (sort and sort == "likes")
-      order = "fb_likes_count DESC"
-    elsif (sort and sort == "comments")
-      order = "fb_comments_count DESC"
-    else
-      order = "published_at DESC"
-    end
-
-    where(["kind = ?", Story::Facebook])
-    .page(page)
-    .order(order)
-  end
-
-  def self.active
-    # get the recent activities
-    activities = ActivityItem.find :all,
-                                   :conditions => ["kind = ? or kind = ?",
-                                     ActivityItem::CommentType,
-                                     ActivityItem::CreatePostType],
-                                   :order => "updated_at DESC"
-    stories = []
-    story_activities = Hash.new
-    for activity in activities
-      if activity.kind == ActivityItem::CommentType or
-          activity.kind == ActivityItem::CreatePostType
-        if !story_activities.has_key?(activity.story_id)
-          story_activities[activity.story_id] = [activity]
-          stories.push(Story.find(activity.story_id))
-        else
-          story_activities[activity.story_id].push(activity)
-        end
-      end
-    end
-    return stories
-  end
-
+  # TODO(ankit): Each of these should be a separate API, instead of munging
+  # everything together into a single method.
   def self.search(params)
     # Following
     if params[:type].to_i == Story::Following
@@ -260,11 +198,10 @@ class Story < ActiveRecord::Base
       # Search
       query = params[:query]
       if query and query != ""
-        conditions = [ "(title like ? OR description like ? OR source like ? OR source_url like ?)",
+        conditions = [ "(title like ? OR description like ?)",
           "%#{query}%",
-          "%#{query}%",
-          "%#{query}%",
-          "%#{query}"]
+          "%#{query}%"
+        ]
       # Source
       elsif params[:source] and params[:source].to_i != -1
         conditions = ["(source like ?)", "#{params[:source]}"]
@@ -273,6 +210,16 @@ class Story < ActiveRecord::Base
         conditions = ["(topic_id = ?)", params[:topic]]
       else
         conditions = []
+      end
+
+      if params[:hashtag] and params[:hashtag] != "" and params[:type].to_i == Story::Twitter
+        condition = "(lower(title) like ?)"
+        if conditions.at(0)
+          conditions.at(0) << " AND " << condition
+        else
+          conditions.push(condition)
+        end
+        conditions.push("%\##{params[:hashtag]}%");
       end
 
       # Date Range
@@ -336,44 +283,15 @@ class Story < ActiveRecord::Base
     self.add_metadata(stories)
   end
 
-  def self.find_for_topic(topic_id, sort_by, page)
-    if sort_by == 'popular'
-      order = "popularity DESC, published_at DESC"
-    else
-      order = "published_at DESC"
-    end
-
-    stories = paginate(:page => page,
-      :conditions => {:topic_id => topic_id},
-      :order => order)
-    self.add_metadata(stories)
-  end
-
-  def self.find_with_photos_for_topic(topic_id, sort_by)
-    if sort_by == 'newest'
-      order = "created_at DESC"
-    elsif sort_by == 'votes'
-      order = "created_at DESC"
-    else
-      order = "popularity DESC, created_at DESC"
-    end
-
-    stories = find :all,
-      :order => order,
-      :conditions => ["topic_id = ? and
-        image_file_size != '' and
-        image_file_name != 'stringio.txt' and
-        kind = ?", topic_id, Story::Rss],
-      :limit => 20
-    self.add_metadata(stories)
-  end
-
+  # Get all the stories written by the specified user
   def self.find_by_user(user_id, limit=10)
     find :all, :order => "created_at DESC",
          :conditions => {:user_id => user_id},
          :limit => limit
   end
 
+  # Get the number of likes by user
+  # TODO(ankit): This belongs in the User Model
   def self.count_likes_by_user(user_id)
     likes = Vote.find :all,
       :conditions => {:user_id => user_id}
@@ -383,4 +301,36 @@ class Story < ActiveRecord::Base
   def self.find_by_url(url)
     find :first, :conditions=>{:source_url => url}
   end
+
+  # Get the popular hashtags for twitter posts in the last week
+  def self.hashtags
+    hashtag_regex = /(?:\s|^)(?:#(?!(?:\d+|\w+?_|_\w+?)(?:\s|$)))(\w+)(?=\s|$)/i
+    # Get all the tweets this week
+    tweets = find :all, :conditions => ["published_at >= ? AND published_at <= ? AND kind == ?",
+      1.week.ago, Date.tomorrow, Story::Twitter]
+
+    hashtags_map = Hash.new
+
+    for tweet in tweets
+      hashtags = tweet.title.scan(hashtag_regex)
+      for hashtag in hashtags
+        hashtag = hashtag[0].downcase
+
+        if hashtags_map.has_key?(hashtag)
+          hashtags_map[hashtag] = hashtags_map[hashtag] + 1
+        else
+          hashtags_map[hashtag] = 1
+        end
+      end
+    end
+    # put all the hashtags into an array
+    sorted_hashtags = []
+
+    hashtags_map.map do |key, value|
+      sorted_hashtags << {:name => key, :count => value}
+    end
+
+    sorted_hashtags.sort_by{ |hashtag| -hashtag[:count]}[0..9]
+  end
+
 end

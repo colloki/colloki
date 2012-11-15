@@ -23,17 +23,35 @@
     <hr>
   </div>
 
-  <div class="filter-chatter-source">
-    <h4>Collected From</h4>
-    <ul class="nav nav-stacked nav-pills">
-      <li class="active">
-        <a href="#" class="type" data-value="4">Twitter</a>
-      </li>
-      <li>
-        <a href="#" class="type" data-value="3">Facebook</a>
-      </li>
-    </ul>
-    <hr>
+  <div class="filter-chatter">
+    <div class="filter-chatter-source">
+      <h4>Collected From</h4>
+      <ul class="nav nav-stacked nav-pills">
+        <li class="active">
+          <a href="#" class="type" data-value="4">Twitter</a>
+        </li>
+        <li>
+          <a href="#" class="type" data-value="3">Facebook</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="filter-chatter-twitter">
+      <div class="filter-chatter-hashtags">
+        <h4>Popular #Hashtags This Week</h4>
+        <ul class="nav nav-stacked nav-pills">
+          <li class="active">
+            <a href="#" class="hashtag" data-value="">Everything</a>
+          </li>
+          <% @hashtags.each do |hashtag| %>
+            <li>
+              <a href="#" class="hashtag" data-value="<%= hashtag[:name] %>">#<%= hashtag[:name] %></a>
+            </li>
+          <% end %>
+        </ul>
+        <hr>
+      </div>
+    </div>
   </div>
 
   <%= render :partial => 'partials/footer' %>

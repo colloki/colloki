@@ -51,7 +51,8 @@ $(function() {
       "click .topic": "filterByTopic",
       "click .type": "filterByType",
       "keyup .search-query": "filterByQuery",
-      "click .sort": "sortBy"
+      "click .sort": "sortBy",
+      "click .hashtag": "filterByHashtag"
     },
 
     initialize: function() {
@@ -87,6 +88,9 @@ $(function() {
         "showQuery",
         "resetQuery",
 
+        "filterByHashtag",
+        "showHashtag",
+
         "showLikes",
         "showEvents",
 
@@ -103,7 +107,8 @@ $(function() {
       this.$stories = $(".topic-stories", this.$el);
 
       this.$newsSourceFilter = $(".filter-news-source", this.$el);
-      this.$chatterSourceFilter = $(".filter-chatter-source", this.$el);
+      this.$chatterFilter = $(".filter-chatter", this.$el);
+      this.$twitterFilter = $(".filter-chatter-twitter", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
       this.$dateFilter = $(".filter-date", this.$el);
       this.$queryFilter = $(".filter-search", this.$el);
@@ -114,6 +119,7 @@ $(function() {
       this.isLoading = false;
       this.router = this.options.router;
       this.loadOnScroll = true;
+      this.hashtag = "";
       this.resetToDefault();
 
       _.each(this.options, _.bind(function(value, key) {
@@ -151,7 +157,7 @@ $(function() {
         this.$queryFilter.show();
         this.$dateFilter.show();
         this.$newsSourceFilter.show();
-        this.$chatterSourceFilter.hide();
+        this.$chatterFilter.hide();
 
         if (this.dateRange != 1 && this.source == -1 && !this.query) {
           this.$topicFilter.show();
@@ -175,17 +181,21 @@ $(function() {
         if (this.type == this.types["twitter"].id ||
           this.type == this.types["facebook"].id) {
           this.$dateFilter.show();
-          this.$chatterSourceFilter.show();
+          this.$chatterFilter.show();
+          if (this.type == this.types["twitter"].id) {
+            this.$twitterFilter.show();
+          } else {
+            this.$twitterFilter.hide();
+          }
         } else {
           this.$dateFilter.hide();
-          this.$chatterSourceFilter.hide();
+          this.$chatterFilter.hide();
         }
       }
     },
 
     // Render the page
     render: function(shouldRewriteURL) {
-      console.log("render");
       this.hideLoading();
 
       if (this.type != this.types["rss"].id) {
@@ -306,8 +316,7 @@ $(function() {
       this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
-
-
+      this.selectNavPill($(".hashtag[data-value='" + this.hashtag + "']"));
       if (this.query) {
         $(".search-query", this.$el).val(this.query);
       }
@@ -369,8 +378,9 @@ $(function() {
     // Load the page
     load: function(callback) {
       this.isLoading = true;
-
+      console.log(this.hashtag);
       var request = "/search.json?query=" + this.query +
+        "&hashtag=" + this.hashtag +
         "&range=" + this.dateRange +
         "&page=" + this.page +
         "&topic=" + this.topic +
@@ -539,6 +549,18 @@ $(function() {
       this.query = query;
       this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
+    },
+
+    filterByHashtag: function(event) {
+      event.preventDefault();
+      var $el = $(event.target);
+      this.showHashtag($el.data("value"));
+    },
+
+    showHashtag: function(hashtag) {
+      this.hashtag = hashtag;
+      this.loadOnScroll = true;
+      this.reset(false);
     },
 
     showLikes: function(shouldRewriteURL) {
