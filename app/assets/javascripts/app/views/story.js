@@ -66,7 +66,8 @@ $(function() {
 
     formatTweet: function(tweet) {
       tweet = tweet.replace(/(^|\s)@(\w+)/g, '$1@<a href="http://www.twitter.com/$2">$2</a>');
-      return tweet.replace(/(^|\s)#(\w+)/g, '$1#<a href="http://search.twitter.com/search?q=%23$2">$2</a>');
+      tweet = tweet.replace(/(^|\s)#(\w+)/g, '$1#<a href="http://search.twitter.com/search?q=%23$2">$2</a>');
+      return this.replaceURLWithHTMLLinks(tweet);
     },
 
     render: function() {

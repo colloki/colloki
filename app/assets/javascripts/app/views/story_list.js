@@ -378,7 +378,6 @@ $(function() {
     // Load the page
     load: function(callback) {
       this.isLoading = true;
-      console.log(this.hashtag);
       var request = "/search.json?query=" + this.query +
         "&hashtag=" + this.hashtag +
         "&range=" + this.dateRange +
