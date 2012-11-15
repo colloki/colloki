@@ -306,7 +306,7 @@ class Story < ActiveRecord::Base
   def self.hashtags
     hashtag_regex = /(?:\s|^)(?:#(?!(?:\d+|\w+?_|_\w+?)(?:\s|$)))(\w+)(?=\s|$)/i
     # Get all the tweets this week
-    tweets = find :all, :conditions => ["published_at >= ? AND published_at <= ? AND kind == ?",
+    tweets = find :all, :conditions => ["published_at >= ? AND published_at <= ? AND kind = ?",
       1.week.ago, Date.tomorrow, Story::Twitter]
 
     hashtags_map = Hash.new
