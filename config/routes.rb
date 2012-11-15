@@ -42,7 +42,7 @@ Colloki::Application.routes.draw do
 
   match 'auth/:provider/callback', :to => 'provider_authentications#create'
   match 'auth/failure', :to => 'provider_authentications#failure'
-  match 'search', :to => 'topics#index', :as => '/search'
+  match 'search', :to => 'topics#search', :as => '/search'
   match 'feed', :to => 'feeds#latest', :as => 'feed', :format => 'xml'
   match ':controller(/:action(/:id(/:id2)))'
 end

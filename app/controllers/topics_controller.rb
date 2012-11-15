@@ -3,10 +3,17 @@ class TopicsController < ApplicationController
   def index
     gon.app_url = root_url
     gon.current_user = current_user
-    @stories = Story.search(params)
     @hashtags = Story.hashtags
     respond_to do |format|
       format.html
+    end
+  end
+
+  def search
+    gon.app_url = root_url
+    gon.current_user = current_user
+    @stories = Story.search(params)
+    respond_to do |format|
       format.json { render :json => @stories, :include => [:votes, :comments, :user], :methods => :user}
     end
   end

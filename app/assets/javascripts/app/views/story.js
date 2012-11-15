@@ -19,10 +19,6 @@ $(function() {
         story.icon_url = story.source_url;
       }
 
-      // if (story.title) {
-      //   story.title = this.formatText(story);
-      // }
-
       if (story.description) {
         story.description = this.formatText(story);
       }
