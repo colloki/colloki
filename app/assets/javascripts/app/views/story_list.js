@@ -90,6 +90,7 @@ $(function() {
 
         "filterByHashtag",
         "showHashtag",
+        "resetHashtag",
 
         "showLikes",
         "showEvents",
@@ -282,7 +283,9 @@ $(function() {
       } else if (this.type == this.types["twitter"].id) {
         text = this.types["twitter"].header;
         if (this.query) {
-          text += "- Search results for '" + this.query + "'";
+          text += " - Search results for '" + this.query + "'";
+        } else if (this.hashtag) {
+          text += " - #" + this.hashtag;
         }
       } else if (this.type == this.types["facebook"].id) {
         text = this.types["facebook"].header;
@@ -538,8 +541,12 @@ $(function() {
         this.reset(true);
       } else if (event.keyCode === 13) {
         event.preventDefault();
-        this.dateRange = 1;
         // set date range to all
+        this.dateRange = 1;
+        // reset some other options
+        this.resetTopic();
+        this.resetHashtag();
+        this.resetSource();
         this.showQuery($el.val(), true);
       }
     },
@@ -560,6 +567,10 @@ $(function() {
       this.hashtag = hashtag;
       this.loadOnScroll = true;
       this.reset(false);
+    },
+
+    resetHashtag: function() {
+      this.hashtag = "";
     },
 
     showLikes: function(shouldRewriteURL) {
