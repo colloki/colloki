@@ -331,7 +331,7 @@ class Story < ActiveRecord::Base
       sorted_hashtags << {:name => key, :count => value}
     end
 
-    sorted_hashtags.sort_by{ |hashtag| -hashtag[:count]}[0..9]
+    sorted_hashtags.sort_by{ |hashtag| -hashtag[:count]}[0..19]
   end
 
 end

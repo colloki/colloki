@@ -19,6 +19,7 @@ $(function() {
       ":range/chatter": "chatter",
       ":range/chatter/:type": "chatter",
       ":range/chatter/:type/search/:query": "chatter",
+      ":range/chatter/:type/source/:source": "chatterForSource",
 
       ":range/news/search/:query": "search",
       ":range/search/:query": "search",
@@ -217,6 +218,29 @@ $(function() {
           user: this.user,
           viewer: this.viewer,
           query: query,
+          type: (type == "facebook") ? 3 : 4,
+          dateRange: this.dateRangeInt(dateRange)
+        });
+      }
+    },
+
+    chatterForSource: function(dateRange, type, source) {
+      if (this.view) {
+        this.view.dateRange = this.dateRangeInt(dateRange);
+
+        if (query) {
+          this.view.query = query;
+        }
+
+        this.type = type;
+        this.showSource(source);
+      } else {
+        this.view = new window.StoryListView({
+          el: this.$el,
+          router: this,
+          user: this.user,
+          viewer: this.viewer,
+          source: source,
           type: (type == "facebook") ? 3 : 4,
           dateRange: this.dateRangeInt(dateRange)
         });

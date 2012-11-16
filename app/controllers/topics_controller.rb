@@ -5,7 +5,8 @@ class TopicsController < ApplicationController
     gon.current_user = current_user
     @hashtags = Story.hashtags
     config = YAML.load_file("#{Rails.root}/config/sources.yml")[Rails.env]
-    @sources = config['rss'].values.sort
+    @news_sources = config['rss'].values.sort
+    @facebook_sources = config['facebook'].sort
     respond_to do |format|
       format.html
     end

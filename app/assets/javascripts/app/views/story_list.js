@@ -110,6 +110,7 @@ $(function() {
       this.$newsSourceFilter = $(".filter-news-source", this.$el);
       this.$chatterFilter = $(".filter-chatter", this.$el);
       this.$twitterFilter = $(".filter-chatter-twitter", this.$el);
+      this.$facebookFilter = $(".filter-chatter-facebook", this.$el);
       this.$topicFilter = $(".filter-topic", this.$el);
       this.$dateFilter = $(".filter-date", this.$el);
       this.$queryFilter = $(".filter-search", this.$el);
@@ -185,8 +186,10 @@ $(function() {
           this.$chatterFilter.show();
           if (this.type == this.types["twitter"].id) {
             this.$twitterFilter.show();
+            this.$facebookFilter.hide();
           } else {
             this.$twitterFilter.hide();
+            this.$facebookFilter.show();
           }
         } else {
           this.$dateFilter.hide();
@@ -274,7 +277,7 @@ $(function() {
         if (this.topic != -2) {
           text += " - " + $(".topic[data-id="+ this.topic + "]").text();
         } else if (this.source != -1) {
-          text += " - <em>" + this.source + "</em>";
+          text += " - " + this.source;
         } else if (this.query) {
           text += " - Search results for '" + this.query + "'";
         } else {
@@ -290,7 +293,9 @@ $(function() {
       } else if (this.type == this.types["facebook"].id) {
         text = this.types["facebook"].header;
         if (this.query) {
-          text += "- Search results for '" + this.query + "'";
+          text += " - Search results for '" + this.query + "'";
+        } else if (this.source) {
+          text += " - " + this.source;
         }
       } else if (this.type == this.types["user"].id) {
         text = this.types["user"].header;
@@ -309,8 +314,11 @@ $(function() {
           this.resetQuery();
         }
 
+        if (this.type != this.types["facebook"].id) {
+          this.resetSource();
+        }
+
         this.resetTopic();
-        this.resetSource();
       }
 
       // select the right filtering options
@@ -491,7 +499,7 @@ $(function() {
       this.showSource($(event.target).data("value"), true);
     },
 
-    // Show stories belonging to the specified news source
+    // Show stories belonging to the specified news/facebook source
     showSource: function(source, shouldRewriteURL) {
       this.source = source;
       this.reset(shouldRewriteURL);

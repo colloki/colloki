@@ -19,7 +19,7 @@
   <!-- Filter by source -->
   <div class="filter-news-source">
     <h4>Collected From</h4>
-    <%= render :partial => "topics/source_filter", :locals => {:sources => @sources} %>
+    <%= render :partial => "topics/source_filter", :locals => {:sources => @news_sources} %>
     <hr>
   </div>
 
@@ -50,6 +50,13 @@
           <% end %>
         </ul>
         <hr>
+      </div>
+    </div>
+
+    <div class="filter-chatter-facebook">
+      <div class="filter-facebook-sources">
+        <h4>Facebook Page</h4>
+        <%= render :partial => "topics/source_filter", :locals => {:sources => @facebook_sources} %>
       </div>
     </div>
   </div>
