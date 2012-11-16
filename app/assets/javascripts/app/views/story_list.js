@@ -294,7 +294,7 @@ $(function() {
         text = this.types["facebook"].header;
         if (this.query) {
           text += " - Search results for '" + this.query + "'";
-        } else if (this.source) {
+        } else if (this.source != -1) {
           text += " - " + this.source;
         }
       } else if (this.type == this.types["user"].id) {
