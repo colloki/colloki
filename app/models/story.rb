@@ -298,6 +298,7 @@ class Story < ActiveRecord::Base
     return likes.count
   end
 
+  # Find a story by the source url
   def self.find_by_url(url)
     find :first, :conditions=>{:source_url => url}
   end
@@ -307,7 +308,7 @@ class Story < ActiveRecord::Base
     hashtag_regex = /(?:\s|^)(?:#(?!(?:\d+|\w+?_|_\w+?)(?:\s|$)))(\w+)(?=\s|$)/i
     # Get all the tweets this week
     tweets = find :all, :conditions => ["published_at >= ? AND published_at <= ? AND kind = ?",
-      1.week.ago, Date.tomorrow, Story::Twitter]
+      Date.today, Date.tomorrow, Story::Twitter]
 
     hashtags_map = Hash.new
 
