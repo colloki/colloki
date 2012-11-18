@@ -16,11 +16,9 @@
     </ul>
   </div>
 
-  <!-- Filter by source -->
   <div class="filter-news-source">
     <h4>Collected From</h4>
     <%= render :partial => "topics/source_filter", :locals => {:sources => @news_sources} %>
-    <hr>
   </div>
 
   <div class="filter-chatter">
@@ -60,6 +58,22 @@
       </div>
     </div>
   </div>
+
+  <% if current_user %>
+    <div class="filter-following">
+      <h4>Following</h4>
+      <div>
+        <% current_user.all_following.each do |user| %>
+          <div class="span2">
+            <a href="/users/<%=user.login%>" title="<%= user.login %>" >
+              <img src="<%=user.get_image_url%>">
+            </a>
+          </div>
+        <% end %>
+      </div>
+      <br><br><br>
+    </div>
+  <% end %>
 
   <%= render :partial => 'partials/footer' %>
 </div>

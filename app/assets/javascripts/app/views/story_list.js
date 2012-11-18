@@ -109,14 +109,18 @@ $(function() {
 
       this.$stories = $(".topic-stories", this.$el);
 
-      this.$newsSourceFilter = $(".filter-news-source", this.$el);
-      this.$chatterFilter = $(".filter-chatter", this.$el);
-      this.$twitterFilter = $(".filter-chatter-twitter", this.$el);
-      this.$facebookFilter = $(".filter-chatter-facebook", this.$el);
-      this.$topicFilter = $(".filter-topic", this.$el);
-      this.$dateFilter = $(".filter-date", this.$el);
-      this.$queryFilter = $(".filter-search", this.$el);
-      this.$sort = $(".filter-sort", this.$el);
+      this.filters = {
+        $news: this.$(".filter-news-source"),
+        $chatter: this.$(".filter-chatter"),
+        $twitter: this.$(".filter-chatter-twitter"),
+        $facebook: this.$(".filter-chatter-facebook"),
+        $following: this.$(".filter-following"),
+        $topic: this.$(".filter-topic"),
+        $date: this.$(".filter-date"),
+        $search: this.$(".filter-search"),
+        $sort: this.$(".filter-sort")
+      };
+
       this.$header = $(".topic-header", this.$el);
 
       this.paginationBufferPx = 50;
@@ -154,48 +158,55 @@ $(function() {
     // this gets called when a new page is to be loaded
     preRender: function() {
       // show/hide the appropriate filters, based on the current view
-
       // if it is the news section
       if (this.type == this.types["rss"].id) {
-        this.$sort.show();
-        this.$queryFilter.show();
-        this.$dateFilter.show();
-        this.$newsSourceFilter.show();
-        this.$chatterFilter.hide();
+        this.filters.$sort.show();
+        this.filters.$search.show();
+        this.filters.$date.show();
+        this.filters.$news.show();
+        this.filters.$chatter.hide();
+        this.filters.$following.hide();
 
         if (this.dateRange != 1 && this.source == -1 && !this.query) {
-          this.$topicFilter.show();
+          this.filters.$topic.show();
         } else {
-          this.$topicFilter.hide();
+          this.filters.$topic.hide();
         }
       }
 
       else {
-        this.$topicFilter.hide();
-        this.$newsSourceFilter.hide();
-        this.$dateFilter.hide();
-        this.$sort.hide();
+        this.filters.$topic.hide();
+        this.filters.$news.hide();
+        this.filters.$date.hide();
+        this.filters.$sort.hide();
 
         if (this.type == this.types["events"].id) {
-          this.$queryFilter.hide();
+          this.filters.$search.hide();
         } else {
-          this.$queryFilter.show();
+          this.filters.$search.show();
+        }
+
+        if (this.type == this.types["following"].id) {
+          this.filters.$following.show();
+        } else {
+          this.filters.$following.hide();
         }
 
         if (this.type == this.types["twitter"].id ||
           this.type == this.types["facebook"].id) {
-          this.$dateFilter.show();
-          this.$chatterFilter.show();
+          this.filters.$date.show();
+          this.filters.$chatter.show();
+
           if (this.type == this.types["twitter"].id) {
-            this.$twitterFilter.show();
-            this.$facebookFilter.hide();
+            this.filters.$twitter.show();
+            this.filters.$facebook.hide();
           } else {
-            this.$twitterFilter.hide();
-            this.$facebookFilter.show();
+            this.filters.$twitter.hide();
+            this.filters.$facebook.show();
           }
         } else {
-          this.$dateFilter.hide();
-          this.$chatterFilter.hide();
+          this.filters.$date.hide();
+          this.filters.$chatter.hide();
         }
       }
     },
