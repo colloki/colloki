@@ -10,7 +10,7 @@ class DiscussController < ApplicationController
     @stories = []
     @story_activities = Hash.new
     for activity in activities
-      if activity.kind == ActivityItem::CommentType or 
+      if activity.kind == ActivityItem::CommentType or
           activity.kind == ActivityItem::CreatePostType
         if !@story_activities.has_key?(activity.story_id)
           @story_activities[activity.story_id] = [activity]
@@ -71,8 +71,9 @@ class DiscussController < ApplicationController
       story.published_at = DateTime.now
       # Give the user posted story an initial kick of popularity
       story.increase_popularity(Story::ScorePost)
+
       if story.save
-        flash[:notice] = "Your story '" << story.title << "' was successfully posted!"
+        flash[:notice] = "Your post '" << story.title << "' was successfully posted!"
         # create activity
         activity = ActivityItem.create(
           :story_id => story.id,
@@ -80,14 +81,16 @@ class DiscussController < ApplicationController
           :topic_id => -1,
           :kind     => ActivityItem::CreatePostType)
         activity.save
-        redirect_to(story_url(story))
+        redirect_to('#shared')
         return;
       end
+
       if story.title == ""
-        flash[:error] = "Title of your story cannot be empty!"
+        flash[:error] = "Title of your post cannot be empty!"
       elsif story.description == ""
-        flash[:error] = "Content of your story cannot be empty!"
+        flash[:error] = "Content of your post cannot be empty!"
       end
+
       redirect_back_or(root_url)
     end
   end

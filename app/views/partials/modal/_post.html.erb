@@ -4,18 +4,20 @@
     <div class="control-group">
       <div class="controls">
         <%= f.text_field :title,
-                         :placeholder => "Share your views...",
-                         :class       => "span8",
-                         :id          => "share-box" %>
+          :placeholder => "Share your views...",
+          :class => "span8",
+          :id => "share-box"
+        %>
       </div>
     </div>
     <div id="share-box-content" style="display: none;">
       <div class="control-group">
         <div class="controls">
           <%= f.text_area :description,
-                          :rows => 5,
-                          :placeholder => "Your message...",
-                          :class => "span6" %>
+            :rows => 5,
+            :placeholder => "Your message...",
+            :class => "span6"
+          %>
         </div>
       </div>
       <div class="control-group">
@@ -31,8 +33,7 @@
           <%= f.check_box :facebook %> Facebook
         </div>
       </div>
-      <%= f.hidden_field :topic,
-                         :value => (topic) ? topic.id : -1 %>
+      <%= f.hidden_field :topic, :value => (topic) ? topic.id : -1 %>
       <div class="form-actions">
         <button type="submit" class="btn btn-success">
           Share
@@ -42,11 +43,12 @@
   <% end %>
 <% end %>
 
-<script type='text/javascript'>
+<%= javascript_tag do %>
   $("#share-box").click(function(e) {
     $("#share-box-content, #close-share-box").show();
   });
+
   $("#close-share-box").click(function(e) {
     $("#share-box-content, #close-share-box").hide();
   });
-</script>
+<% end %>

@@ -13,8 +13,7 @@ $(function() {
       "events": "events",
       "likes": "likes",
       "following": "following",
-
-      ":range/shared": "shared",
+      "shared": "shared",
 
       ":range/chatter": "chatter",
       ":range/chatter/:type": "chatter",
@@ -251,7 +250,7 @@ $(function() {
     rewriteURL: function(view) {
       var route = "";
 
-      if (view.type == 1 || view.type == 2 || view.type == 3 || view.type == 4) {
+      if (view.type == 2 || view.type == 3 || view.type == 4) {
         if (view.dateRange == 2) {
           route = "today"
         } else if (view.dateRange == 1) {
