@@ -100,10 +100,12 @@ $(function() {
 
       this.delegateEvents();
       this.collection = new Stories();
+
+      // Loading
       this.$loading = $('<p>', {
         "class": "lead loading",
         html: "Loading..."
-      }).appendTo($('.topic-content', this.$el));
+      }).appendTo(this.$('.topic-content'));
 
       this.$stories = $(".topic-stories", this.$el);
 
@@ -236,8 +238,9 @@ $(function() {
     // Load the next page
     nextPage: function() {
       this.page++;
-
       this.preRender();
+      this.showLoading();
+
       this.load($.proxy(function(data) {
         var len = data.length;
         for (var i = 0; i < len; i++) {
@@ -606,12 +609,10 @@ $(function() {
     },
 
     showLoading: function() {
-      this.$stories.hide();
       this.$loading.show();
     },
 
     hideLoading: function() {
-      this.$stories.show();
       this.$loading.hide();
     }
   });
