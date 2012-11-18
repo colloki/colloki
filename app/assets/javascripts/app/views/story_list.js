@@ -2,6 +2,7 @@ $(function() {
   window.StoryListView = Backbone.View.extend({
     emptyWithHistory: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
     emptyWithoutHistory: "We didn't find anything. Go <a href='#' class='.home'>home</a>.",
+    complete: false,
 
     eventsHTML: '<iframe class="events-calendar" width="580" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
@@ -96,7 +97,8 @@ $(function() {
         "showEvents",
 
         "showLoading",
-        "hideLoading");
+        "hideLoading",
+        "showEmptyMessage");
 
       this.delegateEvents();
       this.collection = new Stories();
@@ -248,12 +250,20 @@ $(function() {
 
     // Load the next page
     nextPage: function() {
+      if (this.complete) {
+        return;
+      }
+
       this.page++;
       this.preRender();
       this.showLoading();
 
       this.load($.proxy(function(data) {
         var len = data.length;
+        if (len == 0) {
+          this.complete = true;
+        }
+
         for (var i = 0; i < len; i++) {
           data[i].viewer = this.viewer;
           var c = new Story(data[i]);
@@ -321,6 +331,7 @@ $(function() {
     // Reset the view
     reset: function(shouldRewriteURL) {
       this.page = 1;
+      this.complete = false;
 
       if (this.type != this.types["rss"].id) {
         if (this.type != this.types["twitter"].id &&
@@ -339,9 +350,14 @@ $(function() {
       this.selectNavPill($(".source[data-value='" + this.source + "']"));
       this.selectNavPill($(".topic[data-id=" + this.topic + "]"));
       this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
-      this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
       this.selectNavPill($(".hashtag[data-value='" + this.hashtag + "']"));
+      var type = this.type;
+      if (this.type == 3) {
+        type = 4;
+      }
+      this.selectNavPill($(".type[data-value='" + type + "']"));
+
       if (this.query) {
         $(".search-query", this.$el).val(this.query);
       }
@@ -365,34 +381,8 @@ $(function() {
             this.append(c);
           }
         } else {
-
-          var $message = $("<p>", {
-            "class": "lead empty-message"
-          });
-
-          if (this.empty) {
-            $message.html(this.empty);
-          } else {
-            // todo: this is really unoptimized...fix it.
-            var emptyForType;
-            _.each(this.types, _.bind(function(type) {
-              if (type.id == this.type) {
-                if (type.empty) {
-                  emptyForType = type.empty;
-                }
-              }
-            }, this));
-
-            if (emptyForType) {
-              $message.html(emptyForType);
-            } else if (window.history.length > 2) {
-              $message.html(this.emptyWithHistory);
-            } else {
-              $message.html(this.emptyWithoutHistory);
-            }
-          }
-
-          this.$stories.html($message);
+          this.complete = true;
+          this.showEmptyMessage();
         }
 
         this.isLoading = false;
@@ -403,6 +393,7 @@ $(function() {
     // Load the page
     load: function(callback) {
       this.isLoading = true;
+
       var request = "/search.json?query=" + this.query +
         "&hashtag=" + this.hashtag +
         "&range=" + this.dateRange +
@@ -625,6 +616,35 @@ $(function() {
 
     hideLoading: function() {
       this.$loading.hide();
+    },
+
+    showEmptyMessage: function() {
+      var $message = $("<p>", {
+        "class": "lead empty-message"
+      });
+
+      if (this.empty) {
+        $message.html(this.empty);
+      } else {
+        var emptyForType;
+        _.each(this.types, _.bind(function(type) {
+          if (type.id == this.type) {
+            if (type.empty) {
+              emptyForType = type.empty;
+            }
+          }
+        }, this));
+
+        if (emptyForType) {
+          $message.html(emptyForType);
+        } else if (window.history.length > 2) {
+          $message.html(this.emptyWithHistory);
+        } else {
+          $message.html(this.emptyWithoutHistory);
+        }
+      }
+
+      this.$stories.html($message);
     }
   });
 });

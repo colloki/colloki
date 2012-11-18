@@ -1,16 +1,9 @@
-
-Let us know! If you've an <a href="http://en.wikipedia.org/wiki/RSS">RSS</a> feed, we'll add your blog to our list of news and discussion sources.
-<br><br>
-
-<a href="#local-publisher-modal" class='btn btn-primary' data-toggle="modal">
-  Suggest a Blog
-</a>
-
 <div class="modal hide" id="local-publisher-modal">
   <div class="modal-header">
     <a data-dismiss="modal" class="close">&times;</a>
-    <h3>Suggest a Blog</h3>
+    <h3>Send Suggestion</h3>
   </div>
+
   <%= form_tag({:controller => :notifier, :action => :send_blog_suggestion}, {:honeypot => true}) do %>
     <div class="modal-body">
       <p>
@@ -26,7 +19,6 @@ Let us know! If you've an <a href="http://en.wikipedia.org/wiki/RSS">RSS</a> fee
         <div class="control-group">
           <label>
             Your email <span class="important">*</span>
-            <span class="help-inline">So that we can get back to you!</span>
           </label>
           <div class="controls">
             <%= text_field :blog, :email, :class => "span10" %>
@@ -41,12 +33,11 @@ Let us know! If you've an <a href="http://en.wikipedia.org/wiki/RSS">RSS</a> fee
             <%= text_area :blog, :description, :class => "span10", :rows => 7 %>
           </div>
         </div>
-
       </p>
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary">Send</button>
-      <a href="#" data-dismiss="modal" class="btn">Close</a>
+      <button class="btn" data-dismiss="modal">Cancel</button>
     </div>
   <% end %>
 </div>

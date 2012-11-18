@@ -4,13 +4,13 @@
 </p>
 
 <div class="row-fluid">
-  <div class="span6 well" style="height: 250px">
+  <div class="span6 well about-section">
     <h3>Local Issues</h3>
     <p class="lead">
       We collect Local News, Blogs, Twitter and Facebook Discussions happening in New River Valley, so that you can come here to keep up with important local issues and developments.
     </p>
   </div>
-  <div class="span6 well" style="height: 250px">
+  <div class="span6 well about-section">
     <h3>Participate</h3>
     <p class="lead">
       Post articles, comment and like news stories. Share news on your social networks on Twitter, Facebook, Google+ or elsewhere.
@@ -19,16 +19,21 @@
 </div>
 
 <div class="row-fluid">
-  <div class="span6 well" style="height: 250px">
+  <div class="span6 well about-section">
     <h3>Research</h3>
       <p class="lead">
         This project is being actively developed as part of research at <a href="http://vt.edu">Virginia Tech</a>. Learn more about it on the <%= link_to "About Research", research_url %> page. It is opensource and available on <a href='http://github.com/colloki/colloki'>Github</a>.
       </p>
   </div>
-  <div class="span6 well" style="height: 250px">
+  <div class="span6 well about-section">
     <h3>Local Blogger or Publisher?</h3>
     <p class="lead">
-      <%= render :partial => "partials/about/local_publisher" %>
+      Let us know! If you've an <a href="http://en.wikipedia.org/wiki/RSS">RSS</a> feed, we'll add your blog to our list of news and discussion sources.
+      <br><br>
+      <a href="#local-publisher-modal" class='btn btn-primary' data-toggle="modal">
+        Send Suggestion
+      </a>
+      <%= render :partial => "partials/modal/suggestion" %>
     </p>
   </div>
 </div>
