@@ -1,6 +1,6 @@
 $(function() {
   window.StoryView = Backbone.View.extend({
-    template: JST['app/templates/topics/story'],
+    template: JST['app/templates/story_item'],
 
     textLength: 100,
     textLengthWithoutImage: 200,

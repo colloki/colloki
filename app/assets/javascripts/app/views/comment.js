@@ -1,6 +1,6 @@
 $(function() {
   window.CommentView = Backbone.View.extend({
-    template: JST['app/templates/stories/comment'],
+    template: JST['app/templates/comment'],
 
     events: {
       "click .delete-comment": "clear"

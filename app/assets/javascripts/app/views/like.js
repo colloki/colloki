@@ -1,6 +1,6 @@
 $(function() {
   window.LikeView = Backbone.View.extend({
-    template: JST['app/templates/stories/story_liker'],
+    template: JST['app/templates/story_liker'],
 
     events: {
       "click": "like"
