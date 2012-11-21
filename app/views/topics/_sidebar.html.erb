@@ -74,7 +74,7 @@
       <h4>Following</h4>
       <div>
         <% current_user.all_following.each do |user| %>
-          <div class="span2">
+          <div class="follow-avatar">
             <a href="/users/<%=user.login%>" title="<%= user.login %>" >
               <img src="<%=user.get_image_url%>">
             </a>
