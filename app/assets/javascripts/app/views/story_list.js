@@ -6,7 +6,7 @@ $(function() {
     // If the current set of fetched stories is complete.
     complete: false,
     // Number of items fetched per page
-    perPageCount: 9,
+    perPageCount: 12,
 
     eventsHTML: '<iframe class="events-calendar" width="580" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
