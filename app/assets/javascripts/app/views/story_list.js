@@ -1,8 +1,12 @@
 $(function() {
   window.StoryListView = Backbone.View.extend({
-    emptyWithHistory: "We didn't find anything. Please <a href='javascript:window.history.back()'>go back</a>.",
-    emptyWithoutHistory: "We didn't find anything. Go <a href='#' class='.home'>home</a>.",
+    // Message to show if the response is empty
+    emptyMessage: "We weren't able to find anything...You can see this <a href='/'>week's stories</a>",
+
+    // If the current set of fetched stories is complete.
     complete: false,
+    // Number of items fetched per page
+    perPageCount: 9,
 
     eventsHTML: '<iframe class="events-calendar" width="580" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
 
@@ -38,7 +42,7 @@ $(function() {
       "following": {
         id: 7,
         header: "People You're Following <a class='who-to-follow' href='/whotofollow'>See who to follow</a>",
-        empty: "No activity from the people you're following... See suggestions on <a href='/whotofollow'>who to follow</a>"
+        empty: "There is no activity from the people you're following... See suggestions on <a href='/whotofollow'>who to follow</a>"
       },
 
       "by-user": {
@@ -53,7 +57,8 @@ $(function() {
       "click .type": "filterByType",
       "keyup .search-query": "filterByQuery",
       "click .sort": "sortBy",
-      "click .hashtag": "filterByHashtag"
+      "click .hashtag": "filterByHashtag",
+      "click .more": "nextPage"
     },
 
     initialize: function() {
@@ -65,8 +70,6 @@ $(function() {
         "selectButton",
         "selectNavTab",
         "selectNavPill",
-
-        "onScroll",
 
         "resetHeader",
 
@@ -96,6 +99,7 @@ $(function() {
         "showLikes",
         "showEvents",
 
+        "nextPage",
         "showLoading",
         "hideLoading",
         "showEmptyMessage");
@@ -103,13 +107,10 @@ $(function() {
       this.delegateEvents();
       this.collection = new Stories();
 
-      // Loading
-      this.$loading = $('<p>', {
-        "class": "lead loading",
-        html: "Loading..."
-      }).appendTo(this.$('.topic-content'));
-
-      this.$stories = $(".topic-stories", this.$el);
+      this.$stories = this.$('.topic-stories');
+      this.$header = this.$('.topic-header');
+      this.$loading = this.$('.loading');
+      this.$more = this.$('.more');
 
       this.filters = {
         $news: this.$(".filter-news-source"),
@@ -123,12 +124,9 @@ $(function() {
         $sort: this.$(".filter-sort")
       };
 
-      this.$header = $(".topic-header", this.$el);
-
       this.paginationBufferPx = 50;
       this.isLoading = false;
       this.router = this.options.router;
-      this.loadOnScroll = true;
       this.hashtag = "";
       this.resetToDefault();
 
@@ -142,12 +140,6 @@ $(function() {
         this.$stories.masonry({
           itemSelector: ".story-item"
         });
-      }, this));
-
-      $(window).scroll(this.onScroll);
-
-      $('.home', this.$el).click($.proxy(function(e) {
-        this.router.navigate("/", true);
       }, this));
 
       if (this.type == this.types["events"].id) {
@@ -256,12 +248,13 @@ $(function() {
 
       this.page++;
       this.preRender();
-      this.showLoading();
+      this.$more.html("Loading...").attr('disabled', true);
 
       this.load($.proxy(function(data) {
         var len = data.length;
-        if (len == 0) {
+        if (len < this.perPageCount) {
           this.complete = true;
+          this.$more.hide();
         }
 
         for (var i = 0; i < len; i++) {
@@ -276,6 +269,7 @@ $(function() {
 
         this.render();
         this.isLoading = false;
+        this.$more.html('More').attr('disabled', false);
       }, this));
     },
 
@@ -380,8 +374,12 @@ $(function() {
             this.append(c);
           }
         } else {
-          this.complete = true;
           this.showEmptyMessage();
+        }
+
+        if (len < this.perPageCount) {
+          this.complete = true;
+          this.$more.hide();
         }
 
         this.isLoading = false;
@@ -433,23 +431,9 @@ $(function() {
         .find("i").removeClass("icon-white");
     },
 
-    // Load the next page when the user reaches end of page
-    // todo(ankit): Add a loading indicator...
-    onScroll: function() {
-      if (!this.loadOnScroll) {return;}
-      if (this.isLoading) {return;}
-
-      var $window = $(window);
-      var pixelsFromWindowBottomToBottom = $(document).height() - $window.scrollTop() - $(window).height();
-      if (pixelsFromWindowBottomToBottom - this.paginationBufferPx < 0) {
-        this.nextPage();
-      }
-    },
-
     // Change the sorting option between popularity and date
     sortBy: function(event) {
       event.preventDefault();
-      this.loadOnScroll = true;
 
       var $el = $(event.target);
       this.selectNavPill($el);
@@ -467,7 +451,6 @@ $(function() {
     // Show the date filter
     showDateRange: function(dateRange, shouldRewriteURL) {
       this.dateRange = dateRange;
-      this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
     },
 
@@ -485,7 +468,6 @@ $(function() {
     // Show the stories belonging to the specified topic
     showTopic: function(topic, shouldRewriteURL) {
       this.topic = topic;
-      this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
     },
 
@@ -526,7 +508,6 @@ $(function() {
     showType: function(type, shouldRewriteURL) {
       this.type = type;
       this.source = -1;
-      this.loadOnScroll = true;
       this.$el.height(500);
 
       if(this.type == this.types["events"].id) {
@@ -566,7 +547,6 @@ $(function() {
 
     showQuery: function(query, shouldRewriteURL) {
       this.query = query;
-      this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
     },
 
@@ -578,7 +558,6 @@ $(function() {
 
     showHashtag: function(hashtag) {
       this.hashtag = hashtag;
-      this.loadOnScroll = true;
       this.reset(false);
     },
 
@@ -586,20 +565,22 @@ $(function() {
       this.hashtag = "";
     },
 
+    // Show the likes tab
     showLikes: function(shouldRewriteURL) {
-      this.loadOnScroll = true;
       this.reset(shouldRewriteURL);
     },
 
+    // Show the events tab
     showEvents: function(shouldRewriteURL) {
-      this.loadOnScroll = false;
       this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
       this.$stories.html(this.eventsHTML);
       this.preRender();
       this.render(shouldRewriteURL);
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
+      this.$more.hide();
     },
 
+    // Reset filters to the default
     resetToDefault: function() {
       this.dateRange = 4;
       this.query = "";
@@ -610,38 +591,44 @@ $(function() {
       this.source = -1;
     },
 
+    // Show the loading message
     showLoading: function() {
+      this.$stories.hide();
+      this.$more.hide();
       this.$loading.show();
     },
 
+    // Hide the loading message
     hideLoading: function() {
+      this.$stories.show();
+      if (!this.complete) {
+        this.$more.show();
+      }
+
       this.$loading.hide();
     },
 
+    // Show a message indicating nothing was found for the current
+    // set of filters
     showEmptyMessage: function() {
       var $message = $("<p>", {
         "class": "lead empty-message"
       });
 
-      if (this.empty) {
-        $message.html(this.empty);
-      } else {
-        var emptyForType;
-        _.each(this.types, _.bind(function(type) {
-          if (type.id == this.type) {
-            if (type.empty) {
-              emptyForType = type.empty;
-            }
-          }
-        }, this));
+      var emptyForType;
 
-        if (emptyForType) {
-          $message.html(emptyForType);
-        } else if (window.history.length > 2) {
-          $message.html(this.emptyWithHistory);
-        } else {
-          $message.html(this.emptyWithoutHistory);
+      _.each(this.types, _.bind(function(type) {
+        if (type.id == this.type) {
+          if (type.empty) {
+            emptyForType = type.empty;
+          }
         }
+      }, this));
+
+      if (emptyForType) {
+        $message.html(emptyForType);
+      } else {
+        $message.html(this.emptyMessage);
       }
 
       this.$stories.html($message);
