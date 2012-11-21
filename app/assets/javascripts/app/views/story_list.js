@@ -352,11 +352,10 @@ $(function() {
       this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
       this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
       this.selectNavPill($(".hashtag[data-value='" + this.hashtag + "']"));
-      var type = this.type;
       if (this.type == 3) {
-        type = 4;
+        this.selectNavPill($(".type[data-value='4']"));
       }
-      this.selectNavPill($(".type[data-value='" + type + "']"));
+      this.selectNavPill($(".type[data-value='" + this.type + "']"));
 
       if (this.query) {
         $(".search-query", this.$el).val(this.query);
