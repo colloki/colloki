@@ -525,6 +525,7 @@ $(function() {
 
     showType: function(type, shouldRewriteURL) {
       this.type = type;
+      this.source = -1;
       this.loadOnScroll = true;
       this.$el.height(500);
 

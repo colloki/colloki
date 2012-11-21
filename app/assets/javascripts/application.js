@@ -8,8 +8,12 @@
 //= require_tree .
 //= require_tree ./app
 
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+// To get around facebook's redirect issue
+// See: http://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url
+if (window.location.hash == "#_=_") {
+  window.location.hash = "";
+}
+
 $(document).ready(function(e) {
   $(".topbar").dropdown();
 
