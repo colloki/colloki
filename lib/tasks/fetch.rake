@@ -106,8 +106,8 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
 
             if story["source-name"]
               new_story.source = story["source-name"]
-            elsif @@source_names[story["source"]]
-              new_story.source = @@source_names[story["source"]]
+            elsif @@source_names[story["source"].to_i]
+              new_story.source = @@source_names[story["source"].to_i]
             else
               new_story.source = story["source"]
             end
