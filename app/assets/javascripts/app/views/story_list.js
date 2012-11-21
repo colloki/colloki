@@ -58,7 +58,8 @@ $(function() {
       "keyup .search-query": "filterByQuery",
       "click .sort": "sortBy",
       "click .hashtag": "filterByHashtag",
-      "click .more": "nextPage"
+      "click .more": "nextPage",
+      "click .search-cancel": "cancelSearch"
     },
 
     initialize: function() {
@@ -91,6 +92,7 @@ $(function() {
         "filterByQuery",
         "showQuery",
         "resetQuery",
+        "cancelSearch",
 
         "filterByHashtag",
         "showHashtag",
@@ -111,6 +113,7 @@ $(function() {
       this.$header = this.$('.topic-header');
       this.$loading = this.$('.loading');
       this.$more = this.$('.more');
+      this.$search = this.$('.search-query');
 
       this.filters = {
         $news: this.$(".filter-news-source"),
@@ -521,27 +524,27 @@ $(function() {
 
     resetQuery: function() {
       this.query = "";
-      $(".search-query", this.$el).val("");
+      this.$search.val("");
+    },
+
+    cancelSearch: function() {
+      this.resetQuery();
+      this.dateRange = 4;
+      this.reset(true);
     },
 
     filterByQuery: function(event) {
-      var $el = $(event.target);
-
-      if (event.keyCode === 27 || $el.val() === "") {
+      if (event.keyCode === 27 || this.$search.val() === "") {
         event.preventDefault();
-        this.resetQuery();
-        // set back the date range to this week
-        this.dateRange = 4;
-        this.reset(true);
+        this.cancelSearch();
+
       } else if (event.keyCode === 13) {
         event.preventDefault();
-        // set date range to all
         this.dateRange = 1;
-        // reset some other options
         this.resetTopic();
         this.resetHashtag();
         this.resetSource();
-        this.showQuery($el.val(), true);
+        this.showQuery(this.$search.val());
       }
     },
 
