@@ -47,3 +47,6 @@ gem "honeypot-captcha"
 # DB
 gem 'yaml_db'
 gem 'mysql2'
+
+# Profanity
+gem "profanity_filter"

@@ -53,6 +53,8 @@ class Story < ActiveRecord::Base
     :medium => "250x250>"
   }
 
+  profanity_filter! :title, :description, :method => 'stars'
+
   acts_as_taggable
 
   # pagination
