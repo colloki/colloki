@@ -3,7 +3,7 @@ require "facebook_autoposter.rb"
 require "open-uri"
 
 config = YAML.load_file("#{Rails.root}/config/sources.yml")[Rails.env]
-@@source_names = config['rss'].values.sort
+@@source_names = config['rss']
 
 # Gets the blog stories from a "VTSTopicModeling" installation
 desc "Post stories to VTS from the cached rss stories"
@@ -106,8 +106,8 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
 
             if story["source-name"]
               new_story.source = story["source-name"]
-            elsif @@source_names[story["source"].to_i]
-              new_story.source = @@source_names[story["source"].to_i]
+            elsif @@source_names[story["source"]]
+              new_story.source = @@source_names[story["source"]]
             else
               new_story.source = story["source"]
             end
