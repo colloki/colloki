@@ -17,33 +17,29 @@ if (window.location.hash == "#_=_") {
 $(document).ready(function(e) {
   $(".topbar").dropdown();
 
-  $(".has-popover").popover({
-    placement: 'bottom',
-    delay: 0,
-    trigger: 'hover'
-  });
+  // Only enable tooltips and popovers on non-mobile devices
+  if (!isMobile.any()) {
+    // Popovers
+    $(".has-popover").popover({
+      placement: 'bottom',
+      delay: 0,
+      trigger: 'hover'
+    });
 
-  $(".has_persistent_popover").popover({
-    placement: 'bottom',
-    delay: {
-      show: 200,
-      hide: 2000
-    }
-  });
-
-  // Tooltips
-  $(".has-tooltip").tooltip();
+    // Tooltips
+    $(".has-tooltip").tooltip();
+  }
 
   // Expandable
   $(".expandable").expander({
-    expandText      : 'Read More',
-    slicePoint      : 800,
+    expandText: 'Read More',
+    slicePoint: 800,
     userCollapseText: 'Read Less'
   });
 
   $(".short-expandable").expander({
-    expandText      : 'more',
-    slicePoint      : 150,
+    expandText: 'more',
+    slicePoint: 150,
     userCollapseText: 'less'
   });
 });
@@ -61,3 +57,25 @@ function get_user_image_url(user) {
   var size = size || 80;
   return 'http://www.gravatar.com/avatar/' + MD5(user.email) + '.jpg?s=' + 50;
 }
+
+// http://www.abeautifulsite.net/blog/2011/11/detecting-mobile-devices-with-javascript/
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};

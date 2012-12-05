@@ -218,7 +218,9 @@ $(function() {
         }, this));
       }
 
-      $(".has-tooltip").tooltip();
+      if (!isMobile.any()) {
+        $(".has-tooltip").tooltip();
+      }
 
       // if we are already at the end of the page, load the next page...
       setTimeout(_.bind(function() {
