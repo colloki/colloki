@@ -1,1 +1,58 @@
-<%= render :partial => "topics/body" %>
+<% if !logged_in? %>
+  <div class='well'>
+    <h3>Virtual Town Square</h3>
+    <p class="lead landing-page-intro">
+      <%= render :partial => "partials/description/vts" %>
+      <%= link_to('Log In', login_url) %> to post, comment, like and share stories. We collect Local News, Blogs, Twitter and Facebook Discussions so that you can keep up with important local issues and developments. This project is being actively developed as part of <a href="research">research</a> in the <a href="http://hci.cs.vt.edu">Center for Human-Computer Interaction</a> in the <a href="http://cs.vt.edu/">Department of Computer Science</a> at <a href="http://vt.edu">Virginia Tech</a>.
+      <br><br>
+      <%= link_to('Log In', login_url, :class => 'btn btn-primary') %>
+      <%= link_to('Learn More', about_url, :class => 'btn btn-info') %>
+    </p>
+  </div>
+<% end %>
+
+<div class="row-fluid topic-body">
+  <div class="span12">
+    <div class="row-fluid">
+      <%= render :partial => "topics/type" %>
+    </div>
+
+    <div class="row-fluid">
+      <div class="row-fluid">
+        <div class="span3 sidebar hidden-phone">
+          <%= render :partial => "topics/sidebar",
+            :locals => {
+              :topic => (defined? topic) ? topic : nil,
+              :active_topics => (defined? active_topics) ? active_topics : nil
+            }
+          %>
+        </div>
+
+        <div class="span9 topic-content">
+          <div class="row-fluid">
+            <h3 class="topic-header-container">
+              <span class="topic-header span9">
+              </span>
+              <!-- Sort by Popularity or Date -->
+              <div class="filter-sort pull-right">
+                <%= render :partial => "topics/sort" %>
+              </div>
+            </h3>
+          </div>
+          <div class="row-fluid">
+            <div class="filter-topic">
+              <%= render :partial => "topics/navigation",
+                :locals => { :topics => @today_topics, :story => @story, :selected_topic => (defined? @topic) ? @topic : nil}
+              %>
+            </div>
+          </div>
+          <div class="topic-stories"></div>
+          <p class="lead loading">Loading...</p>
+          <button class="more btn span10">More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render :partial => "topics/footer" %>

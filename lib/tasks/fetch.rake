@@ -76,7 +76,8 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
           # check if the story already exists
           new_story =
             Story.find(:first, :conditions => {:source_url => story["link"]})
-
+          puts "======================================="
+          puts story["link"]
           if new_story
             if topic and new_story.topic != topic
               new_story.topic = topic
