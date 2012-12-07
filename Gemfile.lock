@@ -63,8 +63,6 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
-    font-awesome-rails (0.4.1)
-      railties (~> 3.1)
     font-awesome-sass-rails (2.0.0.0)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
@@ -246,7 +244,6 @@ DEPENDENCIES
   devise
   dynamic_form
   ejs
-  font-awesome-rails
   gon
   gravatar-ultimate
   honeypot-captcha

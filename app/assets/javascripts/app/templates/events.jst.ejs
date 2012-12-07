@@ -1,0 +1,22 @@
+<div class="event-group row-fluid accordion">
+  <div class="span1 event-time"><%= time %></div>
+  <div class="span10">
+    <% for (var i = 0; i < events.length; i++) { %>
+      <div class="event">
+        <% if (events[i].url) { %><a data-toggle="collapse" data-target="#event<%=events[i].id%>"><% } %><span class="event-title"><%= events[i]['title'] %></span><% if (events[i].url) { %></a><% } %>
+        <% if (events[i].description) { %>
+          <a target="_blank" class="event-link" href="<%= events[i].url %>">
+            Link
+          </a>
+        <% } %>
+        <div id="event<%=events[i].id%>" class="collapse event-description"><%= events[i].description %></div>
+        <div class="event-location">
+          <%= events[i].location %>
+        </div>
+        <div class="event-source">
+          <%= events[i].source %>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>

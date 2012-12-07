@@ -2,14 +2,11 @@ $(function() {
   window.StoryListView = Backbone.View.extend({
     // Message to show if the response is empty
     emptyMessage: "We weren't able to find anything...You can see this <a href='/'>week's stories</a>",
-
     // If the current set of fetched stories is complete.
     complete: false,
     // Number of items fetched per page
     perPageCount: 12,
-
-    eventsHTML: '<iframe class="events-calendar" width="580" height="800" src="http://elmcity.cloudapp.net/NewRiverValleyVA/html?eventsonly=yes&tags=no&count=200&width=450&taglist=no&tags=no&sidebar=no&datepicker=no&timeofday=no&hubtitle=no&datestyle=&itemstyle=&titlestyle=&linkstyle=&dtstartstyle=&sourcestyle=&theme=roanoke"></iframe>',
-
+    // the different views
     types: {
       "user": {
         id: 1,
@@ -578,12 +575,15 @@ $(function() {
 
     // Show the events tab
     showEvents: function(shouldRewriteURL) {
-      this.$header.html('Events from <em><a href="http://elmcity.cloudapp.net/">elmcity</a></em>');
-      this.$stories.html(this.eventsHTML);
+      this.$header.html('Events for Today (' + moment().format('MMMM Do') + ')');
       this.preRender();
-      this.render(shouldRewriteURL);
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
+      this.$stories.html('');
       this.$more.hide();
+      Events.render(_.bind(function() {
+        this.render(shouldRewriteURL);
+        this.$more.hide();
+      }, this));
     },
 
     // Reset filters to the default
@@ -641,3 +641,23 @@ $(function() {
     }
   });
 });
+
+
+var Events = {
+  template: JST['app/templates/events'],
+
+  render: function(callback) {
+    $.getJSON('/events.json?date=' + moment().format('YYYY-MM-DD'), function(events) {
+      _.each(events, function(eventgroup) {
+        var prettytime = moment(eventgroup[0].dtstart).format('h:mm a');
+        console.log(eventgroup);
+        $('.topic-stories').append(Events.template({
+          events: eventgroup,
+          time: prettytime
+        }));
+      });
+
+      callback();
+    });
+  }
+}

@@ -16,7 +16,7 @@ Colloki::Application.routes.draw do
   end
 
   match 'users/:id', :to => 'users#show', :constraints => { :id =>  /[^\/]+/ }
-  resources :stories, :comments, :users, :session, :votes, :follows, :feeds, :discuss
+  resources :stories, :comments, :users, :session, :votes, :follows, :feeds
 
   root :to => 'topics#index'
 
@@ -44,5 +44,6 @@ Colloki::Application.routes.draw do
   match 'auth/failure', :to => 'provider_authentications#failure'
   match 'search', :to => 'topics#search', :as => '/search'
   match 'feed', :to => 'feeds#latest', :as => 'feed', :format => 'xml'
+  match 'events', :to => 'events#index', :as => 'events', :format => 'json'
   match ':controller(/:action(/:id(/:id2)))'
 end
