@@ -579,7 +579,8 @@ $(function() {
       this.preRender();
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.$stories.html('');
-      this.$more.hide();
+      this.showLoading();
+
       Events.render(_.bind(function() {
         this.render(shouldRewriteURL);
         this.$more.hide();
