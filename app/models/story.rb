@@ -282,6 +282,7 @@ class Story < ActiveRecord::Base
         :conditions => conditions,
         :order => order)
     end
+
     self.add_metadata(stories)
   end
 
