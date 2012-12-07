@@ -18,7 +18,8 @@ class TopicsController < ApplicationController
     gon.current_user = current_user
     @stories = Story.search(params)
     respond_to do |format|
-      format.json { render :json => @stories, :include => [:votes, :comments, :user], :methods => :user}
+      format.json { render :json => @stories, :include => [:votes, :comments, :user],
+        :methods => [:user, :image_src, :tweets_count, :user_email_hash]}
     end
   end
 

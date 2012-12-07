@@ -60,6 +60,9 @@ class Story < ActiveRecord::Base
   # pagination
   self.per_page = 12
 
+  attr_accessor :tweets_count, :image_src, :user_email_hash
+  attr_accessible :tweets_count, :image_src, :user_email_hash
+
   # Checks for the filename "stringio.txt" in addition to an empty string
   # to determine if a story image exists. This can be used across views
   # until we filter out invalid images at the time of saving.
@@ -75,7 +78,7 @@ class Story < ActiveRecord::Base
   end
 
   # Returns the image url for the story
-  def image_src(size="thumb")
+  def get_image_url(size="thumb")
     if image_exists?
       if image_url
         return image_url
@@ -126,9 +129,24 @@ class Story < ActiveRecord::Base
   # Add image_src and user_email_hash fields to the stories' objects
   def self.add_metadata(stories)
     for story in stories
-      story['image_src'] = story.image_src
+      story.image_src = story.get_image_url
+
       if story.user
-        story['user_email_hash'] = Digest::MD5.hexdigest(story.user.email)
+        story.user_email_hash = Digest::MD5.hexdigest(story.user.email)
+      end
+
+      story.tweets_count = 0
+      story.fb_likes_count = 0
+      story.fb_comments_count = 0
+
+      posts = story.related_posts
+      for post in posts
+        if post.twitter_id
+          story.tweets_count = story.tweets_count + 1
+        else
+          story.fb_likes_count = story.fb_likes_count.to_i + post.fb_likes_count.to_i
+          story.fb_comments_count = story.fb_comments_count.to_i + post.fb_comments_count.to_i
+        end
       end
     end
 

@@ -49,4 +49,4 @@ gem 'yaml_db'
 gem 'mysql2'
 
 # Profanity
-gem "profanity_filter"
+gem 'profanity_filter'
