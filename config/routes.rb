@@ -16,7 +16,7 @@ Colloki::Application.routes.draw do
   end
 
   match 'users/:id', :to => 'users#show', :constraints => { :id =>  /[^\/]+/ }
-  resources :stories, :comments, :users, :session, :votes, :follows, :feeds
+  resources :stories, :comments, :users, :session, :votes, :follows, :feeds, :discuss
 
   root :to => 'topics#index'
 
