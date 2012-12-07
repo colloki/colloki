@@ -60,8 +60,8 @@ class Story < ActiveRecord::Base
   # pagination
   self.per_page = 12
 
-  attr_accessor :tweets_count, :image_src, :user_email_hash
-  attr_accessible :tweets_count, :image_src, :user_email_hash
+  attr_accessor :image_src, :user_email_hash
+  attr_accessible :image_src, :user_email_hash
 
   # Checks for the filename "stringio.txt" in addition to an empty string
   # to determine if a story image exists. This can be used across views
@@ -133,20 +133,6 @@ class Story < ActiveRecord::Base
 
       if story.user
         story.user_email_hash = Digest::MD5.hexdigest(story.user.email)
-      end
-
-      story.tweets_count = 0
-      story.fb_likes_count = 0
-      story.fb_comments_count = 0
-
-      posts = story.related_posts
-      for post in posts
-        if post.twitter_id
-          story.tweets_count = story.tweets_count + 1
-        else
-          story.fb_likes_count = story.fb_likes_count.to_i + post.fb_likes_count.to_i
-          story.fb_comments_count = story.fb_comments_count.to_i + post.fb_comments_count.to_i
-        end
       end
     end
 

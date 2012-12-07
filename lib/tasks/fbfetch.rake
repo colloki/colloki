@@ -92,14 +92,21 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
 
             if existing_story
               new_story.related_story_id = existing_story.id
+
               # Increase the external popularity of the existing story.
               puts "Increasing popularity of post: " + existing_story.title
               if (!existing_story.external_popularity)
                 existing_story.external_popularity = 0
               end
+
               existing_story.external_popularity += 1 + (
                 Story::ScoreFacebookLike * new_story.fb_likes_count +
                 (Story::ScoreFacebookComment * new_story.fb_comments_count))
+
+              # Increment the facebook likes and comments count for story
+              existing_story.fb_likes_count += new_story.fb_likes_count.to_i
+              existing_story.fb_comments_count += new_story.fb_comments_count.to_i
+
               existing_story.save
             end
 

@@ -76,10 +76,15 @@ task :twfetch, [:start_date, :end_date] => [:environment] do |t, args|
               if (!existing_story.external_popularity)
                 existing_story.external_popularity = 0
               end
+
               existing_story.external_popularity += 1
               if new_story.twitter_retweet_count
                 existing_story.external_popularity += (Story::ScoreTwitterRetweet * new_story.twitter_retweet_count)
               end
+
+              # Increment the twitter count
+              existing_story.tweets_count += 1
+
               existing_story.save
             end
 

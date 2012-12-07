@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121028215454) do
+ActiveRecord::Schema.define(:version => 20121207194613) do
 
   create_table "activity_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20121028215454) do
     t.integer  "external_popularity"
     t.string   "twitter_id"
     t.integer  "twitter_retweet_count"
+    t.integer  "tweets_count",          :default => 0,  :null => false
   end
 
   create_table "taggings", :force => true do |t|
