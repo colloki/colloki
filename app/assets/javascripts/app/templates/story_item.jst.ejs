@@ -51,12 +51,12 @@
 
     <a href="<%= icon_url %>" style="color:#888">
       <%= pretty_timestamp %>
-      <% if (kind == 2) { %>
-        <div class="story-external-popularity">
-          <%= fb_likes_count %> Facebook Likes · <%= tweets_count %> Tweets
-        </div>
-      <% } %>
     </a>
+    <% if (kind == 2) { %>
+      <div class="story-external-popularity">
+        <%= fb_likes_count %> Facebook Likes · <%= tweets_count %> Tweets
+      </div>
+    <% } %>
 
     <% if (kind === 3) { %>
       <br>

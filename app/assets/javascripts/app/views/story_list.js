@@ -234,6 +234,8 @@ $(function() {
       if (shouldRewriteURL) {
         this.router.rewriteURL(this);
       }
+
+      this.$('.topic-stories').height(500);
     },
 
     // Append a story
@@ -513,7 +515,6 @@ $(function() {
     showType: function(type, shouldRewriteURL) {
       this.type = type;
       this.source = -1;
-      this.$el.height(500);
 
       if(this.type == this.types["events"].id) {
         this.showEvents(shouldRewriteURL);
