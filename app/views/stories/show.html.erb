@@ -70,7 +70,7 @@
   </div>
 
   <!-- Story Sidebar -->
-  <div class="sidebar story-sidebar span4 hidden-phone">
+  <div class="sidebar story-sidebar span4 hidden-phone hidden-tablet">
     <%= render :partial => "stories/sidebar", :locals => {
         :story => @story,
         :more_stories => (defined? @more_stories) ? @more_stories : nil,

@@ -1,11 +1,11 @@
 <div class="row-fluid">
   <div class="span12">
-    <div class="row-fluid">
+    <div class="row-fluid hidden-phone">
       <h2>Keep up with local issues in the New River Valley</h2>
       <hr>
     </div>
     <div class="row-fluid">
-      <div class="span7">
+      <div class="span7 hidden-phone">
         <div class="row-fluid">
           <h3>Local Issues</h3>
           <p class="lead">
@@ -27,7 +27,8 @@
           <% end %>
         </div>
       </div>
-      <div class="span5 pull-right" style="max-width: 330px; margin-right: 50px;">
+
+      <div class="span5 pull-right login-block">
         <%= render :partial => "partials/form/signin" %>
         <%= render :partial => "partials/form/signup_short" %>
       </div>

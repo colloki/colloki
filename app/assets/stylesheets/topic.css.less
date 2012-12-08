@@ -224,3 +224,48 @@
   font-size: 18px !important;
   line-height: 24px !important;
 }
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 767px) and (max-width: 978px) {
+  .topic-content {
+    width: 98% !important;
+    margin-left: 10px !important;
+  }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+  .topic-content {
+    width: 98% !important;
+    margin-left: 0px !important;
+  }
+
+  .topic-header {
+    font-size: 20px;
+  }
+
+  .search-query {
+    width: 100px;
+  }
+
+  .story-item {
+    width: 300px !important;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .topic-content {
+    width: 98% !important;
+    margin-left: 0px !important;
+  }
+
+  .story-item {
+    width: 90% !important;
+  }
+
+  .topic-header {
+    font-size: 16px;
+  }
+
+}

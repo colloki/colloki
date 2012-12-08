@@ -38,6 +38,11 @@
             Virtual Town Square
           </a>
 
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <div class="nav-collapse">
             <ul class="nav">
               <% controller = request.filtered_parameters["controller"] %>
@@ -88,7 +93,7 @@
             </ul>
           </div>
 
-          <div class="pull-left hidden-phone" id="navbar-share">
+          <div class="pull-left hidden-phone hidden-tablet" id="navbar-share">
             <a data-toggle="modal" href="#navbar-share-modal" class="btn btn-small btn-success">
               <i class="icon-pencil icon-white"></i>
               Participate

@@ -51,6 +51,7 @@ $(function() {
       "click .source": "filterBySource",
       "click .date-range": "filterByDateRange",
       "click .topic": "filterByTopic",
+      "touchstart.dropdown.data-api .topic": "filterByTopic",
       "click .type": "filterByType",
       "keyup .search-query": "filterByQuery",
       "click .sort": "sortBy",
@@ -312,7 +313,7 @@ $(function() {
         }
 
         if (this.topic != -2) {
-          text += " - " + $(".topic[data-id="+ this.topic + "]").text();
+          text += " - " + $($(".topic[data-id="+ this.topic + "]").get(0)).text();
         } else if (this.source != -1) {
           text += " - " + this.source;
         } else if (this.query) {
