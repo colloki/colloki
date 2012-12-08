@@ -136,6 +136,8 @@ $(function() {
         }
       }, this));
 
+      this.eventsDate = moment().format('MM-DD-YYYY');
+
       this.$stories.imagesLoaded($.proxy(function() {
         this.$stories.masonry({
           itemSelector: ".story-item"
@@ -147,6 +149,16 @@ $(function() {
       } else {
         this.reset();
       }
+
+      $('#datepicker').datepicker({
+        autoclose: true,
+        startDate: '-1d'
+      }).on('changeDate', _.bind(function(event) {
+        this.eventsDate = this.$datepickerField.val();
+        this.showEvents();
+      }, this));
+
+      this.$datepickerField = $('.datepicker-field').val(this.eventsDate);
     },
 
     // this gets called when a new page is to be loaded
@@ -575,13 +587,13 @@ $(function() {
 
     // Show the events tab
     showEvents: function(shouldRewriteURL) {
-      this.$header.html('Events for Today (' + moment().format('MMMM Do') + ')');
+      this.$header.html('Events for ' + moment(this.eventsDate).format('MMMM Do YYYY'));
       this.preRender();
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.$stories.html('');
       this.showLoading();
-
-      Events.render(_.bind(function() {
+      console.log(moment(this.eventsDate).format('YYYY-MM-DD'));
+      Events.render(moment(this.eventsDate).format('YYYY-MM-DD'), _.bind(function() {
         this.render(shouldRewriteURL);
         this.$more.hide();
       }, this));
@@ -647,11 +659,10 @@ $(function() {
 var Events = {
   template: JST['app/templates/events'],
 
-  render: function(callback) {
-    $.getJSON('/events.json?date=' + moment().format('YYYY-MM-DD'), function(events) {
+  render: function(date, callback) {
+    $.getJSON('/events.json?date=' + date, function(events) {
       _.each(events, function(eventgroup) {
         var prettytime = moment(eventgroup[0].dtstart).format('h:mm a');
-        console.log(eventgroup);
         $('.topic-stories').append(Events.template({
           events: eventgroup,
           time: prettytime

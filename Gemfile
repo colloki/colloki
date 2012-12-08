@@ -50,3 +50,5 @@ gem 'mysql2'
 
 # Profanity
 gem 'profanity_filter'
+
+gem 'bootstrap-datepicker-rails'

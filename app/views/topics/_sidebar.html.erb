@@ -51,7 +51,7 @@
               <a href="#" class="hashtag" data-value="<%= hashtag[:name] %>">#<%= hashtag[:name] %></a>
             </li>
           <% end %>
-        </ul>
+        </ul>a
         <hr>
       </div>
     </div>
@@ -84,6 +84,15 @@
       <br><br><br>
     </div>
   <% end %>
+
+  <div class="filter-events">
+    <h4>Show Events</h4>
+    <div class="input-append date" id="datepicker" data-date-format="mm-dd-yyyy">
+      <input size="16" type="text" class="datepicker-field" readonly>
+      <span class="add-on"><i class="icon-th"></i></span>
+    </div>
+    <br>
+  </div>
 
   <%= render :partial => 'partials/footer' %>
 </div>

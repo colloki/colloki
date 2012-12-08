@@ -15,6 +15,7 @@ class EventsController < ApplicationController
     # Group together the events with the same time
     @grouped_events = Hash.new
     id = 0;
+
     for event in @events
       event['id'] = id
       id = id + 1

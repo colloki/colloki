@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require underscore
+//= require bootstrap-datepicker
 //= require_tree ../../../vendor/assets/javascripts/.
 
 //= require_self
