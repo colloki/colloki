@@ -591,13 +591,14 @@ $(function() {
 
     // Show the events tab
     showEvents: function(shouldRewriteURL) {
-      this.$header.html('Events for ' + moment(this.eventsDate).format('MMMM Do YYYY'));
+      var parsedEventsDate = moment(this.eventsDate, "MM-DD-YYYY");
+      this.$header.html('Events for ' + parsedEventsDate.format('MMMM Do YYYY'));
       this.preRender();
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.$stories.html('');
       this.showLoading();
-      console.log(moment(this.eventsDate).format('YYYY-MM-DD'));
-      Events.render(moment(this.eventsDate).format('YYYY-MM-DD'), _.bind(function() {
+
+      Events.render(parsedEventsDate.format('YYYY-MM-DD'), _.bind(function() {
         this.render(shouldRewriteURL);
         this.$more.hide();
       }, this));
