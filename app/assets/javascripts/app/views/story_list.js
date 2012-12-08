@@ -121,7 +121,8 @@ $(function() {
         $topic: this.$(".filter-topic"),
         $date: this.$(".filter-date"),
         $search: this.$(".filter-search"),
-        $sort: this.$(".filter-sort")
+        $sort: this.$(".filter-sort"),
+        $events: this.$(".filter-events")
       };
 
       this.paginationBufferPx = 50;
@@ -161,17 +162,17 @@ $(function() {
       this.$datepickerField = $('.datepicker-field').val(this.eventsDate);
     },
 
-    // this gets called when a new page is to be loaded
+    // Show / hide the appropriate filters based on the current view
+    // Gets called before rendering a view
     preRender: function() {
-      // show/hide the appropriate filters, based on the current view
-      // if it is the news section
       if (this.type == this.types["rss"].id) {
         this.filters.$sort.show();
-        this.filters.$search.show();
         this.filters.$date.show();
         this.filters.$news.show();
         this.filters.$chatter.hide();
         this.filters.$following.hide();
+        this.filters.$events.hide();
+        this.filters.$search.show();
 
         if (this.dateRange != 1 && this.source == -1 && !this.query) {
           this.filters.$topic.show();
@@ -187,8 +188,10 @@ $(function() {
         this.filters.$sort.hide();
 
         if (this.type == this.types["events"].id) {
+          this.filters.$events.show();
           this.filters.$search.hide();
         } else {
+          this.filters.$events.hide();
           this.filters.$search.show();
         }
 
@@ -549,7 +552,6 @@ $(function() {
       if (event.keyCode === 27 || this.$search.val() === "") {
         event.preventDefault();
         this.cancelSearch();
-
       } else if (event.keyCode === 13) {
         event.preventDefault();
         this.dateRange = 1;
