@@ -34,13 +34,32 @@
               <span class="topic-header span9">
               </span>
 
+              <!-- Mobile and Tablet Nav -->
               <div class="hidden-desktop">
-                <div class="btn-group filter-topic">
+                <div class="btn-group filter-date">
                   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    Today's Topics
+                    When
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <a href="#" class="date-range" data-value="2">Today's</a>
+                    </li>
+                    <li class="active">
+                      <a href="#" class="date-range" data-value="4">This Week's</a>
+                    </li>
+                    <li>
+                      <a href="#" class="date-range" data-value="1">All</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="btn-group filter-topic">
+                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    Topic
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu pull-left" role="menu">
                     <li class="active">
                       <a href="#" class="topic" data-id="-2">[ Everything ]</a>
                     </li>
@@ -56,7 +75,6 @@
                     <% end %>
                   </ul>
                 </div>
-
               </div>
 
               <div class="filter-sort pull-right hidden-phone hidden-tablet">

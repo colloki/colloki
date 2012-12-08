@@ -50,6 +50,7 @@ $(function() {
     events: {
       "click .source": "filterBySource",
       "click .date-range": "filterByDateRange",
+      "touchstart.dropdown.data-api .date-range": "filterByDateRange",
       "click .topic": "filterByTopic",
       "touchstart.dropdown.data-api .topic": "filterByTopic",
       "click .type": "filterByType",
