@@ -17,12 +17,7 @@
   </div>
 
   <div class="filter-news-source">
-    <h4>
-      Collected From
-      <a href="#local-publisher-modal" class='btn btn-mini btn-success pull-right' data-toggle="modal" style="font-weight: normal">
-        Send Suggestion
-      </a>
-    </h4>
+    <h4>Collected From</h4>
     <%= render :partial => "topics/source_filter", :locals => {:sources => @news_sources} %>
   </div>
 
@@ -58,12 +53,7 @@
 
     <div class="filter-chatter-facebook">
       <div class="filter-facebook-sources">
-        <h4>
-          Facebook Page
-          <a href="#local-publisher-modal" class='btn btn-mini btn-success pull-right' data-toggle="modal" style="font-weight: normal">
-            Send Suggestion
-          </a>
-        </h4>
+        <h4>Facebook Page</h4>
         <%= render :partial => "topics/source_filter", :locals => {:sources => @facebook_sources} %>
       </div>
     </div>

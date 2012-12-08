@@ -50,17 +50,17 @@
 
               <!-- About -->
               <% if controller == "static" and action == "about" %>
-                <li class="active">
+                <li class="active hidden-phone">
               <% else %>
-                <li>
+                <li class="hidden-phone">
               <% end %>
               <%= link_to "About", about_url %></li>
 
               <!-- Help -->
               <% if controller == "static" and action == "help" %>
-                <li class="active">
+                <li class="active hidden-phone">
               <% else %>
-                <li>
+                <li class="hidden-phone">
               <% end %>
               <%= link_to "Help", help_url %></li>
 

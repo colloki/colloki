@@ -226,10 +226,22 @@
 }
 
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 767px) and (max-width: 978px) {
+@media (min-width: 767px) and (max-width: 1024px) {
   .topic-content {
-    width: 98% !important;
+    // width: 95% !important;
     margin-left: 10px !important;
+  }
+
+  .sidebar {
+    // display: none !important;
+  }
+
+  .story-item {
+    width: 200px;
+  }
+
+  .story-rss {
+    height: 400px !important;
   }
 }
 
@@ -268,4 +280,8 @@
     font-size: 16px;
   }
 
+}
+
+.datepicker-field {
+  width: 80%;
 }
