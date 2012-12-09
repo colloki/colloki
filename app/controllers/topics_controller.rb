@@ -8,8 +8,22 @@ class TopicsController < ApplicationController
     @news_sources = config['rss'].values.sort
     @facebook_sources = config['facebook'].sort
 
+    @maps = [].to_gmaps4rails
+
     respond_to do |format|
       format.html
+    end
+  end
+
+  def map
+    @map = Story.find(:all, :conditions => {:kind => 2}).to_gmaps4rails do |story, marker|
+      marker.title story.title
+      marker.infowindow render_to_string(:partial => "/topics/map_tooltip", :formats => [:html], :locals => {:story => story})
+      marker.json({ :id => story.id, :title => story.title, :user => story.user})
+    end
+
+    respond_to do |format|
+      format.json { render :json => @map }
     end
   end
 

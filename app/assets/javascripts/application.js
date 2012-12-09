@@ -8,6 +8,7 @@
 //= require_self
 //= require_tree .
 //= require_tree ./app
+//= require_tree ./gmaps4rails
 
 // To get around facebook's redirect issue
 // See: http://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url

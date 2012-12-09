@@ -45,5 +45,6 @@ Colloki::Application.routes.draw do
   match 'search', :to => 'topics#search', :as => '/search'
   match 'feed', :to => 'feeds#latest', :as => 'feed', :format => 'xml'
   match 'events', :to => 'events#index', :as => 'events', :format => 'json'
+  match 'map', :to => 'topics#map', :as => 'map', :format => 'json'
   match ':controller(/:action(/:id(/:id2)))'
 end

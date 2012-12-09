@@ -11,6 +11,7 @@ $(function() {
       ":range/news/:sort": "default",
 
       "events": "events",
+      "map": "map",
       "likes": "likes",
       "following": "following",
       "shared": "shared",
@@ -149,6 +150,20 @@ $(function() {
           type: 6
         });
       }
+    },
+
+    map: function() {
+      if (this.view) {
+        this.view.showType(9);
+      } else {
+        this.view = new window.StoryListView({
+          el: this.$el,
+          router: this,
+          user: this.user,
+          viewer: this.viewer,
+          type: 9
+        });
+      }
 
     },
 
@@ -272,6 +287,8 @@ $(function() {
         route += "/events";
       } else if (view.type == 7) {
         route += "/following";
+      } else if (view.type == 9) {
+        route += "/map";
       } else {
         route += "/news";
       }

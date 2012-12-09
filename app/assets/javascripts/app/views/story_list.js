@@ -6,6 +6,7 @@ $(function() {
     complete: false,
     // Number of items fetched per page
     perPageCount: 12,
+    isMapLoaded: false,
     // the different views
     types: {
       "user": {
@@ -44,6 +45,10 @@ $(function() {
 
       "by-user": {
         id: 8
+      },
+
+      "map": {
+        id: 9
       }
     },
 
@@ -99,6 +104,7 @@ $(function() {
 
         "showLikes",
         "showEvents",
+        "showMap",
 
         "nextPage",
         "showLoading",
@@ -113,6 +119,7 @@ $(function() {
       this.$loading = this.$('.loading');
       this.$more = this.$('.more');
       this.$search = this.$('.search-query');
+      this.$map = $(".map");
 
       this.filters = {
         $news: this.$(".filter-news-source"),
@@ -147,7 +154,8 @@ $(function() {
         });
       }, this));
 
-      if (this.type == this.types["events"].id) {
+      if (this.type == this.types["events"].id ||
+        this.type == this.types["map"].id) {
         this.showType(this.type);
       } else {
         this.reset();
@@ -162,6 +170,15 @@ $(function() {
       }, this));
 
       this.$datepickerField = $('.datepicker-field').val(this.eventsDate);
+
+      Gmaps.map.callback = _.bind(function() {
+        google.maps.event.addListenerOnce(Gmaps.map.map, 'idle', _.bind(function() {
+          this.isMapLoaded = true;
+          if (this.type == this.types["map"].id) {
+            this.showType(this.type)
+          }
+        }, this));
+      }, this);
     },
 
     // Show / hide the appropriate filters based on the current view
@@ -175,6 +192,7 @@ $(function() {
         this.filters.$following.hide();
         this.filters.$events.hide();
         this.filters.$search.show();
+        this.$map.hide();
 
         if (this.dateRange != 1 && this.source == -1 && !this.query) {
           this.filters.$topic.show();
@@ -195,6 +213,10 @@ $(function() {
         } else {
           this.filters.$events.hide();
           this.filters.$search.show();
+        }
+
+        if (this.type != this.types["map"].id) {
+          this.$map.hide();
         }
 
         if (this.type == this.types["following"].id) {
@@ -530,8 +552,10 @@ $(function() {
       this.type = type;
       this.source = -1;
 
-      if(this.type == this.types["events"].id) {
+      if (this.type == this.types["events"].id) {
         this.showEvents(shouldRewriteURL);
+      } else if (this.type == this.types["map"].id) {
+        this.showMap(shouldRewriteURL);
       } else if (this.type == this.types["likes"].id) {
         this.showLikes(shouldRewriteURL);
       } else {
@@ -584,12 +608,12 @@ $(function() {
       this.hashtag = "";
     },
 
-    // Show the likes tab
+    // Show the Likes tab
     showLikes: function(shouldRewriteURL) {
       this.reset(shouldRewriteURL);
     },
 
-    // Show the events tab
+    // Show the Events tab
     showEvents: function(shouldRewriteURL) {
       var parsedEventsDate = moment(this.eventsDate, "MM-DD-YYYY");
       this.$header.html('Events for ' + parsedEventsDate.format('MMMM Do YYYY'));
@@ -602,6 +626,21 @@ $(function() {
         this.render(shouldRewriteURL);
         this.$more.hide();
       }, this));
+    },
+
+    // Show the Map tab
+    showMap: function(shouldRewriteURL) {
+      this.$header.html('Map of stories');
+      this.preRender();
+      this.selectNavPill($(".type[data-value='" + this.type + "']"));
+      this.$stories.html('');
+      this.showLoading();
+      if (this.isMapLoaded) {
+        Map.render(_.bind(function() {
+          this.render(shouldRewriteURL);
+          this.$more.hide();
+        }, this));
+      }
     },
 
     // Reset filters to the default
@@ -674,6 +713,18 @@ var Events = {
         }));
       });
 
+      callback();
+    });
+  }
+}
+
+var Map = {
+  render: function(callback) {
+    $.getJSON('/map.json', function(markers) {
+      Gmaps.map.replaceMarkers(markers);
+      $('.map').show();
+      google.maps.event.trigger(Gmaps.map.map, "resize");
+      Gmaps.map.adjustMapToBounds();
       callback();
     });
   }

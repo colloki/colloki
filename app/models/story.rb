@@ -56,6 +56,7 @@ class Story < ActiveRecord::Base
   profanity_filter! :title, :description, :method => 'stars'
 
   acts_as_taggable
+  acts_as_gmappable :process_geocoding => false
 
   # pagination
   self.per_page = 12

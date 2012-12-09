@@ -67,6 +67,8 @@ task :twfetch, [:start_date, :end_date] => [:environment] do |t, args|
             new_story.published_at = story["published_at"]
             new_story.twitter_id = story["twitter_id"]
             new_story.twitter_retweet_count = story["retweet_count"]
+            new_story.latitude = story["latitude"]
+            new_story.longitude = story["longitude"]
 
             if existing_story
               new_story.related_story_id = existing_story.id

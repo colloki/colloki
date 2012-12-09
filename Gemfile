@@ -52,3 +52,6 @@ gem 'mysql2'
 gem 'profanity_filter'
 
 gem 'bootstrap-datepicker-rails'
+
+gem 'gmaps4rails'
+gem 'geocoder'
