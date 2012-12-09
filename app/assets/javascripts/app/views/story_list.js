@@ -616,13 +616,16 @@ $(function() {
     // Show the Events tab
     showEvents: function(shouldRewriteURL) {
       var parsedEventsDate = moment(this.eventsDate, "MM-DD-YYYY");
+
       this.$header.html('Events for ' + parsedEventsDate.format('MMMM Do YYYY'));
       this.preRender();
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.$stories.html('');
       this.showLoading();
 
-      Events.render(parsedEventsDate.format('YYYY-MM-DD'), _.bind(function() {
+      var timestamp = parsedEventsDate.format();
+
+      Events.render(timestamp, _.bind(function() {
         this.render(shouldRewriteURL);
         this.$more.hide();
       }, this));
@@ -704,12 +707,18 @@ var Events = {
   template: JST['app/templates/events'],
 
   render: function(date, callback) {
-    $.getJSON('/events.json?date=' + date, function(events) {
-      _.each(events, function(eventgroup) {
-        var prettytime = moment(eventgroup[0].dtstart).format('h:mm a');
+    $.getJSON('/events.json?date=' + date, function(eventgroups) {
+      _.each(eventgroups, function(eventgroup) {
+        var prettyTime = moment(eventgroup[0].dtstart).format('h:mm a');
+        // 12 AM events are generally all day events
+        // TODO: Instead use the "allday" field
+        if (prettyTime == "12:00 am") {
+          prettyTime = "All Day";
+        }
+
         $('.topic-stories').append(Events.template({
           events: eventgroup,
-          time: prettytime
+          time: prettyTime
         }));
       });
 
