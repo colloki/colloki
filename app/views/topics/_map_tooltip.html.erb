@@ -1,1 +1,15 @@
-<%= link_to story.title, story, :target => "_blank" %>
+<div class="row-fluid map-tooltip">
+  <% if story.image_url %>
+    <img class="story-rss-image" src="<%= story.image_url %>">
+  <% end %>
+  <div class="span11">
+    <div class="map-tooltip-title">
+      <%= link_to story.title, story, :target => "_blank" %>
+      <span class="map-tooltip-time"> - <%= time_ago_in_words(story.created_at) %> ago</span>
+    </div>
+    <div class="row-fluid">
+      <%= truncate strip_tags(story.description), :length => 200 %>
+      <%= link_to "Read More", story, :target => "_blank" %>
+    </div>
+  </div>
+</div>
