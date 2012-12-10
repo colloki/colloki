@@ -82,6 +82,12 @@ task :fbfetch, [:start_date, :end_date] => [:environment] do |t, args|
             new_story.image_url = story["image_url"]
             new_story.description = story["text"]
 
+            coordinates = MapCoordinates.find(new_story)
+            if coordinates.length > 0
+              new_story.latitude = coordinates[0]
+              new_story.longitude = coordinates[1]
+            end
+
             if story["fb_type"] == "status"
               new_story.fb_type = Story::FacebookTypeStatus
             elsif story["fb_type"] == "link"

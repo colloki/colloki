@@ -1,4 +1,4 @@
-require "koala"
+require 'koala'
 
 class FacebookAutoposter
 

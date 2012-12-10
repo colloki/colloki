@@ -1,6 +1,7 @@
-require "mining_store.rb"
-require "facebook_autoposter.rb"
-require "open-uri"
+require 'mining_store.rb'
+require 'map_coordinates.rb'
+require 'facebook_autoposter.rb'
+require 'open-uri'
 
 config = YAML.load_file("#{Rails.root}/config/sources.yml")[Rails.env]
 @@source_names = config['rss']
@@ -74,10 +75,12 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
           end
 
           # check if the story already exists
+          # TODO: Add more duplicate checks here
           new_story =
             Story.find(:first, :conditions => {:source_url => story["link"]})
           puts "======================================="
           puts story["link"]
+
           if new_story
             if topic and new_story.topic != topic
               new_story.topic = topic
@@ -120,6 +123,13 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
             else
               new_story.published_at = day
             end
+
+            coordinates = MapCoordinates.find(new_story)
+            if coordinates.length > 0
+              new_story.latitude = coordinates[0]
+              new_story.longitude = coordinates[1]
+            end
+
             new_story.save
 
             puts "Successfully saved story: " + story["link"]
