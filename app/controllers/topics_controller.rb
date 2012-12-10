@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
   end
 
   def map
-    conditions = ["kind == 2"]
+    conditions = ["(kind = 2)"]
 
     # Date Range
     if params[:range]
