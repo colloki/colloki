@@ -5,7 +5,7 @@ require 'json'
 desc "Fetch and add location coordinates to RSS stories"
 task :maps => :environment do |t, args|
   begin
-    stories = Story.find(:all, :conditions => {:kind => 2}, :limit => 1000)
+    stories = Story.find(:all, :conditions => {:kind => 2}, :order=>"created_at DESC")
     for story in stories
       if story.latitude == nil
         params = {'content' => story.description}

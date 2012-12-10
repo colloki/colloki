@@ -2,7 +2,7 @@
   <% render :partial => "topics/type" %>
 
   <div class="filter-date">
-    <h4>Show Stories</h4>
+    <h4>Show</h4>
     <ul class="nav nav-stacked nav-pills">
       <li>
         <a href="#" class="date-range" data-value="2">Today's</a>
@@ -82,6 +82,21 @@
       <span class="add-on"><i class="icon-th"></i></span>
     </div>
     <br>
+  </div>
+
+  <div class="filter-map">
+    <h4>Show</h4>
+    <ul class="nav nav-stacked nav-pills">
+      <li class="active">
+        <a href="#" class="date-range" data-value="4">This Week's</a>
+      </li>
+      <li>
+        <a href="#" class="date-range" data-value="5">This Month's</a>
+      </li>
+      <li>
+        <a href="#" class="date-range" data-value="1">All Stories</a>
+      </li>
+    </ul>
   </div>
 
   <%= render :partial => 'partials/footer' %>

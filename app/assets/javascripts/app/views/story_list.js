@@ -131,7 +131,8 @@ $(function() {
         $date: this.$(".filter-date"),
         $search: this.$(".filter-search"),
         $sort: this.$(".filter-sort"),
-        $events: this.$(".filter-events")
+        $events: this.$(".filter-events"),
+        $map: this.$(".filter-map")
       };
 
       this.paginationBufferPx = 50;
@@ -183,6 +184,7 @@ $(function() {
 
     // Show / hide the appropriate filters based on the current view
     // Gets called before rendering a view
+    // TODO: This needs to be cleaned up
     preRender: function() {
       if (this.type == this.types["rss"].id) {
         this.filters.$sort.show();
@@ -207,26 +209,9 @@ $(function() {
         this.filters.$date.hide();
         this.filters.$sort.hide();
 
-        if (this.type == this.types["events"].id) {
-          this.filters.$events.show();
-          this.filters.$search.hide();
-        } else {
-          this.filters.$events.hide();
-          this.filters.$search.show();
-        }
-
-        if (this.type != this.types["map"].id) {
-          this.$map.hide();
-        }
-
-        if (this.type == this.types["following"].id) {
-          this.filters.$following.show();
-        } else {
-          this.filters.$following.hide();
-        }
-
         if (this.type == this.types["twitter"].id ||
           this.type == this.types["facebook"].id) {
+
           this.filters.$date.show();
           this.filters.$chatter.show();
 
@@ -240,6 +225,27 @@ $(function() {
         } else {
           this.filters.$date.hide();
           this.filters.$chatter.hide();
+
+          if (this.type == this.types["events"].id) {
+            this.filters.$events.show();
+            this.filters.$search.hide();
+          } else {
+            this.filters.$events.hide();
+            this.filters.$search.show();
+          }
+
+          if (this.type != this.types["map"].id) {
+            this.$map.hide();
+            this.filters.$map.hide();
+          } else {
+            this.filters.$map.show();
+          }
+
+          if (this.type == this.types["following"].id) {
+            this.filters.$following.show();
+          } else {
+            this.filters.$following.hide();
+          }
         }
       }
     },
@@ -389,9 +395,11 @@ $(function() {
       this.selectNavPill($(".sort[data-value=" + this.sort + "]"));
       this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
       this.selectNavPill($(".hashtag[data-value='" + this.hashtag + "']"));
+
       if (this.type == 3) {
         this.selectNavPill($(".type[data-value='4']"));
       }
+
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
 
       if (this.query) {
@@ -494,7 +502,11 @@ $(function() {
     // Show the date filter
     showDateRange: function(dateRange, shouldRewriteURL) {
       this.dateRange = dateRange;
-      this.reset(shouldRewriteURL);
+      if (this.type == this.types["map"].id) {
+        this.showMap();
+      } else {
+        this.reset(shouldRewriteURL);
+      }
     },
 
     // Change the topic
@@ -555,6 +567,7 @@ $(function() {
       if (this.type == this.types["events"].id) {
         this.showEvents(shouldRewriteURL);
       } else if (this.type == this.types["map"].id) {
+        this.dateRange = 4;
         this.showMap(shouldRewriteURL);
       } else if (this.type == this.types["likes"].id) {
         this.showLikes(shouldRewriteURL);
@@ -638,8 +651,10 @@ $(function() {
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.$stories.html('');
       this.showLoading();
+      this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
+
       if (this.isMapLoaded) {
-        Map.render(_.bind(function() {
+        Map.render(this.dateRange, _.bind(function() {
           this.render(shouldRewriteURL);
           this.$more.hide();
         }, this));
@@ -728,8 +743,8 @@ var Events = {
 }
 
 var Map = {
-  render: function(callback) {
-    $.getJSON('/map.json', function(markers) {
+  render: function(dateRange, callback) {
+    $.getJSON('/map.json?range='+dateRange, function(markers) {
       Gmaps.map.replaceMarkers(markers);
       $('.map').show();
       google.maps.event.trigger(Gmaps.map.map, "resize");

@@ -16,7 +16,35 @@ class TopicsController < ApplicationController
   end
 
   def map
-    @map = Story.find(:all, :conditions => {:kind => 2}).to_gmaps4rails do |story, marker|
+    conditions = ["kind == 2"]
+
+    # Date Range
+    if params[:range]
+      if params[:range].to_i == Story::DateRangeLastWeek
+        start_date = 1.week.ago
+        end_date = Date.tomorrow
+      elsif params[:range].to_i == Story::DateRangeLastMonth
+        start_date = 1.month.ago
+        end_date = Date.tomorrow
+      end
+
+      if start_date and end_date
+        condition = "published_at >= ? AND published_at <= ?"
+        conditions.at(0) << " AND " << condition
+        conditions.push(start_date)
+        conditions.push(end_date)
+      end
+    end
+
+    stories = Story.find(:all,
+      :conditions => conditions,
+      :order => "created_at DESC")
+
+    for story in stories
+      puts story.latitude
+    end
+
+    @map = stories.to_gmaps4rails do |story, marker|
       marker.title story.title
       marker.infowindow render_to_string(:partial => "/topics/map_tooltip", :formats => [:html], :locals => {:story => story})
       marker.json({ :id => story.id, :title => story.title, :user => story.user})

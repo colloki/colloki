@@ -35,6 +35,7 @@ class Story < ActiveRecord::Base
   DateRangeToday = 2
   DateRangeYesterday = 3
   DateRangeLastWeek = 4
+  DateRangeLastMonth = 5
 
   validates_uniqueness_of :source_url, :if => :is_rss?
   validates_presence_of :url, :if => :is_link?
