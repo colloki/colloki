@@ -209,6 +209,27 @@ $(function() {
         this.filters.$date.hide();
         this.filters.$sort.hide();
 
+        if (this.type == this.types["events"].id) {
+          this.filters.$events.show();
+          this.filters.$search.hide();
+        } else {
+          this.filters.$events.hide();
+          this.filters.$search.show();
+        }
+
+        if (this.type != this.types["map"].id) {
+          this.$map.hide();
+          this.filters.$map.hide();
+        } else {
+          this.filters.$map.show();
+        }
+
+        if (this.type == this.types["following"].id) {
+          this.filters.$following.show();
+        } else {
+          this.filters.$following.hide();
+        }
+
         if (this.type == this.types["twitter"].id ||
           this.type == this.types["facebook"].id) {
 
@@ -225,27 +246,6 @@ $(function() {
         } else {
           this.filters.$date.hide();
           this.filters.$chatter.hide();
-
-          if (this.type == this.types["events"].id) {
-            this.filters.$events.show();
-            this.filters.$search.hide();
-          } else {
-            this.filters.$events.hide();
-            this.filters.$search.show();
-          }
-
-          if (this.type != this.types["map"].id) {
-            this.$map.hide();
-            this.filters.$map.hide();
-          } else {
-            this.filters.$map.show();
-          }
-
-          if (this.type == this.types["following"].id) {
-            this.filters.$following.show();
-          } else {
-            this.filters.$following.hide();
-          }
         }
       }
     },
