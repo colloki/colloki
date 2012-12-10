@@ -20,8 +20,8 @@ class TopicsController < ApplicationController
     if params[:type]
       if params[:type] == Story::Rss.to_s
         condition = "(kind = " << Story::Rss.to_s << ")"
-      elsif params[:type] == Story::Twitter.to_s
-        condition = "(kind = " << Story::Twitter.to_s << ")"
+      elsif params[:type] == "3,4"
+        condition = "(kind = " << Story::Twitter.to_s << " OR kind = " << Story::Facebook.to_s << ")"
       else
         condition = "(kind = " << Story::Twitter.to_s << " OR kind = " << Story::Rss.to_s << ")"
       end
@@ -40,8 +40,7 @@ class TopicsController < ApplicationController
       end
 
       if start_date and end_date
-        condition = "published_at >= ? AND published_at <= ?"
-        conditions.at(0) << " AND " << condition
+        conditions.at(0) << " AND " << "published_at >= ? AND published_at <= ?"
         conditions.push(start_date)
         conditions.push(end_date)
       end

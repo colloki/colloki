@@ -68,6 +68,10 @@ class Story < ActiveRecord::Base
   def gmaps4rails_marker_picture
     if kind == Story::Twitter
       picture_name = "twitter"
+    elsif kind == Story::Facebook
+      puts "************************************"
+      puts "Facebook on Map"
+      picture_name = "facebook"
     else
       picture_name = "news"
     end
