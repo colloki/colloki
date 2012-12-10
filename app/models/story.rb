@@ -65,6 +65,25 @@ class Story < ActiveRecord::Base
   attr_accessor :image_src, :user_email_hash
   attr_accessible :image_src, :user_email_hash
 
+  def gmaps4rails_marker_picture
+    if kind == Story::Twitter
+      picture_name = "twitter"
+    else
+      picture_name = "news"
+    end
+
+  {
+    "picture" => ActionController::Base.helpers.asset_path('map/'+picture_name+'.png'),
+    "width" => 21,
+    "height" => 43,
+    "marker_anchor" => [10, 34],
+    "shadow_picture" => ActionController::Base.helpers.asset_path('map/shadow.png'),
+    "shadow_width" => 40,
+    "shadow_height" => 37,
+    "shadow_anchor" => [12, 35]
+  }
+end
+
   # Checks for the filename "stringio.txt" in addition to an empty string
   # to determine if a story image exists. This can be used across views
   # until we filter out invalid images at the time of saving.

@@ -1,5 +1,4 @@
 class TopicsController < ApplicationController
-
   def index
     gon.app_url = root_url
     gon.current_user = current_user
@@ -16,7 +15,19 @@ class TopicsController < ApplicationController
   end
 
   def map
-    conditions = ["(kind = 2)"]
+    conditions = []
+
+    if params[:type]
+      if params[:type] == Story::Rss.to_s
+        condition = "(kind = " << Story::Rss.to_s << ")"
+      elsif params[:type] == Story::Twitter.to_s
+        condition = "(kind = " << Story::Twitter.to_s << ")"
+      else
+        condition = "(kind = " << Story::Twitter.to_s << " OR kind = " << Story::Rss.to_s << ")"
+      end
+    end
+
+    conditions.push(condition)
 
     # Date Range
     if params[:range]
@@ -39,10 +50,6 @@ class TopicsController < ApplicationController
     stories = Story.find(:all,
       :conditions => conditions,
       :order => "created_at DESC")
-
-    for story in stories
-      puts story.latitude
-    end
 
     @map = stories.to_gmaps4rails do |story, marker|
       marker.title story.title

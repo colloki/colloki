@@ -63,7 +63,8 @@ $(function() {
       "click .sort": "sortBy",
       "click .hashtag": "filterByHashtag",
       "click .more": "nextPage",
-      "click .search-cancel": "cancelSearch"
+      "click .search-cancel": "cancelSearch",
+      "click .map-type": "filterByMapType"
     },
 
     initialize: function() {
@@ -101,6 +102,8 @@ $(function() {
         "filterByHashtag",
         "showHashtag",
         "resetHashtag",
+
+        "filterByMapType",
 
         "showLikes",
         "showEvents",
@@ -148,6 +151,7 @@ $(function() {
       }, this));
 
       this.eventsDate = moment().format('MM-DD-YYYY');
+      this.mapType = "2";
 
       this.$stories.imagesLoaded($.proxy(function() {
         this.$stories.masonry({
@@ -645,17 +649,29 @@ $(function() {
       }, this));
     },
 
+    filterByMapType: function(event) {
+      event.preventDefault();
+      var $el = $(event.target);
+      if (!$el.hasClass("map-type")) {
+        $el = $el.parents(".map-type");
+      }
+
+      this.mapType = $el.data("value");
+      this.showMap();
+    },
+
     // Show the Map tab
     showMap: function(shouldRewriteURL) {
-      this.$header.html('Map of stories');
+      this.$header.html('Map');
       this.preRender();
       this.selectNavPill($(".type[data-value='" + this.type + "']"));
       this.$stories.html('');
       this.showLoading();
       this.selectNavPill($(".date-range[data-value='" + this.dateRange + "']"));
+      this.selectNavPill($(".map-type[data-value='" + this.mapType + "']"));
 
       if (this.isMapLoaded) {
-        Map.render(this.dateRange, _.bind(function() {
+        Map.render(this.dateRange, this.mapType, _.bind(function() {
           this.render(shouldRewriteURL);
           this.$more.hide();
         }, this));
@@ -744,8 +760,8 @@ var Events = {
 }
 
 var Map = {
-  render: function(dateRange, callback) {
-    $.getJSON('/map.json?range='+dateRange, function(markers) {
+  render: function(dateRange, type, callback) {
+    $.getJSON('/map.json?range='+dateRange+'&type='+type, function(markers) {
       Gmaps.map.replaceMarkers(markers);
       $('.map').show();
       google.maps.event.trigger(Gmaps.map.map, "resize");
