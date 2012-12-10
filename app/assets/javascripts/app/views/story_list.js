@@ -193,6 +193,7 @@ $(function() {
         this.filters.$chatter.hide();
         this.filters.$following.hide();
         this.filters.$events.hide();
+        this.filters.$map.hide();
         this.filters.$search.show();
         this.$map.hide();
 
