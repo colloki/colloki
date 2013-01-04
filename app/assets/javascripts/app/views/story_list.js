@@ -1,3 +1,4 @@
+// TODO(ankit): Needs to split into separate files. Clumsy!
 $(function() {
   window.StoryListView = Backbone.View.extend({
     // Message to show if the response is empty
@@ -176,14 +177,17 @@ $(function() {
 
       this.$datepickerField = $('.datepicker-field').val(this.eventsDate);
 
-      Gmaps.map.callback = _.bind(function() {
-        google.maps.event.addListenerOnce(Gmaps.map.map, 'idle', _.bind(function() {
-          this.isMapLoaded = true;
-          if (this.type == this.types["map"].id) {
-            this.showType(this.type)
-          }
-        }, this));
-      }, this);
+      if (Gmaps.map) {
+        Gmaps.map.callback = _.bind(function() {
+          google.maps.event.addListenerOnce(Gmaps.map.map, 'idle', _.bind(function() {
+            this.isMapLoaded = true;
+            if (this.type == this.types["map"].id) {
+              this.showType(this.type)
+            }
+          }, this));
+        }, this);
+      }
+
     },
 
     // Show / hide the appropriate filters based on the current view
@@ -734,7 +738,7 @@ $(function() {
   });
 });
 
-
+// Rendering events
 var Events = {
   template: JST['app/templates/events'],
 
