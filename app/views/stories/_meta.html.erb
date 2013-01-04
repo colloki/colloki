@@ -1,5 +1,5 @@
 <% if story.kind == Story::Post %>
-  Written By <%= link_to story.user.login, story.user %> •
+  Written By <%= link_to story.user.login, "/users/"+story.user.login %> •
   <% if story.published_at %>
     <%= time_ago_in_words story.published_at %>
   <% else %>
