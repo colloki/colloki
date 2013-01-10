@@ -37,7 +37,7 @@ class Story < ActiveRecord::Base
   DateRangeLastWeek = 4
   DateRangeLastMonth = 5
 
-  validates_uniqueness_of :source_url, :if => :is_rss?
+  validates_uniqueness_of :source_url, :if => :is_autofetched?
   validates_presence_of :url, :if => :is_link?
   validates_format_of :url, :with => /(^$)|(^(http|https):*)/ix, :message => "can only be a valid URL."
 
@@ -121,6 +121,10 @@ end
     end
   end
 
+  def is_autofetched?
+    is_rss? or is_facebook? or is_twitter?
+  end
+
   # Returns true if the story is of link type
   def is_link?
     kind == Story::Link
@@ -134,6 +138,10 @@ end
   # Returns true if the story is fetched from Facebook
   def is_facebook?
     kind == Story::Facebook
+  end
+
+  def is_twitter?
+    kind == Story::Twitter
   end
 
   # Increase the popularity of the story by the specified score
