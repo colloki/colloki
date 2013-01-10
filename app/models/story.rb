@@ -38,6 +38,7 @@ class Story < ActiveRecord::Base
   DateRangeLastMonth = 5
 
   validates_uniqueness_of :source_url, :if => :is_autofetched?
+  validates_uniqueness_of :description, :if => :is_rss?
   validates_presence_of :url, :if => :is_link?
   validates_format_of :url, :with => /(^$)|(^(http|https):*)/ix, :message => "can only be a valid URL."
 
