@@ -131,10 +131,11 @@ class UsersController < ApplicationController
 
   def update_password_on_reset
     @user = User.find_by_reset_code(params[:current_reset_code])
+
     if @user.update_attributes(params[:user])
       @user.reset_code = nil
       @user.save
-      flash[:notice] = 'Your password was successfully changed.'
+      flash[:notice] = 'Your password was successfully changed. You can now login.'
       redirect_to(login_url)
     else
       flash[:alert] = "We couldn't save your new password.
