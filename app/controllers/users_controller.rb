@@ -90,7 +90,9 @@ class UsersController < ApplicationController
     if logged_in?
       redirect_to change_password_url
     end
+
     user = User.find(:first, :conditions => {:email => params[:email]})
+
     if !user
       flash[:alert] = "That email is not registered on VTS.
         Please enter the email you used to register."
@@ -98,7 +100,7 @@ class UsersController < ApplicationController
     else
       user.make_reset_code
       if user.save
-        UserMailer.deliver_reset(user)
+        UserMailer.reset(user).deliver
         flash[:notice] = "Thank you, we have sent you an email with the reset password link.
           It should land in your inbox in a few moments.
           If you don't see it in your inbox for a while, don't forget to check the spam folder."
