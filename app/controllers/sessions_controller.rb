@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
 
   def create
     self.current_user = User.authenticate(params[:login], params[:password])
+
     if logged_in?
       if params[:remember_me] == "1"
         current_user.remember_me unless current_user.remember_token?
@@ -19,7 +20,7 @@ class SessionsController < ApplicationController
           :expires => self.current_user.remember_token_expires_at }
       end
         flash[:notice] = "Welcome back #{self.current_user.login}!"
-        redirect_to params[:redir]
+        redirect_to root_url
     else
       flash[:error] = "Incorrect login / password. Please try again"
       redirect_to login_path
