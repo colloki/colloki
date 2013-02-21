@@ -34,7 +34,7 @@
 
 <!-- Other User Posted Discussions -->
 <% if user_posted_stories and user_posted_stories.count != 0 %>
-  <h4>More posts by <%= story.user.login %></h4>
+  <h4>More blog posts by <%= story.user.login %></h4>
   <% for a_story in user_posted_stories %>
     <%= render :partial=>"stories/sidebar_story", :locals => {:story => a_story} %>
   <% end %>

@@ -12,7 +12,7 @@ $(function() {
     types: {
       "user": {
         id: 1,
-        header: "Shared by VTS Users"
+        header: "User Blogs"
       },
 
       "rss": {
