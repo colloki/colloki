@@ -4,15 +4,13 @@
     <h3>Write a Blog Post</h3>
   </div>
   <% if logged_in? %>
-
     <%= form_for :discuss, :html => {:multipart => true, :honeypot => true}, :url => discuss_path do |f| %>
-
       <div class="modal-body">
         <p>
           <div class="control-group">
             <div class="controls">
               <%= f.text_field :title,
-                :placeholder => "Enter a title...",
+                :placeholder => "Your post title...",
                 :class => "span4"
               %>
             </div>
@@ -20,8 +18,8 @@
           <div class="control-group">
             <div class="controls">
               <%= f.text_area :description,
-                :rows => 5,
-                :placeholder => "Your message...",
+                :rows => 10,
+                :placeholder => "Your post...",
                 :class => "span5" %>
             </div>
           </div>

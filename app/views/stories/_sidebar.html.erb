@@ -32,7 +32,7 @@
   <hr>
 <% end %>
 
-<!-- Other User Posted Discussions -->
+<!-- Other User blog posts -->
 <% if user_posted_stories and user_posted_stories.count != 0 %>
   <h4>More blog posts by <%= story.user.login %></h4>
   <% for a_story in user_posted_stories %>
