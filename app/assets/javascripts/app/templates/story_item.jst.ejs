@@ -54,15 +54,15 @@
     </a>
     <% if (kind == 2) { %>
       <div class="story-external-popularity">
-        <%= fb_likes_count ? fb_likes_count : 0 %> Facebook Likes ·
-        <%= tweets_count %> Tweets
+        <%= fb_likes_count ? fb_likes_count : 0 %> Facebook <% if (fb_likes_count == 1) { %> Like <% } else { %>Likes<% } %> ·
+        <%= tweets_count %> <% if (tweets_count == 1) { %> Tweet <% } else { %>Tweets<% } %>
       </div>
     <% } %>
 
     <% if (kind === 3) { %>
       <br>
-      <%= fb_likes_count %> Likes
-      · <%= fb_comments_count %> Comments
+      <%= fb_likes_count %> <% if (fb_likes_count == 1) { %> Like <% } else { %>Likes<% } %>
+      · <%= fb_comments_count %> <% if (fb_comments_count == 1) { %> Comment <% } else { %>Comments<% } %>
     <% } %>
 
     <% if (kind != 4 && kind != 3) { %>
