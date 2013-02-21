@@ -212,7 +212,7 @@ class StoriesController < ApplicationController
       @topic = @story.topic
       @story.destroy
       flash[:notice] = "The story '" << @title << " ' was successfully deleted!"
-      redirect_back_or(root_url)
+      redirect_to root_url
     elsif not current_user.id == Story.find(params[:id]).user.id
       flash[:alert] = "You need to be the author of the story to delete it!"
       redirect_back_or(root_url)
@@ -222,7 +222,7 @@ class StoriesController < ApplicationController
       @topic = @story.topic
       @story.destroy
       flash[:notice] = "The story '" << @title << " ' was successfully deleted!"
-      redirect_back_or(root_url)
+      redirect_to root_url
     end
   end
 
