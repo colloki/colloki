@@ -10,7 +10,7 @@
     <div class="controls">
       <%= f.text_field :title,
         :placeholder => "Give it a title...",
-        :class => "span8"
+        :class => "span8 post-title"
       %>
     </div>
   </div>
@@ -45,6 +45,7 @@ $(document).ready(function() {
           var $photo = $('.photo-container');
           $photo.html(['<img class="thumb" src="', e.target.result,
                       '" title="', escape(theFile.name), '"/>'].join(''))
+          $('.post-title').focus();
         };
       })(f);
 
