@@ -1,10 +1,10 @@
 <%= form_for :discuss, :html => {:multipart => true}, :url => discuss_path do |f| %>
-  <h3>Take a Photo</h3>
-  <div class="photo-container span12"></div>
-  <div class="control-group">
-    <div class="controls">
+  <div class="row-fluid">
+    <div class="pull-left">
+      <h4>Take a Photo</h4>
       <%= f.file_field :photo, :class => "choose-photo" %>
     </div>
+    <div class="photo-container pull-right"></div>
   </div>
   <div class="control-group">
     <div class="controls">
@@ -21,6 +21,7 @@
       Post
     </button>
   </div>
+
 <% end %>
 
 <script>
