@@ -34,8 +34,11 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="<%=root_url%>" title="Virtual Town Square" tabIndex="1">
+          <a class="brand hidden-phone" href="<%=root_url%>" title="Virtual Town Square" tabIndex="1">
             Virtual Town Square
+          </a>
+          <a class="brand hidden-desktop hidden-tablet" href="<%=root_url%>" title="Virtual Town Square" tabIndex="1">
+            VTS
           </a>
 
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -44,7 +47,7 @@
             <span class="icon-bar"></span>
           </button>
 
-          <div class="pull-left hidden-desktop">
+          <div class="pull-right hidden-desktop">
             <a href="\post_picture" class="btn btn-small btn-success">
               <i class="icon-camera icon-white"></i>
               Take a Photo
