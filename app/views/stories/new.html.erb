@@ -45,7 +45,9 @@ $(document).ready(function() {
           var $photo = $('.photo-container');
           $photo.html(['<img class="thumb" src="', e.target.result,
                       '" title="', escape(theFile.name), '"/>'].join(''))
-          $('.post-title').focus();
+          setTimeout(function() {
+            $('.post-title').focus();
+          }, 100);
         };
       })(f);
 
