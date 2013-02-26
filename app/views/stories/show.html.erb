@@ -8,16 +8,18 @@
   <div class="span6 story">
 
     <!-- Story Meta -->
-    <div class="row-fluid hidden-phone">
+    <div class="row-fluid">
       <div class="span7 story-meta">
         <%= render :partial => "stories/meta", :locals => {:story => @story}
         %>
       </div>
 
       <!-- Story Buttons -->
-      <div class="pull-right">
-
+      <div class="pull-left" style="margin-bottom: 5px">
         <div style="float: left; margin-top: 2px">
+          <% if @story.kind != Story::Rss and logged_in? and @story.user_id == current_user.id %>
+            <%= link_to "Delete", @story, :method => :delete, :class => "btn btn-danger btn-mini" %>
+          <% end %>
           <!-- Like button -->
           <a class="story-like<%= @story.id %> like-btn btn btn-mini btn-success has-tooltip">
             <i class='icon-star-empty icon-white'></i>
@@ -29,14 +31,7 @@
           :locals => { :story => @story }
         %>
       </div>
-
     </div>
-
-    <% if @story.kind != Story::Rss and logged_in? and @story.user_id == current_user.id %>
-      <div class="pull-right">
-        <%= link_to "Delete", @story, :method => :delete, :class => "btn btn-danger btn-small" %>
-      </div>
-    <% end %>
 
     <!-- Story Body -->
     <%= render :partial => "stories/body", :locals => {

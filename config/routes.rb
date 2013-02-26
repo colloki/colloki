@@ -20,6 +20,7 @@ Colloki::Application.routes.draw do
 
   root :to => 'topics#index'
 
+  match 'post_picture', :to => 'stories#new', :as => 'post_picture'
   match 'settings', :to => 'users#settings', :as => 'settings'
   match 'activate/:activation_code', :to => 'users#activate', :as => 'activate'
   match 'signup', :to => 'users#new', :as => 'signup'
@@ -47,5 +48,6 @@ Colloki::Application.routes.draw do
   match 'feed', :to => 'feeds#latest', :as => 'feed', :format => 'xml'
   match 'events', :to => 'events#index', :as => 'events', :format => 'json'
   match 'map', :to => 'topics#map', :as => 'map', :format => 'json'
+
   match ':controller(/:action(/:id(/:id2)))'
 end

@@ -92,28 +92,12 @@ class StoriesController < ApplicationController
   # GET /stories/new
   def new
     if not logged_in?
-      flash[:alert] = "You need to login to create stories."
-      redirect_to topical_url(:id => params[:topic_id])
+      flash[:alert] = "You need to be logged in to post a photo."
+      redirect_to login_url
     else
-      @topic = Topic.find(params[:topic_id])
-      @story = @topic.stories.build
-      @page_title = "Add a " + params[:kind] + " to " + @topic.title
-      if params[:kind] == "link"
-        @story.kind = Story::Link
-        if params[:url]
-          @story.url = params[:url]
-        end
-        if params[:title]
-          @story.title = params[:title]
-        end
-        if params[:desc]
-          @story.description = params[:desc]
-        end
-      elsif params[:kind] == "post"
-        @story.kind = Story::Post
-      elsif params[:kind] == "rss"
-        @story.kind = Story::Rss
-      end
+      gon.user = current_user
+      gon.current_user = current_user
+
       respond_to do |format|
         format.html # new.html.erb
       end

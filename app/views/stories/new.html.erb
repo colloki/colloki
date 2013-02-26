@@ -1,82 +1,56 @@
-<div id="middle">
-<% if @story.kind == Story::Post %>
-  <h2>
-    Write a post in <strong><%= @topic.title %></strong>
-  </h2>
-  <div class="addForm">
-  <%= form_for [@topic, @story] do |f| %>
-    <%= f.error_messages %>
-    <%= f.hidden_field :kind %>
-    <p>
-      <%= f.label :title %><br />
-      <%= f.text_field :title, :class=>'title_input' %>
-    </p>
-    <p>
-      <%= f.label "Body" %><br />
-      <%= f.text_area :description, :class => 'rich_text_editor' %>
-    </p>
-    <p>
-      <%= f.label :tag_list %><br />
-      <%= f.text_field :tag_list, :size => 50 %>
-    </p>
-    <p>
-    <button type="submit" class="positive">
-      <%= image_tag "add.gif" %>
-      Create Post
+<%= form_for :discuss, :html => {:multipart => true}, :url => discuss_path do |f| %>
+  <h3>Take a Photo</h3>
+  <div class="photo-container span12"></div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.file_field :photo, :class => "choose-photo" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.text_field :title,
+        :placeholder => "Give it a title...",
+        :class => "span8"
+      %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :topic, :value => -1 %>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-success">
+      Post
     </button>
-    </p>
   </div>
 <% end %>
-<% elsif @story.kind ==  Story::Link %>
-  <h2>
-    Add a link to <strong><%= @topic.title %></strong>
-  </h2>
-  <div class="addForm">
-  <%= form_for [@topic, @story] do |f| %>
-    <%= f.error_messages %>
-    <%= f.hidden_field :kind %>
-    <p>
-      <%= f.label :url %><br />
-      <%= f.text_field :url, :class=>'url_input' %>
-    </p>
-    <p>
-      <%= f.label :title %><br />
-      <%= f.text_field :title, :class=>'title_input' %>
-    </p>
-    <p>
-      <%= f.label :description %><br />
-      <%= f.text_area :description, :class => 'rich_text_editor' %>
-    </p>
-    <p>
-      <%= f.label :tag_list %><br />
-      <%= f.text_field :tag_list, :size => 50 %>
-    </p>
-    <p>
-    <% if params[:url] %>
-    <%=hidden_field_tag 'redirect', params[:url]%>
-    <button type="submit" class="positive">
-      <%= image_tag "add.gif" %>
-      Create link and return to site
-    </button>
-    <% else %>
-    <button type="submit" class="positive">
-      <%= image_tag "add.gif" %>
-      Create Link
-    </button>
-    <% end %>
-    </p>
-  <% end %>
-  </div>
-<% else %>
-  <h2>That kind of type is not supported.</h2>
-<% end %>
-<br><br>
-</div>
-<% if params[:url] %>
-  <div id="right">
-    Use our bookmarklet to easily add pages to this topic. Simply drag this link on to your bookmarks toolbar. Once you do that, whenever you want to add a page to Slurp!, all you need to do is click the bookmark.<br><br>Drag this:<br><br>
-    <a class="bookmarklet" href="javascript:(function(){javascript:(function(){var%20t;try{t=((window.getSelection&&window.getSelection())||(document.getSelection&&document.getSelection())||(document.selection&&document.selection.createRange&&document.selection.createRange().text));}catch(e){t=%22%22;}location.href='<%=root_url%>topics/<%=@topic.id%>/stories/new/?kind=link&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)+'&desc='+encodeURIComponent(t);})();})();">
-      + <%= @topic.title%> on Slurp!
-    </a>
-  </div>
-<% end %>
+
+<script>
+$(document).ready(function() {
+  $(".choose-photo").on('change', function(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var $photo = $('.photo-container');
+          $photo.html(['<img class="thumb" src="', e.target.result,
+                      '" title="', escape(theFile.name), '"/>'].join(''))
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  });
+});
+</script>
