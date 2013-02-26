@@ -1,12 +1,7 @@
 <%= form_for :discuss, :html => {:multipart => true}, :url => discuss_path do |f| %>
-  <div class="row-fluid">
-    <div class="pull-left">
-      <h4>Take a Photo</h4>
-      <%= f.file_field :photo, :class => "choose-photo" %>
-    </div>
-    <div class="photo-container pull-right"></div>
-  </div>
+  <h4>Take a Photo</h4>
   <div class="control-group">
+    <%= f.file_field :photo, :class => "choose-photo" %>
     <div class="controls">
       <%= f.text_field :title,
         :placeholder => "Give it a title...",
@@ -23,38 +18,3 @@
   </div>
 
 <% end %>
-
-<script>
-$(document).ready(function() {
-  $(".choose-photo").on('change', function(evt) {
-    var files = evt.target.files; // FileList object
-
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
-
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-        continue;
-      }
-
-      var reader = new FileReader();
-
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-          var $photo = $('.photo-container');
-          $photo.html(['<img class="thumb" src="', e.target.result,
-                      '" title="', escape(theFile.name), '"/>'].join(''))
-          setTimeout(function() {
-            $('.post-title').focus();
-          }, 100);
-        };
-      })(f);
-
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
-    }
-  });
-});
-</script>
