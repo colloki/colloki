@@ -1,10 +1,10 @@
 <div class="modal hide" id="local-publisher-modal">
   <div class="modal-header">
     <a data-dismiss="modal" class="close">&times;</a>
-    <h3>Send Suggestion</h3>
+    <h3>Send Link</h3>
   </div>
 
-  <%= form_tag({:controller => :notifier, :action => :send_blog_suggestion}, {:honeypot => true}) do %>
+  <%= form_tag({:controller => :notifier, :action => :send_blog_suggestion}) do %>
     <div class="modal-body">
       <p>
         <div class="control-group">
@@ -30,9 +30,11 @@
             Description
           </label>
           <div class="controls">
-            <%= text_area :blog, :description, :class => "span10", :rows => 7 %>
+            <%= text_area :blog, :description, :class => "span10", :rows => 3 %>
           </div>
         </div>
+
+        <%= show_simple_captcha %>
       </p>
     </div>
     <div class="modal-footer">

@@ -43,6 +43,7 @@ gem "acts_as_follower"
 
 # Spam
 gem "honeypot-captcha"
+gem "galetahub-simple_captcha", :require => "simple_captcha"
 
 # DB
 gem 'yaml_db'

@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   require File.join(Rails.root, 'lib', 'authenticated_system.rb')
   include AuthenticatedSystem
+  include SimpleCaptcha::ControllerHelpers
 
   helper :all # include all helpers, all the time
 

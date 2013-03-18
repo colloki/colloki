@@ -4,7 +4,7 @@
     <h3>Write a Blog Post</h3>
   </div>
   <% if logged_in? %>
-    <%= form_for :discuss, :html => {:multipart => true, :honeypot => true}, :url => discuss_path do |f| %>
+    <%= form_for :discuss, :html => {:multipart => true}, :url => discuss_path do |f| %>
       <div class="modal-body">
         <p>
           <div class="control-group">
