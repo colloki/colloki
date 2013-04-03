@@ -72,8 +72,6 @@ class TopicsController < ApplicationController
   end
 
   def search_stories
-    gon.app_url = root_url
-    gon.current_user = current_user
     @stories = Story.search_stories(params)
     respond_to do |format|
       format.json { render :json => @stories, :include => [:votes, :comments, :user],
@@ -82,12 +80,19 @@ class TopicsController < ApplicationController
   end
 
   def search_twitter
-    gon.app_url = root_url
-    gon.current_user = current_user
     @stories = Story.search_twitter(params)
     respond_to do |format|
       format.json { render :json => @stories, :include => [:votes, :comments, :user],
         :methods => [:user, :image_src, :tweets_count, :user_email_hash]}
+    end
+  end
+
+  def search_topic
+    @topic = Topic.find(params[:id])
+    respond_to do |format|
+      format.json {
+        render :json => @topic
+      }
     end
   end
 

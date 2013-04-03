@@ -45,8 +45,11 @@ Colloki::Application.routes.draw do
   match 'auth/:provider/callback', :to => 'provider_authentications#create'
   match 'auth/failure', :to => 'provider_authentications#failure'
   match 'search', :to => 'topics#search', :as => '/search'
+
   match 'search_stories', :to => 'topics#search_stories'
   match 'search_twitter', :to => 'topics#search_twitter'
+  match 'search_topic', :to => 'topics#search_topic'
+
   match 'feed', :to => 'feeds#latest', :as => 'feed', :format => 'xml'
   match 'events', :to => 'events#index', :as => 'events', :format => 'json'
   match 'map', :to => 'topics#map', :as => 'map', :format => 'json'

@@ -186,11 +186,22 @@ end
   end
 
   def self.search_stories(params)
+    if params[:topic_id]
+      conditions = {
+        :kind => Story::Rss,
+        :topic_id => params[:topic_id]
+      }
+    else
+      conditions = {
+        :kind => Story::Rss
+      }
+    end
+
     stories = Story.paginate(
       :page => params[:page],
       :limit => params[:limit].to_i,
       :order => "created_at DESC",
-      :conditions => {:kind => Story::Rss});
+      :conditions => conditions);
     self.add_metadata(stories)
   end
 
