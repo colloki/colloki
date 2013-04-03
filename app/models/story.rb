@@ -208,7 +208,7 @@ end
   def self.search_twitter(params)
     stories = Story.paginate(
       :page => params[:page],
-      :limit => params[:limit],
+      :limit => params[:limit].to_i,
       :order => "created_at DESC",
       :conditions => {
         :kind => Story::Twitter,
@@ -219,7 +219,7 @@ end
   def self.search_facebook(params)
     stories = Story.paginate(
       :page => params[:page],
-      :limit => params[:limit],
+      :limit => params[:limit].to_i,
       :order => "created_at DESC",
       :conditions => {
         :kind => Story::Facebook,
