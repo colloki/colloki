@@ -186,15 +186,12 @@ end
   end
 
   def self.search_stories(params)
+    conditions = {
+      :kind => Story::Rss
+    }
+
     if params[:topic_id]
-      conditions = {
-        :kind => Story::Rss,
-        :topic_id => params[:topic_id]
-      }
-    else
-      conditions = {
-        :kind => Story::Rss
-      }
+      conditions[:topic_id] = params[:topic_id]
     end
 
     stories = Story.paginate(
@@ -206,25 +203,35 @@ end
   end
 
   def self.search_twitter(params)
+    conditions = {
+      :kind => Story::Twitter
+    }
+
+    if params[:related_story_id]
+      conditions[:related_story_id] = params[:related_story_id]
+    end
+
     stories = Story.paginate(
       :page => params[:page],
       :limit => params[:limit].to_i,
       :order => "created_at DESC",
-      :conditions => {
-        :kind => Story::Twitter,
-        :related_story_id => params[:related_story_id]
-      });
+      :conditions => conditions);
   end
 
   def self.search_facebook(params)
+    conditions = {
+      :kind => Story::Facebook
+    }
+
+    if params[:related_story_id]
+      conditions[:related_story_id] = params[:related_story_id]
+    end
+
     stories = Story.paginate(
       :page => params[:page],
       :limit => params[:limit].to_i,
       :order => "created_at DESC",
-      :conditions => {
-        :kind => Story::Facebook,
-        :related_story_id => params[:related_story_id]
-      });
+      :conditions => conditions);
   end
 
   # TODO(ankit): Each of these should be a separate API, instead of munging
