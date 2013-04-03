@@ -87,6 +87,14 @@ class TopicsController < ApplicationController
     end
   end
 
+  def search_facebook
+    @stories = Story.search_facebook(params)
+    respond_to do |format|
+      format.json { render :json => @stories, :include => [:votes, :comments, :user],
+        :methods => [:user, :image_src, :tweets_count, :user_email_hash]}
+    end
+  end
+
   def search_topic
     @topic = Topic.find(params[:id])
     respond_to do |format|
