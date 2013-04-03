@@ -48,6 +48,7 @@ Colloki::Application.routes.draw do
 
   match 'search_stories', :to => 'topics#search_stories'
   match 'search_twitter', :to => 'topics#search_twitter'
+  match 'search_facebook', :to => 'topics#search_facebook'
   match 'search_topic', :to => 'topics#search_topic'
 
   match 'feed', :to => 'feeds#latest', :as => 'feed', :format => 'xml'
