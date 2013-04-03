@@ -185,6 +185,37 @@ end
       :limit => 20
   end
 
+  def self.search_stories(params)
+    stories = Story.paginate(
+      :page => params[:page],
+      :limit => params[:limit].to_i,
+      :order => "created_at DESC",
+      :conditions => {:kind => Story::Rss});
+    self.add_metadata(stories)
+  end
+
+  def self.search_twitter(params)
+    stories = Story.paginate(
+      :page => params[:page],
+      :limit => params[:limit],
+      :order => "created_at DESC",
+      :conditions => {
+        :kind => Story::Twitter,
+        :related_story_id => params[:related_story_id]
+      });
+  end
+
+  def self.search_facebook(params)
+    stories = Story.paginate(
+      :page => params[:page],
+      :limit => params[:limit],
+      :order => "created_at DESC",
+      :conditions => {
+        :kind => Story::Facebook,
+        :related_story_id => params[:related_story_id]
+      });
+  end
+
   # TODO(ankit): Each of these should be a separate API, instead of munging
   # everything together into a single method.
   def self.search(params)
