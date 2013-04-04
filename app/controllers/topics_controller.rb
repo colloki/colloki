@@ -1,4 +1,10 @@
 class TopicsController < ApplicationController
+  before_filter :get_topics
+
+  def get_topics
+    @today_topics = Topic.find(:all, :order => "created_at DESC", :limit => @@topic_limit)
+  end
+
   def index
     gon.app_url = root_url
     gon.current_user = current_user

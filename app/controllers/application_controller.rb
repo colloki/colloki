@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   helper :all # include all helpers, all the time
 
-  before_filter :get_topics, :save_back_url
+  before_filter :save_back_url
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
       redirect_to session[:return_to]
       rescue ActionController::RedirectBackError
       redirect_to path
-    end
-
-    def get_topics
-      @today_topics = Topic.find(:all, :order => "created_at DESC", :limit => @@topic_limit)
     end
 
     def save_back_url
