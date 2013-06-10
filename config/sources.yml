@@ -1,5 +1,5 @@
 development:
-
+  #Mapping of URLs to site names
   rss:
     "www.collegiatetimes.com": "Collegiate Times"
     "blogs.roanoke.com": "The Burgs Blog"
@@ -26,6 +26,11 @@ development:
     "blog.pcva.us": "Pulaski County"
     "eastmontva.wordpress.com": "EastMont VA"
 
+  #Blacklisted URLs for which articles are ignored and not fetched
+  rss_blacklist:
+    "www.collegiatetimes.com"
+
+  #Listing of Facebook Groups
   facebook:
     - "Downtown Blacksburg"
     - "Blacksburg Parks and Recreation"

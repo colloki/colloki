@@ -5,6 +5,7 @@ require 'open-uri'
 
 config = YAML.load_file("#{Rails.root}/config/sources.yml")[Rails.env]
 @@source_names = config['rss']
+@@source_blacklist = config['rss_blacklist']
 
 # Gets the blog stories from a "VTSTopicModeling" installation
 desc "Post stories to VTS from the cached rss stories"
@@ -67,74 +68,79 @@ task :fetch, [:start_date, :end_date] => [:environment] do |t, args|
       # Post the stories
       mining_store.stories.each do |story|
         begin
-          topic_index = mining_store.get_topic_index_for_story(story)
-          if topic_index
-            topic = topics[topic_index]
-          else
-            topic = nil
-          end
+          if !@@source_blacklist[story["source"]]
 
-          # check if the story already exists
-          # TODO: Add more duplicate checks here
-          new_story =
-            Story.find(:first, :conditions => {:source_url => story["link"]})
-          puts "======================================="
-          puts story["link"]
+            topic_index = mining_store.get_topic_index_for_story(story)
+            if topic_index
+              topic = topics[topic_index]
+            else
+              topic = nil
+            end
 
-          if new_story
-            if topic and new_story.topic != topic
-              new_story.topic = topic
+            # check if the story already exists
+            # TODO: Add more duplicate checks here
+            new_story =
+              Story.find(:first, :conditions => {:source_url => story["link"]})
+
+            puts "======================================="
+            puts story["link"]
+
+            if new_story
+              if topic and new_story.topic != topic
+                new_story.topic = topic
+                new_story.save
+              end
+            else
+              puts "Saving new story: " + story["link"]
+              new_story = Story.new
+              new_story.title = story["title"].force_encoding("utf-8")
+              new_story.description = story["text"].force_encoding("utf-8")
+
+              # Story topic
+              if topic
+                new_story.topic = topic
+              else
+                new_story.topic_id = -1
+              end
+
+              # Story Image
+              if story["image-url"] && story["image-url"] != ""
+                # TODO: Only save image here if it was properly fetched
+                new_story.image = open(URI::escape(story["image-url"]))
+              end
+
+              new_story.views = 0
+              new_story.kind = Story::Rss
+
+              if story["source-name"]
+                new_story.source = story["source-name"]
+              elsif @@source_names[story["source"]]
+                new_story.source = @@source_names[story["source"]]
+              else
+                new_story.source = story["source"]
+              end
+
+              new_story.source_url = story["link"]
+
+              if story["published-at"] and !story["published-at"].empty?
+                new_story.published_at = DateTime.strptime(story["published-at"], '%Y-%m-%dT%H:%M:%S%z')
+              else
+                new_story.published_at = day
+              end
+
+              coordinates = MapCoordinates.find(new_story)
+              if coordinates.length > 0
+                new_story.latitude = coordinates[0]
+                new_story.longitude = coordinates[1]
+              end
+
               new_story.save
+
+              puts "Successfully saved story: " + story["link"]
             end
           else
-            puts "Saving new story: " + story["link"]
-            new_story = Story.new
-            new_story.title = story["title"].force_encoding("utf-8")
-            new_story.description = story["text"].force_encoding("utf-8")
-
-            # Story topic
-            if topic
-              new_story.topic = topic
-            else
-              new_story.topic_id = -1
-            end
-
-            # Story Image
-            if story["image-url"] && story["image-url"] != ""
-              # TODO: Only save image here if it was properly fetched
-              new_story.image = open(URI::escape(story["image-url"]))
-            end
-
-            new_story.views = 0
-            new_story.kind = Story::Rss
-
-            if story["source-name"]
-              new_story.source = story["source-name"]
-            elsif @@source_names[story["source"]]
-              new_story.source = @@source_names[story["source"]]
-            else
-              new_story.source = story["source"]
-            end
-
-            new_story.source_url = story["link"]
-
-            if story["published-at"] and !story["published-at"].empty?
-              new_story.published_at = DateTime.strptime(story["published-at"], '%Y-%m-%dT%H:%M:%S%z')
-            else
-              new_story.published_at = day
-            end
-
-            coordinates = MapCoordinates.find(new_story)
-            if coordinates.length > 0
-              new_story.latitude = coordinates[0]
-              new_story.longitude = coordinates[1]
-            end
-
-            new_story.save
-
-            puts "Successfully saved story: " + story["link"]
+            puts story["source"] + " is BLACLISTED, so article ignored."
           end
-
         rescue Exception => e
           puts e.message
           puts e.backtrace.inspect
